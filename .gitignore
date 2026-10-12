@@ -26,11 +26,15 @@ data/
 /site/floor.svg
 /site/runs/
 
-# Keep small run manifests; ignore other generated run artifacts by default.
+# Keep manifests and named compact artifacts they reference; raw/generated data stays ignored.
 /runs/state.json
 /runs/**
 !/runs/
 !/runs/**/
 !/runs/**/manifest.json
+!/runs/**/failure.json
+!/runs/**/slice_summary.json
+!/runs/**/hits.json
+!/runs/**/hero.png
 
 .DS_Store

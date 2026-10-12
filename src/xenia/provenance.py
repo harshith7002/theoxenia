@@ -8,7 +8,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from xenia import __version__
-from xenia.live.models import ArtifactRef, InputRef, RunManifest
+from xenia.live.models import ArtifactRef, InputRef, ManifestPayload, RunManifest
 from xenia.live.state import read_git_sha, sha256_file
 
 
@@ -51,7 +51,9 @@ def create_run_manifest(
     notes: Sequence[str],
     repository_root: Path,
     demo: bool,
+    pillar: str = "live",
     experiment_id: str | None = None,
+    mission_control: ManifestPayload | None = None,
     manifest_path: Path | None = None,
 ) -> tuple[RunManifest, Path]:
     """Validate, write, and return a run manifest for a completed command."""
@@ -70,7 +72,7 @@ def create_run_manifest(
     manifest_output = ArtifactRef(path=relative_path, size_bytes=None)
     manifest = RunManifest(
         run_id=run_id,
-        pillar="live",
+        pillar=pillar,
         command=shlex.join(command),
         parameters=parameters,
         inputs=tuple(inputs),
@@ -83,6 +85,7 @@ def create_run_manifest(
         notes=tuple(notes),
         experiment_id=experiment_id,
         demo=demo,
+        mission_control=mission_control,
     )
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(

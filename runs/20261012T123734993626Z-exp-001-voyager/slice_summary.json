@@ -1,0 +1,60 @@
+{
+  "channel_count": 352322,
+  "channel_start": 59529953,
+  "data_offset_bytes": 388,
+  "first_center_mhz": 8419.999999375572,
+  "integrations": 2,
+  "last_center_mhz": 8419.00000089691,
+  "nifs": 1,
+  "remote_transfer": {
+    "bytes_transferred": 7340036,
+    "max_transfer_bytes": 16777216,
+    "ranges": [
+      {
+        "bytes_received": 1048580,
+        "end_exclusive": 1048580,
+        "start": 0
+      },
+      {
+        "bytes_received": 1114112,
+        "end_exclusive": 239234312,
+        "start": 238120200
+      },
+      {
+        "bytes_received": 1048576,
+        "end_exclusive": 240282888,
+        "start": 239234312
+      },
+      {
+        "bytes_received": 983040,
+        "end_exclusive": 240217352,
+        "start": 239234312
+      },
+      {
+        "bytes_received": 1114112,
+        "end_exclusive": 503475464,
+        "start": 502361352
+      },
+      {
+        "bytes_received": 1048576,
+        "end_exclusive": 504524040,
+        "start": 503475464
+      },
+      {
+        "bytes_received": 983040,
+        "end_exclusive": 504458504,
+        "start": 503475464
+      }
+    ],
+    "source_size_bytes": 528482692,
+    "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil"
+  },
+  "requested_window_mhz": [
+    8419.0,
+    8420.0
+  ],
+  "slice_sha256": "9ce2ee0e68a4dfbf98312e278008be1ea4c15908f6065c361756210c1cc51ce1",
+  "slice_size_bytes": 2818964,
+  "source_name": "VOYAGER1",
+  "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil"
+}

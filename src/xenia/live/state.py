@@ -32,9 +32,9 @@ from xenia.live.models import (
 )
 
 REPOSITORY_URL = "https://github.com/mpetyx/theoxenia"
-DATA_CREDIT = (
-    "Synthetic M0 fixtures; planned source: Breakthrough Listen open data, Green Bank Telescope"
-)
+DEMO_DATA_CREDIT = "Synthetic M0 fixtures; no telescope observations are included."
+OBSERVED_DATA_CREDIT = "Breakthrough Listen open data, Green Bank Telescope."
+INJECTION_DATA_CREDIT = "Recovery floor from synthetic signal injections generated with setigen."
 
 
 class ManifestLoadError(ValueError):
@@ -268,7 +268,28 @@ def build_state(
         for note in manifest.notes
     ]
     log = tuple(sorted(log_entries, key=lambda entry: entry.ts, reverse=True)[:50])
-    is_demo = any(manifest.demo and manifest.mission_control is not None for manifest in manifests)
+    real_payloads = [
+        manifest.mission_control
+        for manifest in manifests
+        if not manifest.demo
+        and isinstance(
+            manifest.mission_control,
+            (WorkerPayload, CadencePayload, HeroPayload, FloorPayload),
+        )
+    ]
+    has_real_payload = bool(real_payloads)
+    is_demo = not has_real_payload
+    has_observations = any(
+        isinstance(payload, (WorkerPayload, CadencePayload, HeroPayload))
+        for payload in real_payloads
+    )
+    has_injections = any(isinstance(payload, FloorPayload) for payload in real_payloads)
+    credits = []
+    if has_observations:
+        credits.append(OBSERVED_DATA_CREDIT)
+    if has_injections:
+        credits.append(INJECTION_DATA_CREDIT)
+    data_credit = "; ".join(credits) if credits else DEMO_DATA_CREDIT
 
     return LiveState(
         generated_at=timestamp,
@@ -278,7 +299,7 @@ def build_state(
             demo=is_demo,
             repo_url=repo_url,
             mirror_url=mirror_url,
-            data_credit=DATA_CREDIT,
+            data_credit=data_credit,
         ),
         worker=worker,
         totals=totals,

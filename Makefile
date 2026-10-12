@@ -1,9 +1,9 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager clean files-check
 
 install:
-	$(UV) sync --all-groups --python 3.15.0
+	$(UV) sync --all-groups --extra radio --python 3.15.0
 
 test:
 	$(UV) run --locked pytest --cov=xenia --cov-report=term-missing
@@ -36,6 +36,14 @@ live-build:
 
 live-dev: live-build
 	$(UV) run --locked xenia live serve --directory site --port 8080
+
+voyager:
+	$(UV) run --locked xenia live hero --voyager
+
+live-evidence:
+	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs
+	$(UV) run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json
+	$(UV) run --locked xenia live render --state runs/state.json --runs runs --output site --manifest-root runs
 
 clean:
 	rm -rf .pytest_cache .ruff_cache .coverage htmlcov

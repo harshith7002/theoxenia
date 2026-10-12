@@ -146,7 +146,7 @@
           {% for item in gallery %}
           <article class="hit-card">
             <a class="hit-thumbnail" href="{{ item.manifest_url }}" aria-label="Open manifest for {{ item.target }}">
-              <img src="{{ item.thumbnail_url }}" alt="Synthetic waterfall preview for {{ item.target }} at {{ "%.6f"|format(item.freq_mhz) }} MHz" loading="lazy" decoding="async">
+              <img src="{{ item.thumbnail_url }}" alt="Waterfall preview for {{ item.target }} at {{ "%.6f"|format(item.freq_mhz) }} MHz" loading="lazy" decoding="async">
             </a>
             <div class="hit-copy">
               <p class="verdict-badge verdict-badge--{{ item.verdict.value|lower }}">{{ item.badge_text }}</p>
@@ -161,7 +161,11 @@
         {% else %}
         <div class="empty-panel">
           <h3>No hits yet</h3>
+          {% if state.meta.demo %}
           <p>There are no run manifests with hits in this demo state.</p>
+          {% else %}
+          <p>There are no cadence manifests with hit records yet.</p>
+          {% endif %}
         </div>
         {% endif %}
       </section>

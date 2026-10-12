@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from xenia.live.models import FloorPayload, Verdict
+from xenia.live.models import FloorPayload, HeroPayload, Verdict
 from xenia.live.state import ManifestLoadError, build_state, floor_summary, load_manifests
 
 
@@ -25,6 +25,50 @@ def test_demo_totals_are_aggregated_from_fixture_manifests(demo_state) -> None:
     assert demo_state.totals.unexplained == 0
     assert demo_state.totals.targets_distinct == 3
     assert demo_state.totals.failed == 1
+    assert (
+        demo_state.meta.data_credit
+        == "Synthetic M0 fixtures; no telescope observations are included."
+    )
+
+
+def test_failed_experiment_does_not_remove_demo_badge(demo_manifests, fixed_time) -> None:
+    """An operational failure is not enough to claim that the live page has real data."""
+    failed = demo_manifests[0].model_copy(
+        update={"demo": False, "mission_control": None, "outcome": "failed"}
+    )
+
+    state = build_state([failed], generated_at=fixed_time, git_sha="failure-sha")
+
+    assert state.meta.demo is True
+    assert (
+        state.meta.data_credit == "Synthetic M0 fixtures; no telescope observations are included."
+    )
+
+
+def test_real_manifest_backed_hero_removes_demo_badge(demo_manifests, fixed_time) -> None:
+    """Only a real, typed experiment payload turns the page into an observation view."""
+    source = demo_manifests[0]
+    real_hero = source.model_copy(
+        update={
+            "demo": False,
+            "mission_control": HeroPayload(
+                kind="hero",
+                experiment="EXP-001",
+                run_id=source.run_id,
+                image_url=f"runs/{source.run_id}/hero.png",
+                freq_mhz=8419.297028,
+                drift_hz_s=-0.373093,
+                snr=245.708,
+            ),
+        }
+    )
+
+    state = build_state([real_hero], generated_at=fixed_time, git_sha="real-sha")
+
+    assert state.meta.demo is False
+    assert state.meta.data_credit == "Breakthrough Listen open data, Green Bank Telescope."
+    assert state.hero is not None
+    assert state.hero.freq_mhz == pytest.approx(8419.297028)
 
 
 def test_gallery_prioritizes_recent_survivors_and_links_manifests(demo_state) -> None:

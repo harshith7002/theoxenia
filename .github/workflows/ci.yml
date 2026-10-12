@@ -23,11 +23,19 @@ jobs:
           version: 0.13.0
           enable-cache: true
 
+      - name: Install HDF5 build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential libhdf5-dev pkg-config
+
       - name: Install CPython 3.15.0
         run: uv python install 3.15.0
 
       - name: Sync locked dependencies
-        run: uv sync --locked --all-groups --python 3.15.0
+        run: uv sync --locked --all-groups --extra radio --python 3.15.0
+
+      - name: Smoke-test the Python 3.15 radio stack
+        run: uv run --locked python -c "import blimpy, fsspec, hdf5plugin, h5py, numpy, setigen, turbo_seti"
 
       - name: Check formatting and lint
         run: |
