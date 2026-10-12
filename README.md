@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status:** M0, the EXP-001 Voyager positive control, and the EXP-002 synthetic calibration are implemented on the current feature branches. EXP-001 recovered its predeclared known-answer signal. EXP-002 reached 100% recovery at zero drift from SNR 8, but no nonzero-drift cells were recovered, so no stable floor was established across ±3 Hz/s. These are validation results—not an unknown-candidate detection, an anomaly claim, or a telescope sensitivity limit. M3’s crawler/worker and M4 polish remain incomplete; no public service is live.
+> **Current status:** M0, the EXP-001 Voyager positive control, and the EXP-002 synthetic calibration are implemented on the current feature branches. EXP-001 recovered its predeclared known-answer signal. EXP-002 reached 100% recovery at zero drift from SNR 8, but no nonzero-drift cells were recovered, so no stable floor was established across ±3 Hz/s. These are validation results—not an unknown-candidate detection, an anomaly claim, or a telescope sensitivity limit. The Mission Control worker and deploy script are on stacked pull requests and are not merged. No public service is live.
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
@@ -20,6 +20,18 @@ make live-dev
 ```
 
 Open <http://127.0.0.1:8080>. The local M0 page is rendered from synthetic fixtures, works without JavaScript, and displays a persistent demo warning. Stop the server with `Ctrl-C`.
+
+## Mission control
+
+The page is a static render of run manifests. It is not a live claim about the sky.
+
+To reproduce one tile:
+
+```bash
+make live-dev
+```
+
+Open a tile. Follow its manifest link. The manifest `command` field is the `xenia` invocation that produced that run. Run that command from the repository root with the same locked environment. `make live-once` runs one synthetic pair from `configs/queue.synthetic.jsonl` with push turned off. Port 8080 may already be taken on a workstation; set the serve port with `xenia live serve --port` when it is.
 
 To run the real Voyager positive control, execute:
 

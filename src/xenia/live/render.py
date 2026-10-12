@@ -120,10 +120,16 @@ def render_site(
             state.detection_floor.ci_run_url if state.detection_floor is not None else None
         ),
         hero_manifest_url=state.hero.manifest_url if state.hero is not None else None,
+        og_image=_og_image(state),
+        later_bluebook=_later_card(manifests, "EXP-010"),
+        later_nearearth=_later_card(manifests, "EXP-020"),
     )
     index_output = output_root / "index.html"
     index_output.write_text(html_text, encoding="utf-8")
     rendered.append(index_output)
+    feed_output = output_root / "feed.json"
+    feed_output.write_text(_feed_document(state), encoding="utf-8")
+    rendered.append(feed_output)
 
     manifest_index = output_root / "runs" / "index.html"
     manifest_index.parent.mkdir(parents=True, exist_ok=True)
@@ -133,6 +139,73 @@ def render_site(
     _assert_referenced_manifests_exist(state, output_root)
     _assert_page_has_no_external_assets(index_output)
     return tuple(rendered)
+
+
+def _later_card(manifests: Sequence[RunManifest], experiment_id: str) -> dict[str, str] | None:
+    """Live later-panel copy when a non-demo manifest for that experiment exists."""
+    matches = [item for item in manifests if item.experiment_id == experiment_id and not item.demo]
+    if not matches:
+        return None
+    latest = max(matches, key=lambda item: item.finished_at)
+    parts = [f"Run {latest.run_id} outcome {latest.outcome}."]
+    pages = latest.parameters.get("pages_processed")
+    if isinstance(pages, int) and not isinstance(pages, bool):
+        parts.append(f"Pages processed: {pages}.")
+    fireballs = latest.parameters.get("fireball_count")
+    if isinstance(fireballs, int) and not isinstance(fireballs, bool):
+        parts.append(f"Fireballs recorded: {fireballs}.")
+    kp_max = latest.parameters.get("kp_max")
+    if isinstance(kp_max, int | float) and not isinstance(kp_max, bool):
+        parts.append(f"Kp max recorded: {kp_max}.")
+    return {
+        "summary": " ".join(parts),
+        "manifest_url": f"runs/{latest.run_id}/manifest.json",
+    }
+
+
+def _public_base(state: LiveState) -> str:
+    return (state.meta.mirror_url or state.meta.repo_url).rstrip("/")
+
+
+def _og_image(state: LiveState) -> str | None:
+    """Absolute URL of the newest waterfall PNG, when one is on the page."""
+    relative: str | None = None
+    for item in state.gallery:
+        if item.plot_url and item.plot_url.endswith(".png"):
+            relative = item.plot_url
+            break
+        if item.thumbnail_url.endswith(".png"):
+            relative = item.thumbnail_url
+            break
+    if relative is None and state.hero is not None and state.hero.image_url.endswith(".png"):
+        relative = state.hero.image_url
+    if relative is None:
+        return None
+    return f"{_public_base(state)}/{relative.lstrip('/')}"
+
+
+def _feed_document(state: LiveState) -> str:
+    """JSON Feed 1.1 of survivor cards only."""
+    base = _public_base(state)
+    items = [
+        {
+            "id": item.hit_id,
+            "url": f"{base}/{item.manifest_url.lstrip('/')}",
+            "title": f"{item.target}: {item.badge_text}",
+            "content_text": item.explanation,
+            "date_published": item.found_at.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        for item in state.gallery
+        if item.verdict is Verdict.ON_ONLY
+    ]
+    document = {
+        "version": "https://jsonfeed.org/version/1.1",
+        "title": "Theoxenia Mission control",
+        "home_page_url": base,
+        "feed_url": f"{base}/feed.json",
+        "items": items,
+    }
+    return json.dumps(document, ensure_ascii=False, indent=2) + "\n"
 
 
 def worker_status(state: LiveState, *, now: datetime | None = None) -> dict[str, str | bool]:

@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import json
 import re
+import shutil
+from datetime import UTC, datetime, timedelta
 from html.parser import HTMLParser
 from pathlib import Path
 
-from xenia.live.models import DetectionFloor
-from xenia.live.render import render_site
+from xenia.live.models import DetectionFloor, WorkerStatus
+from xenia.live.render import render_site, worker_status
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEMO_RUNS = REPOSITORY_ROOT / "tests" / "fixtures" / "live"
@@ -70,6 +73,17 @@ def test_m0_page_is_static_accessible_and_provenance_linked(demo_state, tmp_path
     assert parser.scripts == 0
     assert parser.remote_assets == []
     assert not re.search(r"\b(alien|extraterrestrial|candidate|anomaly|mysterious)\b", page, re.I)
+    assert "unexplained signal" not in page.lower()
+    assert "Proof the detector works: Voyager 1" in page
+    assert "Where we have looked" in page
+    assert "How faint a signal we would catch" in page
+    assert "Disclosure, Project Blue Book incident map: not started" in page
+    assert "Near-Earth baselines, CNEOS and Kp: not started" in page
+    assert "why they are not" not in page
+    feed = json.loads((output / "feed.json").read_text(encoding="utf-8"))
+    assert feed["version"] == "https://jsonfeed.org/version/1.1"
+    assert feed["items"]
+    assert all(item["id"] for item in feed["items"])
     assert all(path.is_file() for path in rendered)
 
 
@@ -147,3 +161,70 @@ def test_mirror_status_never_claims_to_be_live(demo_state) -> None:
     status = worker_status(mirror_state, now=demo_state.generated_at)
     assert status["label"] == "Mirror, updated 10:00 UTC"
     assert status["is_live"] is False
+
+
+def test_status_pill_ages_from_live_to_quiet_to_stopped(demo_state) -> None:
+    """Frozen clocks: under ten minutes, after ten minutes, and after six hours."""
+    heartbeat = datetime(2026, 10, 12, 10, 0, tzinfo=UTC)
+    worker = demo_state.worker.model_copy(
+        update={"status": WorkerStatus.RUNNING, "last_heartbeat": heartbeat}
+    )
+    meta = demo_state.meta.model_copy(update={"demo": False})
+    state = demo_state.model_copy(update={"worker": worker, "meta": meta})
+    live = worker_status(state, now=heartbeat + timedelta(seconds=38))
+    quiet = worker_status(state, now=heartbeat + timedelta(minutes=11))
+    stopped = worker_status(state, now=heartbeat + timedelta(hours=7))
+    assert live == {
+        "label": "Live, heartbeat 38 s ago",
+        "tone": "live",
+        "is_live": True,
+    }
+    assert quiet["label"] == "Worker quiet since 10:00 UTC"
+    assert quiet["is_live"] is False
+    assert stopped["label"] == "Worker stopped, last run at 10:00 UTC"
+    assert stopped["tone"] == "warning"
+    assert stopped["is_live"] is False
+
+
+def test_later_panels_light_only_when_a_non_demo_manifest_exists(
+    demo_state, tmp_path: Path
+) -> None:
+    """EXP-010 lights its card. EXP-020 stays quiet when no manifest exists."""
+    runs = tmp_path / "runs"
+    shutil.copytree(DEMO_RUNS, runs)
+    manifest = {
+        "schema_version": "0.1",
+        "run_id": "exp010-fixture",
+        "pillar": "disclosure",
+        "command": "xenia disclosure ocr data/case.pdf",
+        "parameters": {"pages_processed": 3},
+        "inputs": [{"uri": "synthetic://exp-010/case.pdf"}],
+        "outputs": [],
+        "git_sha": "fixture",
+        "package_version": "0.1.0",
+        "started_at": "2026-10-13T01:00:00Z",
+        "finished_at": "2026-10-13T01:05:00Z",
+        "outcome": "ocr_completed",
+        "notes": ["Synthetic later-panel fixture."],
+        "experiment_id": "EXP-010",
+        "demo": False,
+    }
+    extra = runs / "exp010-fixture" / "manifest.json"
+    extra.parent.mkdir()
+    extra.write_text(json.dumps(manifest), encoding="utf-8")
+    state_path = tmp_path / "state.json"
+    state_path.write_text(demo_state.model_dump_json(indent=2), encoding="utf-8")
+    output = tmp_path / "site"
+    render_site(
+        state_path=state_path,
+        runs_dir=runs,
+        output_dir=output,
+        repository_root=REPOSITORY_ROOT,
+        now=demo_state.generated_at,
+    )
+    page = (output / "index.html").read_text(encoding="utf-8")
+    assert "Disclosure, Project Blue Book incident map: not started" not in page
+    assert "Pages processed: 3." in page
+    assert "outcome ocr_completed." in page
+    assert 'href="runs/exp010-fixture/manifest.json"' in page
+    assert "Near-Earth baselines, CNEOS and Kp: not started" in page
