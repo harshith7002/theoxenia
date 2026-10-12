@@ -241,6 +241,10 @@ def run_voyager(
             "progress_bar": "n",
             "blank_dc": True,
             "precision": "single",
+            "blimpy_two_integration_shim": (
+                "Validate shape-(2, 1, nchan) endpoints; bypass only the upstream check's "
+                "out-of-range data[2] probe."
+            ),
         },
         "remote_block_size_bytes": REMOTE_BLOCK_SIZE_BYTES,
         "remote_transfer_limit_bytes": REMOTE_TRANSFER_LIMIT_BYTES,
@@ -293,6 +297,29 @@ def run_voyager(
                     frequency_high_mhz=frequency_high_mhz,
                 )
                 slice_sha256 = _sha256_file(slice_path)
+                slice_summary = {
+                    "source_url": source_url,
+                    "source_name": source_name,
+                    "requested_window_mhz": [frequency_low_mhz, frequency_high_mhz],
+                    "channel_start": slice_info.channel_start,
+                    "channel_count": slice_info.channel_count,
+                    "first_center_mhz": float(slice_info.first_center_mhz),
+                    "last_center_mhz": float(slice_info.last_center_mhz),
+                    "integrations": slice_info.integrations,
+                    "nifs": slice_info.nifs,
+                    "data_offset_bytes": slice_info.data_offset,
+                    "slice_size_bytes": slice_info.output_size_bytes,
+                    "slice_sha256": slice_sha256,
+                    "remote_transfer": transfer_metrics.as_dict(),
+                }
+                _write_json(slice_summary_path, slice_summary)
+                parameters.update(
+                    {
+                        "source_size_bytes": transfer_metrics.source_size_bytes,
+                        "remote_transfer": transfer_metrics.as_dict(),
+                        "slice": slice_summary,
+                    }
+                )
                 detector_result = run_turboseti(
                     slice_path,
                     output_directory=temporary_root / "detector",
@@ -326,21 +353,6 @@ def run_voyager(
                     hit=hit,
                 )
 
-                slice_summary = {
-                    "source_url": source_url,
-                    "source_name": source_name,
-                    "requested_window_mhz": [frequency_low_mhz, frequency_high_mhz],
-                    "channel_start": slice_info.channel_start,
-                    "channel_count": slice_info.channel_count,
-                    "first_center_mhz": float(slice_info.first_center_mhz),
-                    "last_center_mhz": float(slice_info.last_center_mhz),
-                    "integrations": slice_info.integrations,
-                    "nifs": slice_info.nifs,
-                    "data_offset_bytes": slice_info.data_offset,
-                    "slice_size_bytes": slice_info.output_size_bytes,
-                    "slice_sha256": slice_sha256,
-                    "remote_transfer": transfer_metrics.as_dict(),
-                }
                 detector_summary = {
                     "turbo_seti_version": detector_result.turbo_seti_version,
                     "blimpy_version": detector_result.blimpy_version,

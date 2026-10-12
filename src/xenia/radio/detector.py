@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable, Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
 from math import isfinite
 from pathlib import Path
+from threading import RLock
+from typing import Any
+
+_HDF5_CHECK_LOCK = RLock()
 
 
 @dataclass(frozen=True, slots=True)
@@ -156,6 +161,72 @@ def _find_doppler_class():
     return FindDoppler
 
 
+def _examine_hdf5_with_two_integrations(
+    h5: Any,
+    upstream_examine: Callable[[Any], float],
+) -> float:
+    """Validate valid two-row filters without blimpy's out-of-range third-row probe.
+
+    blimpy 2.1.4's ``examine_h5`` unconditionally indexes ``data[2]`` as a
+    corruption check. The official Voyager tutorial sample contains exactly two
+    integrations, so that check rejects the documented, structurally valid file.
+    All other shapes and malformed metadata continue through blimpy's original
+    validator unchanged.
+    """
+    data = h5.get("data")
+    if (
+        data is None
+        or data.ndim != 3
+        or data.shape[0] != 2
+        or data.shape[1] != 1
+        or data.shape[2] < 3
+    ):
+        return upstream_examine(h5)
+
+    if h5.attrs.get("CLASS") not in ("FILTERBANK", b"FILTERBANK"):
+        return upstream_examine(h5)
+    version_value = h5.attrs.get("VERSION")
+    if isinstance(version_value, bytes):
+        version_value = version_value.decode("utf-8")
+    if not isinstance(version_value, str):
+        return upstream_examine(h5)
+    try:
+        format_version = float(version_value)
+    except ValueError:
+        return upstream_examine(h5)
+
+    try:
+        _ = data[0, 0, 0]
+        _ = data[0, 0, -1]
+        _ = data[1, 0, 0]
+        _ = data[1, 0, -1]
+    except Exception:
+        return upstream_examine(h5)
+    return format_version
+
+
+@contextmanager
+def _blimpy_two_integration_compatibility() -> Iterator[None]:
+    """Scope the two-row HDF5 validation fix to one serial turboSETI invocation."""
+    try:
+        from blimpy.io import hdf_reader
+    except ImportError:  # pragma: no cover - turboSETI import fails first without blimpy
+        yield
+        return
+
+    with _HDF5_CHECK_LOCK:
+        original_examine = hdf_reader.examine_h5
+
+        def compatible_examine(h5: Any) -> float:
+            return _examine_hdf5_with_two_integrations(h5, original_examine)
+
+        hdf_reader.examine_h5 = compatible_examine
+        try:
+            yield
+        finally:
+            hdf_reader.examine_h5 = original_examine
+
+
 def _sha256(path: Path) -> str:
     digest = sha256()
     with path.open("rb") as stream:
@@ -185,16 +256,17 @@ def run_turboseti(
     except PackageNotFoundError as exc:  # pragma: no cover - corrupted installation
         raise RuntimeError("turbo-seti and blimpy package metadata must be installed") from exc
 
-    finder = finder_class(
-        str(filterbank_path),
-        max_drift=max_drift_hz_s,
-        min_drift=1e-5,
-        snr=minimum_snr,
-        out_dir=str(output_directory),
-        blank_dc=True,
-        precision=1,
-    )
-    finder.search(n_partitions=1, progress_bar="n")
+    with _blimpy_two_integration_compatibility():
+        finder = finder_class(
+            str(filterbank_path),
+            max_drift=max_drift_hz_s,
+            min_drift=1e-5,
+            snr=minimum_snr,
+            out_dir=str(output_directory),
+            blank_dc=True,
+            precision=1,
+        )
+        finder.search(n_partitions=1, progress_bar="n")
 
     dat_paths = tuple(sorted(output_directory.glob("*.dat")))
     parsed_hits = tuple(

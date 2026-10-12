@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T123034402477Z-exp-001-voyager",
+  "pillar": "I · Sensor",
+  "command": "xenia live hero --voyager",
+  "parameters": {
+    "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+    "source_expected_size_bytes": 528482692,
+    "requested_window_mhz": [
+      8419.0,
+      8420.0
+    ],
+    "max_drift_hz_s": 4.0,
+    "minimum_drift_hz_s": 0.00001,
+    "minimum_snr": 25.0,
+    "detector_options": {
+      "n_partitions": 1,
+      "progress_bar": "n",
+      "blank_dc": true,
+      "precision": "single"
+    },
+    "remote_block_size_bytes": 1048576,
+    "remote_transfer_limit_bytes": 16777216,
+    "source_header": {
+      "source_name": "VOYAGER1",
+      "nchans": 66060288,
+      "nifs": 1,
+      "nbits": 32,
+      "fch1_mhz": 8588.964842330843,
+      "foff_mhz": -2.838316417875744e-6,
+      "tsamp_seconds": 105.6964608,
+      "tstart_mjd": 57386.864907407406
+    },
+    "remote_transfer": {
+      "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+      "source_size_bytes": 528482692,
+      "max_transfer_bytes": 16777216,
+      "ranges": [
+        {
+          "start": 0,
+          "end_exclusive": 1048580,
+          "bytes_received": 1048580
+        },
+        {
+          "start": 238120200,
+          "end_exclusive": 239234312,
+          "bytes_received": 1114112
+        },
+        {
+          "start": 239234312,
+          "end_exclusive": 240282888,
+          "bytes_received": 1048576
+        },
+        {
+          "start": 239234312,
+          "end_exclusive": 240217352,
+          "bytes_received": 983040
+        },
+        {
+          "start": 502361352,
+          "end_exclusive": 503475464,
+          "bytes_received": 1114112
+        },
+        {
+          "start": 503475464,
+          "end_exclusive": 504524040,
+          "bytes_received": 1048576
+        },
+        {
+          "start": 503475464,
+          "end_exclusive": 504458504,
+          "bytes_received": 983040
+        }
+      ],
+      "bytes_transferred": 7340036
+    }
+  },
+  "inputs": [
+    {
+      "uri": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+      "sha256": null,
+      "size_bytes": 528482692
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T123034402477Z-exp-001-voyager/failure.json",
+      "sha256": "81683880dca3960afca29991b01bd0ee12423f8c7f23a79c23820366d4af3720",
+      "size_bytes": 1179,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T123034402477Z-exp-001-voyager/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "9928b49",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T12:30:34.402477Z",
+  "finished_at": "2026-10-12T12:30:39.832543Z",
+  "outcome": "failed",
+  "notes": [
+    "Operational failure: OSError: Error encountered when trying to open file: /tmp/xenia-exp001-xkcopvb8/detector/voyager-window.h5"
+  ],
+  "experiment_id": "EXP-001",
+  "demo": false,
+  "mission_control": null
+}

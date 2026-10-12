@@ -4,10 +4,17 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import h5py
 import pytest
 
 from xenia.radio import detector
-from xenia.radio.detector import DopplerHit, parse_dat_text, run_turboseti, select_known_answer_hit
+from xenia.radio.detector import (
+    DopplerHit,
+    _examine_hdf5_with_two_integrations,
+    parse_dat_text,
+    run_turboseti,
+    select_known_answer_hit,
+)
 
 DAT_HEADER = "\t".join(
     (
@@ -89,6 +96,9 @@ def test_detector_wrapper_captures_versions_hits_and_output_hash(
     filterbank.write_bytes(b"synthetic filterbank placeholder")
     output_directory = tmp_path / "detector"
     captured: dict[str, object] = {}
+    from blimpy.io import hdf_reader
+
+    original_examine = hdf_reader.examine_h5
 
     class FakeFinder:
         def __init__(self, path: str, **kwargs: object) -> None:
@@ -119,3 +129,28 @@ def test_detector_wrapper_captures_versions_hits_and_output_hash(
     assert len(result.hits) == 2
     assert result.artifacts[0].filename == "slice.dat"
     assert len(result.artifacts[0].sha256) == 64
+    assert hdf_reader.examine_h5 is original_examine
+
+
+def test_two_integration_hdf5_is_structurally_checked(tmp_path: Path) -> None:
+    """Two integrations are checked at valid endpoints instead of index 2."""
+    hdf5_path = tmp_path / "two-integrations.h5"
+    with h5py.File(hdf5_path, "w") as h5:
+        h5.attrs["CLASS"] = "FILTERBANK"
+        h5.attrs["VERSION"] = "2.0"
+        h5.create_dataset("data", data=[[[1.0, 2.0, 3.0]], [[4.0, 5.0, 6.0]]])
+
+    with h5py.File(hdf5_path, "r") as h5:
+        assert _examine_hdf5_with_two_integrations(h5, lambda _h5: pytest.fail()) == 2.0
+
+
+def test_other_hdf5_shapes_use_the_upstream_validator(tmp_path: Path) -> None:
+    """The compatibility exception is restricted to exactly two integrations."""
+    hdf5_path = tmp_path / "three-integrations.h5"
+    with h5py.File(hdf5_path, "w") as h5:
+        h5.attrs["CLASS"] = "FILTERBANK"
+        h5.attrs["VERSION"] = "2.0"
+        h5.create_dataset("data", shape=(3, 1, 3), dtype="f4")
+
+    with h5py.File(hdf5_path, "r") as h5:
+        assert _examine_hdf5_with_two_integrations(h5, lambda _h5: 7.0) == 7.0

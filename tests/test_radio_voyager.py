@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
@@ -203,3 +204,32 @@ def test_waterfall_plot_is_exact_size_and_uses_synthetic_slice(tmp_path: Path) -
     png_header = output_path.read_bytes()[:24]
     assert png_header.startswith(b"\x89PNG\r\n\x1a\n")
     assert struct.unpack(">II", png_header[16:24]) == (1280, 720)
+
+
+def test_detector_failure_keeps_the_completed_slice_in_manifest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _install_fake_pipeline(monkeypatch, hit=None)
+
+    def fail_detector(*args: object, **kwargs: object) -> DetectorResult:
+        raise RuntimeError("synthetic detector failure")
+
+    monkeypatch.setattr(voyager, "run_turboseti", fail_detector)
+
+    with pytest.raises(RuntimeError, match="synthetic detector failure"):
+        voyager.run_voyager(
+            tmp_path,
+            ["xenia", "live", "hero", "--voyager"],
+        )
+
+    manifest_path = next(tmp_path.glob("runs/*/manifest.json"))
+    from xenia.live.models import RunManifest
+
+    manifest = RunManifest.model_validate_json(manifest_path.read_text(encoding="utf-8"))
+    slice_path = next(
+        item.path for item in manifest.outputs if item.path.endswith("slice_summary.json")
+    )
+    slice_summary = json.loads((tmp_path / slice_path).read_text(encoding="utf-8"))
+    assert manifest.outcome == "failed"
+    assert len(slice_summary["slice_sha256"]) == 64
+    assert slice_summary["remote_transfer"]["bytes_transferred"] == 4096
