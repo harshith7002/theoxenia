@@ -23,3 +23,5 @@ The sky-map band is drawn from the J2000 north Galactic pole used by [Astropy's 
 ## Validation snapshot
 
 Validated on 2026-10-12 with CPython 3.15.0 and uv 0.13.0. The locked dependency sync succeeded, including Pydantic 2.14.1 and JSON Schema validation. Ruff lint and formatting checks passed; the suite passed **45 tests** with **83.63% coverage**. The generated `LiveState` schema was fresh, and the demo `runs/state.json` validated against it. `make live-build` rendered the static page and its local assets from the synthetic fixtures.
+
+The committed EXP-030 run records are `runs/20261012T101443688910Z-build-state/manifest.json` and `runs/20261012T101444518036Z-render/manifest.json`. Both identify code SHA `9a0ea16`; the render record includes checksums and sizes for all 13 generated site files. Generated page/state artifacts remain ignored and can be rebuilt with `make live-build`.
