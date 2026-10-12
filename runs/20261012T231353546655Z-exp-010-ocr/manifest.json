@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T231353546655Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf --hand-lines tests/fixtures/disclosure/artesia-page1-lines.json",
+  "parameters": {
+    "pdf": "data/bluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf",
+    "pages_processed": 16,
+    "hand_checked_pages": 1,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3",
+    "hand_lines": [
+      {
+        "page_index": 1,
+        "x0": 1400,
+        "y0": 180,
+        "x1": 2400,
+        "y1": 280,
+        "reference_text": "UNCLASSIFIED",
+        "hypothesis_text": "UNCLASSIFIED\n",
+        "levenshtein": 1,
+        "character_error_rate": 0.08333333333333333
+      },
+      {
+        "page_index": 1,
+        "x0": 1100,
+        "y0": 450,
+        "x1": 1900,
+        "y1": 540,
+        "reference_text": "APPENDIX I",
+        "hypothesis_text": "APPEEDTY T\n",
+        "levenshtein": 5,
+        "character_error_rate": 0.5
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf",
+      "sha256": "84b90c859c5b665cfafbd8a45242df4ede979e66bb0e7fe07be6ccde1d0d6d27",
+      "size_bytes": 2390107
+    },
+    {
+      "uri": "tests/fixtures/disclosure/artesia-page1-lines.json",
+      "sha256": "59bef1b29976a8f8b11e50190f240da6f3f85778478bba93127eaa2e854057ae",
+      "size_bytes": 227
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T231353546655Z-exp-010-ocr/ocr.json",
+      "sha256": "25ffa508dafd6b05eadd2722bee343055f5efc0eeaddd1d4069e5c7450a9473d",
+      "size_bytes": 37792,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T231353546655Z-exp-010-ocr/hand_lines.json",
+      "sha256": "ba5adbc582734e0b0285eb74dcc638b18007ab3916037f3f26b0184977d2228c",
+      "size_bytes": 465,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T231353546655Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T23:13:53.546655Z",
+  "finished_at": "2026-10-12T23:14:36.664379Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 1. A missing reference is not a character error rate.",
+    "Each hand line is one rectangle on the 2x render. The rate divides the Levenshtein distance by the reference length for that rectangle only."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

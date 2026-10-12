@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence disclosure-ocr docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -48,6 +48,9 @@ floor-smoke:
 
 floor:
 	$(UV) run --locked xenia live floor --mode full --seed 20261012 --experiment-id EXP-002
+
+disclosure-ocr:
+	$(UV) run --locked --extra disclosure xenia disclosure ocr tests/fixtures/disclosure/known-answer.pdf
 
 floor-evidence: floor
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

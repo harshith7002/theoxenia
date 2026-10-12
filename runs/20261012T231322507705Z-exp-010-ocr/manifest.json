@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T231322507705Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf --hand-lines tests/fixtures/disclosure/ramstein-page1-lines.json",
+  "parameters": {
+    "pdf": "data/bluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+    "pages_processed": 5,
+    "hand_checked_pages": 1,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3",
+    "hand_lines": [
+      {
+        "page_index": 1,
+        "x0": 600,
+        "y0": 848,
+        "x1": 2400,
+        "y1": 920,
+        "reference_text": "PROJECT 10073 RECORD CARD",
+        "hypothesis_text": "FROJECT 10073 RECORD CARD\n",
+        "levenshtein": 2,
+        "character_error_rate": 0.08
+      },
+      {
+        "page_index": 1,
+        "x0": 80,
+        "y0": 990,
+        "x1": 900,
+        "y1": 1070,
+        "reference_text": "26 March 62",
+        "hypothesis_text": "QL O64\nt { 25 March 62\na i a he\n",
+        "levenshtein": 22,
+        "character_error_rate": 2.0
+      },
+      {
+        "page_index": 1,
+        "x0": 900,
+        "y0": 990,
+        "x1": 2000,
+        "y1": 1070,
+        "reference_text": "Ramstein AB Germany",
+        "hypothesis_text": "| Renstein AB Germany\n",
+        "levenshtein": 5,
+        "character_error_rate": 0.2631578947368421
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+      "sha256": "8795b3f3d0f0bd54483a2cfd51692a55acd5fab7f3fafc7f5c33247e9b43479b",
+      "size_bytes": 948142
+    },
+    {
+      "uri": "tests/fixtures/disclosure/ramstein-page1-lines.json",
+      "sha256": "2a978ef613d66c2862c302aa2571fc3fffdb288f1e8c8fc6f9c218da7510a156",
+      "size_bytes": 358
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T231322507705Z-exp-010-ocr/ocr.json",
+      "sha256": "452e79207ccaa87f8a54b3e4130212d63d4c2f9074136c6dcfa9bf0da15505ec",
+      "size_bytes": 6850,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T231322507705Z-exp-010-ocr/hand_lines.json",
+      "sha256": "a815e008703252373e0ed4baa9cef0aea17bee77f005269b001c41976b22dbe5",
+      "size_bytes": 754,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T231322507705Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T23:13:22.507705Z",
+  "finished_at": "2026-10-12T23:13:31.759300Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 1. A missing reference is not a character error rate.",
+    "Each hand line is one rectangle on the 2x render. The rate divides the Levenshtein distance by the reference length for that rectangle only."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

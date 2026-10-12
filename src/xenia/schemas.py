@@ -7,9 +7,11 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
+from xenia.disclosure.models import IncidentTelemetry
 from xenia.live.models import LiveState, RecoveryGridArtifact, RunManifest
 
 SCHEMA_MODELS: dict[str, type[BaseModel]] = {
+    "incident_telemetry.schema.json": IncidentTelemetry,
     "live_state.schema.json": LiveState,
     "run_manifest.schema.json": RunManifest,
     "recovery_grid.schema.json": RecoveryGridArtifact,

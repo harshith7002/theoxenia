@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T225854368171Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+  "parameters": {
+    "pdf": "data/bluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+    "pages_processed": 30,
+    "hand_checked_pages": 0,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3"
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+      "sha256": "1ce8f4e01099c420bf0d3c41d8d5c1c6962875354acdf84582b8614e125bae41",
+      "size_bytes": 4797297
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T225854368171Z-exp-010-ocr/ocr.json",
+      "sha256": "73e3b39edeebfdce0e3e99760159f3852e77a18c6b147fe65ca0536ce1d57811",
+      "size_bytes": 65878,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T225854368171Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T22:58:54.368171Z",
+  "finished_at": "2026-10-12T23:00:09.967864Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

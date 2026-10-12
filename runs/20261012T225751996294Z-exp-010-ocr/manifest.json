@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T225751996294Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/ProjectBlueBook-SocorroNM1964.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-SocorroNM1964.pdf",
+  "parameters": {
+    "pdf": "data/bluebook/ProjectBlueBook-SocorroNM1964.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-SocorroNM1964.pdf",
+    "pages_processed": 25,
+    "hand_checked_pages": 0,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3"
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/ProjectBlueBook-SocorroNM1964.pdf",
+      "sha256": "1efa122279f8a21109fe1c1da90bd38944e727ec066f81826d057ffdd33a59a9",
+      "size_bytes": 4474275
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T225751996294Z-exp-010-ocr/ocr.json",
+      "sha256": "d812fd57271f19241acb5e07d65453dc61a94a53267b855f18c6b8bd292a92b5",
+      "size_bytes": 27563,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T225751996294Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T22:57:51.996294Z",
+  "finished_at": "2026-10-12T22:58:53.979720Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

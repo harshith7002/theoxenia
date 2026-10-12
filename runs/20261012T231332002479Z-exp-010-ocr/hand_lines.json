@@ -1,0 +1,46 @@
+[
+  {
+    "page_index": 1,
+    "x0": 700,
+    "y0": 30,
+    "x1": 2300,
+    "y1": 100,
+    "reference_text": "PROJECT 10073 RECORD CARD",
+    "hypothesis_text": "PROJECT 10073 RECORD CARD\n",
+    "levenshtein": 1,
+    "character_error_rate": 0.04
+  },
+  {
+    "page_index": 1,
+    "x0": 980,
+    "y0": 600,
+    "x1": 2100,
+    "y1": 700,
+    "reference_text": "weather observers",
+    "hypothesis_text": "| Weather observers\n",
+    "levenshtein": 4,
+    "character_error_rate": 0.23529411764705882
+  },
+  {
+    "page_index": 1,
+    "x0": 80,
+    "y0": 760,
+    "x1": 900,
+    "y1": 870,
+    "reference_text": "7 seconds",
+    "hypothesis_text": "7 seconds\n",
+    "levenshtein": 1,
+    "character_error_rate": 0.1111111111111111
+  },
+  {
+    "page_index": 1,
+    "x0": 40,
+    "y0": 1680,
+    "x1": 1200,
+    "y1": 1820,
+    "reference_text": "ATIC FORM 329 (REV 26 SEP 52)",
+    "hypothesis_text": "Oe EE ————————————— eee\nATIC FORM 329 (REV 26 SEP 52)\n",
+    "levenshtein": 25,
+    "character_error_rate": 0.8620689655172413
+  }
+]

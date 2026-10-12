@@ -1,0 +1,159 @@
+{
+  "$defs": {
+    "PageTranscript": {
+      "additionalProperties": false,
+      "description": "One page of OCR text, with an optional hand-checked comparison.",
+      "properties": {
+        "character_error_rate": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Character Error Rate"
+        },
+        "levenshtein": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Levenshtein"
+        },
+        "page_index": {
+          "minimum": 1,
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "reference_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Text"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "page_index",
+        "text"
+      ],
+      "title": "PageTranscript",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "OCR output for one PDF. This is not a filled incident conclusion.",
+  "properties": {
+    "case_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Case Date"
+    },
+    "location": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Location"
+    },
+    "notes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "page_count": {
+      "minimum": 1,
+      "title": "Page Count",
+      "type": "integer"
+    },
+    "pages": {
+      "items": {
+        "$ref": "#/$defs/PageTranscript"
+      },
+      "title": "Pages",
+      "type": "array"
+    },
+    "pages_processed": {
+      "minimum": 0,
+      "title": "Pages Processed",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_bytes": {
+      "minimum": 0,
+      "title": "Source Bytes",
+      "type": "integer"
+    },
+    "source_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "tesseract_version": {
+      "minLength": 1,
+      "title": "Tesseract Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_sha256",
+    "source_bytes",
+    "page_count",
+    "pages_processed",
+    "tesseract_version",
+    "pages"
+  ],
+  "title": "IncidentTelemetry",
+  "type": "object"
+}

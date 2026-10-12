@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T231509202130Z-exp-010-count",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure count runs/20261012T225701736896Z-exp-010-ocr/manifest.json runs/20261012T225751996294Z-exp-010-ocr/manifest.json runs/20261012T225854368171Z-exp-010-ocr/manifest.json runs/20261012T230010321040Z-exp-010-ocr/manifest.json runs/20261012T231322507705Z-exp-010-ocr/manifest.json runs/20261012T231332002479Z-exp-010-ocr/manifest.json runs/20261012T231353546655Z-exp-010-ocr/manifest.json",
+  "parameters": {
+    "pages_processed": 137,
+    "runs": [
+      {
+        "run_id": "20261012T225701736896Z-exp-010-ocr",
+        "pdf": "data/bluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+        "pages_processed": 15
+      },
+      {
+        "run_id": "20261012T225751996294Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-SocorroNM1964.pdf",
+        "pages_processed": 25
+      },
+      {
+        "run_id": "20261012T225854368171Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+        "pages_processed": 30
+      },
+      {
+        "run_id": "20261012T230010321040Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+        "pages_processed": 34
+      },
+      {
+        "run_id": "20261012T231322507705Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+        "pages_processed": 5
+      },
+      {
+        "run_id": "20261012T231332002479Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-YumaArizona-41-17-1952.pdf",
+        "pages_processed": 12
+      },
+      {
+        "run_id": "20261012T231353546655Z-exp-010-ocr",
+        "pdf": "data/bluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf",
+        "pages_processed": 16
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261012T225701736896Z-exp-010-ocr/manifest.json",
+      "sha256": "753b8dd7ad1a4ef5f52cd541369165dcfd1988f11079ebd9357cf277df2e7859",
+      "size_bytes": 1963
+    },
+    {
+      "uri": "runs/20261012T225751996294Z-exp-010-ocr/manifest.json",
+      "sha256": "25648413eefc36339c5bc3e15d7fc20a94cbc9ef99d907f2979b351a825ee1d8",
+      "size_bytes": 1843
+    },
+    {
+      "uri": "runs/20261012T225854368171Z-exp-010-ocr/manifest.json",
+      "sha256": "d4220151d5afc0d042498075759e9d21acbb326ca5852165c3c708be5e875cae",
+      "size_bytes": 1913
+    },
+    {
+      "uri": "runs/20261012T230010321040Z-exp-010-ocr/manifest.json",
+      "sha256": "dfa4b2d007fad8b3fd756505313c51a2fc6d300c81518113b014e3d94a15aac6",
+      "size_bytes": 1903
+    },
+    {
+      "uri": "runs/20261012T231322507705Z-exp-010-ocr/manifest.json",
+      "sha256": "52a4bfb8d63dd32f0f993ee5d8fbf2e857fad724eb635cc7e8d30e29b956f726",
+      "size_bytes": 3401
+    },
+    {
+      "uri": "runs/20261012T231332002479Z-exp-010-ocr/manifest.json",
+      "sha256": "bbb27b95ece9fa2abe0f716ed785b66b8a5f13750fc39b23d3bfb8757d28caf1",
+      "size_bytes": 3764
+    },
+    {
+      "uri": "runs/20261012T231353546655Z-exp-010-ocr/manifest.json",
+      "sha256": "649d6ad8378a9a402992409de0fcbba9ad8dcfb3fb26dca59f02a22e8e906793",
+      "size_bytes": 3109
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T231509202130Z-exp-010-count/count.json",
+      "sha256": "44d15575ebe7e729ce517cbd39488f150965259de2d3150012855f2d5ebc58e0",
+      "size_bytes": 1236,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T231509202130Z-exp-010-count/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T23:15:09.202130Z",
+  "finished_at": "2026-10-12T23:15:09.217019Z",
+  "outcome": "ocr_pages_counted",
+  "notes": [
+    "pages_processed is the sum of the listed OCR runs. It is not the page count of one PDF.",
+    "No page was OCR'd again for this manifest."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

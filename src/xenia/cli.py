@@ -8,6 +8,8 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
+from xenia.disclosure.models import IncidentTelemetry
+from xenia.disclosure.ocr import count_ocr_pages, prompt_text, run_ocr
 from xenia.live.render import render_site
 from xenia.live.server import serve
 from xenia.live.state import build_state, load_manifests, manifest_paths, read_git_sha
@@ -85,6 +87,22 @@ def build_parser() -> argparse.ArgumentParser:
     floor_parser.add_argument("--mode", choices=("full", "reduced"), default="full")
     floor_parser.add_argument("--seed", type=int, default=20261012)
     floor_parser.add_argument("--experiment-id", default="EXP-002")
+
+    disclosure_parser = top.add_parser("disclosure", help="Pillar II OCR and validation")
+    disclosure_sub = disclosure_parser.add_subparsers(dest="disclosure_command", required=True)
+    ocr_parser = disclosure_sub.add_parser("ocr", help="OCR one PDF with Tesseract")
+    ocr_parser.add_argument("pdf", type=Path)
+    ocr_parser.add_argument("--source-url", default=None)
+    ocr_parser.add_argument("--references", type=Path, default=None)
+    ocr_parser.add_argument("--hand-lines", type=Path, default=None)
+    count_parser = disclosure_sub.add_parser(
+        "count", help="sum pages_processed from EXP-010 OCR manifests"
+    )
+    count_parser.add_argument("manifests", type=Path, nargs="+")
+    prompt_parser = disclosure_sub.add_parser("prompt", help="print the IncidentTelemetry prompt")
+    prompt_parser.set_defaults(disclosure_command="prompt")
+    validate_parser = disclosure_sub.add_parser("validate", help="validate one OCR JSON file")
+    validate_parser.add_argument("ocr_json", type=Path)
 
     return parser
 
@@ -183,6 +201,45 @@ def main(argv: list[str] | None = None) -> int:
                 f"EXP-002 outcome={manifest.outcome}; run_id={manifest.run_id}; "
                 f"manifest={manifest_path}"
             )
+            return 0
+
+        if args.group == "disclosure" and args.disclosure_command == "ocr":
+            pdf_path = _inside_repository(args.pdf, root)
+            references = _load_references(args.references, root) if args.references else None
+            hand_lines = _inside_repository(args.hand_lines, root) if args.hand_lines else None
+            manifest, manifest_path = run_ocr(
+                root,
+                command,
+                pdf_path,
+                source_url=args.source_url,
+                references=references,
+                hand_lines_path=hand_lines,
+            )
+            print(
+                f"EXP-010 outcome={manifest.outcome}; run_id={manifest.run_id}; "
+                f"manifest={_display_path(manifest_path, root)}; "
+                f"pages_processed={manifest.parameters['pages_processed']}"
+            )
+            return 0
+
+        if args.group == "disclosure" and args.disclosure_command == "count":
+            manifest_paths = [_inside_repository(path, root) for path in args.manifests]
+            manifest, manifest_path = count_ocr_pages(root, command, manifest_paths)
+            print(
+                f"EXP-010 outcome={manifest.outcome}; run_id={manifest.run_id}; "
+                f"manifest={_display_path(manifest_path, root)}; "
+                f"pages_processed={manifest.parameters['pages_processed']}"
+            )
+            return 0
+
+        if args.group == "disclosure" and args.disclosure_command == "prompt":
+            print(prompt_text(), end="")
+            return 0
+
+        if args.group == "disclosure" and args.disclosure_command == "validate":
+            ocr_json = _inside_repository(args.ocr_json, root)
+            IncidentTelemetry.model_validate_json(ocr_json.read_text(encoding="utf-8"))
+            print(f"{_display_path(ocr_json, root)} matches IncidentTelemetry.")
             return 0
 
         parser.error("unsupported command")
@@ -293,6 +350,19 @@ def _render(args: argparse.Namespace, *, command: list[str], root: Path) -> None
         f"Rendered {len(rendered)} files to {_display_path(output_dir, root)}; "
         f"run_id={run_id}; manifest={_display_path(manifest_path, root)}"
     )
+
+
+def _load_references(path: Path, root: Path) -> dict[int, str]:
+    """Load hand-checked page text from a JSON object of page numbers."""
+    payload = json.loads(_inside_repository(path, root).read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("references must be a JSON object of page number to text")
+    references: dict[int, str] = {}
+    for key, value in payload.items():
+        if not str(key).isdigit() or not isinstance(value, str) or value == "":
+            raise ValueError("each reference needs a page number and non-empty text")
+        references[int(key)] = value
+    return references
 
 
 def _inside_repository(path: Path, root: Path) -> Path:

@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T225701736896Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+  "parameters": {
+    "pdf": "data/bluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+    "pages_processed": 15,
+    "hand_checked_pages": 0,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3"
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+      "sha256": "48da4846d70cf79de3a84fa05c57971e0da875de236c7ba9164a1cfd2465ce40",
+      "size_bytes": 2804622
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T225701736896Z-exp-010-ocr/ocr.json",
+      "sha256": "57fb43d11287872ce9cfec7b6620b58511319ecc6a2206cf6b9bc7b4f5689497",
+      "size_bytes": 24563,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T225701736896Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T22:57:01.736896Z",
+  "finished_at": "2026-10-12T22:57:51.714188Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}
