@@ -8,11 +8,12 @@ Use CPython 3.15.0 and uv 0.13.0 or later, then run:
 
 ```bash
 uv python install 3.15.0
-uv sync --all-groups --python 3.15.0
+uv sync --locked --all-groups --extra radio --python 3.15.0
 make test
 make lint
 make schemas-check
 make schemas-validate
+make docs
 ```
 
 For Mission Control changes, `make live-dev` builds from synthetic fixtures and serves the result locally. The M0 page is not a live worker and does not use telescope observations.

@@ -1,0 +1,438 @@
+{
+  "$defs": {
+    "FloorDetectedHit": {
+      "additionalProperties": false,
+      "description": "Small, typed subset of one turboSETI top-hit row.",
+      "properties": {
+        "corrected_frequency_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Corrected Frequency Mhz",
+          "type": "number"
+        },
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "frequency_end_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Frequency End Mhz",
+          "type": "number"
+        },
+        "frequency_start_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Frequency Start Mhz",
+          "type": "number"
+        },
+        "snr": {
+          "minimum": 0,
+          "title": "Snr",
+          "type": "number"
+        },
+        "top_hit": {
+          "minimum": 1,
+          "title": "Top Hit",
+          "type": "integer"
+        },
+        "uncorrected_frequency_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Uncorrected Frequency Mhz",
+          "type": "number"
+        }
+      },
+      "required": [
+        "top_hit",
+        "drift_hz_s",
+        "snr",
+        "uncorrected_frequency_mhz",
+        "corrected_frequency_mhz",
+        "frequency_start_mhz",
+        "frequency_end_mhz"
+      ],
+      "title": "FloorDetectedHit",
+      "type": "object"
+    },
+    "FloorDetectorArtifact": {
+      "additionalProperties": false,
+      "description": "Checksum record for a temporary turboSETI output table.",
+      "properties": {
+        "filename": {
+          "minLength": 1,
+          "title": "Filename",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "filename",
+        "sha256",
+        "size_bytes"
+      ],
+      "title": "FloorDetectorArtifact",
+      "type": "object"
+    },
+    "FloorSearchTrial": {
+      "additionalProperties": false,
+      "description": "One seeded synthetic frame and its complete parsed detector output.",
+      "properties": {
+        "detected_hits": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FloorDetectedHit"
+          },
+          "title": "Detected Hits",
+          "type": "array"
+        },
+        "detector_artifacts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FloorDetectorArtifact"
+          },
+          "title": "Detector Artifacts",
+          "type": "array"
+        },
+        "injected_signal_count": {
+          "minimum": 1,
+          "title": "Injected Signal Count",
+          "type": "integer"
+        },
+        "seed": {
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "trial_index": {
+          "minimum": 1,
+          "title": "Trial Index",
+          "type": "integer"
+        },
+        "warnings": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "trial_index",
+        "seed",
+        "injected_signal_count"
+      ],
+      "title": "FloorSearchTrial",
+      "type": "object"
+    },
+    "RecoveryMeasurement": {
+      "additionalProperties": false,
+      "description": "One injected signal’s deterministic recovery decision and matched hit.",
+      "properties": {
+        "drift_error_hz_s": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Drift Error Hz S"
+        },
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "frequency_error_hz": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Frequency Error Hz"
+        },
+        "frequency_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Frequency Mhz",
+          "type": "number"
+        },
+        "injected_start_frequency_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Injected Start Frequency Mhz",
+          "type": "number"
+        },
+        "matched_hit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FloorDetectedHit"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "recovered": {
+          "title": "Recovered",
+          "type": "boolean"
+        },
+        "seed": {
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "snr": {
+          "exclusiveMinimum": 0,
+          "title": "Snr",
+          "type": "number"
+        },
+        "trial_index": {
+          "minimum": 1,
+          "title": "Trial Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "snr",
+        "drift_hz_s",
+        "trial_index",
+        "seed",
+        "frequency_mhz",
+        "injected_start_frequency_mhz",
+        "recovered"
+      ],
+      "title": "RecoveryMeasurement",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Schema-validated synthetic EXP-002 per-trial recovery artifact.",
+  "properties": {
+    "ci_run_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ci Run Url"
+    },
+    "detector_snr_threshold": {
+      "minimum": 0,
+      "title": "Detector Snr Threshold",
+      "type": "number"
+    },
+    "drift_grid": {
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "title": "Drift Grid",
+      "type": "array"
+    },
+    "drift_tolerance_hz_s": {
+      "exclusiveMinimum": 0,
+      "title": "Drift Tolerance Hz S",
+      "type": "number"
+    },
+    "experiment_id": {
+      "const": "EXP-002",
+      "default": "EXP-002",
+      "title": "Experiment Id",
+      "type": "string"
+    },
+    "frame_bandwidth_hz": {
+      "exclusiveMinimum": 0,
+      "title": "Frame Bandwidth Hz",
+      "type": "number"
+    },
+    "frame_center_frequency_mhz": {
+      "exclusiveMinimum": 0,
+      "title": "Frame Center Frequency Mhz",
+      "type": "number"
+    },
+    "frequency_channels": {
+      "minimum": 2,
+      "title": "Frequency Channels",
+      "type": "integer"
+    },
+    "frequency_resolution_hz": {
+      "exclusiveMinimum": 0,
+      "title": "Frequency Resolution Hz",
+      "type": "number"
+    },
+    "frequency_slot_spacing_hz": {
+      "exclusiveMinimum": 0,
+      "title": "Frequency Slot Spacing Hz",
+      "type": "number"
+    },
+    "frequency_tolerance_hz": {
+      "exclusiveMinimum": 0,
+      "title": "Frequency Tolerance Hz",
+      "type": "number"
+    },
+    "max_abs_drift_hz_s": {
+      "exclusiveMinimum": 0,
+      "title": "Max Abs Drift Hz S",
+      "type": "number"
+    },
+    "measurements": {
+      "items": {
+        "$ref": "#/$defs/RecoveryMeasurement"
+      },
+      "minItems": 1,
+      "title": "Measurements",
+      "type": "array"
+    },
+    "mode": {
+      "enum": [
+        "full",
+        "reduced"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "noise_distribution": {
+      "const": "chi2",
+      "default": "chi2",
+      "title": "Noise Distribution",
+      "type": "string"
+    },
+    "noise_mean": {
+      "exclusiveMinimum": 0,
+      "title": "Noise Mean",
+      "type": "number"
+    },
+    "recovered_count": {
+      "items": {
+        "items": {
+          "type": "integer"
+        },
+        "type": "array"
+      },
+      "title": "Recovered Count",
+      "type": "array"
+    },
+    "recovered_fraction": {
+      "items": {
+        "items": {
+          "type": "number"
+        },
+        "type": "array"
+      },
+      "title": "Recovered Fraction",
+      "type": "array"
+    },
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "runtime_versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "minProperties": 1,
+      "title": "Runtime Versions",
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "searches": {
+      "items": {
+        "$ref": "#/$defs/FloorSearchTrial"
+      },
+      "minItems": 1,
+      "title": "Searches",
+      "type": "array"
+    },
+    "seed": {
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "signal_width_hz": {
+      "exclusiveMinimum": 0,
+      "title": "Signal Width Hz",
+      "type": "number"
+    },
+    "snr_grid": {
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "title": "Snr Grid",
+      "type": "array"
+    },
+    "source_kind": {
+      "const": "synthetic_setigen",
+      "default": "synthetic_setigen",
+      "title": "Source Kind",
+      "type": "string"
+    },
+    "time_channels": {
+      "minimum": 2,
+      "title": "Time Channels",
+      "type": "integer"
+    },
+    "time_resolution_seconds": {
+      "exclusiveMinimum": 0,
+      "title": "Time Resolution Seconds",
+      "type": "number"
+    },
+    "trials_per_cell": {
+      "exclusiveMinimum": 0,
+      "title": "Trials Per Cell",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "run_id",
+    "mode",
+    "seed",
+    "snr_grid",
+    "drift_grid",
+    "trials_per_cell",
+    "max_abs_drift_hz_s",
+    "detector_snr_threshold",
+    "frequency_tolerance_hz",
+    "drift_tolerance_hz_s",
+    "frequency_channels",
+    "time_channels",
+    "frame_bandwidth_hz",
+    "frequency_resolution_hz",
+    "time_resolution_seconds",
+    "frame_center_frequency_mhz",
+    "frequency_slot_spacing_hz",
+    "signal_width_hz",
+    "noise_mean",
+    "runtime_versions",
+    "searches",
+    "measurements",
+    "recovered_count",
+    "recovered_fraction"
+  ],
+  "title": "RecoveryGridArtifact",
+  "type": "object"
+}

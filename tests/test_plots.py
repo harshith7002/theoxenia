@@ -53,6 +53,8 @@ def test_floor_heatmap_uses_values_from_payload() -> None:
     assert "SNR 6, drift -1 Hz/s: 2 of 5 trials recovered" in svg
     assert "SNR 12, drift 1 Hz/s: 5 of 5 trials recovered" in svg
     assert "Recovers SNR" in svg
+    assert "Synthetic setigen injection recovery floor" in svg
+    assert "Synthetic setigen data · not telescope observations" in svg
     assert 'class="floor-cell"' in svg
 
 

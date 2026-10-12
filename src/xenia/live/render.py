@@ -116,6 +116,9 @@ def render_site(
         floor_manifest_url=(
             state.detection_floor.manifest_url if state.detection_floor is not None else None
         ),
+        floor_ci_url=(
+            state.detection_floor.ci_run_url if state.detection_floor is not None else None
+        ),
         hero_manifest_url=state.hero.manifest_url if state.hero is not None else None,
     )
     index_output = output_root / "index.html"

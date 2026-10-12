@@ -113,9 +113,11 @@ def render_floor_svg(floor: DetectionFloor | None, *, demo: bool) -> str:
             f'class="axis-label">{drift:g}</text>'
         )
     label = html.escape(
-        f"Injection recovery floor, {rows} SNR values by {columns} drift values. {floor.summary}",
+        f"Synthetic setigen injection recovery floor, {rows} SNR values by "
+        f"{columns} drift values. Not telescope observations. {floor.summary}",
         quote=True,
     )
+    synthetic_note = html.escape("Synthetic setigen data · not telescope observations")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 330"
      role="img" aria-label="{label}" focusable="false">
   <rect x="1" y="1" width="458" height="328" rx="10" class="plot-frame" />
@@ -124,6 +126,7 @@ def render_floor_svg(floor: DetectionFloor | None, *, demo: bool) -> str:
   {"".join(cells)}
   <text x="18" y="{bottom:g}" text-anchor="middle" class="axis-title"
     transform="rotate(-90 18 {top + (bottom - top) / 2:g})">SNR</text>
+  <text x="230" y="316" text-anchor="middle" class="axis-label">{synthetic_note}</text>
 </svg>
 """
 

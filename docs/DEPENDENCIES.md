@@ -9,7 +9,8 @@
 | CPython | 3.15.0 | Stable release from [Python.org](https://www.python.org/downloads/release/python-3150/), released 2026-10-09. |
 | `turbo-seti` | 2.3.2 | Resolved and imported on CPython 3.15.0. The EXP-001 pipeline uses the documented HDF5 FILTERBANK input path; the committed run `20261012T130904642405Z-exp-001-voyager` recovered the predeclared Voyager known answer. The run preserves the narrow post-search logging warning and does not claim an unknown-source detection. |
 | `blimpy` | 2.1.4 | Resolved on CPython 3.15.0. The temporary frequency-sliced HDF5 file is validated with `blimpy.io.hdf_reader.H5Reader(load_data=False)` before turboSETI receives it. The project uses a 16-integration source and does not patch blimpy’s validator. |
-| `setigen` | 2.7.0 | Resolved and imported with NumPy 2.5.4. EXP-002 injection/recovery remains a distinct acceptance milestone. |
+| `setigen` | 2.7.0 | Resolved and imported with NumPy 2.5.4 on CPython 3.15.0; the seeded EXP-002 injection/recovery frame and deterministic signal injection are covered by tests. |
+| `astropy` | 8.0.1 | Direct `radio` extra dependency for setigen unit-aware frame configuration and neutral SIGPROC coordinate metadata. |
 | `h5py` | 3.16.0 | No CPython 3.15 wheel was present in the checked PyPI metadata; the source build succeeded with HDF5 headers, `pkg-config`, and build tools. The Python 3.15 CI job installs these prerequisites. |
 | `hdf5plugin` | 7.1.0 | Direct radio-extra dependency. Imported before HDF5 reads so upstream compression filters are registered; the version and linked libhdf5 version are recorded in EXP-001 run metadata. |
 | `fsspec` | 2026.9.0 | Its HTTP bytes-cache supports the measured range reader used for the bounded source access. Actual range intervals and response payload bytes are written to each experiment manifest. |
@@ -34,8 +35,10 @@ These are visible compatibility workarounds, not upstream Python 3.15 support cl
 - [turboSETI 2.3.2 on PyPI](https://pypi.org/project/turbo-seti/2.3.2/)
 - [blimpy 2.1.4 on PyPI](https://pypi.org/project/blimpy/2.1.4/)
 - [setigen 2.7.0 on PyPI](https://pypi.org/project/setigen/2.7.0/)
+- [Astropy 8.0.1 on PyPI](https://pypi.org/project/astropy/8.0.1/)
 - [h5py 3.16.0 on PyPI](https://pypi.org/project/h5py/3.16.0/)
 - [blimpy HDF5 reader](https://github.com/UCBerkeleySETI/blimpy/blob/master/blimpy/io/hdf_reader.py)
 - [Exact Voyager source and cross-checks](data-sources.md)
+- [EXP-002 synthetic injection/recovery method](mission-control-exp002.md)
 
 The M3 worker’s egress, persistence, restart behavior, long-running throughput, and host availability remain unverified until Michael attaches the VM and approves the exact setup. The Python 3.15 environment itself is not a substitute for that deployment acceptance.

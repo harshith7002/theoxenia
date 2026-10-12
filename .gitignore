@@ -36,5 +36,6 @@ data/
 !/runs/**/slice_summary.json
 !/runs/**/hits.json
 !/runs/**/hero.png
+!/runs/**/recovery_grid.json
 
 .DS_Store

@@ -154,6 +154,38 @@ def test_floor_summary_explains_when_no_drift_cells_qualify() -> None:
     assert "No drift cells" in floor_summary(payload)
 
 
+def test_floor_ci_run_link_survives_state_aggregation_without_observation_credit(
+    demo_manifests,
+    fixed_time,
+) -> None:
+    """The page carries CI provenance while keeping synthetic calibration distinct."""
+    source = demo_manifests[0]
+    floor_manifest = source.model_copy(
+        update={
+            "demo": False,
+            "experiment_id": "EXP-002",
+            "mission_control": FloorPayload(
+                kind="detection_floor",
+                experiment="EXP-002",
+                snr_grid=(5.0,),
+                drift_grid=(0.0,),
+                trials_per_cell=1,
+                recovered_fraction=((0.0,),),
+                ci_run_url="https://github.com/mpetyx/theoxenia/actions/runs/123456789",
+            ),
+        }
+    )
+
+    state = build_state([floor_manifest], generated_at=fixed_time, git_sha="floor-sha")
+
+    assert state.detection_floor is not None
+    assert state.detection_floor.ci_run_url == (
+        "https://github.com/mpetyx/theoxenia/actions/runs/123456789"
+    )
+    assert "synthetic signal injections" in state.meta.data_credit
+    assert "Breakthrough Listen" not in state.meta.data_credit
+
+
 def test_fixture_files_are_small_json_or_svg(demo_manifests) -> None:
     """The committed M0 set contains no raw telescope/scan files."""
     root = Path(__file__).parent / "fixtures" / "live"

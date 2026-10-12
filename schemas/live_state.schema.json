@@ -90,6 +90,18 @@
       "additionalProperties": false,
       "description": "Manifest-backed sensitivity grid, added by EXP-002.",
       "properties": {
+        "ci_run_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ci Run Url"
+        },
         "drift_grid": {
           "items": {
             "type": "number"

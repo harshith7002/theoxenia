@@ -256,6 +256,7 @@ def build_state(
             recovered_fraction=payload.recovered_fraction,
             summary=floor_summary(payload),
             manifest_url=_manifest_url(manifest.run_id),
+            ci_run_url=payload.ci_run_url,
         )
 
     log_entries = [

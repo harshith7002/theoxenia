@@ -5,10 +5,21 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from enum import StrEnum
+from math import isclose, isfinite
 from pathlib import PurePosixPath
 from typing import Annotated, Literal
+from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from xenia.radio.floor_config import (
+    FULL_DRIFT_GRID,
+    FULL_SNR_GRID,
+    FULL_TRIALS_PER_CELL,
+    REDUCED_DRIFT_GRID,
+    REDUCED_SNR_GRID,
+    REDUCED_TRIALS_PER_CELL,
+)
 
 
 class StrictModel(BaseModel):
@@ -33,6 +44,16 @@ def _validate_aware_datetime(value: datetime) -> datetime:
     """Require timestamps to carry an explicit timezone."""
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("timestamps must be timezone-aware")
+    return value
+
+
+def _validate_https_url(value: str | None) -> str | None:
+    """Require optional external links to use an absolute HTTPS URL."""
+    if value is None:
+        return None
+    parsed = urlsplit(value)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValueError("external links must be absolute HTTPS URLs")
     return value
 
 
@@ -263,6 +284,12 @@ class FloorPayload(StrictModel):
     drift_grid: tuple[float, ...] = Field(min_length=1)
     trials_per_cell: int = Field(gt=0)
     recovered_fraction: tuple[tuple[float, ...], ...]
+    ci_run_url: str | None = None
+
+    @field_validator("ci_run_url")
+    @classmethod
+    def ci_link_is_https(cls, value: str | None) -> str | None:
+        return _validate_https_url(value)
 
     @model_validator(mode="after")
     def validate_grid_shape(self) -> FloorPayload:
@@ -272,6 +299,199 @@ class FloorPayload(StrictModel):
             raise ValueError("recovered_fraction columns must match drift_grid")
         if any(not 0 <= value <= 1 for row in self.recovered_fraction for value in row):
             raise ValueError("recovered fractions must be between zero and one")
+        return self
+
+
+class FloorDetectedHit(StrictModel):
+    """Small, typed subset of one turboSETI top-hit row."""
+
+    top_hit: int = Field(ge=1)
+    drift_hz_s: float = Field(allow_inf_nan=False)
+    snr: float = Field(ge=0, allow_inf_nan=False)
+    uncorrected_frequency_mhz: float = Field(gt=0, allow_inf_nan=False)
+    corrected_frequency_mhz: float = Field(gt=0, allow_inf_nan=False)
+    frequency_start_mhz: float = Field(gt=0, allow_inf_nan=False)
+    frequency_end_mhz: float = Field(gt=0, allow_inf_nan=False)
+
+
+class FloorDetectorArtifact(StrictModel):
+    """Checksum record for a temporary turboSETI output table."""
+
+    filename: str = Field(min_length=1)
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    size_bytes: int = Field(ge=0)
+
+    @field_validator("filename")
+    @classmethod
+    def filename_is_local(cls, value: str) -> str:
+        if "\\" in value or PurePosixPath(value).name != value:
+            raise ValueError("detector artifact filename must be a local basename")
+        return value
+
+
+class FloorSearchTrial(StrictModel):
+    """One seeded synthetic frame and its complete parsed detector output."""
+
+    trial_index: int = Field(ge=1)
+    seed: int = Field(ge=0)
+    injected_signal_count: int = Field(ge=1)
+    detected_hits: tuple[FloorDetectedHit, ...] = ()
+    detector_artifacts: tuple[FloorDetectorArtifact, ...] = ()
+    warnings: tuple[str, ...] = ()
+
+
+class RecoveryMeasurement(StrictModel):
+    """One injected signal’s deterministic recovery decision and matched hit."""
+
+    snr: float = Field(gt=0, allow_inf_nan=False)
+    drift_hz_s: float = Field(allow_inf_nan=False)
+    trial_index: int = Field(ge=1)
+    seed: int = Field(ge=0)
+    frequency_mhz: float = Field(gt=0, allow_inf_nan=False)
+    injected_start_frequency_mhz: float = Field(gt=0, allow_inf_nan=False)
+    recovered: bool
+    matched_hit: FloorDetectedHit | None = None
+    frequency_error_hz: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    drift_error_hz_s: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+
+    @model_validator(mode="after")
+    def match_fields_follow_recovery(self) -> RecoveryMeasurement:
+        has_match = self.matched_hit is not None
+        has_errors = self.frequency_error_hz is not None and self.drift_error_hz_s is not None
+        if self.recovered != has_match or self.recovered != has_errors:
+            raise ValueError("recovered measurements must include a matched hit and both errors")
+        if not self.recovered and (
+            self.frequency_error_hz is not None or self.drift_error_hz_s is not None
+        ):
+            raise ValueError("unrecovered measurements cannot report match errors")
+        return self
+
+
+class RecoveryGridArtifact(StrictModel):
+    """Schema-validated synthetic EXP-002 per-trial recovery artifact."""
+
+    schema_version: Literal["0.1"] = "0.1"
+    source_kind: Literal["synthetic_setigen"] = "synthetic_setigen"
+    run_id: str = Field(min_length=1)
+    experiment_id: Literal["EXP-002"] = "EXP-002"
+    mode: Literal["full", "reduced"]
+    seed: int = Field(ge=0)
+    snr_grid: tuple[float, ...] = Field(min_length=1)
+    drift_grid: tuple[float, ...] = Field(min_length=1)
+    trials_per_cell: int = Field(gt=0)
+    max_abs_drift_hz_s: float = Field(gt=0, allow_inf_nan=False)
+    detector_snr_threshold: float = Field(ge=0, allow_inf_nan=False)
+    frequency_tolerance_hz: float = Field(gt=0, allow_inf_nan=False)
+    drift_tolerance_hz_s: float = Field(gt=0, allow_inf_nan=False)
+    frequency_channels: int = Field(ge=2)
+    time_channels: int = Field(ge=2)
+    frame_bandwidth_hz: float = Field(gt=0, allow_inf_nan=False)
+    frequency_resolution_hz: float = Field(gt=0, allow_inf_nan=False)
+    time_resolution_seconds: float = Field(gt=0, allow_inf_nan=False)
+    frame_center_frequency_mhz: float = Field(gt=0, allow_inf_nan=False)
+    frequency_slot_spacing_hz: float = Field(gt=0, allow_inf_nan=False)
+    signal_width_hz: float = Field(gt=0, allow_inf_nan=False)
+    noise_distribution: Literal["chi2"] = "chi2"
+    noise_mean: float = Field(gt=0, allow_inf_nan=False)
+    ci_run_url: str | None = None
+    runtime_versions: dict[str, str] = Field(min_length=1)
+    searches: tuple[FloorSearchTrial, ...] = Field(min_length=1)
+    measurements: tuple[RecoveryMeasurement, ...] = Field(min_length=1)
+    recovered_count: tuple[tuple[int, ...], ...]
+    recovered_fraction: tuple[tuple[float, ...], ...]
+
+    @field_validator("ci_run_url")
+    @classmethod
+    def ci_link_is_https(cls, value: str | None) -> str | None:
+        return _validate_https_url(value)
+
+    @model_validator(mode="after")
+    def validate_grid_results(self) -> RecoveryGridArtifact:
+        expected_snr, expected_drift, expected_trials = (
+            (FULL_SNR_GRID, FULL_DRIFT_GRID, FULL_TRIALS_PER_CELL)
+            if self.mode == "full"
+            else (REDUCED_SNR_GRID, REDUCED_DRIFT_GRID, REDUCED_TRIALS_PER_CELL)
+        )
+        if (self.snr_grid, self.drift_grid, self.trials_per_cell) != (
+            expected_snr,
+            expected_drift,
+            expected_trials,
+        ):
+            raise ValueError("grid axes and trial count do not match the declared mode")
+        if any(not isfinite(value) for value in (*self.snr_grid, *self.drift_grid)):
+            raise ValueError("grid values must be finite")
+        if tuple(sorted(set(self.snr_grid))) != self.snr_grid:
+            raise ValueError("snr_grid must be strictly increasing and contain no duplicates")
+        if tuple(sorted(set(self.drift_grid))) != self.drift_grid:
+            raise ValueError("drift_grid must be strictly increasing and contain no duplicates")
+        if max(abs(value) for value in self.drift_grid) > self.max_abs_drift_hz_s:
+            raise ValueError("max_abs_drift_hz_s must cover every configured drift")
+        expected_shape = (len(self.snr_grid), len(self.drift_grid))
+        for name, matrix in (
+            ("recovered_count", self.recovered_count),
+            ("recovered_fraction", self.recovered_fraction),
+        ):
+            if len(matrix) != expected_shape[0] or any(
+                len(row) != expected_shape[1] for row in matrix
+            ):
+                raise ValueError(f"{name} must match the SNR-by-drift grid shape")
+
+        if len(self.searches) != self.trials_per_cell:
+            raise ValueError("there must be one detector search per independent trial")
+        search_by_index = {search.trial_index: search for search in self.searches}
+        if set(search_by_index) != set(range(1, self.trials_per_cell + 1)):
+            raise ValueError("detector search trial indices must cover each trial exactly once")
+        signals_per_trial = len(self.snr_grid) * len(self.drift_grid)
+        for search in self.searches:
+            if search.seed != self.seed + search.trial_index - 1:
+                raise ValueError("search seeds must be consecutive from the artifact seed")
+            if search.injected_signal_count != signals_per_trial:
+                raise ValueError("each search must contain one signal for every grid cell")
+
+        expected_measurements = signals_per_trial * self.trials_per_cell
+        if len(self.measurements) != expected_measurements:
+            raise ValueError("measurement count must equal SNR × drift × trials_per_cell")
+        observed_keys: set[tuple[float, float, int]] = set()
+        matched_hit_keys: set[tuple[int, int]] = set()
+        counts = [[0 for _ in self.drift_grid] for _ in self.snr_grid]
+        snr_indices = {value: index for index, value in enumerate(self.snr_grid)}
+        drift_indices = {value: index for index, value in enumerate(self.drift_grid)}
+        for measurement in self.measurements:
+            if measurement.snr not in snr_indices or measurement.drift_hz_s not in drift_indices:
+                raise ValueError("measurement coordinates must exist in the configured grid")
+            search = search_by_index.get(measurement.trial_index)
+            if search is None or search.seed != measurement.seed:
+                raise ValueError("measurement seed and trial must match a detector search")
+            key = (measurement.snr, measurement.drift_hz_s, measurement.trial_index)
+            if key in observed_keys:
+                raise ValueError("grid contains a duplicate SNR/drift/trial measurement")
+            observed_keys.add(key)
+            row_index = snr_indices[measurement.snr]
+            column_index = drift_indices[measurement.drift_hz_s]
+            if measurement.recovered:
+                counts[row_index][column_index] += 1
+                hit = measurement.matched_hit
+                if hit is None:
+                    raise ValueError("recovered measurement is missing its matched hit")
+                hit_key = (measurement.trial_index, hit.top_hit)
+                if hit_key in matched_hit_keys:
+                    raise ValueError("one detector hit cannot recover multiple injected signals")
+                matched_hit_keys.add(hit_key)
+                if hit not in search.detected_hits:
+                    raise ValueError("matched hit must be present in the same trial's output")
+
+        for row_index, row in enumerate(counts):
+            for column_index, count in enumerate(row):
+                if count != self.recovered_count[row_index][column_index]:
+                    raise ValueError("recovered_count does not match per-trial measurements")
+                expected_fraction = count / self.trials_per_cell
+                if not isclose(
+                    expected_fraction,
+                    self.recovered_fraction[row_index][column_index],
+                    rel_tol=0,
+                    abs_tol=1e-12,
+                ):
+                    raise ValueError("recovered_fraction does not match per-trial measurements")
         return self
 
 
@@ -436,6 +656,12 @@ class DetectionFloor(StrictModel):
     recovered_fraction: tuple[tuple[float, ...], ...]
     summary: str = Field(min_length=1)
     manifest_url: str
+    ci_run_url: str | None = None
+
+    @field_validator("ci_run_url")
+    @classmethod
+    def ci_link_is_https(cls, value: str | None) -> str | None:
+        return _validate_https_url(value)
 
     @field_validator("manifest_url")
     @classmethod
