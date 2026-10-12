@@ -202,6 +202,7 @@ def test_idle_forever_heartbeats_without_sleeping_the_whole_interval(tmp_path: P
     queue = tmp_path / "queue.jsonl"
     _write_queue(queue, [])
     sleeps: list[float] = []
+    beats: list[int] = []
     summary = run_worker(
         tmp_path,
         _config(),
@@ -210,11 +211,13 @@ def test_idle_forever_heartbeats_without_sleeping_the_whole_interval(tmp_path: P
         pair_runner=lambda _pair: PairOutcome(run_id="x", on_only=0, detail="searched"),
         publisher=None,
         host="test-host",
+        refresh=lambda: beats.append(1),
         sleep=sleeps.append,
         should_stop=lambda: len(sleeps) >= 1,
     )
     assert summary.pairs_completed == 0
     assert sleeps == [60.0]
+    assert len(beats) == 2
     manifest = RunManifest.model_validate_json(
         (tmp_path / "runs" / "worker-test-host" / "manifest.json").read_text(encoding="utf-8")
     )

@@ -376,11 +376,11 @@ def _run_worker(args: argparse.Namespace, *, root: Path):
 
 
 def _refresh_page(root: Path) -> None:
-    """Rebuild state and the static page from the manifests on disk."""
-    from xenia.live.render import render_site
-    from xenia.live.state import build_state, load_manifests
-    from xenia.provenance import create_run_manifest, input_ref, new_run_id
+    """Rebuild state and the static page from the manifests on disk.
 
+    Called on every heartbeat. It does not write another run manifest; the
+    worker heartbeat is the record, and a manifest per minute would bury it.
+    """
     runs_dir = root / "runs"
     output_path = runs_dir / "state.json"
     started_at = datetime.now(UTC)
@@ -397,21 +397,6 @@ def _refresh_page(root: Path) -> None:
         output_dir=root / "site",
         repository_root=root,
         now=started_at,
-    )
-    finished_at = datetime.now(UTC)
-    create_run_manifest(
-        run_id=new_run_id(started_at, "worker-refresh"),
-        command=["xenia", "live", "run"],
-        parameters={"refresh": True},
-        inputs=tuple(input_ref(path, repository_root=root) for path in (output_path,)),
-        outputs=(),
-        started_at=started_at,
-        finished_at=finished_at,
-        outcome="refreshed",
-        notes=("Worker refreshed the page from manifests.",),
-        repository_root=root,
-        demo=False,
-        experiment_id="EXP-030",
     )
 
 

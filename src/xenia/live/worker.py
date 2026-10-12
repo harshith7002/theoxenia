@@ -224,6 +224,22 @@ def run_worker(
     last_commit_at: datetime | None = None
     cap = 1 if once and max_pairs is None else max_pairs
 
+    def beat(current: CurrentSearch | None, nxt: NextSearch | None) -> None:
+        _write_heartbeat(
+            repository,
+            manifest_path,
+            run_id=run_id,
+            host=worker_host,
+            started_at=started,
+            now=now(),
+            current=current,
+            nxt=nxt,
+            warnings=warnings,
+            queue_path=queue_path,
+            branch=config.commit_branch,
+        )
+        _refresh(refresh, warnings)
+
     while True:
         if publisher is not None:
             prepared = publisher.prepare(repository, config.commit_branch)
@@ -238,59 +254,17 @@ def run_worker(
             and _pair_key(pair) not in progress["failed"]
         ]
         if not pending:
-            _write_heartbeat(
-                repository,
-                manifest_path,
-                run_id=run_id,
-                host=worker_host,
-                started_at=started,
-                now=now(),
-                current=None,
-                nxt=None,
-                warnings=warnings,
-                queue_path=queue_path,
-                branch=config.commit_branch,
-            )
+            beat(None, None)
             if once or stop():
                 break
-            _idle(
-                config,
-                sleep,
-                now,
-                stop,
-                beat=lambda: _write_heartbeat(
-                    repository,
-                    manifest_path,
-                    run_id=run_id,
-                    host=worker_host,
-                    started_at=started,
-                    now=now(),
-                    current=None,
-                    nxt=None,
-                    warnings=warnings,
-                    queue_path=queue_path,
-                    branch=config.commit_branch,
-                ),
-            )
+            _idle(config, sleep, now, stop, beat=lambda: beat(None, None))
             if stop():
                 break
             continue
 
         pair = pending[0]
         following = pending[1] if len(pending) > 1 else None
-        _write_heartbeat(
-            repository,
-            manifest_path,
-            run_id=run_id,
-            host=worker_host,
-            started_at=started,
-            now=now(),
-            current=_current(pair, now()),
-            nxt=_next(following),
-            warnings=warnings,
-            queue_path=queue_path,
-            branch=config.commit_branch,
-        )
+        beat(_current(pair, now()), _next(following))
         outcome: PairOutcome | None = None
         error = ""
         for _attempt in range(config.max_retries + 1):
@@ -324,11 +298,6 @@ def run_worker(
                 if committed:
                     _remember(warnings, committed)
         _save_progress(progress_path, progress)
-        if refresh is not None:
-            try:
-                refresh()
-            except Exception as exc:
-                _remember(warnings, f"page refresh failed: {type(exc).__name__}: {exc}"[:180])
         due = last_commit_at is None or now() - last_commit_at >= timedelta(
             minutes=config.commit_every_minutes
         )
@@ -341,19 +310,7 @@ def run_worker(
             last_commit_at = now()
             if committed:
                 _remember(warnings, committed)
-        _write_heartbeat(
-            repository,
-            manifest_path,
-            run_id=run_id,
-            host=worker_host,
-            started_at=started,
-            now=now(),
-            current=None,
-            nxt=_next(following),
-            warnings=warnings,
-            queue_path=queue_path,
-            branch=config.commit_branch,
-        )
+        beat(None, _next(following))
         if cap is not None and completed + failed >= cap:
             break
         if stop():
@@ -488,6 +445,16 @@ def _clear_tmp(root: Path) -> None:
     tmp = root / "data" / "tmp"
     if tmp.exists():
         shutil.rmtree(tmp)
+
+
+def _refresh(refresh: Callable[[], None] | None, warnings: list[str]) -> None:
+    """Rebuild the page after a heartbeat. A render error is a warning, not a failed pair."""
+    if refresh is None:
+        return
+    try:
+        refresh()
+    except Exception as exc:
+        _remember(warnings, f"page refresh failed: {type(exc).__name__}: {exc}"[:180])
 
 
 def _remember(warnings: list[str], text: str) -> None:
