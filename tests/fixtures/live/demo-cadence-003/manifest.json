@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.1",
+  "run_id": "demo-cadence-003",
+  "pillar": "live",
+  "command": "synthetic fixture: cadence pair",
+  "parameters": {"purpose": "M0 layout test only", "window_mhz": [6002.0, 6003.0]},
+  "inputs": [{"uri": "synthetic://theoxenia/m0/cadence-003"}],
+  "outputs": [],
+  "git_sha": "fixture",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T09:45:00Z",
+  "finished_at": "2026-10-12T09:45:00Z",
+  "outcome": "demo",
+  "notes": ["Synthetic failed-pair fixture; no scan data was downloaded."],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "demo-cadence-003",
+    "target": "Synthetic Target C",
+    "ra_deg": 302.9,
+    "dec_deg": 56.1,
+    "status": "failed",
+    "windows_done": 0,
+    "window_mhz": [6002.0, 6003.0],
+    "on_source_seconds": 0,
+    "started_at": "2026-10-12T09:45:00Z",
+    "hits": []
+  }
+}

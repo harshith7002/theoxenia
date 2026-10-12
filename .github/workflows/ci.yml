@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Python 3.15 quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.13.0
+          enable-cache: true
+
+      - name: Install CPython 3.15.0
+        run: uv python install 3.15.0
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --all-groups --python 3.15.0
+
+      - name: Check formatting and lint
+        run: |
+          uv run --locked ruff check .
+          uv run --locked ruff format --check .
+
+      - name: Check committed files
+        run: uv run --locked python scripts/check_repository_files.py
+
+      - name: Check generated schemas
+        run: uv run --locked xenia schemas export --check
+
+      - name: Test
+        run: uv run --locked pytest --cov=xenia --cov-report=term-missing
+
+      - name: Build demo state for schema contract
+        run: uv run --locked xenia live build-state --runs tests/fixtures/live --output runs/state.json --demo
+
+      - name: Validate state JSON against committed schema
+        run: uv run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json

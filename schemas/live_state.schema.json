@@ -1,0 +1,749 @@
+{
+  "$defs": {
+    "CadenceStatus": {
+      "description": "Queue status for a (cadence, window) search pair.",
+      "enum": [
+        "queued",
+        "running",
+        "done",
+        "failed"
+      ],
+      "title": "CadenceStatus",
+      "type": "string"
+    },
+    "CurrentSearch": {
+      "additionalProperties": false,
+      "description": "Worker ticker data for the cadence currently being processed.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "dec_deg": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Dec Deg",
+          "type": "number"
+        },
+        "ra_deg": {
+          "maximum": 360,
+          "minimum": 0,
+          "title": "Ra Deg",
+          "type": "number"
+        },
+        "receiver": {
+          "minLength": 1,
+          "title": "Receiver",
+          "type": "string"
+        },
+        "scan_count": {
+          "minimum": 1,
+          "title": "Scan Count",
+          "type": "integer"
+        },
+        "scan_index": {
+          "minimum": 1,
+          "title": "Scan Index",
+          "type": "integer"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "window_mhz": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Window Mhz",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cadence_id",
+        "target",
+        "ra_deg",
+        "dec_deg",
+        "receiver",
+        "window_mhz",
+        "scan_index",
+        "scan_count",
+        "started_at"
+      ],
+      "title": "CurrentSearch",
+      "type": "object"
+    },
+    "DetectionFloor": {
+      "additionalProperties": false,
+      "description": "Manifest-backed sensitivity grid, added by EXP-002.",
+      "properties": {
+        "drift_grid": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Drift Grid",
+          "type": "array"
+        },
+        "experiment": {
+          "const": "EXP-002",
+          "default": "EXP-002",
+          "title": "Experiment",
+          "type": "string"
+        },
+        "manifest_url": {
+          "title": "Manifest Url",
+          "type": "string"
+        },
+        "recovered_fraction": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Recovered Fraction",
+          "type": "array"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "snr_grid": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Snr Grid",
+          "type": "array"
+        },
+        "summary": {
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "trials_per_cell": {
+          "exclusiveMinimum": 0,
+          "title": "Trials Per Cell",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "run_id",
+        "snr_grid",
+        "drift_grid",
+        "trials_per_cell",
+        "recovered_fraction",
+        "summary",
+        "manifest_url"
+      ],
+      "title": "DetectionFloor",
+      "type": "object"
+    },
+    "GalleryItem": {
+      "additionalProperties": false,
+      "description": "Page card for one hit, with manifest and plot references.",
+      "properties": {
+        "badge_text": {
+          "minLength": 1,
+          "title": "Badge Text",
+          "type": "string"
+        },
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "checks_done": {
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Checks Done",
+          "type": "integer"
+        },
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "explanation": {
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "found_at": {
+          "format": "date-time",
+          "title": "Found At",
+          "type": "string"
+        },
+        "freq_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Freq Mhz",
+          "type": "number"
+        },
+        "hit_id": {
+          "minLength": 1,
+          "title": "Hit Id",
+          "type": "string"
+        },
+        "manifest_url": {
+          "title": "Manifest Url",
+          "type": "string"
+        },
+        "plot_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plot Url"
+        },
+        "snr": {
+          "minimum": 0,
+          "title": "Snr",
+          "type": "number"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "thumbnail_url": {
+          "title": "Thumbnail Url",
+          "type": "string"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        }
+      },
+      "required": [
+        "hit_id",
+        "cadence_id",
+        "target",
+        "freq_mhz",
+        "drift_hz_s",
+        "snr",
+        "verdict",
+        "badge_text",
+        "explanation",
+        "checks_done",
+        "thumbnail_url",
+        "manifest_url",
+        "found_at"
+      ],
+      "title": "GalleryItem",
+      "type": "object"
+    },
+    "LogEntry": {
+      "additionalProperties": false,
+      "description": "Compact status log entry, retained for diagnostics.",
+      "properties": {
+        "level": {
+          "enum": [
+            "info",
+            "warn",
+            "error"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "msg": {
+          "minLength": 1,
+          "title": "Msg",
+          "type": "string"
+        },
+        "ts": {
+          "format": "date-time",
+          "title": "Ts",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ts",
+        "level",
+        "msg"
+      ],
+      "title": "LogEntry",
+      "type": "object"
+    },
+    "NextSearch": {
+      "additionalProperties": false,
+      "description": "Next queued cadence shown while the worker is idle.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "eta": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Eta"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cadence_id",
+        "target"
+      ],
+      "title": "NextSearch",
+      "type": "object"
+    },
+    "Pointing": {
+      "additionalProperties": false,
+      "description": "One sky-map point with a direct provenance link.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "dec_deg": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Dec Deg",
+          "type": "number"
+        },
+        "hits": {
+          "minimum": 0,
+          "title": "Hits",
+          "type": "integer"
+        },
+        "manifest_url": {
+          "title": "Manifest Url",
+          "type": "string"
+        },
+        "ra_deg": {
+          "maximum": 360,
+          "minimum": 0,
+          "title": "Ra Deg",
+          "type": "number"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/CadenceStatus"
+        },
+        "survivors": {
+          "minimum": 0,
+          "title": "Survivors",
+          "type": "integer"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "windows_done": {
+          "minimum": 0,
+          "title": "Windows Done",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cadence_id",
+        "target",
+        "ra_deg",
+        "dec_deg",
+        "status",
+        "windows_done",
+        "hits",
+        "survivors",
+        "started_at",
+        "manifest_url"
+      ],
+      "title": "Pointing",
+      "type": "object"
+    },
+    "SiteMeta": {
+      "additionalProperties": false,
+      "description": "Static page metadata and publishing state.",
+      "properties": {
+        "data_credit": {
+          "title": "Data Credit",
+          "type": "string"
+        },
+        "demo": {
+          "title": "Demo",
+          "type": "boolean"
+        },
+        "is_mirror": {
+          "default": false,
+          "title": "Is Mirror",
+          "type": "boolean"
+        },
+        "mirror_updated_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mirror Updated At"
+        },
+        "mirror_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mirror Url"
+        },
+        "repo_url": {
+          "title": "Repo Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "demo",
+        "repo_url",
+        "data_credit"
+      ],
+      "title": "SiteMeta",
+      "type": "object"
+    },
+    "Totals": {
+      "additionalProperties": false,
+      "description": "Aggregate counts derived from the run manifests.",
+      "properties": {
+        "cadences_searched": {
+          "minimum": 0,
+          "title": "Cadences Searched",
+          "type": "integer"
+        },
+        "failed": {
+          "minimum": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "hits": {
+          "minimum": 0,
+          "title": "Hits",
+          "type": "integer"
+        },
+        "in_off": {
+          "minimum": 0,
+          "title": "In Off",
+          "type": "integer"
+        },
+        "known_source": {
+          "minimum": 0,
+          "title": "Known Source",
+          "type": "integer"
+        },
+        "mhz_hours_on_target": {
+          "minimum": 0,
+          "title": "Mhz Hours On Target",
+          "type": "number"
+        },
+        "rfi_census": {
+          "minimum": 0,
+          "title": "Rfi Census",
+          "type": "integer"
+        },
+        "single_pointing": {
+          "minimum": 0,
+          "title": "Single Pointing",
+          "type": "integer"
+        },
+        "survivors": {
+          "minimum": 0,
+          "title": "Survivors",
+          "type": "integer"
+        },
+        "targets_distinct": {
+          "minimum": 0,
+          "title": "Targets Distinct",
+          "type": "integer"
+        },
+        "unexplained": {
+          "minimum": 0,
+          "title": "Unexplained",
+          "type": "integer"
+        },
+        "windows_searched": {
+          "minimum": 0,
+          "title": "Windows Searched",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cadences_searched",
+        "windows_searched",
+        "mhz_hours_on_target",
+        "hits",
+        "known_source",
+        "in_off",
+        "single_pointing",
+        "rfi_census",
+        "survivors",
+        "unexplained",
+        "targets_distinct",
+        "failed"
+      ],
+      "title": "Totals",
+      "type": "object"
+    },
+    "Verdict": {
+      "description": "Mechanical, prosaic-first public verdict taxonomy.",
+      "enum": [
+        "KNOWN_SOURCE",
+        "IN_OFF",
+        "SINGLE_POINTING",
+        "RFI_CENSUS",
+        "ON_ONLY",
+        "UNEXPLAINED"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    },
+    "VoyagerHero": {
+      "additionalProperties": false,
+      "description": "Manifest-backed known-answer-test details.",
+      "properties": {
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "experiment": {
+          "const": "EXP-001",
+          "default": "EXP-001",
+          "title": "Experiment",
+          "type": "string"
+        },
+        "freq_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Freq Mhz",
+          "type": "number"
+        },
+        "image_url": {
+          "title": "Image Url",
+          "type": "string"
+        },
+        "kind": {
+          "const": "voyager1",
+          "default": "voyager1",
+          "title": "Kind",
+          "type": "string"
+        },
+        "manifest_url": {
+          "title": "Manifest Url",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "snr": {
+          "minimum": 0,
+          "title": "Snr",
+          "type": "number"
+        }
+      },
+      "required": [
+        "image_url",
+        "freq_mhz",
+        "drift_hz_s",
+        "snr",
+        "run_id",
+        "manifest_url"
+      ],
+      "title": "VoyagerHero",
+      "type": "object"
+    },
+    "WorkerState": {
+      "additionalProperties": false,
+      "description": "Worker information consumed by the status pill and ticker.",
+      "properties": {
+        "current": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CurrentSearch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "host": {
+          "title": "Host",
+          "type": "string"
+        },
+        "last_heartbeat": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Heartbeat"
+        },
+        "next": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NextSearch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "$ref": "#/$defs/WorkerStatus"
+        }
+      },
+      "required": [
+        "status",
+        "last_heartbeat",
+        "host"
+      ],
+      "title": "WorkerState",
+      "type": "object"
+    },
+    "WorkerStatus": {
+      "description": "Publicly displayed worker states.",
+      "enum": [
+        "running",
+        "paused",
+        "error"
+      ],
+      "title": "WorkerStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Complete state document used to render Mission Control.",
+  "properties": {
+    "detection_floor": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DetectionFloor"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "gallery": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/GalleryItem"
+      },
+      "title": "Gallery",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "git_sha": {
+      "minLength": 1,
+      "title": "Git Sha",
+      "type": "string"
+    },
+    "hero": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VoyagerHero"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "log": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/LogEntry"
+      },
+      "title": "Log",
+      "type": "array"
+    },
+    "meta": {
+      "$ref": "#/$defs/SiteMeta"
+    },
+    "package_version": {
+      "minLength": 1,
+      "title": "Package Version",
+      "type": "string"
+    },
+    "pointings": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Pointing"
+      },
+      "title": "Pointings",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "totals": {
+      "$ref": "#/$defs/Totals"
+    },
+    "worker": {
+      "$ref": "#/$defs/WorkerState"
+    }
+  },
+  "required": [
+    "generated_at",
+    "git_sha",
+    "package_version",
+    "meta",
+    "worker",
+    "totals"
+  ],
+  "title": "LiveState",
+  "type": "object"
+}
