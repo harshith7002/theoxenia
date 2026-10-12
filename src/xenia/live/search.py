@@ -51,8 +51,9 @@ def search_cadence(scans: tuple[ScanTruth, ...], *, work_dir: Path) -> CadenceSe
 
     FindDoppler uses max drift 4 Hz/s, SNR 10, and one coarse channel. The
     event step uses filter threshold 3 and keeps zero-drift hits so an OFF
-    detection can still be labelled. turboSETI's known final-logging TypeError
-    is retained as a warning when the `.dat` rows are parseable.
+    detection can still be labelled. turboSETI's known hit-count log TypeError
+    is retained as a warning when the `.dat` file exists. An empty table is a
+    completed search.
     """
     if len(scans) != 6:
         raise ValueError("an ABACAD cadence has six scans")
