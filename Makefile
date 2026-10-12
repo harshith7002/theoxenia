@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence fusion-baseline docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -48,6 +48,9 @@ floor-smoke:
 
 floor:
 	$(UV) run --locked xenia live floor --mode full --seed 20261012 --experiment-id EXP-002
+
+fusion-baseline:
+	$(UV) run --locked xenia fusion baseline --lat 31.0 --lon -118.5 --start 2004-11-14T00:00Z --end 2004-11-15T00:00Z --radius-km 800
 
 floor-evidence: floor
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

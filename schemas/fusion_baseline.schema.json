@@ -1,0 +1,214 @@
+{
+  "additionalProperties": false,
+  "description": "Measured CNEOS fireball count and GFZ Kp for one time window.\n\nThe fireball request is the time window only. ``radius_km`` is recorded and\nis not sent to the API. ``kp_max`` is the planetary index, not a local value.",
+  "properties": {
+    "cneos_bytes": {
+      "minimum": 0,
+      "title": "Cneos Bytes",
+      "type": "integer"
+    },
+    "cneos_http_status": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cneos Http Status"
+    },
+    "cneos_numbers_from": {
+      "enum": [
+        "live",
+        "recorded_response"
+      ],
+      "title": "Cneos Numbers From",
+      "type": "string"
+    },
+    "cneos_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Cneos Sha256",
+      "type": "string"
+    },
+    "cneos_url": {
+      "title": "Cneos Url",
+      "type": "string"
+    },
+    "cneos_via": {
+      "enum": [
+        "urllib",
+        "curl",
+        "recorded_response"
+      ],
+      "title": "Cneos Via",
+      "type": "string"
+    },
+    "end": {
+      "format": "date-time",
+      "title": "End",
+      "type": "string"
+    },
+    "fireball_count": {
+      "minimum": 0,
+      "title": "Fireball Count",
+      "type": "integer"
+    },
+    "fireball_count_json_type": {
+      "enum": [
+        "string",
+        "integer"
+      ],
+      "title": "Fireball Count Json Type",
+      "type": "string"
+    },
+    "fireball_count_raw": {
+      "minLength": 1,
+      "title": "Fireball Count Raw",
+      "type": "string"
+    },
+    "fireball_request_limited_to_radius": {
+      "const": false,
+      "default": false,
+      "title": "Fireball Request Limited To Radius",
+      "type": "boolean"
+    },
+    "gfz_bytes": {
+      "minimum": 0,
+      "title": "Gfz Bytes",
+      "type": "integer"
+    },
+    "gfz_http_status": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gfz Http Status"
+    },
+    "gfz_numbers_from": {
+      "enum": [
+        "live",
+        "recorded_response"
+      ],
+      "title": "Gfz Numbers From",
+      "type": "string"
+    },
+    "gfz_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Gfz Sha256",
+      "type": "string"
+    },
+    "gfz_url": {
+      "title": "Gfz Url",
+      "type": "string"
+    },
+    "gfz_via": {
+      "enum": [
+        "urllib",
+        "curl",
+        "recorded_response"
+      ],
+      "title": "Gfz Via",
+      "type": "string"
+    },
+    "kp_is_planetary": {
+      "const": true,
+      "default": true,
+      "title": "Kp Is Planetary",
+      "type": "boolean"
+    },
+    "kp_max": {
+      "title": "Kp Max",
+      "type": "number"
+    },
+    "kp_times": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Kp Times",
+      "type": "array"
+    },
+    "kp_values": {
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "title": "Kp Values",
+      "type": "array"
+    },
+    "lat_deg": {
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Lat Deg",
+      "type": "number"
+    },
+    "lon_deg": {
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Lon Deg",
+      "type": "number"
+    },
+    "notes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "radius_km": {
+      "exclusiveMinimum": 0,
+      "title": "Radius Km",
+      "type": "number"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "space_track_queried": {
+      "const": false,
+      "default": false,
+      "title": "Space Track Queried",
+      "type": "boolean"
+    },
+    "start": {
+      "format": "date-time",
+      "title": "Start",
+      "type": "string"
+    }
+  },
+  "required": [
+    "lat_deg",
+    "lon_deg",
+    "radius_km",
+    "start",
+    "end",
+    "fireball_count_raw",
+    "fireball_count",
+    "fireball_count_json_type",
+    "kp_max",
+    "kp_values",
+    "kp_times",
+    "cneos_url",
+    "cneos_sha256",
+    "cneos_bytes",
+    "cneos_via",
+    "cneos_numbers_from",
+    "gfz_url",
+    "gfz_sha256",
+    "gfz_bytes",
+    "gfz_via",
+    "gfz_numbers_from"
+  ],
+  "title": "FusionBaseline",
+  "type": "object"
+}

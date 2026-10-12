@@ -27,6 +27,7 @@ def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
     """Schema export is stable and check mode never overwrites drift."""
     schema_dir = tmp_path / "schemas"
     assert set(export_schemas(schema_dir)) == {
+        "fusion_baseline.schema.json",
         "live_state.schema.json",
         "run_manifest.schema.json",
         "recovery_grid.schema.json",

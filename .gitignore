@@ -38,5 +38,8 @@ data/
 !/runs/**/hero.png
 !/runs/**/recovery_grid.json
 !/runs/**/sweep.csv
+!/runs/**/baseline.json
+!/runs/**/cneos.json
+!/runs/**/gfz.json
 
 .DS_Store

@@ -1,0 +1,59 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T224610003865Z-exp-020-baseline",
+  "pillar": "III · Fusion",
+  "command": "xenia fusion baseline --lat 31.0 --lon -118.5 --start 2004-11-14T00:00Z --end 2004-11-15T00:00Z --radius-km 800",
+  "parameters": {
+    "lat_deg": 31.0,
+    "lon_deg": -118.5,
+    "radius_km": 800.0,
+    "start": "2004-11-14T00:00:00Z",
+    "end": "2004-11-15T00:00:00Z",
+    "fireball_count": 0,
+    "fireball_count_raw": "0",
+    "kp_max": 4.0,
+    "space_track_queried": false,
+    "fireball_request_limited_to_radius": false
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261012T224610003865Z-exp-020-baseline/cneos.json",
+      "sha256": "b7120ff4e64ca3e75aabf975e768a3187deb1df07eb342a3a4229c187325615b",
+      "size_bytes": 82
+    },
+    {
+      "uri": "runs/20261012T224610003865Z-exp-020-baseline/gfz.json",
+      "sha256": "22b8fb82c275247b70696a1150fe17f6561590bbe299a107592de4ea5b057276",
+      "size_bytes": 394
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T224610003865Z-exp-020-baseline/baseline.json",
+      "sha256": "46cca09f886b721d83067a822338e147e851fbfb925d6b4495fd6e3d66373280",
+      "size_bytes": 2055,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T224610003865Z-exp-020-baseline/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T22:46:10.003865Z",
+  "finished_at": "2026-10-12T22:46:11.694330Z",
+  "outcome": "baseline_measured",
+  "notes": [
+    "CNEOS request is the UTC window only. The 800 km radius was not sent. count is the API record count for that window, not a count inside the radius.",
+    "Kp is the GFZ planetary index. It is not a value at the coordinate.",
+    "Space-Track was not queried. No account was created. Satellite passes were not computed.",
+    "CNEOS numbers_from live via curl. HTTP 200. Date header Mon, 12 Oct 2026 22:46:11 GMT. 82 bytes. SHA-256 b7120ff4e64ca3e75aabf975e768a3187deb1df07eb342a3a4229c187325615b.",
+    "GFZ numbers_from live via urllib. HTTP 200. Date header Mon, 12 Oct 2026 22:46:10 GMT. 394 bytes. SHA-256 22b8fb82c275247b70696a1150fe17f6561590bbe299a107592de4ea5b057276."
+  ],
+  "experiment_id": "EXP-020",
+  "demo": false,
+  "mission_control": null
+}

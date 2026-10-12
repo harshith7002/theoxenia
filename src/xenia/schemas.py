@@ -7,9 +7,11 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
+from xenia.fusion.models import FusionBaseline
 from xenia.live.models import LiveState, RecoveryGridArtifact, RunManifest
 
 SCHEMA_MODELS: dict[str, type[BaseModel]] = {
+    "fusion_baseline.schema.json": FusionBaseline,
     "live_state.schema.json": LiveState,
     "run_manifest.schema.json": RunManifest,
     "recovery_grid.schema.json": RecoveryGridArtifact,

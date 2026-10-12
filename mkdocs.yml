@@ -16,6 +16,7 @@ nav:
   - Architecture: architecture.md
   - EXP-001 data sources: data-sources.md
   - EXP-002 method: mission-control-exp002.md
+  - EXP-020 Nimitz baseline: exp-020.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
   - Scaffold integration review: scaffold-integration.md
