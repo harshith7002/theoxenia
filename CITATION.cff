@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: >-
+  If you use this project, please cite the repository and the exact version you used.
+title: Theoxenia
+abstract: >-
+  An evidence-first, reproducible Python lab for public radio technosignature data.
+authors:
+  - family-names: Petychakis
+    given-names: Michael
+version: 0.1.0
+date-released: 2026-10-12
+license: Apache-2.0
+repository-code: https://github.com/mpetyx/theoxenia
+keywords:
+  - radio astronomy
+  - technosignatures
+  - reproducibility

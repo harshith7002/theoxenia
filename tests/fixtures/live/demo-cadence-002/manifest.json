@@ -1,0 +1,45 @@
+{
+  "schema_version": "0.1",
+  "run_id": "demo-cadence-002",
+  "pillar": "live",
+  "command": "synthetic fixture: cadence pair",
+  "parameters": {"purpose": "M0 layout test only", "window_mhz": [6001.0, 6002.0]},
+  "inputs": [{"uri": "synthetic://theoxenia/m0/cadence-002"}],
+  "outputs": [],
+  "git_sha": "fixture",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T09:43:00Z",
+  "finished_at": "2026-10-12T09:44:00Z",
+  "outcome": "demo",
+  "notes": ["Synthetic cadence fixture; the ON-only label is not a scientific finding."],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "demo-cadence-002",
+    "target": "Synthetic Target B",
+    "ra_deg": 178.2,
+    "dec_deg": -12.4,
+    "status": "done",
+    "windows_done": 1,
+    "window_mhz": [6001.0, 6002.0],
+    "on_source_seconds": 900.0,
+    "started_at": "2026-10-12T09:43:00Z",
+    "hits": [
+      {
+        "hit_id": "demo-hit-002",
+        "found_at": "2026-10-12T09:43:30Z",
+        "freq_mhz": 6001.223456,
+        "drift_hz_s": -0.1,
+        "snr": 12.4,
+        "verdict": "ON_ONLY",
+        "explanation": "Synthetic fixture only; one check is recorded and no source-data interpretation is possible.",
+        "checks_done": 1,
+        "known_source": null,
+        "thumbnail_url": "runs/demo-cadence-002/thumbs/hit-demo-002.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      }
+    ]
+  }
+}

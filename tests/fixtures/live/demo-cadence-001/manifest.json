@@ -1,0 +1,59 @@
+{
+  "schema_version": "0.1",
+  "run_id": "demo-cadence-001",
+  "pillar": "live",
+  "command": "synthetic fixture: cadence pair",
+  "parameters": {"purpose": "M0 layout test only", "window_mhz": [6000.0, 6001.0]},
+  "inputs": [{"uri": "synthetic://theoxenia/m0/cadence-001"}],
+  "outputs": [],
+  "git_sha": "fixture",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T09:41:00Z",
+  "finished_at": "2026-10-12T09:42:00Z",
+  "outcome": "demo",
+  "notes": ["Synthetic cadence fixture; its coordinates and values are placeholders."],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "demo-cadence-001",
+    "target": "Synthetic Target A",
+    "ra_deg": 12.5,
+    "dec_deg": 22.0,
+    "status": "done",
+    "windows_done": 1,
+    "window_mhz": [6000.0, 6001.0],
+    "on_source_seconds": 900.0,
+    "started_at": "2026-10-12T09:41:00Z",
+    "hits": [
+      {
+        "hit_id": "demo-hit-001",
+        "found_at": "2026-10-12T09:41:30Z",
+        "freq_mhz": 6000.123456,
+        "drift_hz_s": 0.0,
+        "snr": 24.0,
+        "verdict": "IN_OFF",
+        "explanation": "Synthetic fixture label: the example is present in an OFF scan.",
+        "checks_done": 2,
+        "known_source": null,
+        "thumbnail_url": "runs/demo-cadence-001/thumbs/hit-demo-001.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "demo-hit-003",
+        "found_at": "2026-10-12T09:41:45Z",
+        "freq_mhz": 6000.223456,
+        "drift_hz_s": -0.2,
+        "snr": 8.3,
+        "verdict": "KNOWN_SOURCE",
+        "explanation": "Synthetic fixture label only; no real source has been checked.",
+        "checks_done": 2,
+        "known_source": "demo transmitter label",
+        "thumbnail_url": "runs/demo-cadence-001/thumbs/hit-demo-003.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,765 @@
+{
+  "$defs": {
+    "ArtifactRef": {
+      "additionalProperties": false,
+      "description": "Small output artifact recorded in a run manifest.",
+      "properties": {
+        "media_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Media Type"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        },
+        "size_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Bytes"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "title": "ArtifactRef",
+      "type": "object"
+    },
+    "CadenceHit": {
+      "additionalProperties": false,
+      "description": "One hit entry recorded with its cadence manifest.",
+      "properties": {
+        "checks_done": {
+          "default": 0,
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Checks Done",
+          "type": "integer"
+        },
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "explanation": {
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "found_at": {
+          "format": "date-time",
+          "title": "Found At",
+          "type": "string"
+        },
+        "freq_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Freq Mhz",
+          "type": "number"
+        },
+        "hit_id": {
+          "minLength": 1,
+          "title": "Hit Id",
+          "type": "string"
+        },
+        "known_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Known Source"
+        },
+        "plot_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plot Url"
+        },
+        "review_signoffs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ReviewSignoff"
+          },
+          "title": "Review Signoffs",
+          "type": "array"
+        },
+        "snr": {
+          "minimum": 0,
+          "title": "Snr",
+          "type": "number"
+        },
+        "thumbnail_url": {
+          "title": "Thumbnail Url",
+          "type": "string"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        }
+      },
+      "required": [
+        "hit_id",
+        "found_at",
+        "freq_mhz",
+        "drift_hz_s",
+        "snr",
+        "verdict",
+        "explanation",
+        "thumbnail_url"
+      ],
+      "title": "CadenceHit",
+      "type": "object"
+    },
+    "CadencePayload": {
+      "additionalProperties": false,
+      "description": "Completed or queued (cadence, window) snapshot.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "dec_deg": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Dec Deg",
+          "type": "number"
+        },
+        "hits": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CadenceHit"
+          },
+          "title": "Hits",
+          "type": "array"
+        },
+        "kind": {
+          "const": "cadence",
+          "title": "Kind",
+          "type": "string"
+        },
+        "on_source_seconds": {
+          "default": 0,
+          "minimum": 0,
+          "title": "On Source Seconds",
+          "type": "number"
+        },
+        "ra_deg": {
+          "maximum": 360,
+          "minimum": 0,
+          "title": "Ra Deg",
+          "type": "number"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/CadenceStatus"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "window_mhz": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Window Mhz",
+          "type": "array"
+        },
+        "windows_done": {
+          "minimum": 0,
+          "title": "Windows Done",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "cadence_id",
+        "target",
+        "ra_deg",
+        "dec_deg",
+        "status",
+        "windows_done",
+        "window_mhz",
+        "started_at"
+      ],
+      "title": "CadencePayload",
+      "type": "object"
+    },
+    "CadenceStatus": {
+      "description": "Queue status for a (cadence, window) search pair.",
+      "enum": [
+        "queued",
+        "running",
+        "done",
+        "failed"
+      ],
+      "title": "CadenceStatus",
+      "type": "string"
+    },
+    "CurrentSearch": {
+      "additionalProperties": false,
+      "description": "Worker ticker data for the cadence currently being processed.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "dec_deg": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Dec Deg",
+          "type": "number"
+        },
+        "ra_deg": {
+          "maximum": 360,
+          "minimum": 0,
+          "title": "Ra Deg",
+          "type": "number"
+        },
+        "receiver": {
+          "minLength": 1,
+          "title": "Receiver",
+          "type": "string"
+        },
+        "scan_count": {
+          "minimum": 1,
+          "title": "Scan Count",
+          "type": "integer"
+        },
+        "scan_index": {
+          "minimum": 1,
+          "title": "Scan Index",
+          "type": "integer"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "window_mhz": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Window Mhz",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cadence_id",
+        "target",
+        "ra_deg",
+        "dec_deg",
+        "receiver",
+        "window_mhz",
+        "scan_index",
+        "scan_count",
+        "started_at"
+      ],
+      "title": "CurrentSearch",
+      "type": "object"
+    },
+    "FloorPayload": {
+      "additionalProperties": false,
+      "description": "Manifest-backed injection recovery floor; absent until EXP-002.",
+      "properties": {
+        "drift_grid": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Drift Grid",
+          "type": "array"
+        },
+        "experiment": {
+          "const": "EXP-002",
+          "title": "Experiment",
+          "type": "string"
+        },
+        "kind": {
+          "const": "detection_floor",
+          "title": "Kind",
+          "type": "string"
+        },
+        "recovered_fraction": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Recovered Fraction",
+          "type": "array"
+        },
+        "snr_grid": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Snr Grid",
+          "type": "array"
+        },
+        "trials_per_cell": {
+          "exclusiveMinimum": 0,
+          "title": "Trials Per Cell",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "experiment",
+        "snr_grid",
+        "drift_grid",
+        "trials_per_cell",
+        "recovered_fraction"
+      ],
+      "title": "FloorPayload",
+      "type": "object"
+    },
+    "HeroPayload": {
+      "additionalProperties": false,
+      "description": "Manifest-backed Voyager hero; absent until EXP-001 runs.",
+      "properties": {
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "experiment": {
+          "const": "EXP-001",
+          "title": "Experiment",
+          "type": "string"
+        },
+        "freq_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Freq Mhz",
+          "type": "number"
+        },
+        "image_url": {
+          "title": "Image Url",
+          "type": "string"
+        },
+        "kind": {
+          "const": "hero",
+          "title": "Kind",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "snr": {
+          "minimum": 0,
+          "title": "Snr",
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind",
+        "experiment",
+        "run_id",
+        "image_url",
+        "freq_mhz",
+        "drift_hz_s",
+        "snr"
+      ],
+      "title": "HeroPayload",
+      "type": "object"
+    },
+    "InputRef": {
+      "additionalProperties": false,
+      "description": "Source URI and optional checksum for one run input.",
+      "properties": {
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        },
+        "size_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Bytes"
+        },
+        "uri": {
+          "minLength": 1,
+          "title": "Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uri"
+      ],
+      "title": "InputRef",
+      "type": "object"
+    },
+    "ManifestPayload": {
+      "discriminator": {
+        "mapping": {
+          "cadence": "#/$defs/CadencePayload",
+          "detection_floor": "#/$defs/FloorPayload",
+          "hero": "#/$defs/HeroPayload",
+          "worker": "#/$defs/WorkerPayload"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/WorkerPayload"
+        },
+        {
+          "$ref": "#/$defs/CadencePayload"
+        },
+        {
+          "$ref": "#/$defs/HeroPayload"
+        },
+        {
+          "$ref": "#/$defs/FloorPayload"
+        }
+      ]
+    },
+    "NextSearch": {
+      "additionalProperties": false,
+      "description": "Next queued cadence shown while the worker is idle.",
+      "properties": {
+        "cadence_id": {
+          "minLength": 1,
+          "title": "Cadence Id",
+          "type": "string"
+        },
+        "eta": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Eta"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cadence_id",
+        "target"
+      ],
+      "title": "NextSearch",
+      "type": "object"
+    },
+    "ReviewSignoff": {
+      "additionalProperties": false,
+      "description": "Explicit human review attached to a future unexplained verdict.",
+      "properties": {
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "reviewer": {
+          "enum": [
+            "claude",
+            "michael"
+          ],
+          "title": "Reviewer",
+          "type": "string"
+        },
+        "signed_at": {
+          "format": "date-time",
+          "title": "Signed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer",
+        "signed_at",
+        "note"
+      ],
+      "title": "ReviewSignoff",
+      "type": "object"
+    },
+    "Verdict": {
+      "description": "Mechanical, prosaic-first public verdict taxonomy.",
+      "enum": [
+        "KNOWN_SOURCE",
+        "IN_OFF",
+        "SINGLE_POINTING",
+        "RFI_CENSUS",
+        "ON_ONLY",
+        "UNEXPLAINED"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    },
+    "WorkerPayload": {
+      "additionalProperties": false,
+      "description": "Heartbeat snapshot stored in a run manifest.",
+      "properties": {
+        "current": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CurrentSearch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "host": {
+          "minLength": 1,
+          "title": "Host",
+          "type": "string"
+        },
+        "kind": {
+          "const": "worker",
+          "title": "Kind",
+          "type": "string"
+        },
+        "last_heartbeat": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Heartbeat"
+        },
+        "next": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NextSearch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "$ref": "#/$defs/WorkerStatus"
+        }
+      },
+      "required": [
+        "kind",
+        "status",
+        "last_heartbeat",
+        "host"
+      ],
+      "title": "WorkerPayload",
+      "type": "object"
+    },
+    "WorkerStatus": {
+      "description": "Publicly displayed worker states.",
+      "enum": [
+        "running",
+        "paused",
+        "error"
+      ],
+      "title": "WorkerStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Provenance record for any result-producing project command.",
+  "properties": {
+    "command": {
+      "minLength": 1,
+      "title": "Command",
+      "type": "string"
+    },
+    "demo": {
+      "default": false,
+      "title": "Demo",
+      "type": "boolean"
+    },
+    "experiment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Experiment Id"
+    },
+    "finished_at": {
+      "format": "date-time",
+      "title": "Finished At",
+      "type": "string"
+    },
+    "git_sha": {
+      "minLength": 1,
+      "title": "Git Sha",
+      "type": "string"
+    },
+    "inputs": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/InputRef"
+      },
+      "title": "Inputs",
+      "type": "array"
+    },
+    "mission_control": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ManifestPayload"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "notes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "outcome": {
+      "minLength": 1,
+      "title": "Outcome",
+      "type": "string"
+    },
+    "outputs": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      },
+      "title": "Outputs",
+      "type": "array"
+    },
+    "package_version": {
+      "minLength": 1,
+      "title": "Package Version",
+      "type": "string"
+    },
+    "parameters": {
+      "additionalProperties": true,
+      "title": "Parameters",
+      "type": "object"
+    },
+    "pillar": {
+      "minLength": 1,
+      "title": "Pillar",
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "pillar",
+    "command",
+    "git_sha",
+    "package_version",
+    "started_at",
+    "finished_at",
+    "outcome"
+  ],
+  "title": "RunManifest",
+  "type": "object"
+}

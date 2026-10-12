@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Synthetic layout-only waterfall thumbnail">
+  <rect width="320" height="180" fill="#070b14" />
+  <g stroke="#1a2435" stroke-width="1">
+    <path d="M0 30H320M0 60H320M0 90H320M0 120H320M0 150H320" />
+    <path d="M40 0V180M80 0V180M120 0V180M160 0V180M200 0V180M240 0V180M280 0V180" />
+  </g>
+  <path d="M16 132L304 135" fill="none" stroke="#4a5a74" stroke-width="1.2" />
+  <path d="M186 18L188 164" fill="none" stroke="#8c9ab3" stroke-width="2" />
+  <path d="M12 20H124" stroke="#1a2435" stroke-width="1" />
+  <text x="12" y="17" fill="#8c9ab3" font-family="system-ui,sans-serif" font-size="10">synthetic demo</text>
+</svg>

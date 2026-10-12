@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.1",
+  "run_id": "demo-worker-001",
+  "pillar": "live",
+  "command": "synthetic fixture: worker snapshot",
+  "parameters": {"purpose": "M0 layout test only"},
+  "inputs": [{"uri": "synthetic://theoxenia/m0/worker-snapshot"}],
+  "outputs": [],
+  "git_sha": "fixture",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T09:40:00Z",
+  "finished_at": "2026-10-12T09:40:00Z",
+  "outcome": "demo",
+  "notes": ["Synthetic paused-worker snapshot; it is not connected to a live process."],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": {
+    "kind": "worker",
+    "status": "paused",
+    "last_heartbeat": "2026-10-12T09:40:00Z",
+    "host": "demo-fixture",
+    "current": null,
+    "next": {
+      "cadence_id": "demo-cadence-004",
+      "target": "Synthetic Target D",
+      "eta": null
+    }
+  }
+}

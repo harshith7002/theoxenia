@@ -1,0 +1,134 @@
+"""CLI integration tests for schemas, state generation, and static rendering."""
+
+from __future__ import annotations
+
+import json
+import shutil
+from pathlib import Path
+
+from xenia.cli import main
+from xenia.live.models import RunManifest
+from xenia.schemas import export_schemas
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+DEMO_RUNS = REPOSITORY_ROOT / "tests" / "fixtures" / "live"
+
+
+def _copy_minimal_project(repo: Path) -> None:
+    """Prepare only the files required for an isolated CLI integration run."""
+    shutil.copytree(DEMO_RUNS, repo / "tests" / "fixtures" / "live")
+    shutil.copytree(REPOSITORY_ROOT / "site" / "templates", repo / "site" / "templates")
+    shutil.copyfile(REPOSITORY_ROOT / "site" / "styles.css", repo / "site" / "styles.css")
+
+
+def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
+    """Schema export is stable and check mode never overwrites drift."""
+    schema_dir = tmp_path / "schemas"
+    assert set(export_schemas(schema_dir)) == {
+        "live_state.schema.json",
+        "run_manifest.schema.json",
+    }
+    assert export_schemas(schema_dir, check=True) == ()
+    stale_file = schema_dir / "live_state.schema.json"
+    stale_file.write_text('{"stale": true}\n', encoding="utf-8")
+    assert export_schemas(schema_dir, check=True) == ("live_state.schema.json",)
+    assert stale_file.read_text(encoding="utf-8") == '{"stale": true}\n'
+
+
+def test_cli_build_and_render_emit_provenance_manifests(tmp_path: Path, monkeypatch) -> None:
+    """Both result-producing CLI commands create complete run manifests."""
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _copy_minimal_project(repo)
+    monkeypatch.chdir(repo)
+
+    assert (
+        main(
+            [
+                "live",
+                "build-state",
+                "--runs",
+                "tests/fixtures/live",
+                "--output",
+                "runs/state.json",
+                "--demo",
+                "--experiment-id",
+                "EXP-030",
+            ]
+        )
+        == 0
+    )
+    state_path = repo / "runs" / "state.json"
+    assert state_path.is_file()
+    build_manifests = sorted((repo / "runs").glob("*/manifest.json"))
+    assert len(build_manifests) == 1
+    build_manifest = RunManifest.model_validate_json(build_manifests[0].read_text(encoding="utf-8"))
+    assert build_manifest.outcome == "demo_state_built"
+    assert build_manifest.demo is True
+    assert build_manifest.experiment_id == "EXP-030"
+    assert len(build_manifest.inputs) == 4
+    assert all(item.sha256 is not None for item in build_manifest.inputs)
+    assert any(item.path == "runs/state.json" for item in build_manifest.outputs)
+    assert build_manifest.command.startswith("xenia live build-state")
+
+    assert (
+        main(
+            [
+                "live",
+                "render",
+                "--state",
+                "runs/state.json",
+                "--runs",
+                "tests/fixtures/live",
+                "--output",
+                "site",
+                "--experiment-id",
+                "EXP-030",
+            ]
+        )
+        == 0
+    )
+    assert (repo / "site" / "index.html").is_file()
+    all_manifests = [
+        RunManifest.model_validate_json(path.read_text(encoding="utf-8"))
+        for path in sorted((repo / "runs").glob("*/manifest.json"))
+    ]
+    render_manifest = next(item for item in all_manifests if item.outcome == "demo_site_rendered")
+    assert any(item.uri == "runs/state.json" for item in render_manifest.inputs)
+    assert any(item.path == "site/index.html" for item in render_manifest.outputs)
+    assert render_manifest.demo is True
+    assert render_manifest.experiment_id == "EXP-030"
+
+
+def test_schema_cli_check_returns_nonzero_on_drift(tmp_path: Path, monkeypatch) -> None:
+    """The installed command can detect stale committed schemas."""
+    schema_dir = tmp_path / "schemas"
+    export_schemas(schema_dir)
+    (schema_dir / "run_manifest.schema.json").write_text("{}\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    assert main(["schemas", "export", "--check", "--directory", str(schema_dir)]) == 1
+
+
+def test_cli_rejects_paths_outside_repository(tmp_path: Path, monkeypatch, capsys) -> None:
+    """Read/write paths cannot escape the project checkout."""
+    monkeypatch.chdir(tmp_path)
+    assert main(["live", "build-state", "--runs", "../outside"]) == 2
+    assert "path must stay inside repository" in capsys.readouterr().err
+
+
+def test_cli_validates_state_against_schema(
+    tmp_path: Path, monkeypatch, capsys, demo_state
+) -> None:
+    """The schema subcommand reports both success and JSON-path failures."""
+    monkeypatch.chdir(tmp_path)
+    export_schemas(tmp_path / "schemas")
+    state_path = tmp_path / "runs" / "state.json"
+    state_path.parent.mkdir()
+    state_path.write_text(demo_state.model_dump_json(indent=2), encoding="utf-8")
+
+    assert main(["schemas", "validate-state"]) == 0
+    state = demo_state.model_dump(mode="json")
+    state["meta"]["demo"] = "yes"
+    state_path.write_text(json.dumps(state), encoding="utf-8")
+    assert main(["schemas", "validate-state"]) == 1
+    assert "meta.demo" in capsys.readouterr().err

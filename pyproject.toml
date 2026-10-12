@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "theoxenia"
+version = "0.1.0"
+description = "An evidence-first, reproducible Python lab for public radio technosignature data."
+readme = "README.md"
+requires-python = ">=3.15"
+license = "Apache-2.0"
+authors = [{ name = "Michael Petychakis" }]
+keywords = ["radio astronomy", "technosignatures", "SETI", "reproducibility"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.15",
+  "Topic :: Scientific/Engineering :: Astronomy",
+  "Typing :: Typed",
+]
+dependencies = [
+  "jinja2>=3.1.6,<4",
+  "jsonschema>=4.25,<5",
+  "pydantic>=2.12,<3",
+]
+
+[project.scripts]
+xenia = "xenia.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/mpetyx/theoxenia"
+Repository = "https://github.com/mpetyx/theoxenia"
+Issues = "https://github.com/mpetyx/theoxenia/issues"
+
+[dependency-groups]
+dev = [
+  "coverage[toml]>=7.6,<8",
+  "pre-commit>=4.3,<5",
+  "pytest>=8.4,<9",
+  "pytest-cov>=6,<8",
+  "ruff>=0.14,<1",
+]
+
+[tool.uv]
+required-version = ">=0.13.0"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xenia"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["xenia"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py315"
+exclude = ["site/build"]
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
