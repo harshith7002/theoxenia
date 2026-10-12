@@ -388,6 +388,12 @@ h3 {
   height: auto;
 }
 
+.command-block {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .map-legend {
   display: flex;
   flex-wrap: wrap;

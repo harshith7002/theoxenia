@@ -84,6 +84,24 @@ def test_m0_page_is_static_accessible_and_provenance_linked(demo_state, tmp_path
     assert feed["version"] == "https://jsonfeed.org/version/1.1"
     assert feed["items"]
     assert all(item["id"] for item in feed["items"])
+    assert 'href="cadences/demo-cadence-001/index.html"' in page
+    assert 'href="hits/demo-hit-001.html"' in page
+    assert 'href="sitemap.xml"' in page
+    cadence_page = (output / "cadences" / "demo-cadence-001" / "index.html").read_text(
+        encoding="utf-8"
+    )
+    hit_page = (output / "hits" / "demo-hit-001.html").read_text(encoding="utf-8")
+    sitemap = (output / "sitemap.xml").read_text(encoding="utf-8")
+    assert "Synthetic Target A" in cadence_page
+    assert "12.5 deg right ascension" in cadence_page
+    assert "not_in_off" in cadence_page
+    assert "Checks recorded:" in cadence_page
+    assert "synthetic fixture: cadence pair" in cadence_page
+    assert "<script" not in cadence_page.lower()
+    assert "demo-hit-001" in hit_page
+    assert "Open the run manifest" in hit_page
+    assert "cadences/demo-cadence-001/index.html" in sitemap
+    assert "hits/demo-hit-001.html" in sitemap
     assert all(path.is_file() for path in rendered)
 
 

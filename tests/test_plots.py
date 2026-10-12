@@ -16,7 +16,7 @@ def test_sky_map_has_accessible_projection_band_and_manifest_links(demo_state) -
     assert "Galactic plane" in svg
     assert "synthetic demo coordinates" in svg
     assert "galactic-band" in svg
-    assert 'href="runs/demo-cadence-001/manifest.json"' in svg
+    assert 'href="cadences/demo-cadence-001/index.html"' in svg
     assert "NaN" not in svg
     assert "Infinity" not in svg
 
