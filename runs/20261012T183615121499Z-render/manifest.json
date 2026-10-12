@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T183615121499Z-render",
+  "pillar": "live",
+  "command": "xenia live render --state runs/state.json --runs tests/fixtures/live --output site --experiment-id EXP-030",
+  "parameters": {
+    "state": "runs/state.json",
+    "runs": "tests/fixtures/live",
+    "output": "site",
+    "file_count": 13
+  },
+  "inputs": [
+    {
+      "uri": "runs/state.json",
+      "sha256": "7c34464965173143c2d169d327161b70d88518ee2d4a20ff4d1fd9b6a8bdb065",
+      "size_bytes": 4462
+    },
+    {
+      "uri": "tests/fixtures/live/demo-cadence-001/manifest.json",
+      "sha256": "37dbda8fe7d0846050caa112495762832211984131c68e4a3eefefc9cadadfd5",
+      "size_bytes": 1911
+    },
+    {
+      "uri": "tests/fixtures/live/demo-cadence-002/manifest.json",
+      "sha256": "57061a5e99bf5116bbf25b9e7dee082308c0914ce60180973438ebc9f992897d",
+      "size_bytes": 1440
+    },
+    {
+      "uri": "tests/fixtures/live/demo-cadence-003/manifest.json",
+      "sha256": "494e61c5e4c69ee168be11ebb3eac7d56a589fc0eb373a0e2e72af5cc1dc0a72",
+      "size_bytes": 907
+    },
+    {
+      "uri": "tests/fixtures/live/demo-worker-001/manifest.json",
+      "sha256": "565516d41649cc5271d558a77fbd82ba5fb2b42487359a090027337c80c5181f",
+      "size_bytes": 844
+    }
+  ],
+  "outputs": [
+    {
+      "path": "site/state.json",
+      "sha256": "7c34464965173143c2d169d327161b70d88518ee2d4a20ff4d1fd9b6a8bdb065",
+      "size_bytes": 4462,
+      "media_type": null
+    },
+    {
+      "path": "site/styles.css",
+      "sha256": "ffac656bd55135c629549db0c4bc92f071c3468d3fc38680bba5493248e36cf8",
+      "size_bytes": 9050,
+      "media_type": null
+    },
+    {
+      "path": "site/sky.svg",
+      "sha256": "0cba7f2b19dc9aaa1c885d3de5f09bd4780254503025e3973b6f4fc8d2fda5ee",
+      "size_bytes": 28514,
+      "media_type": null
+    },
+    {
+      "path": "site/floor.svg",
+      "sha256": "a0475ec794fb719686544409125ca4502efc29f03b3eb4e56efb2a14ccbe3aa0",
+      "size_bytes": 577,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-001/manifest.json",
+      "sha256": "37dbda8fe7d0846050caa112495762832211984131c68e4a3eefefc9cadadfd5",
+      "size_bytes": 1911,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-002/manifest.json",
+      "sha256": "57061a5e99bf5116bbf25b9e7dee082308c0914ce60180973438ebc9f992897d",
+      "size_bytes": 1440,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-003/manifest.json",
+      "sha256": "494e61c5e4c69ee168be11ebb3eac7d56a589fc0eb373a0e2e72af5cc1dc0a72",
+      "size_bytes": 907,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-worker-001/manifest.json",
+      "sha256": "565516d41649cc5271d558a77fbd82ba5fb2b42487359a090027337c80c5181f",
+      "size_bytes": 844,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-001/thumbs/hit-demo-001.svg",
+      "sha256": "0f284dd6ac7f02cf46201f1b124ffc196507f25813df7b12653c122517842786",
+      "size_bytes": 759,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-001/thumbs/hit-demo-003.svg",
+      "sha256": "87432e1697bdd77f102a0cb4c92a334ef7986737da45d1dee1f3c933d17ebf78",
+      "size_bytes": 710,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/demo-cadence-002/thumbs/hit-demo-002.svg",
+      "sha256": "6ccd0cc517a117a9a3a17e03ddfd12ba068c93af16e2dab5b53b77eb28448585",
+      "size_bytes": 741,
+      "media_type": null
+    },
+    {
+      "path": "site/index.html",
+      "sha256": "696720baabe8639df45b3c6ee4c470e42003142407083877bf33c1d594faba07",
+      "size_bytes": 9067,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/index.html",
+      "sha256": "407744022f1c4e8c932607b8d13eb066c0b848d48ecf85248c642b6161f6f526",
+      "size_bytes": 1542,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T183615121499Z-render/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T18:36:15.121499Z",
+  "finished_at": "2026-10-12T18:36:15.174130Z",
+  "outcome": "demo_site_rendered",
+  "notes": [
+    "Static page rendered from validated state; no JavaScript is required."
+  ],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": null
+}
