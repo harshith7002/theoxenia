@@ -1,0 +1,63 @@
+{
+  "rows": [
+    {
+      "injection_id": "on_only",
+      "expected_verdict": "ON_ONLY",
+      "assigned_verdict": "ON_ONLY",
+      "matched": true,
+      "detected_frequency_mhz": 5999.998894,
+      "detected_drift_hz_s": 0.765319,
+      "detected_snr": 22.151714,
+      "on_count": 3,
+      "off_count": 0,
+      "passed_filter": true,
+      "frequency_error_hz": 0.0,
+      "drift_error_hz_s": 0.03468100000000007
+    },
+    {
+      "injection_id": "in_off",
+      "expected_verdict": "IN_OFF",
+      "assigned_verdict": "IN_OFF",
+      "matched": true,
+      "detected_frequency_mhz": 5999.994968,
+      "detected_drift_hz_s": 0.010204,
+      "detected_snr": 43.487137,
+      "on_count": 3,
+      "off_count": 3,
+      "passed_filter": false,
+      "frequency_error_hz": 2.8580970764160156,
+      "drift_error_hz_s": 0.010204
+    },
+    {
+      "injection_id": "single_pointing",
+      "expected_verdict": "SINGLE_POINTING",
+      "assigned_verdict": "SINGLE_POINTING",
+      "matched": true,
+      "detected_frequency_mhz": 5999.991059,
+      "detected_drift_hz_s": 0.306128,
+      "detected_snr": 38.991108,
+      "on_count": 1,
+      "off_count": 0,
+      "passed_filter": false,
+      "frequency_error_hz": 0.30328369140625,
+      "drift_error_hz_s": 0.006128000000000022
+    },
+    {
+      "injection_id": "known_source",
+      "expected_verdict": "KNOWN_SOURCE",
+      "assigned_verdict": "KNOWN_SOURCE",
+      "matched": true,
+      "detected_frequency_mhz": 5999.987505,
+      "detected_drift_hz_s": 0.591847,
+      "detected_snr": 27.371674,
+      "on_count": 3,
+      "off_count": 0,
+      "passed_filter": true,
+      "frequency_error_hz": 0.0,
+      "drift_error_hz_s": 0.002051000000000025
+    }
+  ],
+  "unassigned_detection_count": 0,
+  "unassigned_event_count": 0,
+  "all_matched": true
+}

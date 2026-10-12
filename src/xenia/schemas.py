@@ -7,12 +7,15 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
+from xenia.live.cadence_models import CadenceRecovery, CadenceTruth
 from xenia.live.models import LiveState, RecoveryGridArtifact, RunManifest
 
 SCHEMA_MODELS: dict[str, type[BaseModel]] = {
     "live_state.schema.json": LiveState,
     "run_manifest.schema.json": RunManifest,
     "recovery_grid.schema.json": RecoveryGridArtifact,
+    "cadence_truth.schema.json": CadenceTruth,
+    "cadence_recovery.schema.json": CadenceRecovery,
 }
 
 

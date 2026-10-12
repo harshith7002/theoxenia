@@ -1,0 +1,269 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T194255276362Z-render",
+  "pillar": "live",
+  "command": "xenia live render --state runs/state.json --runs runs --output site --manifest-root runs --experiment-id EXP-030",
+  "parameters": {
+    "state": "runs/state.json",
+    "runs": "runs",
+    "output": "site",
+    "file_count": 26
+  },
+  "inputs": [
+    {
+      "uri": "runs/state.json",
+      "sha256": "5294ffdc1a38f6f32e1c6fc2006eee83fd6b0666fa9369d3fa6724bb5ea542de",
+      "size_bytes": 13964
+    },
+    {
+      "uri": "runs/20261012T101443688910Z-build-state/manifest.json",
+      "sha256": "ceb42d13ed2575bf6d3a63b348595e4f69730424dfa6aa2348b35098c2fdd6c9",
+      "size_bytes": 1804
+    },
+    {
+      "uri": "runs/20261012T101444518036Z-render/manifest.json",
+      "sha256": "816460a2f1593c6c073978998a0384b7749debce12f7bc75620867cffa766fc8",
+      "size_bytes": 4351
+    },
+    {
+      "uri": "runs/20261012T123034402477Z-exp-001-voyager/manifest.json",
+      "sha256": "5127668f35b97c7b618daa86c4a1b4e88e40a66f92589df1ee31b5f0af35096c",
+      "size_bytes": 3050
+    },
+    {
+      "uri": "runs/20261012T123734993626Z-exp-001-voyager/manifest.json",
+      "sha256": "bd4b0d25d16c7eab0c7b9a168dff83dd37189f26794c91f257517d4f66ef85a8",
+      "size_bytes": 5190
+    },
+    {
+      "uri": "runs/20261012T130200938902Z-exp-001-voyager/manifest.json",
+      "sha256": "f5fb19557cde5c18d85da4f999d7aff439a1b4f32136054326bc1be0f40dd9bd",
+      "size_bytes": 19098
+    },
+    {
+      "uri": "runs/20261012T130616461127Z-exp-001-voyager/manifest.json",
+      "sha256": "518fb9700f7b28f09fb3371580981ec54f9ed656675ce4bcd92b5a10c3804154",
+      "size_bytes": 19129
+    },
+    {
+      "uri": "runs/20261012T130904642405Z-exp-001-voyager/manifest.json",
+      "sha256": "d13bcd190f935c096cf642bf95addb7b5b99f9a9962396fd75dec5d82ca0c4c8",
+      "size_bytes": 20721
+    },
+    {
+      "uri": "runs/20261012T140202855194Z-exp-002-floor/manifest.json",
+      "sha256": "8a1e02eeb2c44ba9ed761a5a1ad6c9bf35e0d28550b12585af894aa2be771d42",
+      "size_bytes": 5807
+    },
+    {
+      "uri": "runs/20261012T140801797574Z-build-state/manifest.json",
+      "sha256": "0945c42e8cbbbaf4eaeb1e2334d3ce4ef8436bddb688f9c2df7940b286cabc7d",
+      "size_bytes": 2572
+    },
+    {
+      "uri": "runs/20261012T140802786058Z-render/manifest.json",
+      "sha256": "7d8c206ce077b7f3ee6dd7428cc4a2dc4addf479e73112e0f590ea120d444615",
+      "size_bytes": 6130
+    },
+    {
+      "uri": "runs/20261012T143344836502Z-exp-002-floor/manifest.json",
+      "sha256": "62a2a3ed2c8052d4c8d8b887e97ed3d50454849b65d5ba7d5cd23e04248dd643",
+      "size_bytes": 6107
+    },
+    {
+      "uri": "runs/20261012T143444178630Z-build-state/manifest.json",
+      "sha256": "9b97f1f370e3a4cc91bc3cd52a242903101f2507960cd14fe887a797055ed1e9",
+      "size_bytes": 3145
+    },
+    {
+      "uri": "runs/20261012T143445148104Z-render/manifest.json",
+      "sha256": "4ef1bc12dc05cd048d40cefed312c55c2a6b118123b0846baf27970a3f25d4ff",
+      "size_bytes": 7372
+    },
+    {
+      "uri": "runs/20261012T194125275790Z-exp-004-cadence/manifest.json",
+      "sha256": "95f134c63be79bf0a8c869aef0b4cb8657e56bd5bd9cbb38b1db645c9f16b7b8",
+      "size_bytes": 7637
+    },
+    {
+      "uri": "runs/20261012T194254868851Z-build-state/manifest.json",
+      "sha256": "506988272c404fcb56c7671abc696d7354f0db0c4ddbbf745d15bc99841edc2b",
+      "size_bytes": 3721
+    }
+  ],
+  "outputs": [
+    {
+      "path": "site/state.json",
+      "sha256": "5294ffdc1a38f6f32e1c6fc2006eee83fd6b0666fa9369d3fa6724bb5ea542de",
+      "size_bytes": 13964,
+      "media_type": null
+    },
+    {
+      "path": "site/styles.css",
+      "sha256": "ffac656bd55135c629549db0c4bc92f071c3468d3fc38680bba5493248e36cf8",
+      "size_bytes": 9050,
+      "media_type": null
+    },
+    {
+      "path": "site/sky.svg",
+      "sha256": "bfdf10f9dd84e06ac632b5c6d4a94d3941e8e5081314f698b641c56b6028acbd",
+      "size_bytes": 28063,
+      "media_type": null
+    },
+    {
+      "path": "site/floor.svg",
+      "sha256": "5d6bf00b1d0e415c9884b0f64a8e85e336630ea72fb54dac58564f0109af9ff1",
+      "size_bytes": 14157,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T101443688910Z-build-state/manifest.json",
+      "sha256": "ceb42d13ed2575bf6d3a63b348595e4f69730424dfa6aa2348b35098c2fdd6c9",
+      "size_bytes": 1804,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T101444518036Z-render/manifest.json",
+      "sha256": "816460a2f1593c6c073978998a0384b7749debce12f7bc75620867cffa766fc8",
+      "size_bytes": 4351,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T123034402477Z-exp-001-voyager/manifest.json",
+      "sha256": "5127668f35b97c7b618daa86c4a1b4e88e40a66f92589df1ee31b5f0af35096c",
+      "size_bytes": 3050,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T123734993626Z-exp-001-voyager/manifest.json",
+      "sha256": "bd4b0d25d16c7eab0c7b9a168dff83dd37189f26794c91f257517d4f66ef85a8",
+      "size_bytes": 5190,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T130200938902Z-exp-001-voyager/manifest.json",
+      "sha256": "f5fb19557cde5c18d85da4f999d7aff439a1b4f32136054326bc1be0f40dd9bd",
+      "size_bytes": 19098,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T130616461127Z-exp-001-voyager/manifest.json",
+      "sha256": "518fb9700f7b28f09fb3371580981ec54f9ed656675ce4bcd92b5a10c3804154",
+      "size_bytes": 19129,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T130904642405Z-exp-001-voyager/manifest.json",
+      "sha256": "d13bcd190f935c096cf642bf95addb7b5b99f9a9962396fd75dec5d82ca0c4c8",
+      "size_bytes": 20721,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T140202855194Z-exp-002-floor/manifest.json",
+      "sha256": "8a1e02eeb2c44ba9ed761a5a1ad6c9bf35e0d28550b12585af894aa2be771d42",
+      "size_bytes": 5807,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T140801797574Z-build-state/manifest.json",
+      "sha256": "0945c42e8cbbbaf4eaeb1e2334d3ce4ef8436bddb688f9c2df7940b286cabc7d",
+      "size_bytes": 2572,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T140802786058Z-render/manifest.json",
+      "sha256": "7d8c206ce077b7f3ee6dd7428cc4a2dc4addf479e73112e0f590ea120d444615",
+      "size_bytes": 6130,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T143344836502Z-exp-002-floor/manifest.json",
+      "sha256": "62a2a3ed2c8052d4c8d8b887e97ed3d50454849b65d5ba7d5cd23e04248dd643",
+      "size_bytes": 6107,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T143444178630Z-build-state/manifest.json",
+      "sha256": "9b97f1f370e3a4cc91bc3cd52a242903101f2507960cd14fe887a797055ed1e9",
+      "size_bytes": 3145,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T143445148104Z-render/manifest.json",
+      "sha256": "4ef1bc12dc05cd048d40cefed312c55c2a6b118123b0846baf27970a3f25d4ff",
+      "size_bytes": 7372,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194125275790Z-exp-004-cadence/manifest.json",
+      "sha256": "95f134c63be79bf0a8c869aef0b4cb8657e56bd5bd9cbb38b1db645c9f16b7b8",
+      "size_bytes": 7637,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194254868851Z-build-state/manifest.json",
+      "sha256": "506988272c404fcb56c7671abc696d7354f0db0c4ddbbf745d15bc99841edc2b",
+      "size_bytes": 3721,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T130904642405Z-exp-001-voyager/hero.png",
+      "sha256": "a726cbd7c509f504c2699a8f5c19c7ca0e1ec740c131ad46af9fe78b6f0139e9",
+      "size_bytes": 137860,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194125275790Z-exp-004-cadence/thumbs/exp004-in_off.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194125275790Z-exp-004-cadence/thumbs/exp004-known_source.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194125275790Z-exp-004-cadence/thumbs/exp004-on_only.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/20261012T194125275790Z-exp-004-cadence/thumbs/exp004-single_pointing.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "site/index.html",
+      "sha256": "5293490826041bca1597201822d5636a3802ed6768d52be1778cac8b0096a887",
+      "size_bytes": 10980,
+      "media_type": null
+    },
+    {
+      "path": "site/runs/index.html",
+      "sha256": "59d012d9fba0f894b638f1b758edad56d483d4299c7bcafc319d9435ca6f704a",
+      "size_bytes": 1355,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T194255276362Z-render/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T19:42:55.276362Z",
+  "finished_at": "2026-10-12T19:42:55.311122Z",
+  "outcome": "site_rendered",
+  "notes": [
+    "Static page rendered from validated state; no JavaScript is required."
+  ],
+  "experiment_id": "EXP-030",
+  "demo": false,
+  "mission_control": null
+}

@@ -37,6 +37,7 @@ radio = [
   "h5py>=3.16,<4",
   "matplotlib>=3.10,<4",
   "numpy>=2.5,<3",
+  "polars>=1.44.2,<2",
   "pyparsing==3.3.3",
   "setigen>=2.7,<3",
   "setuptools==80.9.0",
