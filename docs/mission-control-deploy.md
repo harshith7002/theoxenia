@@ -8,6 +8,8 @@ The script fast-forwards an existing `app/` checkout from `origin/live`, or clon
 
 `scripts/recovery_check.py` compares two rendered `index.html` files. It normalises the heartbeat label, the ticker sentence, and the "State built" clock. `make recovery-check` runs its tests.
 
+The command sequence for the host, the `live` branch, Pages, the recovery box, and the 24-hour soak is in `deploy/README.md` under "Tomorrow".
+
 `.github/workflows/pages.yml` publishes MkDocs from `main` and, once `origin/live` exists, rebuilds the Mission Control page from that branch's manifests into `/live/` with `meta.is_mirror` set. It does not create `live`. The mirror URL recorded in the workflow is the default project Pages URL `https://mpetyx.github.io/theoxenia/`. Pages is not enabled in the repository settings yet, and that URL was not fetched.
 
 `.github/workflows/live-pulse.yml` is the D-017 proposal. Its schedule is commented out. A run searches only when `THEOXENIA_PULSE` is `1`, `THEOXENIA_LIVE_URL` is set, that URL's `/healthz` is not 200, and `origin/live` already exists. The workflow token is `contents: read`, so the pass cannot push.
