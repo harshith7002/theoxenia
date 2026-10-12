@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import re
 from html.parser import HTMLParser
 from pathlib import Path
 
 from xenia.live.models import DetectionFloor
 from xenia.live.render import render_site
+from xenia.text_policy import find_banned_words
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEMO_RUNS = REPOSITORY_ROOT / "tests" / "fixtures" / "live"
@@ -69,7 +69,7 @@ def test_m0_page_is_static_accessible_and_provenance_linked(demo_state, tmp_path
     assert 'name="viewport"' in page
     assert parser.scripts == 0
     assert parser.remote_assets == []
-    assert not re.search(r"\b(alien|extraterrestrial|candidate|anomaly|mysterious)\b", page, re.I)
+    assert find_banned_words(page) == ()
     assert all(path.is_file() for path in rendered)
 
 

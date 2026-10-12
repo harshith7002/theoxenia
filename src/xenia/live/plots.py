@@ -201,7 +201,7 @@ def _galactic_plane_paths() -> tuple[str, ...]:
     celestial_north = (0.0, 0.0, 1.0)
     first = _cross(pole, celestial_north)
     first_norm = math.sqrt(sum(component * component for component in first))
-    basis_u = tuple(component / first_norm for component in first)
+    basis_u = (first[0] / first_norm, first[1] / first_norm, first[2] / first_norm)
     basis_v = _cross(pole, basis_u)
     projected: list[tuple[float, float]] = []
     for step in range(361):

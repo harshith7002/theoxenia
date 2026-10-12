@@ -9,6 +9,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal
 from pathlib import Path
+from typing import Any
 
 from xenia.radio.remote import SeekableByteReader
 
@@ -43,7 +44,36 @@ class FilterbankSliceInfo:
     source_size_bytes: int
 
 
-def _read_next_header_keyword(source: SeekableByteReader):
+def _header_int(value: object, name: str) -> int:
+    """Parse one SIGPROC integer keyword. Bool is rejected because it is an int subclass."""
+    if isinstance(value, bool):
+        raise ValueError(f"SIGPROC {name} is not an integer value")
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str | bytes | float):
+        return int(value)
+    # blimpy can return a numpy integer. Call __int__ so the static type stays object.
+    convert = getattr(value, "__int__", None)
+    if not callable(convert):
+        raise ValueError(f"SIGPROC {name} is not an integer value")
+    try:
+        parsed: object = convert()
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"SIGPROC {name} is not an integer value") from exc
+    if isinstance(parsed, bool) or not isinstance(parsed, int):
+        raise ValueError(f"SIGPROC {name} is not an integer value")
+    return parsed
+
+
+def _header_decimal(value: object, name: str) -> Decimal:
+    """Parse one SIGPROC float keyword via its decimal text."""
+    try:
+        return Decimal(str(value))
+    except Exception as exc:
+        raise ValueError(f"SIGPROC {name} is not a decimal value") from exc
+
+
+def _read_next_header_keyword(source: SeekableByteReader) -> Any:
     """Load blimpy's parser lazily so the base package stays lightweight."""
     try:
         from blimpy.io.sigproc import read_next_header_keyword
@@ -92,11 +122,11 @@ def read_sigproc_header(source: SeekableByteReader) -> SigprocHeader:
     if nchans_value_offset is None or fch1_value_offset is None:
         raise ValueError("SIGPROC header is missing patch offsets for nchans or fch1")
 
-    nchans = int(fields["nchans"])
-    nifs = int(fields["nifs"])
-    nbits = int(fields["nbits"])
-    fch1 = Decimal(str(fields["fch1"]))
-    foff = Decimal(str(fields["foff"]))
+    nchans = _header_int(fields["nchans"], "nchans")
+    nifs = _header_int(fields["nifs"], "nifs")
+    nbits = _header_int(fields["nbits"], "nbits")
+    fch1 = _header_decimal(fields["fch1"], "fch1")
+    foff = _header_decimal(fields["foff"], "foff")
     if nchans <= 0 or nifs <= 0:
         raise ValueError("SIGPROC nchans and nifs must be positive")
     if nbits not in _SUPPORTED_NBITS:
@@ -162,11 +192,11 @@ def slice_filterbank(
     """
     header = read_sigproc_header(source)
     fields = header.fields
-    nchans = int(fields["nchans"])
-    nifs = int(fields["nifs"])
-    nbits = int(fields["nbits"])
-    fch1 = _decimal(fields["fch1"])
-    foff = _decimal(fields["foff"])
+    nchans = _header_int(fields["nchans"], "nchans")
+    nifs = _header_int(fields["nifs"], "nifs")
+    nbits = _header_int(fields["nbits"], "nbits")
+    fch1 = _header_decimal(fields["fch1"], "fch1")
+    foff = _header_decimal(fields["foff"], "foff")
     low = _decimal(frequency_low_mhz)
     high = _decimal(frequency_high_mhz)
 

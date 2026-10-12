@@ -174,6 +174,9 @@ def _read_header(file: Any, *, source_size_bytes: int) -> Hdf5FilterbankHeader:
         raise ValueError("HDF5 attribute 'tsamp' must be positive")
     tstart = _number_attribute(_data_attribute(dataset, file, "tstart"), name="tstart")
     chunks = None if dataset.chunks is None else tuple(int(value) for value in dataset.chunks)
+    if chunks is not None and len(chunks) != 3:
+        raise ValueError(f"HDF5 data chunks must be 3-dimensional, got {len(chunks)}")
+    chunk_shape = None if chunks is None else (chunks[0], chunks[1], chunks[2])
 
     return Hdf5FilterbankHeader(
         source_name=source_name,
@@ -186,7 +189,7 @@ def _read_header(file: Any, *, source_size_bytes: int) -> Hdf5FilterbankHeader:
         tsamp_seconds=tsamp,
         tstart_mjd=tstart,
         dtype=np.dtype(dataset.dtype).str,
-        chunk_shape=chunks,
+        chunk_shape=chunk_shape,
         source_size_bytes=source_size_bytes,
         file_class=file_class,
         file_version=file_version,

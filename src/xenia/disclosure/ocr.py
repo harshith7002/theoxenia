@@ -58,14 +58,17 @@ def load_hand_lines(path: Path) -> tuple[HandLine, ...]:
             raise ValueError("each hand line must be a JSON object")
         page = item.get("page")
         text = item.get("text")
-        box = [item.get("x0"), item.get("y0"), item.get("x1"), item.get("y1")]
+        raw_box = (item.get("x0"), item.get("y0"), item.get("x1"), item.get("y1"))
         if not isinstance(page, int) or isinstance(page, bool) or page < 1:
             raise ValueError("hand line page must be an integer starting at 1")
         if not isinstance(text, str) or text == "":
             raise ValueError("hand line text is empty")
-        if any(not isinstance(value, int) or isinstance(value, bool) for value in box):
-            raise ValueError("hand line box coordinates must be integers")
-        x0, y0, x1, y1 = box
+        checked_box: list[int] = []
+        for value in raw_box:
+            if isinstance(value, bool) or not isinstance(value, int):
+                raise ValueError("hand line box coordinates must be integers")
+            checked_box.append(value)
+        x0, y0, x1, y1 = checked_box
         if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0:
             raise ValueError("hand line box is empty or negative")
         lines.append(HandLine(page=page, x0=x0, y0=y0, x1=x1, y1=y1, text=text))
@@ -115,7 +118,7 @@ def run_ocr(
                     _crop_png(cv2, png, line.x0, line.y0, line.x1, line.y1),
                     tesseract_bin,
                 )
-                distance, rate = character_error_rate(hypothesis, line.text)
+                line_distance, line_rate = character_error_rate(hypothesis, line.text)
                 scored.append(
                     {
                         "page_index": line.page,
@@ -125,8 +128,8 @@ def run_ocr(
                         "y1": line.y1,
                         "reference_text": line.text,
                         "hypothesis_text": hypothesis,
-                        "levenshtein": distance,
-                        "character_error_rate": rate,
+                        "levenshtein": line_distance,
+                        "character_error_rate": line_rate,
                     }
                 )
             reference = None if references is None else references.get(index + 1)
@@ -243,7 +246,7 @@ def _crop_png(cv2: Any, png: bytes, x0: int, y0: int, x1: int, y1: int) -> bytes
     ok, crop = cv2.imencode(".png", image[y0:y1, x0:x1])
     if not ok:
         raise RuntimeError("OpenCV could not encode a hand-line crop")
-    return crop.tobytes()
+    return bytes(crop.tobytes())
 
 
 def count_ocr_pages(
@@ -360,7 +363,7 @@ def _tesseract_version(tesseract_bin: str) -> str:
     return first
 
 
-def _load_stack() -> tuple[object, object]:
+def _load_stack() -> tuple[Any, Any]:
     try:
         import cv2
         import pymupdf

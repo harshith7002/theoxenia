@@ -11,7 +11,7 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
-from xenia.live.models import HeroPayload, InputRef, RunManifest
+from xenia.live.models import ArtifactRef, HeroPayload, InputRef, RunManifest
 from xenia.provenance import create_run_manifest, new_run_id, output_ref
 from xenia.radio.detector import DetectorResult, DopplerHit, run_turboseti, select_known_answer_hit
 from xenia.radio.hdf5 import Hdf5FilterbankHeader, Hdf5SliceInfo, slice_hdf5_filterbank
@@ -214,7 +214,7 @@ def _detector_artifacts(result: DetectorResult) -> list[dict[str, object]]:
     ]
 
 
-def _manifest_outputs(paths: Sequence[Path], *, repository_root: Path):
+def _manifest_outputs(paths: Sequence[Path], *, repository_root: Path) -> tuple[ArtifactRef, ...]:
     artifacts = []
     for path in paths:
         if path.is_file():
@@ -406,6 +406,7 @@ def run_voyager(
             )
         finished_at = datetime.now(UTC)
         outcome = "known_answer_detected" if hit is not None else "no_expected_hit"
+        notes: tuple[str, ...]
         if hit is not None:
             notes = (
                 "A turboSETI hit passed the predeclared Voyager frequency, drift, and SNR checks.",

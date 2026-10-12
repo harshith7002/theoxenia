@@ -1,9 +1,9 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence disclosure-ocr docs clean files-check
+.PHONY: install test lint format types schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence disclosure-ocr docs clean files-check
 
 install:
-	$(UV) sync --all-groups --extra radio --python 3.15.0
+	$(UV) sync --all-groups --extra radio --extra disclosure --python 3.15.0
 
 test:
 	$(UV) run --locked pytest --cov=xenia --cov-report=term-missing
@@ -11,6 +11,9 @@ test:
 lint:
 	$(UV) run --locked ruff check .
 	$(UV) run --locked ruff format --check .
+
+types:
+	$(UV) run --locked mypy --strict src/xenia
 
 format:
 	$(UV) run --locked ruff check --fix .

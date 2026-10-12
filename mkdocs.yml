@@ -17,6 +17,7 @@ nav:
   - EXP-001 data sources: data-sources.md
   - EXP-002 method: mission-control-exp002.md
   - EXP-010 Blue Book OCR: exp-010.md
+  - Hardening: hardening.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
   - Scaffold integration review: scaffold-integration.md
