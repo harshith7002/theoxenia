@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import csv
 import importlib
+import io
 import json
 import os
 import platform
@@ -354,6 +356,50 @@ def _write_json(path: Path, value: object) -> None:
     )
 
 
+def _write_sweep_csv(path: Path, grid: RecoveryGridArtifact) -> None:
+    """Write a deterministic, row-major summary of the validated grid cells."""
+    recovered_seeds_by_cell: dict[tuple[float, float], list[int]] = {}
+    for measurement in grid.measurements:
+        if measurement.recovered:
+            cell = (measurement.snr, measurement.drift_hz_s)
+            recovered_seeds_by_cell.setdefault(cell, []).append(measurement.seed)
+
+    buffer = io.StringIO(newline="")
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(
+        (
+            "snr",
+            "drift_hz_s",
+            "trials",
+            "recovered_count",
+            "recovered_fraction",
+            "recovered_seeds",
+        )
+    )
+    for snr_index, snr in enumerate(grid.snr_grid):
+        for drift_index, drift_hz_s in enumerate(grid.drift_grid):
+            recovered_count = int(grid.recovered_count[snr_index][drift_index])
+            recovered_fraction = float(grid.recovered_fraction[snr_index][drift_index])
+            recovered_seeds = sorted(recovered_seeds_by_cell.get((snr, drift_hz_s), ()))
+            if recovered_count != len(recovered_seeds):
+                raise ValueError("recovery counts do not match the recorded grid measurements")
+            if recovered_fraction != recovered_count / grid.trials_per_cell:
+                raise ValueError("recovery fractions do not match the recorded grid counts")
+            writer.writerow(
+                (
+                    repr(float(snr)),
+                    repr(float(drift_hz_s)),
+                    str(grid.trials_per_cell),
+                    str(recovered_count),
+                    repr(recovered_fraction),
+                    json.dumps(recovered_seeds, separators=(",", ":"), allow_nan=False),
+                )
+            )
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(buffer.getvalue().encode("utf-8"))
+
+
 def _initial_parameters(
     *,
     mode: GridMode,
@@ -505,6 +551,7 @@ def run_floor(
     run_directory = root / "runs" / run_id
     run_directory.mkdir(parents=True, exist_ok=False)
     grid_path = run_directory / "recovery_grid.json"
+    sweep_path = run_directory / "sweep.csv"
     snr_grid, drift_grid, trials_per_cell = grid_values(mode)
     ci_run_url: str | None = None
     parameters = _initial_parameters(
@@ -589,6 +636,7 @@ def run_floor(
             recovered_fraction=recovered_fraction,
         )
         _write_json(grid_path, grid.model_dump(mode="json"))
+        _write_sweep_csv(sweep_path, grid)
         payload = FloorPayload(
             kind="detection_floor",
             experiment="EXP-002",
@@ -602,6 +650,7 @@ def run_floor(
         notes = (
             "Synthetic setigen calibration; not telescope observations.",
             "Trials use deterministic seeds and one-to-one frequency/drift hit matching.",
+            "sweep.csv is row-major; recovered_seeds is encoded as a compact JSON array.",
             *warnings,
         )
         manifest, manifest_path = create_run_manifest(
@@ -609,7 +658,10 @@ def run_floor(
             command=command,
             parameters=parameters,
             inputs=(),
-            outputs=(output_ref(grid_path, repository_root=root),),
+            outputs=(
+                output_ref(grid_path, repository_root=root),
+                output_ref(sweep_path, repository_root=root),
+            ),
             started_at=started_at,
             finished_at=datetime.now(UTC),
             outcome="recovery_grid_completed",

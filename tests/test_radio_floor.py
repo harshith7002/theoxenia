@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import csv
+import hashlib
 import json
 from pathlib import Path
 
@@ -47,6 +49,61 @@ def test_grid_values_are_the_specified_full_and_reduced_shapes() -> None:
     assert minimum_smearing_samples <= floor.SMEARING_SUBSAMPLES
     with pytest.raises(ValueError, match="unsupported"):
         floor.grid_values("other")  # type: ignore[arg-type]
+
+
+def test_sweep_csv_is_deterministic_and_records_null_and_recovered_seeds(
+    tmp_path: Path,
+    reduced_recovery_grid: RecoveryGridArtifact,
+) -> None:
+    """CSV rows follow grid order and encode recovered seed lists unambiguously."""
+    data = reduced_recovery_grid.model_dump(mode="json")
+    first_measurement = data["measurements"][0]
+    hit = _hit(
+        top_hit=1,
+        frequency_mhz=first_measurement["frequency_mhz"],
+        drift_hz_s=first_measurement["drift_hz_s"],
+    )
+    first_measurement.update(
+        {
+            "recovered": True,
+            "matched_hit": hit.as_dict(),
+            "frequency_error_hz": 0.0,
+            "drift_error_hz_s": 0.0,
+        }
+    )
+    data["searches"][0]["detected_hits"] = [hit.as_dict()]
+    data["recovered_count"][0][0] = 1
+    data["recovered_fraction"][0][0] = 1.0
+    grid = RecoveryGridArtifact.model_validate(data)
+
+    first_path = tmp_path / "first.csv"
+    second_path = tmp_path / "second.csv"
+    floor._write_sweep_csv(first_path, grid)
+    floor._write_sweep_csv(second_path, grid)
+
+    csv_bytes = first_path.read_bytes()
+    assert csv_bytes == second_path.read_bytes()
+    assert b"\r" not in csv_bytes
+    with first_path.open(encoding="utf-8", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+
+    assert len(rows) == 9
+    assert list(rows[0]) == [
+        "snr",
+        "drift_hz_s",
+        "trials",
+        "recovered_count",
+        "recovered_fraction",
+        "recovered_seeds",
+    ]
+    assert (rows[0]["snr"], rows[0]["drift_hz_s"]) == ("5.0", "-4.0")
+    assert rows[0]["recovered_count"] == "1"
+    assert rows[0]["recovered_fraction"] == "1.0"
+    assert json.loads(rows[0]["recovered_seeds"]) == [grid.seed]
+    assert (rows[1]["snr"], rows[1]["drift_hz_s"]) == ("5.0", "0.0")
+    assert rows[1]["recovered_count"] == "0"
+    assert rows[1]["recovered_fraction"] == "0.0"
+    assert json.loads(rows[1]["recovered_seeds"]) == []
 
 
 def test_setigen_frame_is_deterministic_and_filterbank_metadata_is_neutral(
@@ -243,6 +300,15 @@ def test_floor_command_records_a_complete_null_grid_and_manifest(
     assert grid_output.sha256 is not None
     assert grid_output.size_bytes > 0
     grid_path = next(tmp_path.glob("runs/*/recovery_grid.json"))
+    sweep_path = grid_path.with_name("sweep.csv")
+    sweep_output = next(output for output in manifest.outputs if output.path.endswith("/sweep.csv"))
+    assert sweep_output.sha256 == hashlib.sha256(sweep_path.read_bytes()).hexdigest()
+    assert sweep_output.size_bytes == sweep_path.stat().st_size
+    with sweep_path.open(encoding="utf-8", newline="") as stream:
+        sweep_rows = list(csv.DictReader(stream))
+    assert len(sweep_rows) == 9
+    assert all(row["recovered_count"] == "0" for row in sweep_rows)
+    assert all(json.loads(row["recovered_seeds"]) == [] for row in sweep_rows)
     grid = RecoveryGridArtifact.model_validate_json(grid_path.read_text(encoding="utf-8"))
     assert len(grid.measurements) == 9
     assert len(grid.searches) == 1

@@ -19,7 +19,9 @@ Signals use setigen’s constant time profile, Gaussian frequency profile, linea
 
 Each trial is written to a temporary SIGPROC filterbank with neutral synthetic metadata (`XENIA-SYNTHETIC`, zero telescope/machine IDs, and zero coordinates). The file is passed to [turboSETI](https://github.com/UCBerkeleySETI/turbo_seti) with SNR threshold 5, maximum absolute drift 4 Hz/s, one coarse channel, and one search partition. A hit recovers an injection only when its uncorrected frequency is within three frequency channels of the signal’s midpoint frequency, its drift is within two drift-resolution bins, and its SNR meets the configured threshold. Matching is one-to-one: a detector hit cannot recover two injected signals. Hits, trial seeds, error offsets, detector warnings, and temporary `.dat` output checksums/sizes are retained in the grid artifact.
 
-The temporary filterbanks and detector tables are removed after each trial. They are not committed or copied into the artifact directory. The run writes `recovery_grid.json` and `manifest.json`; failed runs write `failure.json` and a failed manifest, preserving completed partial searches/measurements instead of manufacturing a floor.
+The temporary filterbanks and detector tables are removed after each trial. They are not committed or copied into the artifact directory. The run writes `recovery_grid.json`, a row-major `sweep.csv` summary, and `manifest.json`; failed runs write `failure.json` and a failed manifest, preserving completed partial searches/measurements instead of manufacturing a floor.
+
+The CSV has one row per SNR/drift cell in the artifact's defined axis order. Its columns are `snr`, `drift_hz_s`, `trials`, `recovered_count`, `recovered_fraction`, and `recovered_seeds`; the last field is a compact JSON array of the seeds that recovered that cell (`[]` when none did). Both the JSON grid and CSV have checksums and sizes in the run manifest.
 
 ## Reproduce
 
@@ -37,7 +39,7 @@ To validate a specific artifact independently:
 xenia schemas validate-floor --grid runs/<RUN_ID>/recovery_grid.json
 ```
 
-`runs/<RUN_ID>/manifest.json` contains the exact command and parameters, `EXP-002` linkage, code SHA, package versions, UTC timestamps, outcome, artifact hash/size, and notes. The grid JSON is itself schema-validated and records every injection decision and detector hit. The Mission Control state builder computes the plotted fraction from those validated records and links the panel to the experiment manifest.
+`runs/<RUN_ID>/manifest.json` contains the exact command and parameters, `EXP-002` linkage, code SHA, package versions, UTC timestamps, outcome, artifact hashes/sizes, and notes. The grid JSON is itself schema-validated and records every injection decision and detector hit; the CSV is a deterministic per-cell summary derived from that validated grid. The Mission Control state builder computes the plotted fraction from those validated records and links the panel to the experiment manifest.
 
 ## First full-grid result
 
