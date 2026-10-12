@@ -48,4 +48,20 @@ The page payload is the top three hits by SNR plus any plotted `ON_ONLY` hits. `
 
 ## Measured search
 
-The search results are whatever `make cadence` writes. Numbers from that run belong in this section only after the manifest exists. Until then this page does not quote a hit count.
+`make cadence` wrote run `20261012T203545022355Z-exp-003-cadence`. The manifest records git SHA `9cf55d8`, which is the commit the run started from. Started `2026-10-12T20:35:45.022355Z`, finished `2026-10-12T20:41:23.356715Z` (338.334360 s inside the command). `/usr/bin/time -l` reported `real 339.51`, maximum resident set size 975077376 bytes, and peak memory footprint 1556768. Outcome `searched`. `demo` is false. `synthetic` is false.
+
+Bytes transferred, one total per file, in scan order: 86614279, 86284440, 86156863, 86208281, 86132524, 86141369. The sum is 517537756. Each file stayed under the 268435456 byte cap. Every local slice is 22917760 bytes and 357913 channels, from 1380.9999972581863 MHz down to 1380.000002682209 MHz. Slice SHA-256 values are in `slice_summary.json`. They are hashes of the local slices, not of the remote objects. `catalog_md5` was not recomputed. Each file's catalog `size` matched the observed `Content-Length`.
+
+The search log loaded these `.dat` row counts: scan 0 ON HIP544, 186; scan 1 OFF HIP1024, 149; scan 2 ON HIP544, 0; scan 3 OFF HIP114, 0; scan 4 ON HIP544, 0; scan 5 OFF HIP1344, 0. That is 335 detections. Filter threshold 3 retained 0 events because an ON table was empty. `hits.parquet` has 273 labelled rows. Verdict sums match the manifest: `IN_OFF` 149, `SINGLE_POINTING` 124, `KNOWN_SOURCE` 0, `RFI_CENSUS` 0, `ON_ONLY` 0, `UNEXPLAINED` 0. No six-panel PNG was written.
+
+The page payload is the three highest-SNR rows. Each has `checks_done` 4. `review` is null.
+
+| Hit | Verdict | Frequency (MHz) | Drift (Hz/s) | SNR |
+|---|---|---:|---:|---:|
+| `bl-opendata-63460-0249` | `IN_OFF` | 1380.924915 | −0.377557 | 635.243896 |
+| `bl-opendata-63460-0234` | `SINGLE_POINTING` | 1380.871911 | −0.367353 | 537.377747 |
+| `bl-opendata-63460-0209` | `IN_OFF` | 1380.807915 | −0.377557 | 519.225464 |
+
+The `IN_OFF` explanation is: the line is present in an OFF scan, so the ON/OFF filter does not pass. The `SINGLE_POINTING` explanation is: the line is present in fewer than all three ON scans. On-source time recorded for the pointing is 876.173328384 s. No other cadence from this observing session was supplied, so the session check stays clear. The known-source file hashed to `565f66ac54766f56754afa31fb908aa2e3fb1bfb886f79ac18f61b7429816dc1`.
+
+The manifest notes record the turboSETI 2.3.2 post-search hit-count `TypeError` four times. Two of those notes say parseable `.dat` rows were kept. Two say the `.dat` table had no hit rows and the empty result was kept. The note list is capped at four warnings. Scans 2, 3, 4, and 5 are the empty tables in the search log. This page does not give a cause for those empty tables.
