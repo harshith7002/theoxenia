@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 from xenia.live.models import DetectionFloor
-from xenia.live.plots import _project, render_floor_svg, render_sky_svg
+from xenia.live.plots import _project, render_floor_svg, render_hit_thumbnail, render_sky_svg
 from xenia.live.state import floor_summary
 
 
@@ -71,3 +71,17 @@ def test_floor_summary_has_no_claim_when_recovery_is_incomplete() -> None:
         recovered_fraction=((0.8, 0.8), (1.0, 0.8)),
     )
     assert "No tested SNR reached full recovery" in floor_summary(payload)
+
+
+def test_hit_thumbnail_is_a_small_png(tmp_path) -> None:
+    """The night colormap thumbnail is 320 by 140 and stays under the file cap."""
+    import struct
+
+    destination = tmp_path / "thumb.png"
+    values = [[float((row + column) % 5) for column in range(32)] for row in range(8)]
+    render_hit_thumbnail(destination, values=values, line_column=4)
+    payload = destination.read_bytes()
+    assert payload.startswith(b"\x89PNG\r\n\x1a\n")
+    width, height = struct.unpack(">II", payload[16:24])
+    assert (width, height) == (320, 140)
+    assert len(payload) < 2 * 1024 * 1024

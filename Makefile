@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -91,6 +91,12 @@ queue:
 
 queue-synthetic:
 	$(UV) run --locked xenia live queue build --synthetic --seeds 20261012 --config configs/live.yaml --output configs/queue.synthetic.jsonl --limit 200
+
+live-once:
+	THEOXENIA_PUSH=0 $(UV) run --locked xenia live run --once --queue configs/queue.synthetic.jsonl --max-pairs 1
+
+live-forever:
+	THEOXENIA_PUSH=0 $(UV) run --locked xenia live run --forever --queue configs/queue.synthetic.jsonl
 
 live-evidence:
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030
