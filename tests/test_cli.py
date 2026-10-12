@@ -44,6 +44,46 @@ def test_cadence_parser_accepts_the_synthetic_command() -> None:
     assert args.seed == 20261012
 
 
+def test_archive_cadence_parser_accepts_six_files() -> None:
+    """The EXP-003 command names the six files and the window before any download."""
+    parser = build_parser()
+    args = parser.parse_args(
+        [
+            "live",
+            "cadence",
+            "--experiment-id",
+            "EXP-003",
+            "--target",
+            "HIP544",
+            "--ra-deg",
+            "1.6549208333",
+            "--dec-deg",
+            "29.0205625",
+            "--window",
+            "1380.0",
+            "1381.0",
+            "--sources",
+            "HIP544",
+            "HIP1024",
+            "HIP544",
+            "HIP114",
+            "HIP544",
+            "HIP1344",
+            "--files",
+            "https://example.invalid/a.h5",
+            "https://example.invalid/b.h5",
+            "https://example.invalid/c.h5",
+            "https://example.invalid/d.h5",
+            "https://example.invalid/e.h5",
+            "https://example.invalid/f.h5",
+        ]
+    )
+    assert args.synthetic is False
+    assert args.window == [1380.0, 1381.0]
+    assert len(args.files) == 6
+    assert args.cadence_id == "bl-opendata-63460"
+
+
 def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
     """Schema export is stable and check mode never overwrites drift."""
     schema_dir = tmp_path / "schemas"
