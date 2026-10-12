@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -171,6 +172,39 @@ def test_floor_summary_reports_best_nonzero_recovery_without_claiming_a_floor() 
         "At 0 Hz/s, full recovery begins at SNR ≥ 8; best nonzero-drift recovery was 40%. "
         "No tested SNR reached full recovery across ±3 Hz/s."
     )
+
+
+def test_committed_v2_floor_summary_reports_partial_nonzero_recovery() -> None:
+    """The seed-20261012 v2 grid recovers nonzero drift without a full ±3 Hz/s row."""
+    grid_path = (
+        Path(__file__).resolve().parents[1]
+        / "runs"
+        / "20261012T190848550861Z-exp-002-floor"
+        / "recovery_grid.json"
+    )
+    grid = json.loads(grid_path.read_text(encoding="utf-8"))
+    assert grid["matching_version"] == 2
+    payload = FloorPayload(
+        kind="detection_floor",
+        experiment="EXP-002",
+        snr_grid=tuple(grid["snr_grid"]),
+        drift_grid=tuple(grid["drift_grid"]),
+        trials_per_cell=grid["trials_per_cell"],
+        recovered_fraction=tuple(tuple(row) for row in grid["recovered_fraction"]),
+    )
+    assert floor_summary(payload) == (
+        "At 0 Hz/s, full recovery begins at SNR ≥ 8; "
+        "best nonzero-drift recovery was 100%. "
+        "No tested SNR reached full recovery across ±3 Hz/s."
+    )
+    nonzero_recovered = [
+        count
+        for row in grid["recovered_count"]
+        for drift, count in zip(grid["drift_grid"], row, strict=True)
+        if drift != 0
+    ]
+    assert any(count > 0 for count in nonzero_recovered)
+    assert max(nonzero_recovered) == 5
 
 
 def test_floor_summary_explains_when_no_drift_cells_qualify() -> None:

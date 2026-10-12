@@ -15,7 +15,7 @@ from blimpy import Waterfall
 
 from xenia.live.models import RecoveryGridArtifact, RunManifest
 from xenia.radio import floor
-from xenia.radio.detector import DetectorResult, DopplerHit
+from xenia.radio.detector import DetectorResult, DopplerHit, run_turboseti
 
 
 def _hit(
@@ -199,6 +199,75 @@ def test_recovery_matching_is_one_to_one_and_preserves_nulls() -> None:
     assert measurements[0].frequency_error_hz == pytest.approx(0.0)
     assert measurements[1].matched_hit is None
     assert measurements[2].matched_hit is None
+
+
+def test_match_accepts_a_hit_on_the_injected_path_and_rejects_one_off_it() -> None:
+    """The reported channel may sit anywhere on the drifting line, not only at t = 0."""
+    duration_seconds = floor.TIME_CHANNELS * floor.TIME_RESOLUTION_SECONDS
+    drift_hz_s = 2.0
+    center_mhz = 6000.0
+    start_mhz = center_mhz - (drift_hz_s * duration_seconds / 2) / 1e6
+    end_mhz = start_mhz + (drift_hz_s * duration_seconds) / 1e6
+    plan = floor._InjectionPlan(
+        snr=40.0,
+        drift_hz_s=drift_hz_s,
+        trial_index=1,
+        seed=20261012,
+        channel_index=512,
+        frequency_mhz=center_mhz,
+        start_frequency_mhz=start_mhz,
+    )
+    on_path = floor._match_trial(
+        (plan,),
+        (_hit(top_hit=1, frequency_mhz=end_mhz, drift_hz_s=drift_hz_s, snr=30.0),),
+    )
+    off_path_mhz = end_mhz + (100.0 / 1e6)
+    off_path = floor._match_trial(
+        (plan,),
+        (_hit(top_hit=1, frequency_mhz=off_path_mhz, drift_hz_s=drift_hz_s, snr=30.0),),
+    )
+
+    assert on_path[0].recovered is True
+    assert on_path[0].frequency_error_hz == pytest.approx(0.0, abs=1e-3)
+    assert off_path[0].recovered is False
+
+
+def test_nonzero_drift_recovers_against_the_first_integration_frequency(
+    tmp_path: Path,
+) -> None:
+    """A +1 Hz/s line is recovered when the hit is matched to its start frequency.
+
+    setigen centres the line at mid-observation. turboSETI's uncorrected frequency
+    is the first integration. This test runs the detector adapter on one seeded frame.
+    """
+    frame, plans = floor._build_trial_frame(
+        snr_grid=(40.0,),
+        drift_grid=(1.0,),
+        trial_index=1,
+        seed=20261012,
+        frequency_channels=4096,
+    )
+    plan = plans[0]
+    start_offset_hz = abs(plan.frequency_mhz - plan.start_frequency_mhz) * 1e6
+    assert start_offset_hz > floor.FREQUENCY_TOLERANCE_HZ
+
+    filterbank = tmp_path / "trial.fil"
+    floor._save_neutral_filterbank(frame, filterbank)
+    result = run_turboseti(
+        filterbank,
+        output_directory=tmp_path / "detector",
+        max_drift_hz_s=floor.MAX_ABS_DRIFT_HZ_S,
+        minimum_snr=floor.DETECTOR_SNR_THRESHOLD,
+        n_coarse_channels=1,
+    )
+    assert result.hits, "detector returned no parseable hits"
+    measurements = floor._match_trial(plans, result.hits)
+    assert len(measurements) == 1
+    assert measurements[0].recovered is True
+    assert measurements[0].frequency_error_hz is not None
+    assert measurements[0].frequency_error_hz <= floor.FREQUENCY_TOLERANCE_HZ
+    assert measurements[0].drift_error_hz_s is not None
+    assert measurements[0].drift_error_hz_s <= floor.DRIFT_TOLERANCE_HZ_S
 
 
 def test_ci_url_is_emitted_only_for_a_well_formed_actions_context(monkeypatch) -> None:
