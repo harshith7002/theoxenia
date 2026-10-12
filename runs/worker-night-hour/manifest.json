@@ -1,0 +1,40 @@
+{
+  "schema_version": "0.1",
+  "run_id": "worker-night-hour",
+  "pillar": "live",
+  "command": "xenia live run",
+  "parameters": {
+    "host": "night-hour",
+    "queue": "/private/tmp/theoxenia-e/configs/queue.synthetic.jsonl",
+    "commit_branch": "live",
+    "push": false
+  },
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/worker-night-hour/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "5b850a1",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T21:24:16.505485Z",
+  "finished_at": "2026-10-12T22:23:31.838461Z",
+  "outcome": "running",
+  "notes": [
+    "Worker heartbeat. demo is false. The loop does not write UNEXPLAINED.",
+    "branch live does not exist; not creating it"
+  ],
+  "experiment_id": "EXP-030",
+  "demo": false,
+  "mission_control": {
+    "kind": "worker",
+    "status": "running",
+    "last_heartbeat": "2026-10-12T22:23:31.838461Z",
+    "host": "night-hour",
+    "current": null,
+    "next": null
+  }
+}

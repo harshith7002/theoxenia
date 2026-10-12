@@ -1,0 +1,197 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T212416701111Z-exp-004-cadence",
+  "pillar": "I · Sensor",
+  "command": "xenia live cadence --synthetic --seed 20261012 --mode full --experiment-id EXP-030",
+  "parameters": {
+    "synthetic": true,
+    "seed": 20261012,
+    "mode": "full",
+    "experiment_id": "EXP-030",
+    "roles": [
+      "A",
+      "B",
+      "A",
+      "C",
+      "A",
+      "D"
+    ],
+    "frequency_channels": 131072,
+    "known_sources_sha256": "6bf4636dcf649d237d70659be2e1891777f17fb986921d82a0c1cfebb5273f4a",
+    "filter_threshold": 3,
+    "minimum_snr": 10.0,
+    "max_drift_hz_s": 4.0
+  },
+  "inputs": [
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-0-A",
+      "sha256": "e646c9fdd37c6160994d5434b2fdd833158fdb0a77ff2085d030db1e28f02c33",
+      "size_bytes": 14072442
+    },
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-1-B",
+      "sha256": "a9751ec53faade46fc2c969c1d42e352872ab2edd55f520a825f8d1eac292d56",
+      "size_bytes": 14072461
+    },
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-2-A",
+      "sha256": "36aaf985f625bfd0a66e3f4c83105cbbfe8c04d94cb637ff0ef55d588a58d2a0",
+      "size_bytes": 14072464
+    },
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-3-C",
+      "sha256": "e2ea5e169e786dbc330ae5501f934ca3c764e12ba9b05a4f968c50e46729afb7",
+      "size_bytes": 14072483
+    },
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-4-A",
+      "sha256": "b2e5e30f264339e66128d8fe3d0e3175f9211b05086e80af482509b566a47b98",
+      "size_bytes": 14072460
+    },
+    {
+      "uri": "synthetic://exp-004/full/seed-20261012/scan-5-D",
+      "sha256": "528f117f2845e187b05719c8a0b3734d7416a9e2961ca0125e724c92aaed6bd6",
+      "size_bytes": 14072464
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/truth.json",
+      "sha256": "0e7cedc51a97cf7e9ad76f3e31fbae8ed16414ce1473a16696642fe257251ec7",
+      "size_bytes": 1272,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/recovery.json",
+      "sha256": "54f08313fde6915026a44a2a77447d6b53249ed0d1e223ed245d2acb7f45bdf4",
+      "size_bytes": 1809,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/hits.parquet",
+      "sha256": "734a133b49c27555448abc73dc05bed5b1ab684423b43e79b6089e24e6490bd6",
+      "size_bytes": 10497,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-on_only.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-in_off.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-single_pointing.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-known_source.svg",
+      "sha256": "23347bc099befc2c9ec3ea1e860783769cc07ef12769f5df359f114c8cd99a43",
+      "size_bytes": 267,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T212416701111Z-exp-004-cadence/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "aa3714a",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T21:24:16.701111Z",
+  "finished_at": "2026-10-12T21:24:28.988491Z",
+  "outcome": "searched_with_survivors",
+  "notes": [
+    "Synthetic setigen ABACAD cadence. Not a telescope observation. demo is false.",
+    "Verdict counts: IN_OFF=1, KNOWN_SOURCE=1, ON_ONLY=1, SINGLE_POINTING=1.",
+    "Unassigned detections: 0. Unassigned filter-3 events: 0.",
+    "Filter-3 events retained: 2. Known-source ranges loaded: 1.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained."
+  ],
+  "experiment_id": "EXP-030",
+  "demo": false,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "exp-004-20261012-full",
+    "target": "Synthetic ABACAD",
+    "ra_deg": 0.0,
+    "dec_deg": 0.0,
+    "status": "done",
+    "windows_done": 1,
+    "window_mhz": [
+      5999.6337890625,
+      6000.0
+    ],
+    "on_source_seconds": 876.173328384,
+    "started_at": "2026-10-12T21:24:16.701111Z",
+    "hits": [
+      {
+        "hit_id": "exp004-on_only",
+        "found_at": "2026-10-12T21:24:28.988491Z",
+        "freq_mhz": 5999.998894,
+        "drift_hz_s": 0.765319,
+        "snr": 22.151714,
+        "verdict": "ON_ONLY",
+        "explanation": "Synthetic ABACAD cadence, not a telescope observation. The line passed the ON/OFF filter and none of the earlier prosaic labels fit.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-on_only.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "exp004-in_off",
+        "found_at": "2026-10-12T21:24:28.988491Z",
+        "freq_mhz": 5999.994968,
+        "drift_hz_s": 0.010204,
+        "snr": 43.487137,
+        "verdict": "IN_OFF",
+        "explanation": "Synthetic ABACAD cadence, not a telescope observation. The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-in_off.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "exp004-single_pointing",
+        "found_at": "2026-10-12T21:24:28.988491Z",
+        "freq_mhz": 5999.991059,
+        "drift_hz_s": 0.306128,
+        "snr": 38.991108,
+        "verdict": "SINGLE_POINTING",
+        "explanation": "Synthetic ABACAD cadence, not a telescope observation. The line is present in fewer than all three ON scans.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-single_pointing.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "exp004-known_source",
+        "found_at": "2026-10-12T21:24:28.988491Z",
+        "freq_mhz": 5999.987505,
+        "drift_hz_s": 0.591847,
+        "snr": 27.371674,
+        "verdict": "KNOWN_SOURCE",
+        "explanation": "Synthetic ABACAD cadence, not a telescope observation. The frequency falls inside synthetic known-answer band.",
+        "checks_done": 4,
+        "known_source": "synthetic known-answer band",
+        "thumbnail_url": "runs/20261012T212416701111Z-exp-004-cadence/thumbs/exp004-known_source.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      }
+    ]
+  }
+}
