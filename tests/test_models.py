@@ -103,6 +103,21 @@ def test_floor_rejects_fractions_outside_zero_to_one() -> None:
         )
 
 
+def test_floor_ci_url_requires_https() -> None:
+    """Optional CI provenance cannot inject an insecure or relative link."""
+    with pytest.raises(ValidationError, match="absolute HTTPS URLs"):
+        DetectionFloor(
+            run_id="floor-test",
+            snr_grid=(5.0,),
+            drift_grid=(0.0,),
+            trials_per_cell=1,
+            recovered_fraction=((0.0,),),
+            summary="Computed from the test grid.",
+            manifest_url="runs/floor-test/manifest.json",
+            ci_run_url="http://github.com/mpetyx/theoxenia/actions/runs/1",
+        )
+
+
 def test_naive_hit_timestamp_is_rejected() -> None:
     """All event times must include a timezone."""
     with pytest.raises(ValidationError, match="timezone-aware"):

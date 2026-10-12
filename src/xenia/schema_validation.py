@@ -11,10 +11,25 @@ from jsonschema.exceptions import SchemaError
 
 def validate_state_file(state_path: Path, schema_path: Path) -> tuple[str, ...]:
     """Return validation errors for a state JSON file against a JSON Schema."""
+    return _validate_json_file(state_path, schema_path, instance_label="state JSON")
+
+
+def validate_recovery_grid_file(grid_path: Path, schema_path: Path) -> tuple[str, ...]:
+    """Return validation errors for an EXP-002 recovery-grid artifact."""
+    return _validate_json_file(grid_path, schema_path, instance_label="recovery-grid JSON")
+
+
+def _validate_json_file(
+    instance_path: Path,
+    schema_path: Path,
+    *,
+    instance_label: str,
+) -> tuple[str, ...]:
+    """Validate one JSON instance with a checked Draft 2020-12 schema."""
     try:
-        instance = json.loads(state_path.read_text(encoding="utf-8"))
+        instance = json.loads(instance_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f"cannot read state JSON {state_path}: {exc}") from exc
+        raise ValueError(f"cannot read {instance_label} {instance_path}: {exc}") from exc
     try:
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:

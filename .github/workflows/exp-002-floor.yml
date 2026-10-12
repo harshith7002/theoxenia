@@ -1,0 +1,90 @@
+name: EXP-002 injection-recovery floor
+
+on:
+  pull_request:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Injection/recovery grid size
+        type: choice
+        options:
+          - full
+          - reduced
+        default: full
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  injection-recovery:
+    name: Run EXP-002 and render Mission Control
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.13.0
+          enable-cache: true
+
+      - name: Install HDF5 build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential libhdf5-dev pkg-config
+
+      - name: Install CPython 3.15.0
+        run: uv python install 3.15.0
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --all-groups --extra radio --python 3.15.0
+
+      - name: Run deterministic injection/recovery grid
+        id: grid
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            mode="reduced"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            mode="${{ inputs.mode }}"
+          else
+            mode="full"
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          output="$(uv run --locked xenia live floor --mode "$mode" --seed 20261012 --experiment-id EXP-002)"
+          printf '%s\n' "$output"
+          run_id="$(printf '%s\n' "$output" | sed -n 's/^EXP-002 .*run_id=\([^;]*\);.*/\1/p' | tail -n 1)"
+          if [[ -z "$run_id" ]]; then
+            echo "Could not read the completed EXP-002 run ID from the command output." >&2
+            exit 1
+          fi
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+
+      - name: Validate generated recovery-grid artifact
+        run: uv run --locked xenia schemas validate-floor --grid "runs/${{ steps.grid.outputs.run_id }}/recovery_grid.json"
+
+      - name: Check committed Pydantic schemas
+        run: uv run --locked xenia schemas export --check
+
+      - name: Rebuild and validate Mission Control state
+        run: |
+          uv run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030
+          uv run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json
+          uv run --locked xenia live render --state runs/state.json --runs runs --output site --manifest-root runs --experiment-id EXP-030
+
+      - name: Upload reproducible run and rendered page
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp-002-${{ steps.grid.outputs.mode }}-${{ github.run_id }}
+          if-no-files-found: error
+          path: |
+            runs/${{ steps.grid.outputs.run_id }}/
+            runs/state.json
+            site/
+          retention-days: 30

@@ -12,7 +12,7 @@ from xenia.live.render import render_site
 from xenia.live.server import serve
 from xenia.live.state import build_state, load_manifests, manifest_paths, read_git_sha
 from xenia.provenance import create_run_manifest, input_ref, new_run_id, output_ref
-from xenia.schema_validation import validate_state_file
+from xenia.schema_validation import validate_recovery_grid_file, validate_state_file
 from xenia.schemas import export_schemas
 
 
@@ -36,6 +36,13 @@ def build_parser() -> argparse.ArgumentParser:
     validate_parser.add_argument("--state", type=Path, default=Path("runs/state.json"))
     validate_parser.add_argument(
         "--schema", type=Path, default=Path("schemas/live_state.schema.json")
+    )
+    validate_floor_parser = schemas_sub.add_parser(
+        "validate-floor", help="validate an EXP-002 recovery grid against its schema"
+    )
+    validate_floor_parser.add_argument("--grid", type=Path, required=True)
+    validate_floor_parser.add_argument(
+        "--schema", type=Path, default=Path("schemas/recovery_grid.schema.json")
     )
 
     live_parser = top.add_parser("live", help="Mission Control state and static-site commands")
@@ -71,6 +78,13 @@ def build_parser() -> argparse.ArgumentParser:
     hero_parser.add_argument("--frequency-high-mhz", type=float, default=8419.35)
     hero_parser.add_argument("--max-drift-hz-s", type=float, default=4.0)
     hero_parser.add_argument("--minimum-snr", type=float, default=25.0)
+
+    floor_parser = live_sub.add_parser(
+        "floor", help="run the seeded synthetic EXP-002 injection/recovery grid"
+    )
+    floor_parser.add_argument("--mode", choices=("full", "reduced"), default="full")
+    floor_parser.add_argument("--seed", type=int, default=20261012)
+    floor_parser.add_argument("--experiment-id", default="EXP-002")
 
     return parser
 
@@ -111,6 +125,18 @@ def main(argv: list[str] | None = None) -> int:
             print(f"{state_path} validates against {schema_path}.")
             return 0
 
+        if args.group == "schemas" and args.schema_command == "validate-floor":
+            grid_path = _inside_repository(args.grid, root)
+            schema_path = _inside_repository(args.schema, root)
+            errors = validate_recovery_grid_file(grid_path, schema_path)
+            if errors:
+                print("Recovery-grid JSON does not match its schema:", file=sys.stderr)
+                for error in errors:
+                    print(f"  - {error}", file=sys.stderr)
+                return 1
+            print(f"{grid_path} validates against {schema_path}.")
+            return 0
+
         if args.group == "live" and args.live_command == "build-state":
             _build_state(args, command=command, root=root)
             return 0
@@ -139,6 +165,22 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(
                 f"EXP-001 outcome={manifest.outcome}; run_id={manifest.run_id}; "
+                f"manifest={manifest_path}"
+            )
+            return 0
+
+        if args.group == "live" and args.live_command == "floor":
+            from xenia.radio.floor import run_floor
+
+            manifest, manifest_path = run_floor(
+                root,
+                command,
+                mode=args.mode,
+                seed=args.seed,
+                experiment_id=args.experiment_id,
+            )
+            print(
+                f"EXP-002 outcome={manifest.outcome}; run_id={manifest.run_id}; "
                 f"manifest={manifest_path}"
             )
             return 0

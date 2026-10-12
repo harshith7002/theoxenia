@@ -112,7 +112,7 @@
       <section class="section-block" aria-labelledby="floor-heading">
         <div class="section-heading">
           <h2 id="floor-heading">Detection floor</h2>
-          <p>Recovery results are computed from the injection grid; the summary is not hand-entered.</p>
+          <p>Synthetic setigen injections only — not telescope observations. Recovery is computed from the recorded grid.</p>
         </div>
         <div class="floor-layout">
           <div class="plot-card floor-card">
@@ -122,8 +122,11 @@
             {% if state.detection_floor %}
             <p class="eyebrow">{{ state.detection_floor.experiment }} · {{ state.detection_floor.run_id }}</p>
             <p>{{ state.detection_floor.summary }}</p>
-            <p>Each cell records the fraction of injected signals recovered.</p>
+            <p>Each cell records the fraction of injected signals recovered; no cell is observational evidence.</p>
             <a class="text-link" href="{{ floor_manifest_url }}">Open the injection run manifest</a>
+            {% if floor_ci_url %}
+            <a class="text-link" href="{{ floor_ci_url }}" rel="noopener noreferrer">Open the CI run</a>
+            {% endif %}
             {% else %}
             <h3>Waiting for EXP-002</h3>
             {% if state.meta.demo %}

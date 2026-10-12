@@ -6,6 +6,7 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 
+from xenia.live.models import DetectionFloor
 from xenia.live.render import render_site
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -89,6 +90,50 @@ def test_all_metric_links_point_to_static_manifest_sections(demo_state, tmp_path
     for anchor in ("cadences", "sky-hours", "hits", "survivors", "unexplained"):
         assert f'href="runs/index.html#{anchor}"' in page
         assert f'id="{anchor}"' in index
+
+
+def test_floor_panel_links_manifest_and_actions_run_with_synthetic_disclosure(
+    demo_state,
+    tmp_path: Path,
+) -> None:
+    """The actual heatmap is labeled synthetic and links its run and optional CI record."""
+    ci_url = "https://github.com/mpetyx/theoxenia/actions/runs/123456789"
+    floor = DetectionFloor(
+        run_id="demo-cadence-001",
+        snr_grid=(5.0,),
+        drift_grid=(0.0,),
+        trials_per_cell=1,
+        recovered_fraction=((1.0,),),
+        summary="Synthetic test summary.",
+        manifest_url="runs/demo-cadence-001/manifest.json",
+        ci_run_url=ci_url,
+    )
+    meta = demo_state.meta.model_copy(
+        update={
+            "demo": False,
+            "data_credit": "Synthetic setigen injection; no telescope observations.",
+        }
+    )
+    state = demo_state.model_copy(update={"meta": meta, "detection_floor": floor})
+    state_path = tmp_path / "state.json"
+    state_path.write_text(state.model_dump_json(indent=2), encoding="utf-8")
+    output = tmp_path / "site"
+
+    render_site(
+        state_path=state_path,
+        runs_dir=DEMO_RUNS,
+        output_dir=output,
+        repository_root=REPOSITORY_ROOT,
+        now=state.generated_at,
+    )
+
+    page = (output / "index.html").read_text(encoding="utf-8")
+    svg = (output / "floor.svg").read_text(encoding="utf-8")
+    assert "Synthetic setigen injections only" in page
+    assert 'href="runs/demo-cadence-001/manifest.json"' in page
+    assert f'href="{ci_url}"' in page
+    assert "Open the CI run" in page
+    assert "Synthetic setigen data · not telescope observations" in svg
 
 
 def test_mirror_status_never_claims_to_be_live(demo_state) -> None:

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from xenia.cli import main
 from xenia.live.models import RunManifest
+from xenia.radio import floor as floor_runner
 from xenia.radio import voyager as voyager_runner
 from xenia.schemas import export_schemas
 
@@ -28,6 +29,7 @@ def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
     assert set(export_schemas(schema_dir)) == {
         "live_state.schema.json",
         "run_manifest.schema.json",
+        "recovery_grid.schema.json",
     }
     assert export_schemas(schema_dir, check=True) == ()
     stale_file = schema_dir / "live_state.schema.json"
@@ -137,6 +139,40 @@ def test_voyager_cli_dispatches_the_known_answer_defaults(tmp_path: Path, monkey
     assert captured["minimum_snr"] == 25.0
 
 
+def test_floor_cli_dispatches_the_reduced_grid_defaults(tmp_path: Path, monkeypatch) -> None:
+    """The PR smoke command forwards a deterministic seed and EXP-002 identifier."""
+    from types import SimpleNamespace
+
+    monkeypatch.chdir(tmp_path)
+    captured: dict[str, object] = {}
+    manifest_path = tmp_path / "runs" / "synthetic-floor" / "manifest.json"
+
+    def fake_run(root: Path, command: list[str], **kwargs: object):
+        captured["root"] = root
+        captured["command"] = command
+        captured.update(kwargs)
+        return SimpleNamespace(
+            run_id="synthetic-floor", outcome="recovery_grid_completed"
+        ), manifest_path
+
+    monkeypatch.setattr(floor_runner, "run_floor", fake_run)
+
+    assert main(["live", "floor", "--mode", "reduced", "--seed", "77"]) == 0
+    assert captured["root"] == tmp_path
+    assert captured["command"] == [
+        "xenia",
+        "live",
+        "floor",
+        "--mode",
+        "reduced",
+        "--seed",
+        "77",
+    ]
+    assert captured["mode"] == "reduced"
+    assert captured["seed"] == 77
+    assert captured["experiment_id"] == "EXP-002"
+
+
 def test_cli_rejects_paths_outside_repository(tmp_path: Path, monkeypatch, capsys) -> None:
     """Read/write paths cannot escape the project checkout."""
     monkeypatch.chdir(tmp_path)
@@ -160,3 +196,24 @@ def test_cli_validates_state_against_schema(
     state_path.write_text(json.dumps(state), encoding="utf-8")
     assert main(["schemas", "validate-state"]) == 1
     assert "meta.demo" in capsys.readouterr().err
+
+
+def test_cli_validates_recovery_grid_against_schema(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+    reduced_recovery_grid,
+) -> None:
+    """The dedicated command checks an experiment artifact and reports field errors."""
+    monkeypatch.chdir(tmp_path)
+    export_schemas(tmp_path / "schemas")
+    grid_path = tmp_path / "runs" / "recovery_grid.json"
+    grid_path.parent.mkdir()
+    grid_path.write_text(reduced_recovery_grid.model_dump_json(indent=2), encoding="utf-8")
+
+    assert main(["schemas", "validate-floor", "--grid", str(grid_path)]) == 0
+    grid = reduced_recovery_grid.model_dump(mode="json")
+    grid["source_kind"] = "observational"
+    grid_path.write_text(json.dumps(grid), encoding="utf-8")
+    assert main(["schemas", "validate-floor", "--grid", str(grid_path)]) == 1
+    assert "source_kind" in capsys.readouterr().err

@@ -35,7 +35,7 @@ jobs:
         run: uv sync --locked --all-groups --extra radio --python 3.15.0
 
       - name: Smoke-test the Python 3.15 radio stack
-        run: uv run --locked python -c "import blimpy, fsspec, hdf5plugin, h5py, numpy, setigen, turbo_seti"
+        run: uv run --locked python -c "import astropy, blimpy, fsspec, hdf5plugin, h5py, numpy, setigen, turbo_seti"
 
       - name: Check formatting and lint
         run: |
@@ -56,3 +56,6 @@ jobs:
 
       - name: Validate state JSON against committed schema
         run: uv run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json
+
+      - name: Build static project documentation (no deployment)
+        run: uv run --locked mkdocs build --strict --site-dir /tmp/theoxenia-docs
