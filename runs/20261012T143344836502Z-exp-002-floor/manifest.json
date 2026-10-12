@@ -1,0 +1,247 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T143344836502Z-exp-002-floor",
+  "pillar": "I · Sensor",
+  "command": "xenia live floor --mode full --seed 20261012 --experiment-id EXP-002",
+  "parameters": {
+    "mode": "full",
+    "seed": 20261012,
+    "seed_strategy": "base seed + trial index - 1; one independent seeded frame per trial",
+    "snr_grid": [
+      5.0,
+      8.0,
+      10.0,
+      12.0,
+      15.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "drift_grid_hz_s": [
+      -4.0,
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "trials_per_cell": 5,
+    "signals_per_trial": 72,
+    "generator": {
+      "package": "setigen",
+      "distribution": "chi2",
+      "noise_mean": 1.0,
+      "intensity_calibration": "Frame.get_intensity(snr) = snr * noise_std / sqrt(tchans)",
+      "frequency_profile": "Gaussian",
+      "time_profile": "constant",
+      "path": "linear constant drift",
+      "path_sampling": "integration starts; Doppler smearing averages across each integration",
+      "signal_width_hz": 5.587935447692871,
+      "frequency_slot_stride_channels": 1600,
+      "frequency_slot_spacing_hz": 4470.348358154297,
+      "f_subsamples": 4,
+      "smearing_subsamples": 64,
+      "temporary_metadata": {
+        "source_name": "XENIA-SYNTHETIC",
+        "telescope_id": 0,
+        "machine_id": 0,
+        "source_coordinates_deg": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "frame": {
+      "frequency_channels": 131072,
+      "time_channels": 16,
+      "frequency_resolution_hz": 2.7939677238464355,
+      "time_resolution_seconds": 18.253611008,
+      "frame_center_frequency_mhz": 5999.816895928234,
+      "frame_fch1_mhz": 6000.0,
+      "mjd": 60000.0
+    },
+    "detector": {
+      "package": "turbo-seti",
+      "minimum_snr": 5.0,
+      "max_abs_drift_hz_s": 4.0,
+      "n_coarse_chan": 1,
+      "n_partitions": 1,
+      "precision": 1
+    },
+    "recovery_match": {
+      "frequency_reference": "setigen frame channel center at the observation midpoint",
+      "frequency_tolerance_hz": 8.381903171539307,
+      "drift_tolerance_hz_s": 0.019132979514450078,
+      "one_detector_hit_can_recover_at_most_one_injection": true
+    },
+    "ci_run_url": null,
+    "temporary_filterbanks_and_detector_tables": "removed after each trial",
+    "runtime_versions": {
+      "python": "3.15.0",
+      "setigen": "2.7.0",
+      "astropy": "8.0.1",
+      "numpy": "2.5.4",
+      "turbo-seti": "2.3.2",
+      "blimpy": "2.1.4",
+      "h5py": "3.16.0"
+    }
+  },
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/20261012T143344836502Z-exp-002-floor/recovery_grid.json",
+      "sha256": "ffacefd0f822d818bb8ecd1a355f1123720d93d1344a554e86133fd25ef61782",
+      "size_bytes": 258181,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T143344836502Z-exp-002-floor/sweep.csv",
+      "sha256": "c91e00a407c1b2ded1028cd1e97e4d4f80052cf880deb6aac4a2e58009544be0",
+      "size_bytes": 1868,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T143344836502Z-exp-002-floor/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "4b85816",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T14:33:44.836502Z",
+  "finished_at": "2026-10-12T14:34:02.997298Z",
+  "outcome": "recovery_grid_completed",
+  "notes": [
+    "Synthetic setigen calibration; not telescope observations.",
+    "Trials use deterministic seeds and one-to-one frequency/drift hit matching.",
+    "sweep.csv is row-major; recovered_seeds is encoded as a compact JSON array.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError during final candidate-count logging after writing parseable .dat hit rows; those rows were retained and validated.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError during final candidate-count logging after writing parseable .dat hit rows; those rows were retained and validated.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError during final candidate-count logging after writing parseable .dat hit rows; those rows were retained and validated.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError during final candidate-count logging after writing parseable .dat hit rows; those rows were retained and validated.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError during final candidate-count logging after writing parseable .dat hit rows; those rows were retained and validated."
+  ],
+  "experiment_id": "EXP-002",
+  "demo": false,
+  "mission_control": {
+    "kind": "detection_floor",
+    "experiment": "EXP-002",
+    "snr_grid": [
+      5.0,
+      8.0,
+      10.0,
+      12.0,
+      15.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "drift_grid": [
+      -4.0,
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "trials_per_cell": 5,
+    "recovered_fraction": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.4,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "ci_run_url": null
+  }
+}
