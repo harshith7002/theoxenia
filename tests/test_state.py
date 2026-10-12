@@ -141,6 +141,38 @@ def test_floor_summary_is_computed_from_the_recovery_grid() -> None:
     assert floor_summary(payload) == "Recovers SNR ≥ 6 at drift within ±3 Hz/s."
 
 
+def test_floor_summary_describes_centerline_only_recovery() -> None:
+    """A null drift floor still exposes the measured zero-drift threshold."""
+    payload = FloorPayload(
+        kind="detection_floor",
+        experiment="EXP-002",
+        snr_grid=(5.0, 8.0, 40.0),
+        drift_grid=(-2.0, 0.0, 2.0, 4.0),
+        trials_per_cell=5,
+        recovered_fraction=((0.0, 0.4, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0)),
+    )
+    assert floor_summary(payload) == (
+        "At 0 Hz/s, full recovery begins at SNR ≥ 8; all tested nonzero-drift cells recovered 0%. "
+        "No tested SNR reached full recovery across ±3 Hz/s."
+    )
+
+
+def test_floor_summary_reports_best_nonzero_recovery_without_claiming_a_floor() -> None:
+    """Partial off-center recovery is described without implying full sensitivity."""
+    payload = FloorPayload(
+        kind="detection_floor",
+        experiment="EXP-002",
+        snr_grid=(8.0,),
+        drift_grid=(-1.0, 0.0, 1.0),
+        trials_per_cell=5,
+        recovered_fraction=((0.2, 1.0, 0.4),),
+    )
+    assert floor_summary(payload) == (
+        "At 0 Hz/s, full recovery begins at SNR ≥ 8; best nonzero-drift recovery was 40%. "
+        "No tested SNR reached full recovery across ±3 Hz/s."
+    )
+
+
 def test_floor_summary_explains_when_no_drift_cells_qualify() -> None:
     """The summary does not invent a threshold outside the supplied grid."""
     payload = FloorPayload(

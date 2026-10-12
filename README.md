@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status:** M0’s static prototype and EXP-001 are implemented. The reproducible Voyager run recovered the predeclared known-answer signal; that is a positive-control validation, not an unknown-candidate detection or an anomaly claim. EXP-002 injection/recovery and M3’s persistent worker/deployment remain incomplete; no public service is live.
+> **Current status:** M0, the EXP-001 Voyager positive control, and the EXP-002 synthetic calibration are implemented on the current feature branches. EXP-001 recovered its predeclared known-answer signal. EXP-002 reached 100% recovery at zero drift from SNR 8, but no nonzero-drift cells were recovered, so no stable floor was established across ±3 Hz/s. These are validation results—not an unknown-candidate detection, an anomaly claim, or a telescope sensitivity limit. M3’s crawler/worker and M4 polish remain incomplete; no public service is live.
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
@@ -29,6 +29,10 @@ make voyager
 
 This reads the immutable HTTPS mirror in bounded 64 KiB ranges, slices only the predeclared 8419.24–8419.35 MHz band, and refuses to transfer more than 24 MiB. The detector input and scratch outputs live only in a temporary directory. The run writes a compact manifest, hit summary, slice summary, and waterfall PNG under `runs/<RUN_ID>/`. Review [`docs/data-sources.md`](docs/data-sources.md) before interpreting the upstream sample or its published reference values.
 
+## Synthetic detector calibration (EXP-002)
+
+`make floor-smoke` runs the reduced grid; `make floor` runs the full 8×9×5 setigen/turboSETI grid. The completed run is [`20261012T140202855194Z-exp-002-floor`](runs/20261012T140202855194Z-exp-002-floor/manifest.json). At zero drift it recovered 2/5 injections at SNR 5 and 5/5 from SNR 8 upward. Every nonzero-drift cell had zero recoveries, so no full-recovery floor was found across the configured ±3 Hz/s dashboard range. This null pattern is preserved, not smoothed into a sensitivity claim. See the [method and run interpretation](docs/mission-control-exp002.md).
+
 ## Useful commands
 
 | Command | Purpose |
@@ -43,7 +47,11 @@ This reads the immutable HTTPS mirror in bounded 64 KiB ranges, slices only the 
 | `make live-build` | Rebuild `runs/state.json` and `site/` from the synthetic demo manifests. |
 | `make live-dev` | Build the demo and serve it locally on port 8080. |
 | `make voyager` | Run EXP-001 against the pinned, range-read HDF5 Voyager sample. |
+| `make floor-smoke` | Run the reduced 3×3×1 synthetic EXP-002 detector test. |
+| `make floor` | Run the full 8×9×5 synthetic EXP-002 grid. |
+| `make floor-evidence` | Run the full grid, rebuild/validate state, and render the evidence page. |
 | `make live-evidence` | Build/render Mission Control from the manifests currently under `runs/`. |
+| `make docs` | Strictly build static project docs locally; does not publish. |
 
 `xenia live hero --voyager --help` shows the EXP-001 options. Result-producing commands write a small `runs/<RUN_ID>/manifest.json` with exact inputs, command, parameters, outputs, code SHA, timestamps, outcome, and notes.
 
@@ -78,13 +86,26 @@ Pinned HTTPS HDF5 mirror
 
 The original Breakthrough Listen tutorial `.fil` sample has only two integrations, while turboSETI requires at least four. The project records the failed attempts and uses the separately published, 16-integration HDF5 positive-control sample instead; it does not fabricate integrations or patch upstream validation. The actual HTTPS transport is a third-party mirror pinned to an immutable Git commit, with the official publisher URL recorded separately. See the [source and verification notes](docs/data-sources.md).
 
+### EXP-002 synthetic calibration
+
+```text
+seeded setigen frames
+  → neutral-metadata temporary filterbanks
+  → turboSETI searches with one-to-one frequency/drift matching
+  → typed recovery_grid.json + complete run manifest
+  → schema-validated Mission Control state and synthetic heatmap
+```
+
+The full grid and its measured outcome are documented in [`docs/mission-control-exp002.md`](docs/mission-control-exp002.md). Temporary filterbanks and detector tables are removed after each trial.
+
 `LiveState` in `src/xenia/live/models.py` is the schema source of truth. Its checked-in JSON Schema is `schemas/live_state.schema.json`. Generated page files under `site/` are reproducible outputs, not the source of truth.
 
 ## Current boundaries
 
 - M0 fixtures are synthetic and are never represented as telescope observations.
 - EXP-001 is a known-transmitter positive control. It is not an unknown candidate or an anomaly claim.
-- EXP-002 injection/recovery, the 100-cadence crawler, unattended worker, live hosting, Pages mirror, and M4 sharing polish are later MVP acceptance items.
+- EXP-002 is a synthetic detector regression only; this run did not establish a stable nonzero-drift recovery floor.
+- The 100-cadence crawler, unattended worker, deployment validation, Pages mirror, and M4 sharing polish remain incomplete.
 - The live worker must not be configured or hosted until the approved VM and required access are available. No host, account, or paid service has been provisioned.
 
 ## Reproducibility and data handling
@@ -98,7 +119,7 @@ The original Breakthrough Listen tutorial `.fil` sample has only two integration
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for Python style, tests, provenance requirements, and data-handling policy. Scientific dependency compatibility and the CPython 3.15 radio extra are documented in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for Python style, tests, provenance requirements, and data-handling policy. Scientific dependency compatibility and the CPython 3.15 radio extra are documented in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md). The static docs are built with `make docs`; they are not published by CI.
 
 ## License
 
@@ -106,4 +127,4 @@ Code is licensed under Apache-2.0. Project-authored documentation is licensed un
 
 ## Project sources
 
-The mutable specification, decisions, and task state live in the [Alien Exploration Notion teamspace](https://app.notion.com/p/3ab073ddfc5c83b3ad6801b9c2608d6b). The [Mission Control MVP brief](https://app.notion.com/p/Mission-Control-MVP-EXP-030-3f7073ddfc5c811ca260d7b2a306eaac) is the source of truth for milestones and acceptance criteria. M0-specific history is in [`docs/mission-control-m0.md`](docs/mission-control-m0.md).
+The mutable specification, decisions, and task state live in the [Alien Exploration Notion teamspace](https://app.notion.com/p/3ab073ddfc5c83b3ad6801b9c2608d6b). The [Mission Control MVP brief](https://app.notion.com/p/Mission-Control-MVP-EXP-030-3f7073ddfc5c811ca260d7b2a306eaac) is the source of truth for milestones and acceptance criteria. See [`docs/index.md`](docs/index.md), the [M0 notes](docs/mission-control-m0.md), and the [EXP-002 method/results](docs/mission-control-exp002.md).

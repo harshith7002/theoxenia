@@ -344,6 +344,31 @@ def floor_summary(payload: FloorPayload) -> str:
         if all(row[index] == 1.0 for index in eligible_columns)
     ]
     if not qualifying_snrs:
+        center_columns = [index for index, drift in enumerate(payload.drift_grid) if drift == 0]
+        nonzero_columns = [index for index in eligible_columns if payload.drift_grid[index] != 0]
+        if center_columns and nonzero_columns:
+            center_index = center_columns[0]
+            center_floor = next(
+                (
+                    snr
+                    for snr, row in zip(payload.snr_grid, payload.recovered_fraction, strict=True)
+                    if row[center_index] == 1.0
+                ),
+                None,
+            )
+            if center_floor is not None:
+                best_nonzero = max(
+                    row[index] for row in payload.recovered_fraction for index in nonzero_columns
+                )
+                nonzero_summary = (
+                    "all tested nonzero-drift cells recovered 0%"
+                    if best_nonzero == 0.0
+                    else f"best nonzero-drift recovery was {best_nonzero:.0%}"
+                )
+                return (
+                    f"At 0 Hz/s, full recovery begins at SNR ≥ {center_floor:g}; "
+                    f"{nonzero_summary}. No tested SNR reached full recovery across ±3 Hz/s."
+                )
         return "No tested SNR reached full recovery within the configured ±3 Hz/s range."
     threshold = min(qualifying_snrs)
     return f"Recovers SNR ≥ {threshold:g} at drift within ±3 Hz/s."

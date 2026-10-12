@@ -39,9 +39,17 @@ xenia schemas validate-floor --grid runs/<RUN_ID>/recovery_grid.json
 
 `runs/<RUN_ID>/manifest.json` contains the exact command and parameters, `EXP-002` linkage, code SHA, package versions, UTC timestamps, outcome, artifact hash/size, and notes. The grid JSON is itself schema-validated and records every injection decision and detector hit. The Mission Control state builder computes the plotted fraction from those validated records and links the panel to the experiment manifest.
 
+## First full-grid result
+
+Run `20261012T140202855194Z-exp-002-floor` completed on 2026-10-12 from code commit `f2030e7` with seed `20261012`. It contains all 360 injection decisions across five independently seeded detector searches. The 258,181-byte `recovery_grid.json` validates against the committed Pydantic schema; its SHA-256 is `b22f2bf0d2e438dda20897dba5a21cd623dd5c2a929091ba1b429fbbcb40da45`.
+
+At 0 Hz/s, the detector recovered 2/5 injections at SNR 5 and 5/5 at every tested SNR from 8 through 40. At every nonzero drift from −4 through +4 Hz/s, it recovered 0/5. Therefore the grid establishes a zero-drift result only; no tested SNR reached full recovery across the dashboard’s ±3 Hz/s summary range. The corresponding static state/render runs are `20261012T140257833721Z-build-state` and `20261012T140258815795Z-render`. These values describe the synthetic generator and tested detector configuration only; they are not a calibrated telescope sensitivity curve.
+
+All five turboSETI searches also emitted the recorded final candidate-count logging `TypeError` after writing parseable `.dat` rows. The adapter retained results only when the output parsed and passed its structural checks; the warning remains in the manifest and artifact. It did not treat an incomplete output as a successful null result.
+
 ## Continuous integration
 
-`.github/workflows/exp-002-floor.yml` runs the reduced deterministic grid on pull requests, the full grid nightly, and either mode on manual dispatch. It then validates the generated recovery-grid and `LiveState` schemas, rebuilds/renders Mission Control, and uploads the run directory, state, and static page as a 30-day Actions artifact. The current Actions URL is carried through the typed payload and rendered as an optional dashboard link. The workflow needs no repository secrets and grants read-only repository permissions.
+`.github/workflows/exp-002-floor.yml` runs the reduced deterministic grid on pull requests, the full grid nightly, and either mode on manual dispatch. It then validates the generated recovery-grid and `LiveState` schemas, rebuilds/renders Mission Control, and uploads the run directory, state, and static page as a 30-day Actions artifact. The current Actions URL is carried through the typed payload and rendered as an optional dashboard link. The workflow needs no repository secrets and grants read-only repository permissions. GitHub starts scheduled runs only after this workflow is present on the default branch; this feature branch has not had a nightly Actions run.
 
 ## Interpretation limits
 
@@ -58,4 +66,4 @@ This is a reproducible **synthetic detector regression test**, not a statement a
 
 ## Current status note
 
-This document describes the implementation and acceptance method. A real experiment result is only complete when its `runs/<RUN_ID>/manifest.json` and `recovery_grid.json` are present, the `make` gates pass, and that run ID is linked from the live Notion Experiment record. The CI artifact is separately identified by its GitHub Actions URL. A locally rendered preview is not a deployment.
+The full local run and schema validation are complete. The EXP-002 task and Experiment records still need the run ID, result summary, and code/artifact links recorded in live Notion before this run is fully linked. PR checks and the reduced-grid workflow are pending push; the scheduled full-grid workflow will become active after merge to the default branch. A locally rendered preview is not a deployment.

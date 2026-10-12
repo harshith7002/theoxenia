@@ -25,7 +25,7 @@ Every result-producing command records exact parameters, code SHA, runtime versi
 |---|---|
 | M0, static fixture-backed page and schema | Implemented; see [M0 notes](mission-control-m0.md). |
 | EXP-001, Voyager positive control | Implemented and run; the measured values and source caveats are in [data sources](data-sources.md). |
-| EXP-002, synthetic injection/recovery | Runner, schema, tests, and PR/nightly CI path are implemented; completion requires the full grid run, committed manifest/artifact, and Notion Experiment linkage. See [method](mission-control-exp002.md). |
+| EXP-002, synthetic injection/recovery | Runner, schema, tests, and PR/nightly workflows are implemented; the full 8×9×5 run completed and validated locally. Manifest/artifact commit, pushed-branch checks, and live Notion Experiment linkage remain; nightly runs start only after merge to the default branch. See [method/results](mission-control-exp002.md). |
 | M3, persistent worker, restart/egress and VM validation | Deferred until Michael attaches the VM and approves the exact setup. No host is selected or provisioned. |
 | Static docs/catalogue publication | MkDocs is build-only in this repository. GitHub Pages publication is not enabled. |
 | Disclosure, fusion, and exoplanet pipelines | Not part of the current EXP-030 vertical slice; implement only against an actionable Notion task and verified primary sources. |
