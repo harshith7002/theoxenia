@@ -52,6 +52,7 @@ class DetectorResult:
     artifacts: tuple[DetectorArtifact, ...]
     turbo_seti_version: str
     blimpy_version: str
+    warnings: tuple[str, ...] = ()
 
 
 def parse_dat_text(text: str) -> tuple[DopplerHit, ...]:
@@ -198,13 +199,32 @@ def run_turboseti(
         blank_dc=True,
         precision=1,
     )
-    finder.search(n_partitions=1, progress_bar="n")
+    search_error: TypeError | None = None
+    try:
+        finder.search(n_partitions=1, progress_bar="n")
+    except TypeError as exc:
+        expected_error = "format argument: %i requires a real number, not numpy.ndarray"
+        if expected_error not in str(exc):
+            raise
+        search_error = exc
 
     dat_paths = tuple(sorted(output_directory.glob("*.dat")))
     parsed_hits = tuple(
         hit
         for dat_path in dat_paths
         for hit in parse_dat_text(dat_path.read_text(encoding="utf-8", errors="replace"))
+    )
+    if search_error is not None and not parsed_hits:
+        raise search_error
+    warnings = (
+        (
+            f"turboSETI {turbo_version} raised its known NumPy-array formatting "
+            "TypeError during final candidate-count logging after writing parseable .dat hit rows; "
+            "those rows were "
+            "retained and validated.",
+        )
+        if search_error is not None
+        else ()
     )
     artifacts = tuple(
         DetectorArtifact(
@@ -219,4 +239,5 @@ def run_turboseti(
         artifacts=artifacts,
         turbo_seti_version=turbo_version,
         blimpy_version=blimpy_version,
+        warnings=warnings,
     )

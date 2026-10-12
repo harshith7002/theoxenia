@@ -371,6 +371,7 @@ def run_voyager(
                     ],
                     "frequency_channel_width_mhz": abs(slice_info.header.foff_mhz),
                     "dat_outputs": _detector_artifacts(detector_result),
+                    "warnings": list(detector_result.warnings),
                     "selected_hit_top_hit": None if hit is None else hit.top_hit,
                 }
 
@@ -415,6 +416,7 @@ def run_voyager(
                 "Null known-answer result: no hit passed the predeclared thresholds. "
                 "This is not a scientific non-detection conclusion.",
             )
+        notes = (*notes, *detector_result.warnings)
         manifest, written_path = create_run_manifest(
             run_id=run_id,
             command=command,

@@ -1,0 +1,720 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T130616461127Z-exp-001-voyager",
+  "pillar": "I · Sensor",
+  "command": "xenia live hero --voyager",
+  "parameters": {
+    "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5",
+    "canonical_source_url": "http://blpd0.ssl.berkeley.edu/Voyager_data/Voyager1.single_coarse.fine_res.h5",
+    "source_expected_size_bytes": 50549227,
+    "mirror_provenance": {
+      "repository": "RaghavGirgaonkar/SETI-Project-Test",
+      "commit": "9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb",
+      "git_blob_sha1": "42a41e5c2564afc8e73dc7b23cece3e3123f15d6",
+      "note": "Third-party HTTPS mirror pinned to a commit; cross-validated against official blimpy Voyager test values."
+    },
+    "requested_window_mhz": [
+      8419.24,
+      8419.35
+    ],
+    "known_answer_window_mhz": [
+      8419.296,
+      8419.298
+    ],
+    "known_answer_frequency_uncertainty_mhz": 1.3969838619232178e-6,
+    "max_drift_hz_s": 4.0,
+    "minimum_drift_hz_s": 0.00001,
+    "minimum_snr": 25.0,
+    "detector_options": {
+      "input_format": "HDF5 FILTERBANK",
+      "n_coarse_chan": 1,
+      "n_partitions": 1,
+      "progress_bar": "n",
+      "blank_dc": true,
+      "precision": "single"
+    },
+    "remote_block_size_bytes": 65536,
+    "remote_transfer_limit_bytes": 25165824,
+    "runtime": {
+      "python": "3.15.0",
+      "numpy": "2.5.4",
+      "h5py": "3.16.0",
+      "libhdf5": "1.10.10",
+      "hdf5plugin": "7.1.0"
+    },
+    "source_size_bytes": 50549227,
+    "source_header": {
+      "source_name": "Voyager1",
+      "integrations": 16,
+      "nifs": 1,
+      "nchans": 1048576,
+      "nbits": 32,
+      "fch1_mhz": 8421.386717353016,
+      "foff_mhz": -2.7939677238464355e-6,
+      "tsamp_seconds": 18.253611008,
+      "tstart_mjd": 57650.78209490741,
+      "dtype": "<f4",
+      "chunk_shape": [
+        1,
+        1,
+        16384
+      ],
+      "source_size_bytes": 50549227,
+      "file_class": "FILTERBANK",
+      "file_version": "1.0",
+      "root_members": [
+        "data",
+        "mask"
+      ],
+      "data_attributes": [
+        "DIMENSION_LABELS",
+        "az_start",
+        "data_type",
+        "fch1",
+        "foff",
+        "ibeam",
+        "machine_id",
+        "nbeams",
+        "nbits",
+        "nchans",
+        "nifs",
+        "rawdatafile",
+        "source_name",
+        "src_dej",
+        "src_raj",
+        "telescope_id",
+        "tsamp",
+        "tstart",
+        "za_start"
+      ]
+    },
+    "remote_transfer": {
+      "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5",
+      "source_size_bytes": 50549227,
+      "max_transfer_bytes": 25165824,
+      "ranges": [
+        {
+          "start": 0,
+          "end_exclusive": 65544,
+          "bytes_received": 65544
+        },
+        {
+          "start": 49755641,
+          "end_exclusive": 49822401,
+          "bytes_received": 66760
+        },
+        {
+          "start": 2144,
+          "end_exclusive": 71776,
+          "bytes_received": 69632
+        },
+        {
+          "start": 3214069,
+          "end_exclusive": 3282741,
+          "bytes_received": 68672
+        },
+        {
+          "start": 2175291,
+          "end_exclusive": 2290122,
+          "bytes_received": 114831
+        },
+        {
+          "start": 2290122,
+          "end_exclusive": 2388433,
+          "bytes_received": 98311
+        },
+        {
+          "start": 3210933,
+          "end_exclusive": 3279605,
+          "bytes_received": 68672
+        },
+        {
+          "start": 5333786,
+          "end_exclusive": 5448424,
+          "bytes_received": 114638
+        },
+        {
+          "start": 5448424,
+          "end_exclusive": 5546603,
+          "bytes_received": 98179
+        },
+        {
+          "start": 8835508,
+          "end_exclusive": 8904180,
+          "bytes_received": 68672
+        },
+        {
+          "start": 8491405,
+          "end_exclusive": 8606268,
+          "bytes_received": 114863
+        },
+        {
+          "start": 8606268,
+          "end_exclusive": 8704656,
+          "bytes_received": 98388
+        },
+        {
+          "start": 11650807,
+          "end_exclusive": 11719479,
+          "bytes_received": 68672
+        },
+        {
+          "start": 11719479,
+          "end_exclusive": 11817702,
+          "bytes_received": 98223
+        },
+        {
+          "start": 11752166,
+          "end_exclusive": 11781879,
+          "bytes_received": 29713
+        },
+        {
+          "start": 14463924,
+          "end_exclusive": 14532596,
+          "bytes_received": 68672
+        },
+        {
+          "start": 14811179,
+          "end_exclusive": 14926014,
+          "bytes_received": 114835
+        },
+        {
+          "start": 14926014,
+          "end_exclusive": 15024498,
+          "bytes_received": 98484
+        },
+        {
+          "start": 17278087,
+          "end_exclusive": 17346759,
+          "bytes_received": 68672
+        },
+        {
+          "start": 17969077,
+          "end_exclusive": 18083524,
+          "bytes_received": 114447
+        },
+        {
+          "start": 18083524,
+          "end_exclusive": 18181903,
+          "bytes_received": 98379
+        },
+        {
+          "start": 20092601,
+          "end_exclusive": 20161273,
+          "bytes_received": 68672
+        },
+        {
+          "start": 21127469,
+          "end_exclusive": 21242158,
+          "bytes_received": 114689
+        },
+        {
+          "start": 21242158,
+          "end_exclusive": 21340349,
+          "bytes_received": 98191
+        },
+        {
+          "start": 22908781,
+          "end_exclusive": 22977453,
+          "bytes_received": 68672
+        },
+        {
+          "start": 24287084,
+          "end_exclusive": 24401805,
+          "bytes_received": 114721
+        },
+        {
+          "start": 24401805,
+          "end_exclusive": 24499990,
+          "bytes_received": 98185
+        },
+        {
+          "start": 25722054,
+          "end_exclusive": 25790726,
+          "bytes_received": 68672
+        },
+        {
+          "start": 27443855,
+          "end_exclusive": 27558803,
+          "bytes_received": 114948
+        },
+        {
+          "start": 27558803,
+          "end_exclusive": 27657100,
+          "bytes_received": 98297
+        },
+        {
+          "start": 28527419,
+          "end_exclusive": 28596091,
+          "bytes_received": 68672
+        },
+        {
+          "start": 30601537,
+          "end_exclusive": 30716216,
+          "bytes_received": 114679
+        },
+        {
+          "start": 30716216,
+          "end_exclusive": 30814453,
+          "bytes_received": 98237
+        },
+        {
+          "start": 34154355,
+          "end_exclusive": 34223027,
+          "bytes_received": 68672
+        },
+        {
+          "start": 33760737,
+          "end_exclusive": 33875320,
+          "bytes_received": 114583
+        },
+        {
+          "start": 33875320,
+          "end_exclusive": 33973695,
+          "bytes_received": 98375
+        },
+        {
+          "start": 36968487,
+          "end_exclusive": 37037159,
+          "bytes_received": 68672
+        },
+        {
+          "start": 36919190,
+          "end_exclusive": 37034023,
+          "bytes_received": 114833
+        },
+        {
+          "start": 37034023,
+          "end_exclusive": 37135446,
+          "bytes_received": 101423
+        },
+        {
+          "start": 39782186,
+          "end_exclusive": 39850858,
+          "bytes_received": 68672
+        },
+        {
+          "start": 40080449,
+          "end_exclusive": 40195267,
+          "bytes_received": 114818
+        },
+        {
+          "start": 40195267,
+          "end_exclusive": 40293673,
+          "bytes_received": 98406
+        },
+        {
+          "start": 42596535,
+          "end_exclusive": 42665207,
+          "bytes_received": 68672
+        },
+        {
+          "start": 43238802,
+          "end_exclusive": 43353576,
+          "bytes_received": 114774
+        },
+        {
+          "start": 43353576,
+          "end_exclusive": 43451781,
+          "bytes_received": 98205
+        },
+        {
+          "start": 45412034,
+          "end_exclusive": 45480706,
+          "bytes_received": 68672
+        },
+        {
+          "start": 46398091,
+          "end_exclusive": 46512932,
+          "bytes_received": 114841
+        },
+        {
+          "start": 46512932,
+          "end_exclusive": 46611161,
+          "bytes_received": 98229
+        },
+        {
+          "start": 48227622,
+          "end_exclusive": 48296294,
+          "bytes_received": 68672
+        },
+        {
+          "start": 49558920,
+          "end_exclusive": 49673563,
+          "bytes_received": 114643
+        },
+        {
+          "start": 49673563,
+          "end_exclusive": 49771966,
+          "bytes_received": 98403
+        }
+      ],
+      "bytes_transferred": 4627459
+    },
+    "slice": {
+      "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5",
+      "canonical_source_url": "http://blpd0.ssl.berkeley.edu/Voyager_data/Voyager1.single_coarse.fine_res.h5",
+      "source_name": "Voyager1",
+      "source_header": {
+        "source_name": "Voyager1",
+        "integrations": 16,
+        "nifs": 1,
+        "nchans": 1048576,
+        "nbits": 32,
+        "fch1_mhz": 8421.386717353016,
+        "foff_mhz": -2.7939677238464355e-6,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57650.78209490741,
+        "dtype": "<f4",
+        "chunk_shape": [
+          1,
+          1,
+          16384
+        ],
+        "source_size_bytes": 50549227,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "ibeam",
+          "machine_id",
+          "nbeams",
+          "nbits",
+          "nchans",
+          "nifs",
+          "rawdatafile",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ]
+      },
+      "requested_window_mhz": [
+        8419.24,
+        8419.35
+      ],
+      "channel_start": 728970,
+      "channel_count": 39371,
+      "first_center_mhz": 8419.349998701364,
+      "last_center_mhz": 8419.240000192076,
+      "integrations": 16,
+      "nifs": 1,
+      "nbits": 32,
+      "dtype": "<f4",
+      "slice_size_bytes": 3157056,
+      "slice_sha256": "b9abc956f731c431a12f5ff7ac3a8d88b4da15cfc80077c5fab70ff8b20ae205",
+      "remote_transfer": {
+        "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5",
+        "source_size_bytes": 50549227,
+        "max_transfer_bytes": 25165824,
+        "ranges": [
+          {
+            "start": 0,
+            "end_exclusive": 65544,
+            "bytes_received": 65544
+          },
+          {
+            "start": 49755641,
+            "end_exclusive": 49822401,
+            "bytes_received": 66760
+          },
+          {
+            "start": 2144,
+            "end_exclusive": 71776,
+            "bytes_received": 69632
+          },
+          {
+            "start": 3214069,
+            "end_exclusive": 3282741,
+            "bytes_received": 68672
+          },
+          {
+            "start": 2175291,
+            "end_exclusive": 2290122,
+            "bytes_received": 114831
+          },
+          {
+            "start": 2290122,
+            "end_exclusive": 2388433,
+            "bytes_received": 98311
+          },
+          {
+            "start": 3210933,
+            "end_exclusive": 3279605,
+            "bytes_received": 68672
+          },
+          {
+            "start": 5333786,
+            "end_exclusive": 5448424,
+            "bytes_received": 114638
+          },
+          {
+            "start": 5448424,
+            "end_exclusive": 5546603,
+            "bytes_received": 98179
+          },
+          {
+            "start": 8835508,
+            "end_exclusive": 8904180,
+            "bytes_received": 68672
+          },
+          {
+            "start": 8491405,
+            "end_exclusive": 8606268,
+            "bytes_received": 114863
+          },
+          {
+            "start": 8606268,
+            "end_exclusive": 8704656,
+            "bytes_received": 98388
+          },
+          {
+            "start": 11650807,
+            "end_exclusive": 11719479,
+            "bytes_received": 68672
+          },
+          {
+            "start": 11719479,
+            "end_exclusive": 11817702,
+            "bytes_received": 98223
+          },
+          {
+            "start": 11752166,
+            "end_exclusive": 11781879,
+            "bytes_received": 29713
+          },
+          {
+            "start": 14463924,
+            "end_exclusive": 14532596,
+            "bytes_received": 68672
+          },
+          {
+            "start": 14811179,
+            "end_exclusive": 14926014,
+            "bytes_received": 114835
+          },
+          {
+            "start": 14926014,
+            "end_exclusive": 15024498,
+            "bytes_received": 98484
+          },
+          {
+            "start": 17278087,
+            "end_exclusive": 17346759,
+            "bytes_received": 68672
+          },
+          {
+            "start": 17969077,
+            "end_exclusive": 18083524,
+            "bytes_received": 114447
+          },
+          {
+            "start": 18083524,
+            "end_exclusive": 18181903,
+            "bytes_received": 98379
+          },
+          {
+            "start": 20092601,
+            "end_exclusive": 20161273,
+            "bytes_received": 68672
+          },
+          {
+            "start": 21127469,
+            "end_exclusive": 21242158,
+            "bytes_received": 114689
+          },
+          {
+            "start": 21242158,
+            "end_exclusive": 21340349,
+            "bytes_received": 98191
+          },
+          {
+            "start": 22908781,
+            "end_exclusive": 22977453,
+            "bytes_received": 68672
+          },
+          {
+            "start": 24287084,
+            "end_exclusive": 24401805,
+            "bytes_received": 114721
+          },
+          {
+            "start": 24401805,
+            "end_exclusive": 24499990,
+            "bytes_received": 98185
+          },
+          {
+            "start": 25722054,
+            "end_exclusive": 25790726,
+            "bytes_received": 68672
+          },
+          {
+            "start": 27443855,
+            "end_exclusive": 27558803,
+            "bytes_received": 114948
+          },
+          {
+            "start": 27558803,
+            "end_exclusive": 27657100,
+            "bytes_received": 98297
+          },
+          {
+            "start": 28527419,
+            "end_exclusive": 28596091,
+            "bytes_received": 68672
+          },
+          {
+            "start": 30601537,
+            "end_exclusive": 30716216,
+            "bytes_received": 114679
+          },
+          {
+            "start": 30716216,
+            "end_exclusive": 30814453,
+            "bytes_received": 98237
+          },
+          {
+            "start": 34154355,
+            "end_exclusive": 34223027,
+            "bytes_received": 68672
+          },
+          {
+            "start": 33760737,
+            "end_exclusive": 33875320,
+            "bytes_received": 114583
+          },
+          {
+            "start": 33875320,
+            "end_exclusive": 33973695,
+            "bytes_received": 98375
+          },
+          {
+            "start": 36968487,
+            "end_exclusive": 37037159,
+            "bytes_received": 68672
+          },
+          {
+            "start": 36919190,
+            "end_exclusive": 37034023,
+            "bytes_received": 114833
+          },
+          {
+            "start": 37034023,
+            "end_exclusive": 37135446,
+            "bytes_received": 101423
+          },
+          {
+            "start": 39782186,
+            "end_exclusive": 39850858,
+            "bytes_received": 68672
+          },
+          {
+            "start": 40080449,
+            "end_exclusive": 40195267,
+            "bytes_received": 114818
+          },
+          {
+            "start": 40195267,
+            "end_exclusive": 40293673,
+            "bytes_received": 98406
+          },
+          {
+            "start": 42596535,
+            "end_exclusive": 42665207,
+            "bytes_received": 68672
+          },
+          {
+            "start": 43238802,
+            "end_exclusive": 43353576,
+            "bytes_received": 114774
+          },
+          {
+            "start": 43353576,
+            "end_exclusive": 43451781,
+            "bytes_received": 98205
+          },
+          {
+            "start": 45412034,
+            "end_exclusive": 45480706,
+            "bytes_received": 68672
+          },
+          {
+            "start": 46398091,
+            "end_exclusive": 46512932,
+            "bytes_received": 114841
+          },
+          {
+            "start": 46512932,
+            "end_exclusive": 46611161,
+            "bytes_received": 98229
+          },
+          {
+            "start": 48227622,
+            "end_exclusive": 48296294,
+            "bytes_received": 68672
+          },
+          {
+            "start": 49558920,
+            "end_exclusive": 49673563,
+            "bytes_received": 114643
+          },
+          {
+            "start": 49673563,
+            "end_exclusive": 49771966,
+            "bytes_received": 98403
+          }
+        ],
+        "bytes_transferred": 4627459
+      }
+    }
+  },
+  "inputs": [
+    {
+      "uri": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5",
+      "sha256": null,
+      "size_bytes": 50549227
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T130616461127Z-exp-001-voyager/slice_summary.json",
+      "sha256": "c30906fa30f5d0f77e26bf9b1f9a66b6f541007afa5597f3a3142da1b973adfd",
+      "size_bytes": 7518,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T130616461127Z-exp-001-voyager/failure.json",
+      "sha256": "0a9847923d6f78f9e9f3c06729ee633dc0be3fc5c1e5e70cd9830c633d30fe6a",
+      "size_bytes": 7250,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T130616461127Z-exp-001-voyager/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "adfd393",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T13:06:16.461127Z",
+  "finished_at": "2026-10-12T13:06:21.868482Z",
+  "outcome": "failed",
+  "notes": [
+    "Operational failure: TypeError: format argument: %i requires a real number, not numpy.ndarray"
+  ],
+  "experiment_id": "EXP-001",
+  "demo": false,
+  "mission_control": null
+}

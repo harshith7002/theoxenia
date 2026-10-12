@@ -139,3 +139,62 @@ def test_detector_wrapper_rejects_zero_coarse_channels(tmp_path: Path) -> None:
             minimum_snr=10.0,
             n_coarse_channels=0,
         )
+
+
+def test_detector_wrapper_preserves_hits_after_final_logging_type_error(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    filterbank = tmp_path / "slice.h5"
+    filterbank.write_bytes(b"synthetic HDF5 placeholder")
+    output_directory = tmp_path / "detector"
+
+    class FinderWithPostSearchError:
+        def __init__(self, path: str, **kwargs: object) -> None:
+            self.out_dir = Path(str(kwargs["out_dir"]))
+
+        def search(self, *, n_partitions: int, progress_bar: str) -> None:
+            (self.out_dir / "slice.dat").write_text(DAT_TEXT, encoding="utf-8")
+            raise TypeError("format argument: %i requires a real number, not numpy.ndarray")
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: FinderWithPostSearchError)
+    monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
+
+    result = run_turboseti(
+        filterbank,
+        output_directory=output_directory,
+        max_drift_hz_s=4.0,
+        minimum_snr=10.0,
+    )
+
+    assert len(result.hits) == 2
+    assert result.artifacts[0].size_bytes == (output_directory / "slice.dat").stat().st_size
+    assert len(result.warnings) == 1
+    assert "after writing parseable .dat hit rows" in result.warnings[0]
+
+
+def test_detector_wrapper_rejects_post_search_error_without_hit_rows(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    filterbank = tmp_path / "slice.h5"
+    filterbank.write_bytes(b"synthetic HDF5 placeholder")
+    output_directory = tmp_path / "detector"
+    empty_table = f"# {DAT_HEADER}\n"
+
+    class FinderWithEmptyOutput:
+        def __init__(self, path: str, **kwargs: object) -> None:
+            self.out_dir = Path(str(kwargs["out_dir"]))
+
+        def search(self, *, n_partitions: int, progress_bar: str) -> None:
+            (self.out_dir / "slice.dat").write_text(empty_table, encoding="utf-8")
+            raise TypeError("format argument: %i requires a real number, not numpy.ndarray")
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: FinderWithEmptyOutput)
+    monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
+
+    with pytest.raises(TypeError, match="format argument: %i requires a real number"):
+        run_turboseti(
+            filterbank,
+            output_directory=output_directory,
+            max_drift_hz_s=4.0,
+            minimum_snr=10.0,
+        )

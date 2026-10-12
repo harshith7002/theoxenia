@@ -1,0 +1,320 @@
+{
+  "error": "format argument: %i requires a real number, not numpy.ndarray",
+  "error_type": "TypeError",
+  "remote_transfer": {
+    "bytes_transferred": 4627459,
+    "max_transfer_bytes": 25165824,
+    "ranges": [
+      {
+        "bytes_received": 65544,
+        "end_exclusive": 65544,
+        "start": 0
+      },
+      {
+        "bytes_received": 66760,
+        "end_exclusive": 49822401,
+        "start": 49755641
+      },
+      {
+        "bytes_received": 69632,
+        "end_exclusive": 71776,
+        "start": 2144
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 3282741,
+        "start": 3214069
+      },
+      {
+        "bytes_received": 114831,
+        "end_exclusive": 2290122,
+        "start": 2175291
+      },
+      {
+        "bytes_received": 98311,
+        "end_exclusive": 2388433,
+        "start": 2290122
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 3279605,
+        "start": 3210933
+      },
+      {
+        "bytes_received": 114638,
+        "end_exclusive": 5448424,
+        "start": 5333786
+      },
+      {
+        "bytes_received": 98179,
+        "end_exclusive": 5546603,
+        "start": 5448424
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 8904180,
+        "start": 8835508
+      },
+      {
+        "bytes_received": 114863,
+        "end_exclusive": 8606268,
+        "start": 8491405
+      },
+      {
+        "bytes_received": 98388,
+        "end_exclusive": 8704656,
+        "start": 8606268
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 11719479,
+        "start": 11650807
+      },
+      {
+        "bytes_received": 98223,
+        "end_exclusive": 11817702,
+        "start": 11719479
+      },
+      {
+        "bytes_received": 29713,
+        "end_exclusive": 11781879,
+        "start": 11752166
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 14532596,
+        "start": 14463924
+      },
+      {
+        "bytes_received": 114835,
+        "end_exclusive": 14926014,
+        "start": 14811179
+      },
+      {
+        "bytes_received": 98484,
+        "end_exclusive": 15024498,
+        "start": 14926014
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 17346759,
+        "start": 17278087
+      },
+      {
+        "bytes_received": 114447,
+        "end_exclusive": 18083524,
+        "start": 17969077
+      },
+      {
+        "bytes_received": 98379,
+        "end_exclusive": 18181903,
+        "start": 18083524
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 20161273,
+        "start": 20092601
+      },
+      {
+        "bytes_received": 114689,
+        "end_exclusive": 21242158,
+        "start": 21127469
+      },
+      {
+        "bytes_received": 98191,
+        "end_exclusive": 21340349,
+        "start": 21242158
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 22977453,
+        "start": 22908781
+      },
+      {
+        "bytes_received": 114721,
+        "end_exclusive": 24401805,
+        "start": 24287084
+      },
+      {
+        "bytes_received": 98185,
+        "end_exclusive": 24499990,
+        "start": 24401805
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 25790726,
+        "start": 25722054
+      },
+      {
+        "bytes_received": 114948,
+        "end_exclusive": 27558803,
+        "start": 27443855
+      },
+      {
+        "bytes_received": 98297,
+        "end_exclusive": 27657100,
+        "start": 27558803
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 28596091,
+        "start": 28527419
+      },
+      {
+        "bytes_received": 114679,
+        "end_exclusive": 30716216,
+        "start": 30601537
+      },
+      {
+        "bytes_received": 98237,
+        "end_exclusive": 30814453,
+        "start": 30716216
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 34223027,
+        "start": 34154355
+      },
+      {
+        "bytes_received": 114583,
+        "end_exclusive": 33875320,
+        "start": 33760737
+      },
+      {
+        "bytes_received": 98375,
+        "end_exclusive": 33973695,
+        "start": 33875320
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 37037159,
+        "start": 36968487
+      },
+      {
+        "bytes_received": 114833,
+        "end_exclusive": 37034023,
+        "start": 36919190
+      },
+      {
+        "bytes_received": 101423,
+        "end_exclusive": 37135446,
+        "start": 37034023
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 39850858,
+        "start": 39782186
+      },
+      {
+        "bytes_received": 114818,
+        "end_exclusive": 40195267,
+        "start": 40080449
+      },
+      {
+        "bytes_received": 98406,
+        "end_exclusive": 40293673,
+        "start": 40195267
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 42665207,
+        "start": 42596535
+      },
+      {
+        "bytes_received": 114774,
+        "end_exclusive": 43353576,
+        "start": 43238802
+      },
+      {
+        "bytes_received": 98205,
+        "end_exclusive": 43451781,
+        "start": 43353576
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 45480706,
+        "start": 45412034
+      },
+      {
+        "bytes_received": 114841,
+        "end_exclusive": 46512932,
+        "start": 46398091
+      },
+      {
+        "bytes_received": 98229,
+        "end_exclusive": 46611161,
+        "start": 46512932
+      },
+      {
+        "bytes_received": 68672,
+        "end_exclusive": 48296294,
+        "start": 48227622
+      },
+      {
+        "bytes_received": 114643,
+        "end_exclusive": 49673563,
+        "start": 49558920
+      },
+      {
+        "bytes_received": 98403,
+        "end_exclusive": 49771966,
+        "start": 49673563
+      }
+    ],
+    "source_size_bytes": 50549227,
+    "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5"
+  },
+  "runtime": {
+    "h5py": "3.16.0",
+    "hdf5plugin": "7.1.0",
+    "libhdf5": "1.10.10",
+    "numpy": "2.5.4",
+    "python": "3.15.0"
+  },
+  "source_header": {
+    "chunk_shape": [
+      1,
+      1,
+      16384
+    ],
+    "data_attributes": [
+      "DIMENSION_LABELS",
+      "az_start",
+      "data_type",
+      "fch1",
+      "foff",
+      "ibeam",
+      "machine_id",
+      "nbeams",
+      "nbits",
+      "nchans",
+      "nifs",
+      "rawdatafile",
+      "source_name",
+      "src_dej",
+      "src_raj",
+      "telescope_id",
+      "tsamp",
+      "tstart",
+      "za_start"
+    ],
+    "dtype": "<f4",
+    "fch1_mhz": 8421.386717353016,
+    "file_class": "FILTERBANK",
+    "file_version": "1.0",
+    "foff_mhz": -2.7939677238464355e-06,
+    "integrations": 16,
+    "nbits": 32,
+    "nchans": 1048576,
+    "nifs": 1,
+    "root_members": [
+      "data",
+      "mask"
+    ],
+    "source_name": "Voyager1",
+    "source_size_bytes": 50549227,
+    "tsamp_seconds": 18.253611008,
+    "tstart_mjd": 57650.78209490741
+  },
+  "source_url": "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5"
+}
