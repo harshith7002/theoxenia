@@ -292,6 +292,7 @@ def build_state(
         credits.append(INJECTION_DATA_CREDIT)
     data_credit = "; ".join(credits) if credits else DEMO_DATA_CREDIT
 
+    mirror = mirror_url is not None
     return LiveState(
         generated_at=timestamp,
         git_sha=git_sha or read_git_sha(),
@@ -301,6 +302,8 @@ def build_state(
             repo_url=repo_url,
             mirror_url=mirror_url,
             data_credit=data_credit,
+            is_mirror=mirror,
+            mirror_updated_at=timestamp if mirror else None,
         ),
         worker=worker,
         totals=totals,

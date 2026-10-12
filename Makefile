@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic recovery-check docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -97,6 +97,9 @@ live-once:
 
 live-forever:
 	THEOXENIA_PUSH=0 $(UV) run --locked xenia live run --forever --queue configs/queue.synthetic.jsonl
+
+recovery-check:
+	$(UV) run --locked pytest tests/test_deploy.py -q
 
 live-evidence:
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

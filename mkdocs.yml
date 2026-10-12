@@ -20,6 +20,7 @@ nav:
   - EXP-003 archive cadence: mission-control-exp003.md
   - Known transmitters: known-sources.md
   - Mission Control queue: mission-control-m3.md
+  - Mission Control deploy: mission-control-deploy.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
   - Scaffold integration review: scaffold-integration.md
