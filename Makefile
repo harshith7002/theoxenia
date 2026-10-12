@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -81,10 +81,16 @@ cadence:
 		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5
 
 cadence-synthetic:
-	$(UV) run --locked xenia live cadence --synthetic --seed 20261012 --experiment-id EXP-004
+	$(UV) run --locked xenia live cadence --synthetic --seed 20261012 --experiment-id EXP-004 --known-sources configs/fixtures/exp004_known_sources.yaml
 
 cadence-synthetic-reduced:
-	$(UV) run --locked xenia live cadence --synthetic --mode reduced --seed 20261012 --experiment-id EXP-004
+	$(UV) run --locked xenia live cadence --synthetic --mode reduced --seed 20261012 --experiment-id EXP-004 --known-sources configs/fixtures/exp004_known_sources.yaml
+
+queue:
+	$(UV) run --locked xenia live queue build --config configs/live.yaml --output configs/queue.jsonl --listing tests/fixtures/opendata_cadence_63460.json --cadence-id 63460 --receiver L --limit 200
+
+queue-synthetic:
+	$(UV) run --locked xenia live queue build --synthetic --seeds 20261012 --config configs/live.yaml --output configs/queue.synthetic.jsonl --limit 200
 
 live-evidence:
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

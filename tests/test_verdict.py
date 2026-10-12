@@ -113,17 +113,32 @@ def test_worker_cannot_return_unexplained() -> None:
 
 
 def test_known_sources_file_loads_the_fixture_band() -> None:
-    catalog = load_known_sources(REPOSITORY_ROOT / "configs" / "known_sources.yaml")
+    catalog = load_known_sources(
+        REPOSITORY_ROOT / "configs" / "fixtures" / "exp004_known_sources.yaml"
+    )
     assert catalog.match(5999.987) == "synthetic known-answer band"
     assert catalog.match(5999.991) is None
     assert catalog.downlinks == ()
+
+
+def test_verified_catalog_uses_sourced_ranges_only() -> None:
+    catalog = load_known_sources(REPOSITORY_ROOT / "configs" / "known_sources.yaml")
+    assert catalog.match(5999.987) is None
+    assert catalog.match(1575.42) == "GPS L1"
+    assert catalog.match(1227.6) == "GPS L2"
+    assert catalog.match(1602.0) == "GLONASS L1 FDMA"
+    assert catalog.match(8419.297028) == "Voyager 1 X-band"
+    assert catalog.match(8419.0) is None
+    assert all(item.source_url and item.checked for item in catalog.ranges)
+    assert all(item.source_url and item.checked for item in catalog.downlinks)
 
 
 def test_known_sources_file_rejects_a_reversed_range(tmp_path: Path) -> None:
     path = tmp_path / "known_sources.yaml"
     path.write_text(
         "ranges:\n  - name: backwards\n    freq_min_mhz: 2\n    freq_max_mhz: 1\n"
-        "    source: fixture\ndownlinks: []\n",
+        "    source: fixture\n    source_url: synthetic://test\n    checked: '2026-10-12'\n"
+        "downlinks: []\n",
         encoding="utf-8",
     )
     with pytest.raises(ValueError, match="must increase"):

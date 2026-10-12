@@ -41,7 +41,9 @@ def test_four_injections_keep_separated_paths() -> None:
 
 
 def test_only_the_known_source_line_enters_the_catalog_range() -> None:
-    catalog = load_known_sources(REPOSITORY_ROOT / "configs" / "known_sources.yaml")
+    catalog = load_known_sources(
+        REPOSITORY_ROOT / "configs" / "fixtures" / "exp004_known_sources.yaml"
+    )
     duration = scan_duration_seconds() * len(CADENCE_ROLES)
     for item in injection_truths():
         samples = [item.frequency_mhz_at(fraction * duration) for fraction in (0.0, 0.5, 1.0)]

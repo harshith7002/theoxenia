@@ -1,0 +1,33 @@
+# Spec section 8.5, plus the transfer cap and the public-HTTP flag.
+# transfer_cap_bytes is applied per file. The spec's example figure was
+# 256 MiB per pair; each file is opened on its own.
+campaign: bl-opendata-gbt-hdf5
+queue_file: configs/queue.jsonl
+window_mhz: 1.0
+windows:
+  L-band: [1380.0, 1420.0, 1500.0, 1600.0, 1700.0, 1100.0, 1200.0, 1300.0]
+  C-band: [4000.0, 5000.0, 6000.0, 7000.0, 7800.0]
+turboseti:
+  max_drift: 4.0
+  snr: 10.0
+  filter_threshold: 3
+plots:
+  thumb_px: [320, 140]
+  full_px: [1280, 720]
+  colormap: theoxenia_night
+commit:
+  branch: live
+  every_minutes: 30
+  on_survivor: true
+heartbeat_seconds: 60
+idle_sleep_minutes: 15
+max_retries: 2
+transfer_cap_bytes: 268435456
+allow_plain_http: false
+# Header measurement of cadence --63460 on 2026-10-12. Six fine files,
+# each header read 1048584 bytes. Same fch1, foff, and nchans on all six.
+measured_file_bands:
+  - cadence_id: bl-opendata-63460
+    low_mhz: 1023.9257840439677
+    high_mhz: 1926.26953125
+    checked: "2026-10-12"

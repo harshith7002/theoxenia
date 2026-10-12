@@ -24,7 +24,7 @@ def test_reduced_synthetic_cadence_matches_four_verdicts(tmp_path: Path) -> None
         seed=20261012,
         experiment_id="EXP-004",
         mode="reduced",
-        known_sources_path=REPOSITORY_ROOT / "configs" / "known_sources.yaml",
+        known_sources_path=REPOSITORY_ROOT / "configs" / "fixtures" / "exp004_known_sources.yaml",
     )
     assert manifest.demo is False
     assert manifest.outcome == "searched_with_survivors"

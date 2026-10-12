@@ -1,11 +1,29 @@
-# Fixture catalog for the EXP-004 synthetic cadence.
-# The range below is not a catalogued transmitter. It exists so one injected
-# line falls inside a named range. Add a real range only with a primary source.
+# Verified transmitter catalog. A range is listed only when a primary document
+# states the edges, or the edges are that document's centre and width.
+# Checked 2026-10-12. Iridium, Inmarsat, and the 8400–8450 MHz deep-space
+# allocation are absent: no primary sentence for those edges was read.
 ranges:
-  - name: synthetic known-answer band
-    freq_min_mhz: 5999.986
-    freq_max_mhz: 5999.989
-    source: "EXP-004 fixture. Not a catalogued transmitter."
-    source_url: "synthetic://exp-004/known-answer-band"
+  - name: GPS L1
+    freq_min_mhz: 1560.075
+    freq_max_mhz: 1590.765
+    source: "IS-GPS-200N (01-AUG-2022) section 3.3.1.1: L1 nominal carrier 1575.42 MHz. For GPS III the same section says the requirements pertain to a 30.69 MHz band centered on that carrier. Edges are 1575.42 ± 15.345."
+    source_url: "https://www.gps.gov/sites/default/files/2025-07/IS-GPS-200N.pdf"
     checked: "2026-10-12"
-downlinks: []
+  - name: GPS L2
+    freq_min_mhz: 1212.255
+    freq_max_mhz: 1242.945
+    source: "IS-GPS-200N (01-AUG-2022) section 3.3.1.1: L2 nominal carrier 1227.6 MHz. For GPS III the same section says the requirements pertain to a 30.69 MHz band centered on that carrier. Edges are 1227.6 ± 15.345."
+    source_url: "https://www.gps.gov/sites/default/files/2025-07/IS-GPS-200N.pdf"
+    checked: "2026-10-12"
+  - name: GLONASS L1 FDMA
+    freq_min_mhz: 1598.0625
+    freq_max_mhz: 1605.375
+    source: "GLONASS ICD, navigation radiosignal in bands L1 and L2, edition 5.1 (2008), section 3.3.1.1. f01 = 1602 MHz and the L1 channel step is 562.5 kHz. Table 3.1 lists nominal carriers from K=-7 (1598.0625 MHz) through K=+6 (1605.375 MHz). This range is those carrier endpoints. The modulated width is not added."
+    source_url: "https://web.archive.org/web/20160414062343/http://www.spacecorp.ru/upload/iblock/1c4/cgs-aaixymyt%205.1%20ENG%20v%202014.02.18w.pdf"
+    checked: "2026-10-12"
+downlinks:
+  - name: Voyager 1 X-band
+    freq_mhz: 8419.297028
+    source: "EXP-001 run 20261012T130904642405Z-exp-001-voyager, selected hit top_hit 2, uncorrected frequency 8419.297028 MHz. The ±50 kHz match window is the project downlink rule, not a DSN channel width."
+    source_url: "https://github.com/mpetyx/theoxenia/blob/e9db4be/runs/20261012T130904642405Z-exp-001-voyager/hits.json"
+    checked: "2026-10-12"

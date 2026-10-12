@@ -16,6 +16,8 @@ class KnownRange:
     freq_min_mhz: float
     freq_max_mhz: float
     source: str
+    source_url: str = ""
+    checked: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -24,6 +26,9 @@ class Downlink:
 
     name: str
     freq_mhz: float
+    source: str = ""
+    source_url: str = ""
+    checked: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -68,11 +73,22 @@ def _ranges(raw: object, path: Path) -> list[KnownRange]:
             raise ValueError(f"{path} has a range that is not a mapping")
         name = _text(entry, "name", path)
         source = _text(entry, "source", path)
+        source_url = _text(entry, "source_url", path)
+        checked = _text(entry, "checked", path)
         low = _frequency(entry, "freq_min_mhz", path)
         high = _frequency(entry, "freq_max_mhz", path)
         if low >= high:
             raise ValueError(f"{path} range {name} must increase in frequency")
-        items.append(KnownRange(name=name, freq_min_mhz=low, freq_max_mhz=high, source=source))
+        items.append(
+            KnownRange(
+                name=name,
+                freq_min_mhz=low,
+                freq_max_mhz=high,
+                source=source,
+                source_url=source_url,
+                checked=checked,
+            )
+        )
     return items
 
 
@@ -84,7 +100,13 @@ def _downlinks(raw: object, path: Path) -> list[Downlink]:
         if not isinstance(entry, dict):
             raise ValueError(f"{path} has a downlink that is not a mapping")
         items.append(
-            Downlink(name=_text(entry, "name", path), freq_mhz=_frequency(entry, "freq_mhz", path))
+            Downlink(
+                name=_text(entry, "name", path),
+                freq_mhz=_frequency(entry, "freq_mhz", path),
+                source=_text(entry, "source", path),
+                source_url=_text(entry, "source_url", path),
+                checked=_text(entry, "checked", path),
+            )
         )
     return items
 

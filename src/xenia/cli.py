@@ -138,6 +138,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="recorded flag; public HTTP stays refused because D-018 was not accepted",
     )
 
+    queue_parser = live_sub.add_parser("queue", help="build the cadence queue")
+    queue_sub = queue_parser.add_subparsers(dest="queue_command", required=True)
+    queue_build = queue_sub.add_parser("build", help="write configs/queue.jsonl")
+    queue_build.add_argument("--config", type=Path, default=Path("configs/live.yaml"))
+    queue_build.add_argument("--output", type=Path, default=Path("configs/queue.jsonl"))
+    queue_build.add_argument("--listing", type=Path, default=None)
+    queue_build.add_argument(
+        "--listing-url",
+        default=(
+            "http://seti.berkeley.edu/opendata/api/query-files"
+            "?target=HIP544&cadence=1&telescopes=GBT&file-types=HDF5&limit=20"
+        ),
+    )
+    queue_build.add_argument("--cadence-id", default="63460")
+    queue_build.add_argument("--receiver", default="L")
+    queue_build.add_argument("--limit", type=int, default=200)
+    queue_build.add_argument("--synthetic", action="store_true")
+    queue_build.add_argument("--seeds", type=int, nargs="+", default=[20261012])
+
     return parser
 
 
@@ -245,6 +264,10 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 0
 
+        if args.group == "live" and args.live_command == "queue":
+            _build_queue(args, root=root)
+            return 0
+
         parser.error("unsupported command")
     except (OSError, RuntimeError, ValueError) as exc:
         print(f"xenia: error: {exc}", file=sys.stderr)
@@ -261,6 +284,8 @@ def _run_cadence(
 ) -> tuple[object, Path]:
     """Dispatch the synthetic known-answer or one archive cadence."""
     known_sources = _inside_repository(args.known_sources, root)
+    if args.synthetic and args.known_sources == Path("configs/known_sources.yaml"):
+        known_sources = _inside_repository(Path("configs/fixtures/exp004_known_sources.yaml"), root)
     if args.synthetic:
         from xenia.live.cadence import run_synthetic_cadence
 
@@ -308,6 +333,38 @@ def _run_cadence(
         max_transfer_bytes=args.max_transfer_bytes,
         allow_plain_http=args.allow_plain_http,
     )
+
+
+def _build_queue(args: argparse.Namespace, *, root: Path) -> None:
+    """Write the queue from a local listing, a catalog fetch, or the synthetic plan."""
+    from xenia.live.config import load_live_config
+    from xenia.live.queue import build_listing_queue, build_synthetic_queue, fetch_listing
+
+    if args.limit <= 0:
+        raise ValueError("--limit must be positive")
+    config = load_live_config(_inside_repository(args.config, root))
+    output = _inside_repository(args.output, root)
+    if args.synthetic:
+        text = build_synthetic_queue(config=config, seeds=tuple(args.seeds), limit=args.limit)
+    else:
+        if args.listing is None:
+            listing = fetch_listing(args.listing_url)
+            listing_url = args.listing_url
+        else:
+            listing_path = _inside_repository(args.listing, root)
+            listing = listing_path.read_bytes()
+            listing_url = _display_path(listing_path, root)
+        text = build_listing_queue(
+            listing,
+            config=config,
+            listing_url=listing_url,
+            receiver=args.receiver,
+            limit=args.limit,
+            cadence_id=args.cadence_id,
+        )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(text, encoding="utf-8")
+    print(f"Wrote {output}")
 
 
 def _build_state(args: argparse.Namespace, *, command: list[str], root: Path) -> None:

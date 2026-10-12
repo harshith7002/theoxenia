@@ -11,7 +11,7 @@ Six seeded setigen frames use the EXP-002 channel width and integration length. 
 | `on_only` | the three A scans | +0.8 Hz/s | `ON_ONLY` |
 | `in_off` | all six scans | 0 Hz/s | `IN_OFF` |
 | `single_pointing` | the first A scan only | +0.3 Hz/s | `SINGLE_POINTING` |
-| `known_source` | the three A scans, inside `configs/known_sources.yaml` | +0.6 Hz/s | `KNOWN_SOURCE` |
+| `known_source` | the three A scans, inside `configs/fixtures/exp004_known_sources.yaml` | +0.6 Hz/s | `KNOWN_SOURCE` |
 
 The catalog range `synthetic known-answer band` is a fixture. It is not a catalogued transmitter. Real ranges are added only with a primary source.
 

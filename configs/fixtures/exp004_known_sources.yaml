@@ -1,0 +1,11 @@
+# Fixture catalog for the EXP-004 synthetic cadence.
+# The range below is not a catalogued transmitter. It exists so one injected
+# line falls inside a named range. The verified catalog is configs/known_sources.yaml.
+ranges:
+  - name: synthetic known-answer band
+    freq_min_mhz: 5999.986
+    freq_max_mhz: 5999.989
+    source: "EXP-004 fixture. Not a catalogued transmitter."
+    source_url: "synthetic://exp-004/known-answer-band"
+    checked: "2026-10-12"
+downlinks: []
