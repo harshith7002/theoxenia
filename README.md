@@ -14,7 +14,7 @@ The project baseline is **CPython 3.15.0**. Use uv 0.13.0 or later so it can ins
 
 ```bash
 uv python install 3.15.0
-uv sync --all-groups --python 3.15.0
+uv sync --all-groups --extra radio --python 3.15.0
 make test
 make live-dev
 ```

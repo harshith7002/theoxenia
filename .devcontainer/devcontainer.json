@@ -8,7 +8,7 @@
   },
   "workspaceFolder": "/workspaces/theoxenia",
   "remoteUser": "vscode",
-  "postCreateCommand": "uv python install 3.15.0 && uv sync --all-groups --python 3.15.0",
+  "postCreateCommand": "uv python install 3.15.0 && uv sync --all-groups --extra radio --python 3.15.0",
   "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {

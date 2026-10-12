@@ -8,6 +8,7 @@ from pathlib import Path
 
 from xenia.cli import main
 from xenia.live.models import RunManifest
+from xenia.radio import voyager as voyager_runner
 from xenia.schemas import export_schemas
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -100,13 +101,40 @@ def test_cli_build_and_render_emit_provenance_manifests(tmp_path: Path, monkeypa
     assert render_manifest.experiment_id == "EXP-030"
 
 
-def test_schema_cli_check_returns_nonzero_on_drift(tmp_path: Path, monkeypatch) -> None:
+def test_schema_cli_check_returns_nonzero_on_drift(tmp_path: Path, monkeypatch, capsys) -> None:
     """The installed command can detect stale committed schemas."""
     schema_dir = tmp_path / "schemas"
     export_schemas(schema_dir)
     (schema_dir / "run_manifest.schema.json").write_text("{}\n", encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     assert main(["schemas", "export", "--check", "--directory", str(schema_dir)]) == 1
+
+
+def test_voyager_cli_dispatches_the_known_answer_defaults(tmp_path: Path, monkeypatch) -> None:
+    """The documented hero command forwards its exact M1 defaults to the runner."""
+    from types import SimpleNamespace
+
+    monkeypatch.chdir(tmp_path)
+    captured: dict[str, object] = {}
+    manifest_path = tmp_path / "runs" / "synthetic-run" / "manifest.json"
+
+    def fake_run(root: Path, command: list[str], **kwargs: object):
+        captured["root"] = root
+        captured["command"] = command
+        captured.update(kwargs)
+        return SimpleNamespace(
+            run_id="synthetic-run", outcome="known_answer_detected"
+        ), manifest_path
+
+    monkeypatch.setattr(voyager_runner, "run_voyager", fake_run)
+
+    assert main(["live", "hero", "--voyager"]) == 0
+    assert captured["root"] == tmp_path
+    assert captured["command"] == ["xenia", "live", "hero", "--voyager"]
+    assert captured["frequency_low_mhz"] == 8419.0
+    assert captured["frequency_high_mhz"] == 8420.0
+    assert captured["max_drift_hz_s"] == 4.0
+    assert captured["minimum_snr"] == 25.0
 
 
 def test_cli_rejects_paths_outside_repository(tmp_path: Path, monkeypatch, capsys) -> None:

@@ -1,0 +1,121 @@
+"""Tests for turboSETI result parsing and deterministic known-answer selection."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+
+from xenia.radio import detector
+from xenia.radio.detector import DopplerHit, parse_dat_text, run_turboseti, select_known_answer_hit
+
+DAT_HEADER = "\t".join(
+    (
+        "Top_Hit_#",
+        "Drift_Rate",
+        "SNR",
+        "Uncorrected_Frequency",
+        "Corrected_Frequency",
+        "Index",
+        "freq_start",
+        "freq_end",
+        "SEFD",
+        "SEFD_freq",
+        "Coarse_Channel_Number",
+        "Full_number_of_hits",
+    )
+)
+DAT_TEXT = f"""# --------------------------
+# {DAT_HEADER}
+# --------------------------
+000001\t-0.392226\t30.612000\t8419.319368\t8419.319369\t101\t8419.319000\t8419.319700\t0.0\t0.0\t0\t4
+000002\t1.250000\t12.500000\t8419.500000\t8419.500010\t205\t8419.499800\t8419.500200\t0.0\t0.0\t0\t4
+"""
+
+
+def test_parse_dat_rows_by_header_name() -> None:
+    hits = parse_dat_text(DAT_TEXT)
+
+    assert len(hits) == 2
+    assert hits[0] == DopplerHit(
+        top_hit=1,
+        drift_hz_s=-0.392226,
+        snr=30.612,
+        uncorrected_frequency_mhz=8419.319368,
+        corrected_frequency_mhz=8419.319369,
+        frequency_start_mhz=8419.319,
+        frequency_end_mhz=8419.3197,
+    )
+
+
+def test_select_known_answer_uses_observed_frequency_and_thresholds() -> None:
+    hits = parse_dat_text(DAT_TEXT)
+
+    selected = select_known_answer_hit(
+        hits,
+        frequency_low_mhz=8419.0,
+        frequency_high_mhz=8420.0,
+        max_abs_drift_hz_s=4.0,
+        minimum_snr=10.0,
+    )
+
+    assert selected == hits[0]
+    assert (
+        select_known_answer_hit(
+            hits,
+            frequency_low_mhz=8419.4,
+            frequency_high_mhz=8420.0,
+            max_abs_drift_hz_s=1.0,
+            minimum_snr=20.0,
+        )
+        is None
+    )
+
+
+def test_parse_rejects_incomplete_header_or_rows() -> None:
+    with pytest.raises(ValueError, match="missing columns"):
+        parse_dat_text("# Top_Hit_# SNR\n")
+    with pytest.raises(ValueError, match="expected"):
+        parse_dat_text(
+            "# Top_Hit_# Drift_Rate SNR Uncorrected_Frequency Corrected_Frequency "
+            "freq_start freq_end\n1 2"
+        )
+
+
+def test_detector_wrapper_captures_versions_hits_and_output_hash(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    filterbank = tmp_path / "slice.fil"
+    filterbank.write_bytes(b"synthetic filterbank placeholder")
+    output_directory = tmp_path / "detector"
+    captured: dict[str, object] = {}
+
+    class FakeFinder:
+        def __init__(self, path: str, **kwargs: object) -> None:
+            captured["path"] = path
+            captured.update(kwargs)
+            self.out_dir = Path(str(kwargs["out_dir"]))
+
+        def search(self, *, n_partitions: int, progress_bar: str) -> None:
+            assert n_partitions == 1
+            assert progress_bar == "n"
+            (self.out_dir / "slice.dat").write_text(DAT_TEXT, encoding="utf-8")
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: FakeFinder)
+    monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
+
+    result = run_turboseti(
+        filterbank,
+        output_directory=output_directory,
+        max_drift_hz_s=4.0,
+        minimum_snr=10.0,
+    )
+
+    assert captured["path"] == str(filterbank)
+    assert captured["max_drift"] == 4.0
+    assert captured["snr"] == 10.0
+    assert result.turbo_seti_version == "turbo-seti-test"
+    assert result.blimpy_version == "blimpy-test"
+    assert len(result.hits) == 2
+    assert result.artifacts[0].filename == "slice.dat"
+    assert len(result.artifacts[0].sha256) == 64
