@@ -7,7 +7,7 @@
 | Package | Locked version | Evidence and current conclusion |
 |---|---:|---|
 | CPython | 3.15.0 | Stable release from [Python.org](https://www.python.org/downloads/release/python-3150/), released 2026-10-09. |
-| `turbo-seti` | 2.3.2 | Resolved and imported on CPython 3.15.0. The EXP-001 pipeline uses the documented HDF5 FILTERBANK input path; both prior operational failures are preserved in manifests, and a successful known-answer run must be verified separately. |
+| `turbo-seti` | 2.3.2 | Resolved and imported on CPython 3.15.0. The EXP-001 pipeline uses the documented HDF5 FILTERBANK input path; the committed run `20261012T130904642405Z-exp-001-voyager` recovered the predeclared Voyager known answer. The run preserves the narrow post-search logging warning and does not claim an unknown-source detection. |
 | `blimpy` | 2.1.4 | Resolved on CPython 3.15.0. The temporary frequency-sliced HDF5 file is validated with `blimpy.io.hdf_reader.H5Reader(load_data=False)` before turboSETI receives it. The project uses a 16-integration source and does not patch blimpy’s validator. |
 | `setigen` | 2.7.0 | Resolved and imported with NumPy 2.5.4. EXP-002 injection/recovery remains a distinct acceptance milestone. |
 | `h5py` | 3.16.0 | No CPython 3.15 wheel was present in the checked PyPI metadata; the source build succeeded with HDF5 headers, `pkg-config`, and build tools. The Python 3.15 CI job installs these prerequisites. |

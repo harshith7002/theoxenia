@@ -1,0 +1,42 @@
+{
+  "count": 3,
+  "hits": [
+    {
+      "corrected_frequency_mhz": 8419.297028,
+      "drift_hz_s": -0.377557,
+      "frequency_end_mhz": 8419.29484,
+      "frequency_start_mhz": 8419.299218,
+      "snr": 1244.783936,
+      "top_hit": 2,
+      "uncorrected_frequency_mhz": 8419.297028
+    },
+    {
+      "corrected_frequency_mhz": 8419.274374,
+      "drift_hz_s": -0.397966,
+      "frequency_end_mhz": 8419.272187,
+      "frequency_start_mhz": 8419.276565,
+      "snr": 157.701202,
+      "top_hit": 3,
+      "uncorrected_frequency_mhz": 8419.274374
+    },
+    {
+      "corrected_frequency_mhz": 8419.319368,
+      "drift_hz_s": -0.397966,
+      "frequency_end_mhz": 8419.317181,
+      "frequency_start_mhz": 8419.321559,
+      "snr": 154.61705,
+      "top_hit": 1,
+      "uncorrected_frequency_mhz": 8419.319368
+    }
+  ],
+  "selected_known_answer_hit": {
+    "corrected_frequency_mhz": 8419.297028,
+    "drift_hz_s": -0.377557,
+    "frequency_end_mhz": 8419.29484,
+    "frequency_start_mhz": 8419.299218,
+    "snr": 1244.783936,
+    "top_hit": 2,
+    "uncorrected_frequency_mhz": 8419.297028
+  },
+  "truncated": false
+}

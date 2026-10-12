@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status:** Mission Control’s static M0 prototype and the EXP-001 Voyager HDF5 pipeline are implemented. No result is called a detection unless the run manifest records a hit that passes the predeclared known-answer checks. There is no live worker or public deployment yet; the VM-dependent M3 work remains separate.
+> **Current status:** M0’s static prototype and EXP-001 are implemented. The reproducible Voyager run recovered the predeclared known-answer signal; that is a positive-control validation, not an unknown-candidate detection or an anomaly claim. EXP-002 injection/recovery and M3’s persistent worker/deployment remain incomplete; no public service is live.
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
