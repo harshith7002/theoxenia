@@ -281,6 +281,7 @@ def run_voyager(
         "minimum_snr": minimum_snr,
         "detector_options": {
             "input_format": "HDF5 FILTERBANK",
+            "n_coarse_chan": 1,
             "n_partitions": 1,
             "progress_bar": "n",
             "blank_dc": True,
@@ -347,6 +348,7 @@ def run_voyager(
                     output_directory=temporary_root / "detector",
                     max_drift_hz_s=max_drift_hz_s,
                     minimum_snr=minimum_snr,
+                    n_coarse_channels=1,
                 )
                 hit = select_known_answer_hit(
                     detector_result.hits,
@@ -362,6 +364,7 @@ def run_voyager(
                     "max_drift_hz_s": max_drift_hz_s,
                     "minimum_drift_hz_s": MINIMUM_DRIFT_HZ_S,
                     "minimum_snr": minimum_snr,
+                    "n_coarse_chan": 1,
                     "known_answer_window_mhz": [
                         KNOWN_ANSWER_LOW_MHZ,
                         KNOWN_ANSWER_HIGH_MHZ,

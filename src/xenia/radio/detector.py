@@ -170,12 +170,15 @@ def run_turboseti(
     output_directory: Path,
     max_drift_hz_s: float,
     minimum_snr: float,
+    n_coarse_channels: int = 1,
 ) -> DetectorResult:
     """Run turboSETI on one local, bounded filterbank slice and hash its outputs."""
     if not filterbank_path.is_file():
         raise FileNotFoundError(f"filterbank slice does not exist: {filterbank_path}")
-    if max_drift_hz_s <= 0 or minimum_snr < 0:
-        raise ValueError("drift limit must be positive and minimum SNR non-negative")
+    if max_drift_hz_s <= 0 or minimum_snr < 0 or n_coarse_channels <= 0:
+        raise ValueError(
+            "drift limit and coarse-channel count must be positive; minimum SNR non-negative"
+        )
     output_directory.mkdir(parents=True, exist_ok=True)
     finder_class = _find_doppler_class()
 
@@ -191,6 +194,7 @@ def run_turboseti(
         min_drift=1e-5,
         snr=minimum_snr,
         out_dir=str(output_directory),
+        n_coarse_chan=n_coarse_channels,
         blank_dc=True,
         precision=1,
     )

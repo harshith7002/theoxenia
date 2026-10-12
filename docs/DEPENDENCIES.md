@@ -24,7 +24,7 @@ These are visible compatibility workarounds, not upstream Python 3.15 support cl
 ## HDF5 layout and source handling
 
 - The canonical test file is `Voyager1.single_coarse.fine_res.h5`, published by the official blimpy test downloader at a Berkeley HTTP URL. The project uses an immutable HTTPS mirror because it will not disable TLS verification; the manifest keeps the publisher URL, mirror commit/blob SHA-1, actual URL, and measured object length distinct.
-- The verified source is a 16-integration, single-IF, float32 FILTERBANK with 1,048,576 channels. The slicer copies root and dataset attributes with their HDF5 datatypes preserved, updates only `fch1` and `nchans`, and validates the resulting temporary file with H5Reader.
+- The verified source is a 16-integration, single-IF, float32 FILTERBANK with 1,048,576 channels. The slicer copies root and dataset attributes with their HDF5 datatypes preserved, updates only `fch1` and `nchans`, and validates the resulting temporary file with H5Reader. turboSETI receives `n_coarse_chan=1` explicitly because it otherwise heuristically treats this pre-sliced narrow band as 64 coarse channels and generates inconsistent FFT dimensions.
 - The full source and output HDF5 slice remain in a temporary directory. Only a compact JSON summary, the detector hit table summary, the plot, and the run manifest may be committed; no raw source or slice is committed.
 - `libhdf5-dev`, `pkg-config`, and a compiler are required to build the current h5py release for Python 3.15. CI and the devcontainer install these before `uv sync --extra radio`.
 

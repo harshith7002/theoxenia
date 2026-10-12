@@ -119,8 +119,23 @@ def test_detector_wrapper_captures_versions_hits_and_output_hash(
     assert captured["path"] == str(filterbank)
     assert captured["max_drift"] == 4.0
     assert captured["snr"] == 10.0
+    assert captured["n_coarse_chan"] == 1
     assert result.turbo_seti_version == "turbo-seti-test"
     assert result.blimpy_version == "blimpy-test"
     assert len(result.hits) == 2
     assert result.artifacts[0].filename == "slice.dat"
     assert len(result.artifacts[0].sha256) == 64
+
+
+def test_detector_wrapper_rejects_zero_coarse_channels(tmp_path: Path) -> None:
+    filterbank = tmp_path / "slice.h5"
+    filterbank.write_bytes(b"synthetic HDF5 placeholder")
+
+    with pytest.raises(ValueError, match="coarse-channel count must be positive"):
+        run_turboseti(
+            filterbank,
+            output_directory=tmp_path / "detector",
+            max_drift_hz_s=4.0,
+            minimum_snr=10.0,
+            n_coarse_channels=0,
+        )

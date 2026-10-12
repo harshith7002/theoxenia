@@ -113,6 +113,7 @@ def _install_fake_pipeline(
         assert output_directory.name == "detector"
         assert kwargs["max_drift_hz_s"] == voyager.DEFAULT_MAX_DRIFT_HZ_S
         assert kwargs["minimum_snr"] == voyager.DEFAULT_MINIMUM_SNR
+        assert kwargs["n_coarse_channels"] == 1
         return result
 
     def fake_plot(
