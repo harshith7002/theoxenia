@@ -3,6 +3,12 @@
 **Issued by Michael on 2026-10-12. Read top to bottom, execute phase by phase, stop at every "Needs Michael".**
 Companion to `agents/manus.md`. Notion is the source of truth; this file is a dated orientation. When this file and a live Notion row disagree, the Notion row wins and you say so in your report.
 
+## Status as of 2026-10-13
+
+Night order 1 is complete through Track J. Phase 0 was already accepted. `main` was not pushed. The `live` branch was not created. Pull requests 4–17 and 23 are open and unmerged. Issues 18–22 are the five good-first issues. Manus owns the M3.4 soak. The handover commands are on pull request 23.
+
+The historical sections below are the 2026-10-12 orientation. Where they disagree with a live Notion row or with pull request 23, the row and that pull request win.
+
 ---
 
 ## 0 · Who you are and what you were asked to do
