@@ -81,9 +81,9 @@ gh pr merge 14 --repo mpetyx/theoxenia --merge
 gh pr merge 15 --repo mpetyx/theoxenia --merge
 gh pr edit 16 --repo mpetyx/theoxenia --base main
 gh pr merge 16 --repo mpetyx/theoxenia --merge
+gh pr edit 23 --repo mpetyx/theoxenia --base main
+gh pr merge 23 --repo mpetyx/theoxenia --merge
 ```
-
-Merge this handover pull request after 12. Its number is filled in the morning report.
 
 ```
 git push origin main:live
