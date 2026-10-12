@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T123734993626Z-exp-001-voyager",
+  "pillar": "I · Sensor",
+  "command": "xenia live hero --voyager",
+  "parameters": {
+    "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+    "source_expected_size_bytes": 528482692,
+    "requested_window_mhz": [
+      8419.0,
+      8420.0
+    ],
+    "max_drift_hz_s": 4.0,
+    "minimum_drift_hz_s": 0.00001,
+    "minimum_snr": 25.0,
+    "detector_options": {
+      "n_partitions": 1,
+      "progress_bar": "n",
+      "blank_dc": true,
+      "precision": "single",
+      "blimpy_two_integration_shim": "Validate shape-(2, 1, nchan) endpoints; bypass only the upstream check's out-of-range data[2] probe."
+    },
+    "remote_block_size_bytes": 1048576,
+    "remote_transfer_limit_bytes": 16777216,
+    "source_header": {
+      "source_name": "VOYAGER1",
+      "nchans": 66060288,
+      "nifs": 1,
+      "nbits": 32,
+      "fch1_mhz": 8588.964842330843,
+      "foff_mhz": -2.838316417875744e-6,
+      "tsamp_seconds": 105.6964608,
+      "tstart_mjd": 57386.864907407406
+    },
+    "source_size_bytes": 528482692,
+    "remote_transfer": {
+      "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+      "source_size_bytes": 528482692,
+      "max_transfer_bytes": 16777216,
+      "ranges": [
+        {
+          "start": 0,
+          "end_exclusive": 1048580,
+          "bytes_received": 1048580
+        },
+        {
+          "start": 238120200,
+          "end_exclusive": 239234312,
+          "bytes_received": 1114112
+        },
+        {
+          "start": 239234312,
+          "end_exclusive": 240282888,
+          "bytes_received": 1048576
+        },
+        {
+          "start": 239234312,
+          "end_exclusive": 240217352,
+          "bytes_received": 983040
+        },
+        {
+          "start": 502361352,
+          "end_exclusive": 503475464,
+          "bytes_received": 1114112
+        },
+        {
+          "start": 503475464,
+          "end_exclusive": 504524040,
+          "bytes_received": 1048576
+        },
+        {
+          "start": 503475464,
+          "end_exclusive": 504458504,
+          "bytes_received": 983040
+        }
+      ],
+      "bytes_transferred": 7340036
+    },
+    "slice": {
+      "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+      "source_name": "VOYAGER1",
+      "requested_window_mhz": [
+        8419.0,
+        8420.0
+      ],
+      "channel_start": 59529953,
+      "channel_count": 352322,
+      "first_center_mhz": 8419.999999375572,
+      "last_center_mhz": 8419.00000089691,
+      "integrations": 2,
+      "nifs": 1,
+      "data_offset_bytes": 388,
+      "slice_size_bytes": 2818964,
+      "slice_sha256": "9ce2ee0e68a4dfbf98312e278008be1ea4c15908f6065c361756210c1cc51ce1",
+      "remote_transfer": {
+        "source_url": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+        "source_size_bytes": 528482692,
+        "max_transfer_bytes": 16777216,
+        "ranges": [
+          {
+            "start": 0,
+            "end_exclusive": 1048580,
+            "bytes_received": 1048580
+          },
+          {
+            "start": 238120200,
+            "end_exclusive": 239234312,
+            "bytes_received": 1114112
+          },
+          {
+            "start": 239234312,
+            "end_exclusive": 240282888,
+            "bytes_received": 1048576
+          },
+          {
+            "start": 239234312,
+            "end_exclusive": 240217352,
+            "bytes_received": 983040
+          },
+          {
+            "start": 502361352,
+            "end_exclusive": 503475464,
+            "bytes_received": 1114112
+          },
+          {
+            "start": 503475464,
+            "end_exclusive": 504524040,
+            "bytes_received": 1048576
+          },
+          {
+            "start": 503475464,
+            "end_exclusive": 504458504,
+            "bytes_received": 983040
+          }
+        ],
+        "bytes_transferred": 7340036
+      }
+    }
+  },
+  "inputs": [
+    {
+      "uri": "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil",
+      "sha256": null,
+      "size_bytes": 528482692
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T123734993626Z-exp-001-voyager/slice_summary.json",
+      "sha256": "6842752b120379f6b2189557f1c2e617813311c35a3179c7f6026cf98340c3e7",
+      "size_bytes": 1527,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T123734993626Z-exp-001-voyager/failure.json",
+      "sha256": "dde93939fff250e186a8375e987870b579cd8c0f7edda0e134e50d189e8b6caf",
+      "size_bytes": 1137,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T123734993626Z-exp-001-voyager/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "837ea48",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T12:37:34.993626Z",
+  "finished_at": "2026-10-12T12:37:39.639649Z",
+  "outcome": "failed",
+  "notes": [
+    "Operational failure: ValueError: Number of time integration steps must be at least 4!"
+  ],
+  "experiment_id": "EXP-001",
+  "demo": false,
+  "mission_control": null
+}

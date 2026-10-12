@@ -1,39 +1,40 @@
 # Data sources and verification notes
 
-This page records the public sources used by the radio pipeline. A URL or published example is not a Theoxenia result; experiment measurements must come from a committed run manifest.
+A cited source or upstream example is not a Theoxenia result. Experiment claims come only from committed run manifests and their recorded code version.
 
 ## EXP-001: Voyager 1 known-answer sample
 
 | Item | Source/evidence |
 |---|---|
-| Primary project page | [Breakthrough Listen open-data page](https://seti.berkeley.edu/listen/data.html) |
-| Tutorial notebook | [Official UCBerkeleySETI Voyager notebook](https://github.com/ucberkeleyseti/breakthrough/blob/master/GBT/voyager/voyager.ipynb) |
-| Public sample | [`voyager_f1032192_t300_v2.fil`](https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil) |
-| Instrument/context | The notebook identifies a Green Bank Telescope X-band observation of Voyager 1 on 2015-12-30. It reports a two-integration SIGPROC filterbank and points to the public `.fil` file. |
-| Bounded header verification | An HTTP byte-range read of the public file returned `Content-Range: bytes 0-65535/528482692`. The parsed header reported `source_name=VOYAGER1`, 66,060,288 channels, one IF, 32-bit samples, `tsamp=105.6964608` s, `fch1=8588.964842330843` MHz, and `foff=-2.838316417875744e-06` MHz. No full source file was downloaded or committed. |
-| Two-integration reader caveat | The official sample contains only two integrations. blimpy 2.1.4's [`examine_h5()`](https://github.com/UCBerkeleySETI/blimpy/blob/master/blimpy/io/hdf_reader.py) unconditionally reads `data[2]`, so its normal validation rejects this valid shape. The project runner temporarily replaces only that check for `(2, 1, nchan>=3)`, validates filterbank class/version and readable data endpoints, and restores the upstream validator before returning. Other dataset shapes use blimpy's original validator. |
-| Project processing | `xenia live hero --voyager` reads only the header and selected channel ranges. The 1 MHz temporary filterbank slice, HDF5 conversion (if created by turboSETI), and detector `.dat`/`.log` files live outside the repository and are removed after the run. Actual transfer ranges, byte counts, slice hash, hit summary, plot, and manifest are recorded under `runs/<RUN_ID>/`. |
+| Primary Breakthrough Listen page | [Open-data page](https://seti.berkeley.edu/listen/data.html) |
+| Original tutorial | [Official UCBerkeleySETI Voyager notebook](https://github.com/ucberkeleyseti/breakthrough/blob/master/GBT/voyager/voyager.ipynb) |
+| Original tutorial file | [`voyager_f1032192_t300_v2.fil`](https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil), a 528,482,692-byte GBT X-band observation from 2015-12-30. The official notebook reports only **two integrations**; turboSETI 2.3.2 requires at least four, so this file is not used as the M1 detector input. No integrations are padded or fabricated. |
+| Canonical 16-integration test file | [`Voyager1.single_coarse.fine_res.h5`](http://blpd0.ssl.berkeley.edu/Voyager_data/Voyager1.single_coarse.fine_res.h5), listed by the [official blimpy test downloader](https://github.com/UCBerkeleySETI/blimpy/blob/master/tests/download_data.sh). Its shape is `(16, 1, 1_048_576)`, dtype float32, chunks `(1, 1, 16_384)`, source `Voyager1`, `fch1=8421.386717353016 MHz`, `foff=-2.7939677238464355e-06 MHz`, `tsamp=18.253611008 s`, and `tstart=57650.78209490741 MJD`. |
+| Transport actually used | [Pinned HTTPS mirror](https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5), third-party mirror, commit `9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb`, Git blob SHA-1 `42a41e5c2564afc8e73dc7b23cece3e3123f15d6`, length 50,549,227 bytes. The canonical Berkeley URL is HTTP; the project does not bypass TLS validation. The pinned HTTPS mirror is separately cross-checked below and identified as a mirror—not the publisher. |
+| Independent upstream comparison | [Official blimpy Voyager regression test](https://github.com/UCBerkeleySETI/blimpy/blob/master/tests/test_voyager_data_load.py) compares `.h5` and `.fil` cutouts over 8419.24–8419.35 MHz, expects shape `(16, 1, 39_370)`, and asserts matching peak-channel indices (18,959 and 18,996). A bounded range-only probe of the pinned mirror read 715 channels around 8419.296–8419.298 MHz (3,003,853 payload bytes); its absolute peak channels map to those published local indices. This task has not independently retrieved the `.fil` payload and rerun the full HDF5-versus-SIGPROC array comparison. The upstream test prints peak amplitudes but does not assert those absolute amplitudes as literals. |
+| Detector reference | The [official turboSETI README](https://github.com/UCBerkeleySETI/turbo_seti/blob/master/README.md) publishes an example on this separate 2016 HDF5 observation: 8419.297028 MHz, drift −0.373093 Hz/s, SNR 245.707984; it also lists 8419.319368 MHz, −0.392226 Hz/s, SNR 30.612128. These are upstream references, not Theoxenia measurements. |
 
-The range-verified header values are source metadata, not a signal-detection claim. The output must identify a hit from the Theoxenia run before `EXP-001` can populate the Mission Control hero.
+The reproducible command is `make voyager` (`xenia live hero --voyager`). It reads whole HDF5 channels in the 8419.24–8419.35 MHz band through HTTPS byte ranges, with 64 KiB blocks and a 24 MiB transfer ceiling. The detector is evaluated only for the predeclared known-answer window 8419.296–8419.298 MHz, max absolute drift 4 Hz/s, and minimum SNR 25. Channel-bin uncertainty is recorded as half the measured channel width. The temporary sliced HDF5 file and turboSETI scratch output live under a temporary directory and are removed after the run; no raw sample or slice is committed.
 
-## Published turboSETI reference example
-
-The upstream [turboSETI README](https://github.com/UCBerkeleySETI/turbo_seti/blob/master/README.md) includes a Voyager example on a separate HDF5 file, `Voyager1.single_coarse.fine_res.h5` (MJD 57650.7821, observed 2016-09-19). Its sample table reports hits at approximately 8419.319368 MHz (drift −0.392226 Hz/s, SNR 30.612) and 8419.297028 MHz (drift −0.373093 Hz/s, SNR 245.708). **That is not the same observation as the 2015-12-30 `.fil` above.** The project uses 8419.319368 MHz only as a documented search-window reference, with an explicit ±0.02 MHz matching tolerance; a Theoxenia hit remains unverified until the run manifest records it.
-
-The reference run uses turboSETI's upstream `FindDoppler` API. The default SNR threshold is 25, matching turboSETI's documented CLI default; the chosen 4 Hz/s maximum drift and 1 MHz slice are explicit experiment parameters, not source facts.
+Two failed early `.fil` attempts are retained as first-class evidence: `20261012T123034402477Z-exp-001-voyager` records blimpy’s two-integration validation failure; `20261012T123734993626Z-exp-001-voyager` records turboSETI’s minimum-four-integration rejection after the validation workaround. Neither is a scientific null result. The current implementation uses the validated 16-integration source and does not patch blimpy or turboSETI.
 
 ## Data-handling rules
 
-- Use HTTPS and byte ranges only; do not fall back to downloading an entire source file.
-- Apply an explicit transfer cap before reading remote data.
-- Keep raw telescope data and temporary frequency slices out of Git and persistent project directories.
-- Store compact manifests, summaries, and plots; record exact source URL, observed size, transfer ranges, detector version, parameters, code SHA, timestamps, and outcome.
-- A null run, a failed read, and a detector error are recorded as such. None is silently converted into a positive finding or a scientific non-detection claim.
+- Use HTTPS and byte ranges; do not disable TLS verification or fall back to full-file downloads.
+- Pin mutable mirrors to immutable commits and record the canonical publisher endpoint separately.
+- Record actual transfer ranges, payload bytes, source size, source metadata, detector/runtime versions, output checksums, command parameters, code SHA, timestamps, and outcome in the run manifest.
+- Keep raw telescope data and all temporary frequency slices outside Git and persistent project directories.
+- Record operational failures and null known-answer outcomes; neither is silently converted into a positive finding or a scientific non-detection claim.
 
-## Additional sources
+## Additional references
 
+- [Official blimpy test downloader](https://github.com/UCBerkeleySETI/blimpy/blob/master/tests/download_data.sh)
 - [turboSETI 2.3.2 on PyPI](https://pypi.org/project/turbo-seti/2.3.2/)
 - [SIGPROC filterbank format guide](http://sigproc.sourceforge.net/sigproc.pdf)
 - [Official Python 3.15.0 release](https://www.python.org/downloads/release/python-3150/)
 
-Source facts and compatibility evidence last checked: 2026-10-12. Recheck mutable upstream pages before future baseline or source changes.
+Mutable upstream pages and package metadata were checked on 2026-10-12. Recheck them before future baseline or source changes.
+
+## Other pillar source notes
+
+The exact six-scan public GBT cadence metadata and bounded HDF5 metadata-probe evidence for the later worker slice are tracked in the EXP-030 research notes. Do not infer a universal storage provider from the archive: the Breakthrough Listen archive paper says records may resolve to Berkeley servers, national computing centers, or cloud storage. Each worker run must retain the exact archive query, selected record URLs, and per-object checksums.

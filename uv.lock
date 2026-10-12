@@ -1425,9 +1425,12 @@ dependencies = [
 [package.optional-dependencies]
 radio = [
     { name = "aiohttp" },
+    { name = "blimpy" },
     { name = "fsspec" },
     { name = "h5py" },
+    { name = "hdf5plugin" },
     { name = "matplotlib" },
+    { name = "numpy" },
     { name = "pyparsing" },
     { name = "setigen" },
     { name = "setuptools" },
@@ -1446,11 +1449,14 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", marker = "extra == 'radio'", specifier = ">=3.14,<4" },
+    { name = "blimpy", marker = "extra == 'radio'", specifier = ">=2.1.4,<3" },
     { name = "fsspec", marker = "extra == 'radio'", specifier = ">=2026.9,<2027" },
     { name = "h5py", marker = "extra == 'radio'", specifier = ">=3.16,<4" },
+    { name = "hdf5plugin", marker = "extra == 'radio'", specifier = ">=7,<8" },
     { name = "jinja2", specifier = ">=3.1.6,<4" },
     { name = "jsonschema", specifier = ">=4.25,<5" },
     { name = "matplotlib", marker = "extra == 'radio'", specifier = ">=3.10,<4" },
+    { name = "numpy", marker = "extra == 'radio'", specifier = ">=2.5,<3" },
     { name = "pydantic", specifier = ">=2.12,<3" },
     { name = "pyparsing", marker = "extra == 'radio'", specifier = "==3.3.3" },
     { name = "setigen", marker = "extra == 'radio'", specifier = ">=2.7,<3" },

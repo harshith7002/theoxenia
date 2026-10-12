@@ -35,7 +35,7 @@ jobs:
         run: uv sync --locked --all-groups --extra radio --python 3.15.0
 
       - name: Smoke-test the Python 3.15 radio stack
-        run: uv run --locked python -c "import blimpy, fsspec, h5py, setigen, turbo_seti"
+        run: uv run --locked python -c "import blimpy, fsspec, hdf5plugin, h5py, numpy, setigen, turbo_seti"
 
       - name: Check formatting and lint
         run: |

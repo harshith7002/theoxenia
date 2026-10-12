@@ -67,8 +67,8 @@ def build_parser() -> argparse.ArgumentParser:
     hero_parser = live_sub.add_parser("hero", help="run the Voyager 1 known-answer experiment")
     hero_parser.add_argument("--voyager", action="store_true", required=True)
     hero_parser.add_argument("--source-url", default=None)
-    hero_parser.add_argument("--frequency-low-mhz", type=float, default=8419.0)
-    hero_parser.add_argument("--frequency-high-mhz", type=float, default=8420.0)
+    hero_parser.add_argument("--frequency-low-mhz", type=float, default=8419.24)
+    hero_parser.add_argument("--frequency-high-mhz", type=float, default=8419.35)
     hero_parser.add_argument("--max-drift-hz-s", type=float, default=4.0)
     hero_parser.add_argument("--minimum-snr", type=float, default=25.0)
 
@@ -126,12 +126,12 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.group == "live" and args.live_command == "hero":
-            from xenia.radio.voyager import OFFICIAL_SOURCE_URL, run_voyager
+            from xenia.radio.voyager import DEFAULT_SOURCE_URL, run_voyager
 
             manifest, manifest_path = run_voyager(
                 root,
                 command,
-                source_url=args.source_url or OFFICIAL_SOURCE_URL,
+                source_url=args.source_url or DEFAULT_SOURCE_URL,
                 frequency_low_mhz=args.frequency_low_mhz,
                 frequency_high_mhz=args.frequency_high_mhz,
                 max_drift_hz_s=args.max_drift_hz_s,

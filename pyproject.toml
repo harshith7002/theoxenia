@@ -30,9 +30,12 @@ dependencies = [
 [project.optional-dependencies]
 radio = [
   "aiohttp>=3.14,<4",
+  "blimpy>=2.1.4,<3",
   "fsspec>=2026.9,<2027",
+  "hdf5plugin>=7,<8",
   "h5py>=3.16,<4",
   "matplotlib>=3.10,<4",
+  "numpy>=2.5,<3",
   "pyparsing==3.3.3",
   "setigen>=2.7,<3",
   "setuptools==80.9.0",

@@ -131,8 +131,8 @@ def test_voyager_cli_dispatches_the_known_answer_defaults(tmp_path: Path, monkey
     assert main(["live", "hero", "--voyager"]) == 0
     assert captured["root"] == tmp_path
     assert captured["command"] == ["xenia", "live", "hero", "--voyager"]
-    assert captured["frequency_low_mhz"] == 8419.0
-    assert captured["frequency_high_mhz"] == 8420.0
+    assert captured["frequency_low_mhz"] == 8419.24
+    assert captured["frequency_high_mhz"] == 8419.35
     assert captured["max_drift_hz_s"] == 4.0
     assert captured["minimum_snr"] == 25.0
 

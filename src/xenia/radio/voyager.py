@@ -2,30 +2,43 @@
 
 from __future__ import annotations
 
+import importlib
 import json
+import platform
 import tempfile
 from collections.abc import Sequence
 from datetime import UTC, datetime
+from importlib.metadata import version
 from pathlib import Path
 
 from xenia.live.models import HeroPayload, InputRef, RunManifest
 from xenia.provenance import create_run_manifest, new_run_id, output_ref
 from xenia.radio.detector import DetectorResult, DopplerHit, run_turboseti, select_known_answer_hit
+from xenia.radio.hdf5 import Hdf5FilterbankHeader, Hdf5SliceInfo, slice_hdf5_filterbank
 from xenia.radio.remote import RangeMetrics, open_counted_http_file
-from xenia.radio.sigproc import FilterbankSliceInfo, read_sigproc_header, slice_filterbank
 
-OFFICIAL_SOURCE_URL = "https://storage.googleapis.com/gbt_fil/voyager_f1032192_t300_v2.fil"
-OFFICIAL_SOURCE_SIZE_BYTES = 528_482_692
-OFFICIAL_SOURCE_NAME = "VOYAGER1"
-DEFAULT_FREQUENCY_LOW_MHZ = 8419.0
-DEFAULT_FREQUENCY_HIGH_MHZ = 8420.0
+CANONICAL_SOURCE_URL = (
+    "http://blpd0.ssl.berkeley.edu/Voyager_data/Voyager1.single_coarse.fine_res.h5"
+)
+SOURCE_MIRROR_REPOSITORY = "RaghavGirgaonkar/SETI-Project-Test"
+SOURCE_MIRROR_COMMIT = "9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb"
+SOURCE_MIRROR_BLOB_SHA1 = "42a41e5c2564afc8e73dc7b23cece3e3123f15d6"
+DEFAULT_SOURCE_URL = (
+    "https://raw.githubusercontent.com/"
+    f"{SOURCE_MIRROR_REPOSITORY}/{SOURCE_MIRROR_COMMIT}/"
+    "Voyager1.single_coarse.fine_res.h5"
+)
+SOURCE_SIZE_BYTES = 50_549_227
+SOURCE_NAME = "Voyager1"
+DEFAULT_FREQUENCY_LOW_MHZ = 8419.24
+DEFAULT_FREQUENCY_HIGH_MHZ = 8419.35
+KNOWN_ANSWER_LOW_MHZ = 8419.296
+KNOWN_ANSWER_HIGH_MHZ = 8419.298
 DEFAULT_MAX_DRIFT_HZ_S = 4.0
 DEFAULT_MINIMUM_SNR = 25.0
-REFERENCE_FREQUENCY_MHZ = 8419.319368
-REFERENCE_TOLERANCE_MHZ = 0.02
-REMOTE_BLOCK_SIZE_BYTES = 1024 * 1024
-REMOTE_TRANSFER_LIMIT_BYTES = 16 * 1024 * 1024
 MINIMUM_DRIFT_HZ_S = 1e-5
+REMOTE_BLOCK_SIZE_BYTES = 64 * 1024
+REMOTE_TRANSFER_LIMIT_BYTES = 24 * 1024 * 1024
 
 
 def _write_json(path: Path, payload: object) -> None:
@@ -35,49 +48,57 @@ def _write_json(path: Path, payload: object) -> None:
     )
 
 
+def _runtime_versions() -> dict[str, str]:
+    """Record the HDF5 runtime stack needed to reproduce this detector input."""
+    importlib.import_module("hdf5plugin")
+    import h5py
+    import numpy
+
+    return {
+        "python": platform.python_version(),
+        "numpy": numpy.__version__,
+        "h5py": h5py.__version__,
+        "libhdf5": h5py.version.hdf5_version,
+        "hdf5plugin": version("hdf5plugin"),
+    }
+
+
 def _render_waterfall_png(
     slice_path: Path,
     output_path: Path,
-    slice_info: FilterbankSliceInfo,
+    slice_info: Hdf5SliceInfo,
     *,
-    nbits: int,
-    foff_mhz: float,
-    tsamp_seconds: float,
     hit: DopplerHit | None,
 ) -> None:
-    """Render an exact-size 16:9 plot from the temporary, already-sliced filterbank."""
+    """Render an exact-size 16:9 waterfall from the temporary HDF5 frequency slice."""
+    import h5py
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import numpy as np
 
-    if nbits != 32:
-        raise ValueError(f"Voyager plot expects 32-bit SIGPROC samples, received {nbits}")
-    if slice_info.nifs < 1 or slice_info.integrations < 1 or tsamp_seconds <= 0:
-        raise ValueError("plot dimensions and sampling interval must be positive")
-
-    expected_samples = slice_info.integrations * slice_info.nifs * slice_info.channel_count
-    with slice_path.open("rb") as stream:
-        stream.seek(slice_info.data_offset)
-        sample_bytes = stream.read(expected_samples * 4 + 1)
-    if len(sample_bytes) != expected_samples * 4:
-        raise ValueError("temporary filterbank slice has an unexpected sample count")
-
-    samples = np.frombuffer(sample_bytes, dtype="<f4")
-    cube = samples.reshape(slice_info.integrations, slice_info.nifs, slice_info.channel_count)
+    with h5py.File(slice_path, "r") as h5:
+        dataset = h5["data"]
+        if dataset.shape != (
+            slice_info.header.integrations,
+            slice_info.header.nifs,
+            slice_info.channel_count,
+        ):
+            raise ValueError("temporary HDF5 slice dimensions changed before plotting")
+        cube = np.asarray(dataset[:], dtype=np.float32)
     waterfall = np.nanmean(cube, axis=1)
     if not np.isfinite(waterfall).any():
         raise ValueError("Voyager slice contains no finite samples to plot")
 
-    first_center = float(slice_info.first_center_mhz)
-    last_center = float(slice_info.last_center_mhz)
+    first_center = slice_info.first_center_mhz
+    last_center = slice_info.last_center_mhz
     if first_center > last_center:
         waterfall = waterfall[:, ::-1]
-    channel_width_mhz = abs(foff_mhz)
+    channel_width_mhz = abs(slice_info.header.foff_mhz)
     frequency_min = min(first_center, last_center) - channel_width_mhz / 2
     frequency_max = max(first_center, last_center) + channel_width_mhz / 2
-    elapsed_minutes = slice_info.integrations * tsamp_seconds / 60
+    elapsed_minutes = slice_info.header.integrations * slice_info.header.tsamp_seconds / 60
     finite_values = waterfall[np.isfinite(waterfall)]
     vmin, vmax = np.percentile(finite_values, [2, 99.5]).astype(float)
     if not vmax > vmin:
@@ -124,12 +145,12 @@ def _render_waterfall_png(
         colorbar.ax.tick_params(colors=foreground, labelsize=8)
         colorbar.set_label("Recorded sample value", color=foreground, fontsize=8)
 
-        spectrum = np.nanmean(waterfall, axis=0)
         centers = np.linspace(
             frequency_min + channel_width_mhz / 2,
             frequency_max - channel_width_mhz / 2,
             slice_info.channel_count,
         )
+        spectrum = np.nanmean(waterfall, axis=0)
         spectrum_axis.plot(centers, spectrum, color=accent, linewidth=0.65)
         spectrum_axis.set_ylabel("Mean value", color=foreground, fontsize=8)
         spectrum_axis.set_xlabel("Frequency (MHz)", color=foreground)
@@ -204,18 +225,22 @@ def _manifest_outputs(paths: Sequence[Path], *, repository_root: Path):
     return tuple(artifacts)
 
 
+def _record_source_header(parameters: dict[str, object], header: Hdf5FilterbankHeader) -> None:
+    parameters["source_header"] = header.as_dict()
+
+
 def run_voyager(
     repository_root: Path,
     command: Sequence[str],
     *,
-    source_url: str = OFFICIAL_SOURCE_URL,
+    source_url: str = DEFAULT_SOURCE_URL,
     frequency_low_mhz: float = DEFAULT_FREQUENCY_LOW_MHZ,
     frequency_high_mhz: float = DEFAULT_FREQUENCY_HIGH_MHZ,
     max_drift_hz_s: float = DEFAULT_MAX_DRIFT_HZ_S,
     minimum_snr: float = DEFAULT_MINIMUM_SNR,
     experiment_id: str = "EXP-001",
 ) -> tuple[RunManifest, Path]:
-    """Run EXP-001 from bounded source reads through a manifest-backed plot."""
+    """Run EXP-001 from bounded remote HDF5 channel reads to a manifest-backed plot."""
     root = repository_root.resolve()
     started_at = datetime.now(UTC)
     run_id = new_run_id(started_at, "exp-001-voyager")
@@ -231,91 +256,88 @@ def run_voyager(
     transfer_metrics: RangeMetrics | None = None
     parameters: dict[str, object] = {
         "source_url": source_url,
-        "source_expected_size_bytes": OFFICIAL_SOURCE_SIZE_BYTES,
+        "canonical_source_url": CANONICAL_SOURCE_URL,
+        "source_expected_size_bytes": (
+            SOURCE_SIZE_BYTES if source_url == DEFAULT_SOURCE_URL else None
+        ),
+        "mirror_provenance": (
+            {
+                "repository": SOURCE_MIRROR_REPOSITORY,
+                "commit": SOURCE_MIRROR_COMMIT,
+                "git_blob_sha1": SOURCE_MIRROR_BLOB_SHA1,
+                "note": (
+                    "Third-party HTTPS mirror pinned to a commit; cross-validated against "
+                    "official blimpy Voyager test values."
+                ),
+            }
+            if source_url == DEFAULT_SOURCE_URL
+            else None
+        ),
         "requested_window_mhz": [frequency_low_mhz, frequency_high_mhz],
+        "known_answer_window_mhz": [KNOWN_ANSWER_LOW_MHZ, KNOWN_ANSWER_HIGH_MHZ],
+        "known_answer_frequency_uncertainty_mhz": None,
         "max_drift_hz_s": max_drift_hz_s,
         "minimum_drift_hz_s": MINIMUM_DRIFT_HZ_S,
         "minimum_snr": minimum_snr,
         "detector_options": {
+            "input_format": "HDF5 FILTERBANK",
             "n_partitions": 1,
             "progress_bar": "n",
             "blank_dc": True,
             "precision": "single",
-            "blimpy_two_integration_shim": (
-                "Validate shape-(2, 1, nchan) endpoints; bypass only the upstream check's "
-                "out-of-range data[2] probe."
-            ),
         },
         "remote_block_size_bytes": REMOTE_BLOCK_SIZE_BYTES,
         "remote_transfer_limit_bytes": REMOTE_TRANSFER_LIMIT_BYTES,
     }
 
     try:
+        parameters["runtime"] = _runtime_versions()
+        if max_drift_hz_s <= 0 or minimum_snr < 0:
+            raise ValueError("drift limit must be positive and minimum SNR non-negative")
+        if frequency_low_mhz >= frequency_high_mhz:
+            raise ValueError("frequency window must have positive width")
         with open_counted_http_file(
             source_url,
             block_size=REMOTE_BLOCK_SIZE_BYTES,
             max_transfer_bytes=REMOTE_TRANSFER_LIMIT_BYTES,
         ) as (remote_file, transfer_metrics):
             inputs = (InputRef(uri=source_url, size_bytes=transfer_metrics.source_size_bytes),)
-            header = read_sigproc_header(remote_file)
-            source_name = str(header.fields.get("source_name", "")).strip()
-            nbits = int(header.fields.get("nbits", 0))
-            nifs = int(header.fields.get("nifs", 0))
-            if source_name != OFFICIAL_SOURCE_NAME:
+            parameters["source_size_bytes"] = transfer_metrics.source_size_bytes
+            if (
+                source_url == DEFAULT_SOURCE_URL
+                and transfer_metrics.source_size_bytes != SOURCE_SIZE_BYTES
+            ):
                 raise ValueError(
-                    f"expected source_name={OFFICIAL_SOURCE_NAME}, found {source_name!r}"
+                    "pinned Voyager mirror size changed: "
+                    f"expected {SOURCE_SIZE_BYTES}, observed {transfer_metrics.source_size_bytes}"
                 )
-            if nbits != 32 or nifs != 1:
-                raise ValueError(
-                    f"expected a 32-bit, single-IF Voyager file; found nbits={nbits}, nifs={nifs}"
-                )
-            try:
-                tsamp_seconds = float(header.fields["tsamp"])
-            except (KeyError, TypeError, ValueError) as exc:
-                raise ValueError("Voyager header is missing a valid tsamp") from exc
-            foff_mhz = float(header.fields["foff"])
-
-            parameters["source_header"] = {
-                "source_name": source_name,
-                "nchans": int(header.fields["nchans"]),
-                "nifs": nifs,
-                "nbits": nbits,
-                "fch1_mhz": float(header.fields["fch1"]),
-                "foff_mhz": foff_mhz,
-                "tsamp_seconds": tsamp_seconds,
-                "tstart_mjd": float(header.fields["tstart"]),
-            }
-            inputs = (InputRef(uri=source_url, size_bytes=transfer_metrics.source_size_bytes),)
 
             with tempfile.TemporaryDirectory(prefix="xenia-exp001-") as temporary_directory:
                 temporary_root = Path(temporary_directory)
-                slice_path = temporary_root / "voyager-window.fil"
-                slice_info = slice_filterbank(
+                slice_path = temporary_root / "voyager-window.h5"
+                slice_info = slice_hdf5_filterbank(
                     remote_file,
                     output_path=slice_path,
                     frequency_low_mhz=frequency_low_mhz,
                     frequency_high_mhz=frequency_high_mhz,
+                    expected_source_name=SOURCE_NAME,
+                    on_header=lambda header: _record_source_header(parameters, header),
                 )
-                slice_sha256 = _sha256_file(slice_path)
+                parameters["known_answer_frequency_uncertainty_mhz"] = (
+                    abs(slice_info.header.foff_mhz) / 2
+                )
                 slice_summary = {
                     "source_url": source_url,
-                    "source_name": source_name,
+                    "canonical_source_url": CANONICAL_SOURCE_URL,
+                    "source_name": slice_info.header.source_name,
+                    "source_header": slice_info.header.as_dict(),
                     "requested_window_mhz": [frequency_low_mhz, frequency_high_mhz],
-                    "channel_start": slice_info.channel_start,
-                    "channel_count": slice_info.channel_count,
-                    "first_center_mhz": float(slice_info.first_center_mhz),
-                    "last_center_mhz": float(slice_info.last_center_mhz),
-                    "integrations": slice_info.integrations,
-                    "nifs": slice_info.nifs,
-                    "data_offset_bytes": slice_info.data_offset,
-                    "slice_size_bytes": slice_info.output_size_bytes,
-                    "slice_sha256": slice_sha256,
+                    **slice_info.as_dict(),
                     "remote_transfer": transfer_metrics.as_dict(),
                 }
                 _write_json(slice_summary_path, slice_summary)
                 parameters.update(
                     {
-                        "source_size_bytes": transfer_metrics.source_size_bytes,
                         "remote_transfer": transfer_metrics.as_dict(),
                         "slice": slice_summary,
                     }
@@ -326,47 +348,29 @@ def run_voyager(
                     max_drift_hz_s=max_drift_hz_s,
                     minimum_snr=minimum_snr,
                 )
-                match_low_mhz = max(
-                    frequency_low_mhz, REFERENCE_FREQUENCY_MHZ - REFERENCE_TOLERANCE_MHZ
+                hit = select_known_answer_hit(
+                    detector_result.hits,
+                    frequency_low_mhz=KNOWN_ANSWER_LOW_MHZ,
+                    frequency_high_mhz=KNOWN_ANSWER_HIGH_MHZ,
+                    max_abs_drift_hz_s=max_drift_hz_s,
+                    minimum_snr=minimum_snr,
                 )
-                match_high_mhz = min(
-                    frequency_high_mhz, REFERENCE_FREQUENCY_MHZ + REFERENCE_TOLERANCE_MHZ
-                )
-                hit = (
-                    None
-                    if match_low_mhz > match_high_mhz
-                    else select_known_answer_hit(
-                        detector_result.hits,
-                        frequency_low_mhz=match_low_mhz,
-                        frequency_high_mhz=match_high_mhz,
-                        max_abs_drift_hz_s=max_drift_hz_s,
-                        minimum_snr=minimum_snr,
-                    )
-                )
-                _render_waterfall_png(
-                    slice_path,
-                    plot_path,
-                    slice_info,
-                    nbits=nbits,
-                    foff_mhz=foff_mhz,
-                    tsamp_seconds=tsamp_seconds,
-                    hit=hit,
-                )
-
+                _render_waterfall_png(slice_path, plot_path, slice_info, hit=hit)
                 detector_summary = {
                     "turbo_seti_version": detector_result.turbo_seti_version,
                     "blimpy_version": detector_result.blimpy_version,
                     "max_drift_hz_s": max_drift_hz_s,
                     "minimum_drift_hz_s": MINIMUM_DRIFT_HZ_S,
                     "minimum_snr": minimum_snr,
-                    "known_answer_reference_frequency_mhz": REFERENCE_FREQUENCY_MHZ,
-                    "known_answer_tolerance_mhz": REFERENCE_TOLERANCE_MHZ,
-                    "known_answer_match_window_mhz": [match_low_mhz, match_high_mhz],
+                    "known_answer_window_mhz": [
+                        KNOWN_ANSWER_LOW_MHZ,
+                        KNOWN_ANSWER_HIGH_MHZ,
+                    ],
+                    "frequency_channel_width_mhz": abs(slice_info.header.foff_mhz),
                     "dat_outputs": _detector_artifacts(detector_result),
                     "selected_hit_top_hit": None if hit is None else hit.top_hit,
                 }
 
-        _write_json(slice_summary_path, slice_summary)
         _write_json(
             hits_path,
             {
@@ -376,7 +380,6 @@ def run_voyager(
         )
         parameters.update(
             {
-                "source_size_bytes": transfer_metrics.source_size_bytes,
                 "remote_transfer": transfer_metrics.as_dict(),
                 "slice": slice_summary,
                 "detector": detector_summary,
@@ -401,7 +404,8 @@ def run_voyager(
         outcome = "known_answer_detected" if hit is not None else "no_expected_hit"
         if hit is not None:
             notes = (
-                "A turboSETI hit passed the predeclared source, frequency, drift, and SNR checks.",
+                "A turboSETI hit passed the predeclared Voyager frequency, drift, and SNR checks.",
+                "This is a known-transmitter positive control, not an unknown candidate.",
             )
         else:
             notes = (
@@ -434,6 +438,9 @@ def run_voyager(
             {
                 "error_type": type(exc).__name__,
                 "error": str(exc),
+                "source_url": source_url,
+                "source_header": parameters.get("source_header"),
+                "runtime": parameters.get("runtime"),
                 "remote_transfer": None if transfer_metrics is None else transfer_metrics.as_dict(),
             },
         )
@@ -459,14 +466,3 @@ def run_voyager(
             manifest_path=manifest_path,
         )
         raise
-
-
-def _sha256_file(path: Path) -> str:
-    """Hash the small temporary slice without retaining its bytes in memory."""
-    from hashlib import sha256
-
-    digest = sha256()
-    with path.open("rb") as source:
-        for chunk in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()

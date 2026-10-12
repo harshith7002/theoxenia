@@ -1,27 +1,41 @@
 # Scientific dependency compatibility
 
-**Project baseline:** CPython 3.15.0, pinned in `.python-version`, `pyproject.toml`, `uv.lock`, CI and the devcontainer. The science packages are an optional `radio` extra so the static Mission Control demo remains installable without native astronomy dependencies.
+**Project baseline:** CPython 3.15.0, pinned in `.python-version`, `pyproject.toml`, `uv.lock`, CI, and the devcontainer. The `radio` extra contains the astronomy/data dependencies; base installs can still render the static Mission Control demo.
 
-## Verified compatibility evidence (2026-10-12)
+## Locked and exercised versions (2026-10-12)
 
-| Package | Version/evidence | Current conclusion |
-|---|---|---|
-| CPython | [Python 3.15.0 release](https://www.python.org/downloads/release/python-3150/) | Stable baseline, released 2026-10-09. |
-| `turbo-seti` | [PyPI 2.3.2 metadata](https://pypi.org/pypi/turbo-seti/2.3.2/json) | Resolved and imported on CPython 3.15.0 in the isolated test environment; its metadata does not declare `Requires-Python`. Actual Voyager detection remains a separate acceptance test. |
-| `setigen` | [PyPI 2.7.0 metadata](https://pypi.org/pypi/setigen/2.7.0/json) | Resolved and imported on CPython 3.15.0 with NumPy 2.5.4 in the isolated test environment; its injection/recovery behavior still needs the project test suite. |
-| `blimpy` | [PyPI 2.1.4 metadata](https://pypi.org/pypi/blimpy/2.1.4/json), [upstream requirements](https://github.com/UCBerkeleySETI/blimpy/blob/master/requirements.txt), [HDF5 reader](https://github.com/UCBerkeleySETI/blimpy/blob/master/blimpy/io/hdf_reader.py) | Upstream pins `pyparsing==2.4.7`; that version fails on CPython 3.15 with `ModuleNotFoundError: No module named 'sre_constants'`. `blimpy` imports with `pyparsing==3.3.3` and `setuptools==80.9.0`. Its `examine_h5()` also unconditionally probes `data[2]`, rejecting the official two-integration Voyager tutorial sample. The project applies a lock-protected, temporary shim only for the exact two-integration, single-IF shape; it checks filterbank class/version and readable first/last integration/channel samples, restoring blimpy's original checker after the detector run. Synthetic tests cover the shim and restoration. This does **not** claim upstream has declared Python 3.15 support; revisit when upstream fixes both constraints. |
-| `h5py` | [PyPI 3.16.0 metadata](https://pypi.org/pypi/h5py/3.16.0/json) | No CPython 3.15 wheel was available in the verified metadata. The source build succeeded after installing `libhdf5-dev`, `pkg-config`, and build-essential. CI and the devcontainer must install those system packages before syncing the `radio` extra. |
-| `fsspec` / `aiohttp` | Isolated versions `fsspec==2026.9.0`, `aiohttp==3.14.5` | `fsspec`'s HTTP filesystem and `h5py` opened the verified 15.4 GB Berkeley HDF5 object via HTTP ranges and read metadata without downloading the whole file. A 1 MHz data-slice read and measured egress are not yet verified. |
+| Package | Locked version | Evidence and current conclusion |
+|---|---:|---|
+| CPython | 3.15.0 | Stable release from [Python.org](https://www.python.org/downloads/release/python-3150/), released 2026-10-09. |
+| `turbo-seti` | 2.3.2 | Resolved and imported on CPython 3.15.0. The EXP-001 pipeline uses the documented HDF5 FILTERBANK input path; both prior operational failures are preserved in manifests, and a successful known-answer run must be verified separately. |
+| `blimpy` | 2.1.4 | Resolved on CPython 3.15.0. The temporary frequency-sliced HDF5 file is validated with `blimpy.io.hdf_reader.H5Reader(load_data=False)` before turboSETI receives it. The project uses a 16-integration source and does not patch blimpy’s validator. |
+| `setigen` | 2.7.0 | Resolved and imported with NumPy 2.5.4. EXP-002 injection/recovery remains a distinct acceptance milestone. |
+| `h5py` | 3.16.0 | No CPython 3.15 wheel was present in the checked PyPI metadata; the source build succeeded with HDF5 headers, `pkg-config`, and build tools. The Python 3.15 CI job installs these prerequisites. |
+| `hdf5plugin` | 7.1.0 | Direct radio-extra dependency. Imported before HDF5 reads so upstream compression filters are registered; the version and linked libhdf5 version are recorded in EXP-001 run metadata. |
+| `fsspec` | 2026.9.0 | Its HTTP bytes-cache supports the measured range reader used for the bounded source access. Actual range intervals and response payload bytes are written to each experiment manifest. |
+| `numpy` | 2.5.4 | Direct radio-extra dependency and the verified float32/HDF5 data-array runtime. |
 
-## Explicit resolver override
+## Explicit resolver overrides
 
-`pyproject.toml` pins `pyparsing==3.3.3` through `tool.uv.override-dependencies`. This is a visible compatibility workaround for `blimpy`'s exact 2.4.7 pin, not an upstream compatibility claim or a Python-baseline downgrade. `setuptools==80.9.0` is also pinned in the radio extra because `blimpy` still imports `pkg_resources`.
+`blimpy==2.1.4` pins `pyparsing==2.4.7` in its upstream requirements. On CPython 3.15 that release fails to import due to the removed `sre_constants` module. The project records `pyparsing==3.3.3` in `tool.uv.override-dependencies`; `blimpy` imports under the override in the locked Python 3.15 environment. `setuptools==80.9.0` is also pinned because this blimpy release still imports `pkg_resources`.
 
-The exact `uv.lock` is the resolved environment record. CI must test the radio extra on CPython 3.15, including a real `blimpy` import and deterministic scientific tests. If the override breaks a supported operation, stop and raise a compatibility blocker; do not lower the project baseline silently.
+These are visible compatibility workarounds, not upstream Python 3.15 support claims. Do not lower the project baseline silently. Recheck the lock and both workarounds when upstream dependencies change.
 
-## Primary data endpoints checked
+## HDF5 layout and source handling
 
-- Official Breakthrough Listen Voyager tutorial notebook: [source notebook](https://raw.githubusercontent.com/ucberkeleyseti/breakthrough/master/GBT/voyager/voyager.ipynb); public file URL and verified SIGPROC header are recorded in [`mission-control-m0.md`](mission-control-m0.md) as the source for EXP-001.
-- Official Breakthrough Listen archive: [archive search](https://breakthroughinitiatives.org/opendatasearch); the selected GBT HDF5 record is a Berkeley HTTPS object, not an assumed universal S3 bucket. The exact six A-B-A-C-A-D records, archive query, sizes and MD5 values are recorded in the EXP-030 evidence notes and will be captured in the source manifest before worker runs.
+- The canonical test file is `Voyager1.single_coarse.fine_res.h5`, published by the official blimpy test downloader at a Berkeley HTTP URL. The project uses an immutable HTTPS mirror because it will not disable TLS verification; the manifest keeps the publisher URL, mirror commit/blob SHA-1, actual URL, and measured object length distinct.
+- The verified source is a 16-integration, single-IF, float32 FILTERBANK with 1,048,576 channels. The slicer copies root and dataset attributes with their HDF5 datatypes preserved, updates only `fch1` and `nchans`, and validates the resulting temporary file with H5Reader.
+- The full source and output HDF5 slice remain in a temporary directory. Only a compact JSON summary, the detector hit table summary, the plot, and the run manifest may be committed; no raw source or slice is committed.
+- `libhdf5-dev`, `pkg-config`, and a compiler are required to build the current h5py release for Python 3.15. CI and the devcontainer install these before `uv sync --extra radio`.
 
-The live M3 worker is not yet deployed. Host egress billing, persistence, restart behavior, and long-running throughput remain unverified until Michael attaches the VM and authorizes the setup described in EXP-030.
+## Primary compatibility sources
+
+- [Python 3.15.0 release](https://www.python.org/downloads/release/python-3150/)
+- [turboSETI 2.3.2 on PyPI](https://pypi.org/project/turbo-seti/2.3.2/)
+- [blimpy 2.1.4 on PyPI](https://pypi.org/project/blimpy/2.1.4/)
+- [setigen 2.7.0 on PyPI](https://pypi.org/project/setigen/2.7.0/)
+- [h5py 3.16.0 on PyPI](https://pypi.org/project/h5py/3.16.0/)
+- [blimpy HDF5 reader](https://github.com/UCBerkeleySETI/blimpy/blob/master/blimpy/io/hdf_reader.py)
+- [Exact Voyager source and cross-checks](data-sources.md)
+
+The M3 worker’s egress, persistence, restart behavior, long-running throughput, and host availability remain unverified until Michael attaches the VM and approves the exact setup. The Python 3.15 environment itself is not a substitute for that deployment acceptance.
