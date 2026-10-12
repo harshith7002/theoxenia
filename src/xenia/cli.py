@@ -86,6 +86,14 @@ def build_parser() -> argparse.ArgumentParser:
     floor_parser.add_argument("--seed", type=int, default=20261012)
     floor_parser.add_argument("--experiment-id", default="EXP-002")
 
+    sources_parser = top.add_parser("sources", help="check public data-source endpoints")
+    sources_sub = sources_parser.add_subparsers(dest="sources_command", required=True)
+    check_parser = sources_sub.add_parser(
+        "check", help="probe each catalog row and write sources_check.json"
+    )
+    check_parser.add_argument("--config", type=Path, default=Path("configs/sources.yaml"))
+    check_parser.add_argument("--out", type=Path, required=True)
+
     return parser
 
 
@@ -166,6 +174,26 @@ def main(argv: list[str] | None = None) -> int:
             print(
                 f"EXP-001 outcome={manifest.outcome}; run_id={manifest.run_id}; "
                 f"manifest={manifest_path}"
+            )
+            return 0
+
+        if args.group == "sources" and args.sources_command == "check":
+            from xenia.sources import run_sources_check
+
+            config_path = _inside_repository(args.config, root)
+            out_path = _inside_repository(args.out, root)
+            document, manifest_path = run_sources_check(
+                root,
+                command,
+                config_path=config_path,
+                out_path=out_path,
+            )
+            verified = sum(item.verdict == "verified" for item in document.results)
+            blocked = sum(item.verdict == "blocked" for item in document.results)
+            synthetic = sum(item.verdict == "synthetic" for item in document.results)
+            print(
+                f"sources outcome verified={verified} blocked={blocked} "
+                f"synthetic={synthetic}; manifest={_display_path(manifest_path, root)}"
             )
             return 0
 

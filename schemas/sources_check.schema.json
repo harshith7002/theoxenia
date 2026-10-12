@@ -1,0 +1,216 @@
+{
+  "$defs": {
+    "SourceProbe": {
+      "additionalProperties": false,
+      "description": "One recorded response. Fixture numbers are not live measurements.",
+      "properties": {
+        "bytes_read": {
+          "minimum": 0,
+          "title": "Bytes Read",
+          "type": "integer"
+        },
+        "content_length": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Length"
+        },
+        "content_range": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Range"
+        },
+        "content_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Type"
+        },
+        "date_header": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date Header"
+        },
+        "elapsed_s": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elapsed S"
+        },
+        "endpoint": {
+          "title": "Endpoint",
+          "type": "string"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "http_status": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Http Status"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "numbers_from": {
+          "enum": [
+            "live",
+            "fixture"
+          ],
+          "title": "Numbers From",
+          "type": "string"
+        },
+        "probe_url": {
+          "title": "Probe Url",
+          "type": "string"
+        },
+        "sha256_of_bytes_read": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256 Of Bytes Read"
+        },
+        "synthetic": {
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        },
+        "verdict": {
+          "enum": [
+            "verified",
+            "blocked",
+            "synthetic"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "endpoint",
+        "probe_url",
+        "method",
+        "bytes_read",
+        "truncated",
+        "synthetic",
+        "numbers_from",
+        "verdict",
+        "note"
+      ],
+      "title": "SourceProbe",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The file written beside the run manifest.",
+  "properties": {
+    "cap_bytes": {
+      "title": "Cap Bytes",
+      "type": "integer"
+    },
+    "catalog_sha256": {
+      "title": "Catalog Sha256",
+      "type": "string"
+    },
+    "checked_at": {
+      "format": "date-time",
+      "title": "Checked At",
+      "type": "string"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/SourceProbe"
+      },
+      "title": "Results",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "checked_at",
+    "catalog_sha256",
+    "cap_bytes",
+    "results"
+  ],
+  "title": "SourcesCheck",
+  "type": "object"
+}

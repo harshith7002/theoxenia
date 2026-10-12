@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T220933913511Z-sources-check",
+  "pillar": "infra",
+  "command": "xenia sources check --config configs/sources.yaml --out runs/sources-check/sources_check.json",
+  "parameters": {
+    "config": "configs/sources.yaml",
+    "out": "runs/sources-check/sources_check.json",
+    "verified_count": 12,
+    "blocked_count": 6,
+    "synthetic_count": 1,
+    "cap_bytes": 65536
+  },
+  "inputs": [
+    {
+      "uri": "configs/sources.yaml",
+      "sha256": "4859ae835af1164f7a1f97857a7de26970aa656a3dc34ff9528ff1e983b595dd",
+      "size_bytes": 8406
+    },
+    {
+      "uri": "tests/fixtures/sources/unreachable.json",
+      "sha256": "3baa7c0f3cabafd5d34fb69ada4ca9d0f0513fe619b853370727f4ece7067ecf",
+      "size_bytes": 166
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/sources-check/sources_check.json",
+      "sha256": "8ca38f61fb4b935eb2b232791508c14a8fa575c7e2ac8a34377b1744cdf84713",
+      "size_bytes": 15715,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T220933913511Z-sources-check/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T22:09:33.913511Z",
+  "finished_at": "2026-10-12T22:11:24.316962Z",
+  "outcome": "sources_checked_with_synthetic",
+  "notes": [
+    "verified=12 blocked=6 synthetic=1",
+    "Synthetic fixture numbers are not live measurements: cneos-fireball",
+    "Blocked: aaro, technosearch, galileo, nara-catalog-api, space-track, enigma"
+  ],
+  "experiment_id": null,
+  "demo": true,
+  "mission_control": null
+}

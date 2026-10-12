@@ -30,6 +30,7 @@ def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
         "live_state.schema.json",
         "run_manifest.schema.json",
         "recovery_grid.schema.json",
+        "sources_check.schema.json",
     }
     assert export_schemas(schema_dir, check=True) == ()
     stale_file = schema_dir / "live_state.schema.json"

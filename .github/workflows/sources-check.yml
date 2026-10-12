@@ -1,0 +1,41 @@
+name: Sources check
+
+on:
+  schedule:
+    - cron: "15 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Probe public data-source endpoints
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.13.0
+          enable-cache: true
+
+      - name: Install CPython 3.15.0
+        run: uv python install 3.15.0
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --all-groups --python 3.15.0
+
+      - name: Probe the catalog
+        run: uv run --locked xenia sources check --config configs/sources.yaml --out runs/sources-check/sources_check.json
+
+      - name: Upload the check
+        uses: actions/upload-artifact@v4
+        with:
+          name: sources-check
+          path: |
+            runs/sources-check/sources_check.json
+            runs/**/manifest.json
+          if-no-files-found: error

@@ -8,11 +8,13 @@ from pathlib import Path
 from pydantic import BaseModel
 
 from xenia.live.models import LiveState, RecoveryGridArtifact, RunManifest
+from xenia.sources import SourcesCheck
 
 SCHEMA_MODELS: dict[str, type[BaseModel]] = {
     "live_state.schema.json": LiveState,
     "run_manifest.schema.json": RunManifest,
     "recovery_grid.schema.json": RecoveryGridArtifact,
+    "sources_check.schema.json": SourcesCheck,
 }
 
 

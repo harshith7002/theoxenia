@@ -15,6 +15,7 @@ nav:
   - Home: index.md
   - Architecture: architecture.md
   - EXP-001 data sources: data-sources.md
+  - Data-source endpoint check: sources-check.md
   - EXP-002 method: mission-control-exp002.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
