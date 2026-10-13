@@ -103,6 +103,22 @@ def test_only_generated_at_changes_when_clock_changes(demo_manifests, fixed_time
     assert left == right
 
 
+def test_mirror_url_marks_the_page_as_a_mirror(demo_manifests, fixed_time) -> None:
+    """A mirror URL is the mirror pill, not a second live worker."""
+    state = build_state(
+        demo_manifests,
+        generated_at=fixed_time,
+        git_sha="abc123",
+        mirror_url="https://mpetyx.github.io/theoxenia/",
+    )
+    assert state.meta.is_mirror is True
+    assert state.meta.mirror_url == "https://mpetyx.github.io/theoxenia/"
+    assert state.meta.mirror_updated_at == fixed_time
+    plain = build_state(demo_manifests, generated_at=fixed_time, git_sha="abc123")
+    assert plain.meta.is_mirror is False
+    assert plain.meta.mirror_updated_at is None
+
+
 def test_invalid_manifest_fails_loudly(tmp_path: Path) -> None:
     """Malformed manifests are errors, not silently omitted records."""
     manifest = tmp_path / "broken" / "manifest.json"
