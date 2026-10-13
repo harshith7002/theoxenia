@@ -172,6 +172,91 @@ def test_detector_wrapper_preserves_hits_after_final_logging_type_error(
     assert "after writing parseable .dat hit rows" in result.warnings[0]
 
 
+def _load_search_coarse_channel(source_path: Path):
+    namespace: dict[str, object] = {}
+    source = source_path.read_text(encoding="utf-8")
+    exec(compile(source, str(source_path), "exec"), namespace)  # noqa: S102
+    return namespace["search_coarse_channel"]
+
+
+def test_detector_wrapper_keeps_empty_dat_after_hit_count_log_error(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    filterbank = tmp_path / "slice.h5"
+    filterbank.write_bytes(b"synthetic HDF5 placeholder")
+    output_directory = tmp_path / "detector"
+    source_path = tmp_path / "pkg" / "find_doppler.py"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_text(
+        "def search_coarse_channel():\n"
+        "    total_n_hits = __import__('numpy').zeros(1)\n"
+        "    'hit count %i' % total_n_hits\n",
+        encoding="utf-8",
+    )
+    search_coarse_channel = _load_search_coarse_channel(source_path)
+    empty_table = f"# {DAT_HEADER}\n"
+
+    class FinderWithFinishedEmptyTable:
+        def __init__(self, path: str, **kwargs: object) -> None:
+            self.out_dir = Path(str(kwargs["out_dir"]))
+
+        def search(self, *, n_partitions: int, progress_bar: str) -> None:
+            (self.out_dir / "slice.dat").write_text(empty_table, encoding="utf-8")
+            search_coarse_channel()
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: FinderWithFinishedEmptyTable)
+    monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
+
+    result = run_turboseti(
+        filterbank,
+        output_directory=output_directory,
+        max_drift_hz_s=4.0,
+        minimum_snr=10.0,
+    )
+
+    assert result.hits == ()
+    assert len(result.warnings) == 1
+    assert "no hit rows" in result.warnings[0]
+    assert result.artifacts[0].filename == "slice.dat"
+
+
+def test_detector_wrapper_rejects_same_type_error_off_the_hit_count_line(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    filterbank = tmp_path / "slice.h5"
+    filterbank.write_bytes(b"synthetic HDF5 placeholder")
+    output_directory = tmp_path / "detector"
+    source_path = tmp_path / "pkg" / "find_doppler.py"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_text(
+        "def search_coarse_channel():\n"
+        "    raise TypeError("
+        "'format argument: %i requires a real number, not numpy.ndarray')\n",
+        encoding="utf-8",
+    )
+    search_coarse_channel = _load_search_coarse_channel(source_path)
+    empty_table = f"# {DAT_HEADER}\n"
+
+    class FinderWithUnrelatedFormatError:
+        def __init__(self, path: str, **kwargs: object) -> None:
+            self.out_dir = Path(str(kwargs["out_dir"]))
+
+        def search(self, *, n_partitions: int, progress_bar: str) -> None:
+            (self.out_dir / "slice.dat").write_text(empty_table, encoding="utf-8")
+            search_coarse_channel()
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: FinderWithUnrelatedFormatError)
+    monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
+
+    with pytest.raises(TypeError, match="format argument: %i requires a real number"):
+        run_turboseti(
+            filterbank,
+            output_directory=output_directory,
+            max_drift_hz_s=4.0,
+            minimum_snr=10.0,
+        )
+
+
 def test_detector_wrapper_rejects_post_search_error_without_hit_rows(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

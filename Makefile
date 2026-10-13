@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence-synthetic cadence-synthetic-reduced docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -53,6 +53,32 @@ floor-evidence: floor
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030
 	$(UV) run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json
 	$(UV) run --locked xenia live render --state runs/state.json --runs runs --output site --manifest-root runs --experiment-id EXP-030
+
+cadence:
+	$(UV) run --locked xenia live cadence --experiment-id EXP-003 \
+		--cadence-id bl-opendata-63460 \
+		--target HIP544 \
+		--ra-deg 1.6549208333 \
+		--dec-deg 29.0205625 \
+		--window 1380.0 1381.0 \
+		--sources HIP544 HIP1024 HIP544 HIP114 HIP544 HIP1344 \
+		--roles A B A C A D \
+		--catalog-md5 \
+		b66f9ddb87204955651b45d0c80296c1 \
+		6297e6e0d5f7a35f9bc13b693ffc12ce \
+		759ed97559ceaebb10b9668b69274768 \
+		4e865518c50e98054916d6dee45043e1 \
+		8a76c8117c5eb5466f7f3de5f3f9d235 \
+		2d1a206e18819aeec1594df5cf6807f9 \
+		--catalog-size-bytes \
+		15489328869 15489102500 15487221734 15486312975 15488259815 15485972200 \
+		--files \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5 \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5 \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5 \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5 \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5 \
+		https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5
 
 cadence-synthetic:
 	$(UV) run --locked xenia live cadence --synthetic --seed 20261012 --experiment-id EXP-004

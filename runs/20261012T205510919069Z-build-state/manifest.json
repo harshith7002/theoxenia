@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T205510919069Z-build-state",
+  "pillar": "live",
+  "command": "xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030",
+  "parameters": {
+    "runs": "runs",
+    "output": "runs/state.json",
+    "demo": false
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261012T101443688910Z-build-state/manifest.json",
+      "sha256": "ceb42d13ed2575bf6d3a63b348595e4f69730424dfa6aa2348b35098c2fdd6c9",
+      "size_bytes": 1804
+    },
+    {
+      "uri": "runs/20261012T101444518036Z-render/manifest.json",
+      "sha256": "816460a2f1593c6c073978998a0384b7749debce12f7bc75620867cffa766fc8",
+      "size_bytes": 4351
+    },
+    {
+      "uri": "runs/20261012T123034402477Z-exp-001-voyager/manifest.json",
+      "sha256": "5127668f35b97c7b618daa86c4a1b4e88e40a66f92589df1ee31b5f0af35096c",
+      "size_bytes": 3050
+    },
+    {
+      "uri": "runs/20261012T123734993626Z-exp-001-voyager/manifest.json",
+      "sha256": "bd4b0d25d16c7eab0c7b9a168dff83dd37189f26794c91f257517d4f66ef85a8",
+      "size_bytes": 5190
+    },
+    {
+      "uri": "runs/20261012T130200938902Z-exp-001-voyager/manifest.json",
+      "sha256": "f5fb19557cde5c18d85da4f999d7aff439a1b4f32136054326bc1be0f40dd9bd",
+      "size_bytes": 19098
+    },
+    {
+      "uri": "runs/20261012T130616461127Z-exp-001-voyager/manifest.json",
+      "sha256": "518fb9700f7b28f09fb3371580981ec54f9ed656675ce4bcd92b5a10c3804154",
+      "size_bytes": 19129
+    },
+    {
+      "uri": "runs/20261012T130904642405Z-exp-001-voyager/manifest.json",
+      "sha256": "d13bcd190f935c096cf642bf95addb7b5b99f9a9962396fd75dec5d82ca0c4c8",
+      "size_bytes": 20721
+    },
+    {
+      "uri": "runs/20261012T140202855194Z-exp-002-floor/manifest.json",
+      "sha256": "8a1e02eeb2c44ba9ed761a5a1ad6c9bf35e0d28550b12585af894aa2be771d42",
+      "size_bytes": 5807
+    },
+    {
+      "uri": "runs/20261012T140801797574Z-build-state/manifest.json",
+      "sha256": "0945c42e8cbbbaf4eaeb1e2334d3ce4ef8436bddb688f9c2df7940b286cabc7d",
+      "size_bytes": 2572
+    },
+    {
+      "uri": "runs/20261012T140802786058Z-render/manifest.json",
+      "sha256": "7d8c206ce077b7f3ee6dd7428cc4a2dc4addf479e73112e0f590ea120d444615",
+      "size_bytes": 6130
+    },
+    {
+      "uri": "runs/20261012T143344836502Z-exp-002-floor/manifest.json",
+      "sha256": "62a2a3ed2c8052d4c8d8b887e97ed3d50454849b65d5ba7d5cd23e04248dd643",
+      "size_bytes": 6107
+    },
+    {
+      "uri": "runs/20261012T143444178630Z-build-state/manifest.json",
+      "sha256": "9b97f1f370e3a4cc91bc3cd52a242903101f2507960cd14fe887a797055ed1e9",
+      "size_bytes": 3145
+    },
+    {
+      "uri": "runs/20261012T143445148104Z-render/manifest.json",
+      "sha256": "4ef1bc12dc05cd048d40cefed312c55c2a6b118123b0846baf27970a3f25d4ff",
+      "size_bytes": 7372
+    },
+    {
+      "uri": "runs/20261012T194125275790Z-exp-004-cadence/manifest.json",
+      "sha256": "95f134c63be79bf0a8c869aef0b4cb8657e56bd5bd9cbb38b1db645c9f16b7b8",
+      "size_bytes": 7637
+    },
+    {
+      "uri": "runs/20261012T194254868851Z-build-state/manifest.json",
+      "sha256": "506988272c404fcb56c7671abc696d7354f0db0c4ddbbf745d15bc99841edc2b",
+      "size_bytes": 3721
+    },
+    {
+      "uri": "runs/20261012T194255276362Z-render/manifest.json",
+      "sha256": "3685c55806fc8341af827f8b6327d759c561fcc33e4e037341fb040a88c66732",
+      "size_bytes": 9589
+    },
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/manifest.json",
+      "sha256": "e8bf4daf07b83df01ec914cdcf086b36bc22d336b4faba0f87546595a61baa14",
+      "size_bytes": 9227
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/state.json",
+      "sha256": "2e63cd959f826d94092eb283f4cc7f9d2c3ad36215f3d60d0bc5cb9d61b3bf4e",
+      "size_bytes": 19070,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T205510919069Z-build-state/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "9cf55d8",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T20:55:10.919069Z",
+  "finished_at": "2026-10-12T20:55:10.946146Z",
+  "outcome": "state_built",
+  "notes": [
+    "State was aggregated from validated run manifests."
+  ],
+  "experiment_id": "EXP-030",
+  "demo": false,
+  "mission_control": null
+}

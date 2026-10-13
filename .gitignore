@@ -42,5 +42,7 @@ data/
 !/runs/**/truth.json
 !/runs/**/recovery.json
 !/runs/**/thumbs/*.svg
+!/runs/**/thumbs/*.png
+!/runs/**/plots/*.png
 
 .DS_Store

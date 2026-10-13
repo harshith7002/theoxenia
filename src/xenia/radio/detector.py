@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import linecache
 from collections.abc import Iterable
 from dataclasses import dataclass
 from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
 from math import isfinite
 from pathlib import Path
+
+_NUMPY_INT_FORMAT_ERROR = "format argument: %i requires a real number, not numpy.ndarray"
 
 
 @dataclass(frozen=True, slots=True)
@@ -157,6 +160,29 @@ def _find_doppler_class():
     return FindDoppler
 
 
+def _post_search_hit_count_log_error(exc: BaseException) -> bool:
+    """True when tophitsearch has returned and only the hit-count log line failed.
+
+    turboSETI 2.3.2 stores ``total_n_hits`` as a length-1 array and then formats
+    it with ``%i`` after the ``.dat`` table has been written. NumPy rejects that
+    format. The table is complete, including when it contains no hit rows.
+    """
+    if not isinstance(exc, TypeError) or _NUMPY_INT_FORMAT_ERROR not in str(exc):
+        return False
+    traceback = exc.__traceback__
+    if traceback is None:
+        return False
+    while traceback.tb_next is not None:
+        traceback = traceback.tb_next
+    code = traceback.tb_frame.f_code
+    if code.co_name != "search_coarse_channel":
+        return False
+    if not code.co_filename.replace("\\", "/").endswith("find_doppler.py"):
+        return False
+    line = linecache.getline(code.co_filename, traceback.tb_lineno)
+    return "total_n_hits" in line
+
+
 def _sha256(path: Path) -> str:
     digest = sha256()
     with path.open("rb") as stream:
@@ -203,8 +229,7 @@ def run_turboseti(
     try:
         finder.search(n_partitions=1, progress_bar="n")
     except TypeError as exc:
-        expected_error = "format argument: %i requires a real number, not numpy.ndarray"
-        if expected_error not in str(exc):
+        if _NUMPY_INT_FORMAT_ERROR not in str(exc):
             raise
         search_error = exc
 
@@ -214,18 +239,28 @@ def run_turboseti(
         for dat_path in dat_paths
         for hit in parse_dat_text(dat_path.read_text(encoding="utf-8", errors="replace"))
     )
-    if search_error is not None and not parsed_hits:
-        raise search_error
-    warnings = (
-        (
-            f"turboSETI {turbo_version} raised its known NumPy-array formatting "
-            "TypeError during final candidate-count logging after writing parseable .dat hit rows; "
-            "those rows were "
-            "retained and validated.",
-        )
-        if search_error is not None
-        else ()
+    finished_empty = (
+        search_error is not None
+        and not parsed_hits
+        and bool(dat_paths)
+        and _post_search_hit_count_log_error(search_error)
     )
+    if search_error is not None and not parsed_hits and not finished_empty:
+        raise search_error
+    if parsed_hits and search_error is not None:
+        warnings: tuple[str, ...] = (
+            f"turboSETI {turbo_version} raised its known NumPy-array formatting "
+            "TypeError on the post-search hit-count log line after writing parseable .dat "
+            "hit rows; those rows were retained.",
+        )
+    elif finished_empty:
+        warnings = (
+            f"turboSETI {turbo_version} raised its known NumPy-array formatting "
+            "TypeError on the post-search hit-count log line after tophitsearch returned; "
+            "the .dat table contained no hit rows, and that empty result was retained.",
+        )
+    else:
+        warnings = ()
     artifacts = tuple(
         DetectorArtifact(
             filename=path.name,

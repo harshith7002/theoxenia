@@ -100,6 +100,43 @@ def build_parser() -> argparse.ArgumentParser:
     cadence_parser.add_argument(
         "--known-sources", type=Path, default=Path("configs/known_sources.yaml")
     )
+    cadence_parser.add_argument(
+        "--files",
+        nargs=6,
+        metavar="FILE",
+        help="six ABACAD filterbank URLs or local paths, on source first",
+    )
+    cadence_parser.add_argument(
+        "--window",
+        nargs=2,
+        type=float,
+        metavar=("LOW_MHZ", "HIGH_MHZ"),
+        help="inclusive frequency window in MHz",
+    )
+    cadence_parser.add_argument("--target", help="on-source target name for the pointing")
+    cadence_parser.add_argument("--ra-deg", type=float, help="catalog right ascension in degrees")
+    cadence_parser.add_argument("--dec-deg", type=float, help="catalog declination in degrees")
+    cadence_parser.add_argument(
+        "--sources",
+        nargs=6,
+        metavar="NAME",
+        help="expected source_name for each file, matched case-insensitively",
+    )
+    cadence_parser.add_argument(
+        "--roles",
+        nargs=6,
+        default=["A", "B", "A", "C", "A", "D"],
+        help="scan roles; the archive search requires A B A C A D",
+    )
+    cadence_parser.add_argument("--cadence-id", default="bl-opendata-63460")
+    cadence_parser.add_argument("--catalog-md5", nargs=6, metavar="MD5")
+    cadence_parser.add_argument("--catalog-size-bytes", nargs=6, type=int, metavar="BYTES")
+    cadence_parser.add_argument("--max-transfer-bytes", type=int, default=256 * 1024 * 1024)
+    cadence_parser.add_argument(
+        "--allow-plain-http",
+        action="store_true",
+        help="recorded flag; public HTTP stays refused because D-018 was not accepted",
+    )
 
     return parser
 
@@ -201,18 +238,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.group == "live" and args.live_command == "cadence":
-            if not args.synthetic:
-                parser.error("pass --synthetic; reading telescope files is a later command")
-            from xenia.live.cadence import run_synthetic_cadence
-
-            manifest, manifest_path = run_synthetic_cadence(
-                root,
-                command,
-                seed=args.seed,
-                experiment_id=args.experiment_id,
-                mode=args.mode,
-                known_sources_path=_inside_repository(args.known_sources, root),
-            )
+            manifest, manifest_path = _run_cadence(args, command=command, root=root, parser=parser)
             print(
                 f"{args.experiment_id} outcome={manifest.outcome}; run_id={manifest.run_id}; "
                 f"manifest={manifest_path}"
@@ -224,6 +250,64 @@ def main(argv: list[str] | None = None) -> int:
         print(f"xenia: error: {exc}", file=sys.stderr)
         return 2
     return 2
+
+
+def _run_cadence(
+    args: argparse.Namespace,
+    *,
+    command: list[str],
+    root: Path,
+    parser: argparse.ArgumentParser,
+) -> tuple[object, Path]:
+    """Dispatch the synthetic known-answer or one archive cadence."""
+    known_sources = _inside_repository(args.known_sources, root)
+    if args.synthetic:
+        from xenia.live.cadence import run_synthetic_cadence
+
+        return run_synthetic_cadence(
+            root,
+            command,
+            seed=args.seed,
+            experiment_id=args.experiment_id,
+            mode=args.mode,
+            known_sources_path=known_sources,
+        )
+    missing = [
+        name
+        for name, value in (
+            ("--files", args.files),
+            ("--window", args.window),
+            ("--target", args.target),
+            ("--ra-deg", args.ra_deg),
+            ("--dec-deg", args.dec_deg),
+            ("--sources", args.sources),
+        )
+        if value is None
+    ]
+    if missing:
+        parser.error("archive cadence requires " + ", ".join(missing))
+    from xenia.live.archive_cadence import run_archive_cadence
+
+    return run_archive_cadence(
+        root,
+        command,
+        files=tuple(args.files),
+        sources=tuple(args.sources),
+        roles=tuple(args.roles),
+        window_mhz=(args.window[0], args.window[1]),
+        target=args.target,
+        ra_deg=args.ra_deg,
+        dec_deg=args.dec_deg,
+        experiment_id=args.experiment_id,
+        cadence_id=args.cadence_id,
+        known_sources_path=known_sources,
+        catalog_md5=None if args.catalog_md5 is None else tuple(args.catalog_md5),
+        catalog_size_bytes=(
+            None if args.catalog_size_bytes is None else tuple(args.catalog_size_bytes)
+        ),
+        max_transfer_bytes=args.max_transfer_bytes,
+        allow_plain_http=args.allow_plain_http,
+    )
 
 
 def _build_state(args: argparse.Namespace, *, command: list[str], root: Path) -> None:

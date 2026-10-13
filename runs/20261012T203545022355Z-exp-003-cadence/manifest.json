@@ -1,0 +1,200 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T203545022355Z-exp-003-cadence",
+  "pillar": "I · Sensor",
+  "command": "xenia live cadence --experiment-id EXP-003 --cadence-id bl-opendata-63460 --target HIP544 --ra-deg 1.6549208333 --dec-deg 29.0205625 --window 1380.0 1381.0 --sources HIP544 HIP1024 HIP544 HIP114 HIP544 HIP1344 --roles A B A C A D --catalog-md5 b66f9ddb87204955651b45d0c80296c1 6297e6e0d5f7a35f9bc13b693ffc12ce 759ed97559ceaebb10b9668b69274768 4e865518c50e98054916d6dee45043e1 8a76c8117c5eb5466f7f3de5f3f9d235 2d1a206e18819aeec1594df5cf6807f9 --catalog-size-bytes 15489328869 15489102500 15487221734 15486312975 15488259815 15485972200 --files https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5 https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5 https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5 https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5 https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5 https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5",
+  "parameters": {
+    "synthetic": false,
+    "experiment_id": "EXP-003",
+    "cadence_id": "bl-opendata-63460",
+    "target": "HIP544",
+    "ra_deg": 1.6549208333,
+    "dec_deg": 29.0205625,
+    "window_mhz": [
+      1380.0,
+      1381.0
+    ],
+    "roles": [
+      "A",
+      "B",
+      "A",
+      "C",
+      "A",
+      "D"
+    ],
+    "filter_threshold": 3,
+    "minimum_snr": 10.0,
+    "max_drift_hz_s": 4.0,
+    "frequency_match_hz": 500.0,
+    "drift_match_hz_s": 0.15,
+    "transfer_cap_bytes_per_file": 268435456,
+    "allow_plain_http": false,
+    "known_sources_sha256": "565f66ac54766f56754afa31fb908aa2e3fb1bfb886f79ac18f61b7429816dc1",
+    "bytes_transferred": [
+      86614279,
+      86284440,
+      86156863,
+      86208281,
+      86132524,
+      86141369
+    ],
+    "verdict_counts": {
+      "KNOWN_SOURCE": 0,
+      "IN_OFF": 149,
+      "SINGLE_POINTING": 124,
+      "RFI_CENSUS": 0,
+      "ON_ONLY": 0,
+      "UNEXPLAINED": 0
+    },
+    "hit_count": 273
+  },
+  "inputs": [
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5",
+      "sha256": "184cfc4a43ce0dfe1053ff64db88c65bce78f8f30556553f987aeb28a0decd59",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5",
+      "sha256": "4bc00d049ebeaaabbf2c40c58547cf781c8b21e63c72927be1eed5b6bf2be781",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5",
+      "sha256": "1eaa2ea9ca437e85b9a92f7589ebc3ef1a24f3309970e31d10151d4126fbbe24",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5",
+      "sha256": "8bb309a35b67eff889d0edc3e297c19ecfae58a1e2d683e8230501e57ea94694",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5",
+      "sha256": "11b4812e77a93507c78f9eea8d4cad2b6ee0ca342954980e670230fc633d0beb",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5",
+      "sha256": "1d8c6a6fb80bfa5136d10bbda98dea1c0f5442d299c33092419bd24d395312d0",
+      "size_bytes": 22917760
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/hits.parquet",
+      "sha256": "6cd8008fc37bd3ac9a8d4e66d71bb1f7abb3fb0e5e419a6bbf0c86039fe7f39a",
+      "size_bytes": 18729,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/slice_summary.json",
+      "sha256": "022a703be16b72adb0e2622d3ad51786f29d6f80c9c6cb5e143b78dededd1714",
+      "size_bytes": 42796,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0249.svg",
+      "sha256": "64024cdc0ead0eeaa5719723251c105c0be5107a6f893b1932456b9f76c2a218",
+      "size_bytes": 475,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0234.svg",
+      "sha256": "982d7ecc238f9cd6c38c7de8f37eca8f949a4897104c736688bb695a057ebd5c",
+      "size_bytes": 484,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0209.svg",
+      "sha256": "22e159a8a97efc1ffcba33b61b3bf1dcab13a855acb0dc6bc927445645e8abd0",
+      "size_bytes": 475,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T203545022355Z-exp-003-cadence/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "9cf55d8",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T20:35:45.022355Z",
+  "finished_at": "2026-10-12T20:41:23.356715Z",
+  "outcome": "searched",
+  "notes": [
+    "Archive ABACAD cadence. demo is false. Slice SHA-256 values are local slices, not remote-file hashes. catalog_md5 is the open-data API field and was not recomputed.",
+    "Transfer cap is 268435456 bytes per file.",
+    "Verdict counts: IN_OFF=149, KNOWN_SOURCE=0, ON_ONLY=0, RFI_CENSUS=0, SINGLE_POINTING=124, UNEXPLAINED=0.",
+    "hits.parquet rows: 273. Page payload hits: 3 (top 3 by SNR, plus plotted ON_ONLY).",
+    "Detections: 335. Filter-3 events retained: 0.",
+    "Pointing HIP544 uses catalog ra 1.6549208333 deg and decl 29.0205625 deg. Per-file src_raj and src_dej, when the header has them, are in slice_summary.json.",
+    "No other cadence from this observing session was supplied.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after tophitsearch returned; the .dat table contained no hit rows, and that empty result was retained.",
+    "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after tophitsearch returned; the .dat table contained no hit rows, and that empty result was retained."
+  ],
+  "experiment_id": "EXP-003",
+  "demo": false,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "bl-opendata-63460",
+    "target": "HIP544",
+    "ra_deg": 1.6549208333,
+    "dec_deg": 29.0205625,
+    "status": "done",
+    "windows_done": 1,
+    "window_mhz": [
+      1380.0,
+      1381.0
+    ],
+    "on_source_seconds": 876.173328384,
+    "started_at": "2026-10-12T20:35:45.022355Z",
+    "hits": [
+      {
+        "hit_id": "bl-opendata-63460-0249",
+        "found_at": "2026-10-12T20:41:23.356715Z",
+        "freq_mhz": 1380.924915,
+        "drift_hz_s": -0.377557,
+        "snr": 635.243896,
+        "verdict": "IN_OFF",
+        "explanation": "The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0249.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "bl-opendata-63460-0234",
+        "found_at": "2026-10-12T20:41:23.356715Z",
+        "freq_mhz": 1380.871911,
+        "drift_hz_s": -0.367353,
+        "snr": 537.377747,
+        "verdict": "SINGLE_POINTING",
+        "explanation": "The line is present in fewer than all three ON scans.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0234.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "bl-opendata-63460-0209",
+        "found_at": "2026-10-12T20:41:23.356715Z",
+        "freq_mhz": 1380.807915,
+        "drift_hz_s": -0.377557,
+        "snr": 519.225464,
+        "verdict": "IN_OFF",
+        "explanation": "The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261012T203545022355Z-exp-003-cadence/thumbs/bl-opendata-63460-0209.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      }
+    ]
+  }
+}
