@@ -26,6 +26,7 @@ nav:
   - Mission Control detail pages: mission-control-detail.md
   - Experiments: experiments.md
   - EXP-020 Nimitz baseline: exp-020.md
+  - EXP-010 Blue Book OCR: exp-010.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
   - Scaffold integration review: scaffold-integration.md

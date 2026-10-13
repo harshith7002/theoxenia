@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T230010321040Z-exp-010-ocr",
+  "pillar": "II · Disclosure",
+  "command": "xenia disclosure ocr data/bluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf --source-url https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+  "parameters": {
+    "pdf": "data/bluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+    "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+    "pages_processed": 34,
+    "hand_checked_pages": 0,
+    "character_error_rates": [],
+    "tesseract_version": "tesseract 5.5.3"
+  },
+  "inputs": [
+    {
+      "uri": "data/bluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+      "sha256": "a7b7a39451ee3e3db34e864f22749db7de562966b423c2928043500cd7d5286e",
+      "size_bytes": 4921950
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261012T230010321040Z-exp-010-ocr/ocr.json",
+      "sha256": "ac05a9974d11ade587760b680b72fd9b2b45988671af7aada8a83b4c392965ae",
+      "size_bytes": 58047,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T230010321040Z-exp-010-ocr/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T23:00:10.321040Z",
+  "finished_at": "2026-10-12T23:01:32.597202Z",
+  "outcome": "ocr_completed",
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "experiment_id": "EXP-010",
+  "demo": false,
+  "mission_control": null
+}

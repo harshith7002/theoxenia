@@ -1,0 +1,40 @@
+{
+  "pages_processed": 137,
+  "runs": [
+    {
+      "run_id": "20261012T225701736896Z-exp-010-ocr",
+      "pdf": "data/bluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+      "pages_processed": 15
+    },
+    {
+      "run_id": "20261012T225751996294Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-SocorroNM1964.pdf",
+      "pages_processed": 25
+    },
+    {
+      "run_id": "20261012T225854368171Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-CrittendenVirginia17jan1969.pdf",
+      "pages_processed": 30
+    },
+    {
+      "run_id": "20261012T230010321040Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-10-1952-YORK-PENNSYLVANIA.pdf",
+      "pages_processed": 34
+    },
+    {
+      "run_id": "20261012T231322507705Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+      "pages_processed": 5
+    },
+    {
+      "run_id": "20261012T231332002479Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-YumaArizona-41-17-1952.pdf",
+      "pages_processed": 12
+    },
+    {
+      "run_id": "20261012T231353546655Z-exp-010-ocr",
+      "pdf": "data/bluebook/ProjectBlueBook-artesia-newmexico-16jan1952.pdf",
+      "pages_processed": 16
+    }
+  ]
+}

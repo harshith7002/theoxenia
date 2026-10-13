@@ -1,0 +1,55 @@
+{
+  "case_date": null,
+  "location": null,
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 1. A missing reference is not a character error rate.",
+    "Each hand line is one rectangle on the 2x render. The rate divides the Levenshtein distance by the reference length for that rectangle only."
+  ],
+  "page_count": 5,
+  "pages": [
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 1,
+      "reference_text": null,
+      "text": "| PROJECT 10073 RECORD CARD\n1. DATE 2. LOCATION 12. CONCLUSIONS\n\" Wee Ae a a i 2 Woes Balloon\nLos ‘ SONSLCIN iB UGexmar QO Probably Balloon\na TTT TTT ATER Bare mye erceeeeeraene ee Le)\n3. DATE-TIME GaouP 4. TYPE OF OBSERVATION DO Possibly Balloon\nP “ T f O Was Aireratr\npt 4 RP » = eee Visual 0 Ground-Redor Q Probably Aircroft\nen Ml” ee ee CO Air Vi sual O Air-Intercept Radar | 2 Possibly Aircraft\n5. PHOTOS 3. SOURCE O Was Astronomical\nO.Yes O Probably Astronomical\n<OXNe flitar O Possibly Astronomical\nFR ee gn rn nn Ae uriGeD\n7. LENGTH OF OSSERVATION } 8. NUMBER OF OBJECTS | 9% COURSE o Other UME (FTE\ni 0 Insufficient Deta for Evaluction\n> . | . ae Unknown\n10. BRIEF SUMMARY OF SIGHTING — | ver Jv Biel » So 1h. COMMENTS .. i en SULCA OLL, Li i i tu\n- Ys sts » re anged apnear: —_ xa 7 dart ra tactics + Ho gover this < hk uld h ive been ‘h . ‘kad ont\nke vi rib > sient sf proy ulsi mn. *y oe ; e ¥ rn ube / mt buse u mit cing r Pet rG e N > CON’ BF i y\nATIC FORM 329 (RZV 26 SEP 52)\n,\n'\n:\n¢"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 2,
+      "reference_text": null,
+      "text": "|\nSTAFF MESSAGE BRANCH\nAF IN : 27168 (26 Mar 62) M/erpi msssc:\nACTION: CIN-17 IN C OMIN G res: Of 3\nINFO : SAFS-3 (21)\nRC 92/27 MAR 62\n: TV /HI/ HI j\nPRIORITY\n2616992\nFN 36 TFW BITBURG AB GER\nITO CSAF WASK DC\nSECY AF WASH DC\nBT |\nUNCLAS EFT OX UNIFORt |\nFOXTROT OSCAR FM OIN RPT OIN XERO THREE EIGHT DASH CHARLIE X |\nACTION CLN ONE SEVEN AF COC PRN FOR OSCAR DASH COC TWO PRN Cit\nUSAFE FOR PRN IDC RPT IDC PAN Cht CINCNORAD PRN FOR INTELL PRN\nCMM FID RPT FID CIN USAF PRN FOR AFCIN RPT AFCIN P&N Ch SEC\nOF AF PRN FOR SAFIS PPT SAFIS PRN PD REFERENCE COL? AFR TWO XERI\nXERO DASH TWO PD ALFA PRN ONE PRN SEE SIX CKM BELOW X PRN TWO\nPRN COMPARABLE TO GAR EIGHT X PRN THREE PRN SILVER X PRN FOUR\nPRN ONE X PRN FIVE PRN NN SLASH AA X PRN SIX PRN OBYECT APPEARED\nLIXE VERY FAST ACFT WHEN FIRST OBSERVED AT ONE OCLOCK POSITION\nON RECIPROCAL BEARING BY THE TWO SUN FLASHES ON VERTICAL FIN\n-PD AS IT APPROACHED FROM ONE TO TWO OCLOCK Clit! OBYECT APPEARED\nLIKE A SMALL DELTA WING FIGHTER PD WHEN OBYECT REACHED THREE OCLOCK\nPOSITION PRN DIRECTLY DOWN SUN PRN IT APPEARED LESS AS AA DELTA\nWING SHAPE AND KORE LIKE AA SIDEWINDER HISSILE Ci EXCEPT THAT\nOBYECT HAD SHAPE OF ONE DASH THIRD DARK COLORED QUOTE SNOUT UNQUOTE\nAND TWO DASH THIRDS AERODYNAMIC SURFACES PD AS OBYECT TRAVELLED\nFROM THREE TO FIVE OCLOCK CM PILOT HAD IMPRESSION OF SHAPE CHANGING\nTO APPEARANCE OF DART TARGET PD PRN SEVEN PRN NO VISIBLE SIGN\n4\nOF PROPULSION X PRN EIGHT PRN NONE X PRN NINE PRN SPEED OF OBYECT .\n5; ESTIMATED AT APPROX MACH TWO PNT SEVEN PD BRAVO PRN ONE PRN SUN\n: FLASHES X PRN TWO PRN ONE ONE XERO DEGREES Cli THREE ONE CMM\n+ |"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 3,
+      "reference_text": null,
+      "text": ": : “a | DEPARTMENT GF THE AIR FORCE\nAY IN : 27168 (26 Mar 62) waa Pe 2 of 2\nINCOMING :\nXERO XERO XERO FEET x Pan THREE PRN SANE AS Two x pry FOUR PRN\nSTRAIGHT AND LEVEL CNM NO MANEUVERS x PRN FIVE pry QUICKLY To\n| THE EAST x PRN SIX PRN FIVE To EIGHT SECONDS Pp CHARLIE PRN ONE |\nPRN AIR DASH VISUAL X PRN TWO PRN NINE X PRN THREE PRN FF ONE\nXERO FIVE JD X SIX XERO Four NINE TWO x THREE FIVE KERO XERO KERO |\nFEET X Two NINE XERO DEGREES x MACH XERO PNT NINE THREE x THREE\nSIX TFy BITBURG AB GERMANY Pp DELTA PRN ONE PRN Two SIX ONE Two\nTHREE FIVE XULU HAR SIx TWO X PRN TWO DAY Chr VFR RPT VFR PD\nECHO VICINITy RAKSTEIN ab CuM APPROX FOUR NINE FOUR Two NOVENBER °\nYASH XERO SEVEN FIVE KERD ECHO Pp FOXTROT PRN TWO PRN YOuN Oh\nLOWERY Ch CAPT CHM FIVE THREE XEBRO EIGHT ONE ALFA Chi THREE\nSIX TFW Cry RELIABLE PDGOLF PRN ONE PRN Cavu RPT CAVU DASH No\nCONTRAILS OBSERVED PRN T¥O PRN SIX THOUSAND FEET DASH TWO Two\nXERO SLASH TWO XERO x ONE XERO THOUSAND FEET DASH TWO THREE XERO\nSLASH Two KERO X ONE SIX THOUSAND FEET DASH Tyo FOUR XERO SLASH\nTWO XERO x TWO XERO THOUSAND FEET DASH TWO Four XERO SLASH TWO\nKERO X THREE XERO THOUSAND FEET DASH TWO THREE XRRO SLASH TWO\nFIVE x THREE FIVE THOUSAND FEET DASH TWO SIX XERO SLASH TWO FIVE\nA FIVE NERO THOUSAND FEET DASH TWO SIX XERO SLASH TWO FIVE pp\nPRN THREE pay AVERAGE EIGHT THOUSAND FEET OVERCAST cry TOPS Tyy\nFIVE THOUSAND x PRN Four PRN ONE FIVE PLus AT ALTITUDE X PRN\nFIVE PRN UVERCAST X PRN SIX NOVEMBER SLANT ALFA x Pati SEVEN\nPRN SIX THOUSAND FEET DASH SEVEN CHARLIE x ONE XERO THOUSAND\nFEET DASH ONE Two CHARLIE x ONE SIX THOUSAND FEET DASH TWO FIVE\nCHARLIE x TWO XERO THOUSAND FEET DASH THREE FIVE CHARLIE x THREE"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 4,
+      "reference_text": null,
+      "text": "N} i\\ |\n\nINCOMING\n\no? IN :27168 (26 Mar 62) Pz 3 of 3\n“ERO THOUSAND FEET DASH FIVE THREE CHARLIE X THREE FIVE THOUSAND\nf\n\nFEET DASH FIVE THREE CHARLIE X FIVE XERO THOUSAND FEET DASH FIVE\n\nTHREE CHARLIE PD ‘HOTEL NN SLASH AA PU INDIA NUNE PD YULIET UNK\nrD KILO MAY WW DD BROWN YR CMM THREE SIX TFWV IO RPT IO Ch NO\n' COMMENT PD LIMA NONE\n;"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 5,
+      "reference_text": null,
+      "text": "This document is made available through the declassification efforts\nand research of John Greenewald, Jr., creator of:\n\n} @\nLJ\n\nAAk. 2 . The Black Vault is the largest online Freedom of Information Act (FOIA)\n\nb document clearinghouse in the world. The research efforts here are\n‘4 Pe | responsible for the declassification of hundreds of thousands of pages\nx released by the U.S. Government & Military.\n— Discover the Truth at: http://www.theblackvault.com"
+    }
+  ],
+  "pages_processed": 5,
+  "schema_version": "0.1",
+  "source_bytes": 948142,
+  "source_sha256": "8795b3f3d0f0bd54483a2cfd51692a55acd5fab7f3fafc7f5c33247e9b43479b",
+  "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-Ramstein-03-26-1962.pdf",
+  "tesseract_version": "tesseract 5.5.3"
+}

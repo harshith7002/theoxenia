@@ -1,0 +1,124 @@
+{
+  "case_date": null,
+  "location": null,
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "page_count": 15,
+  "pages": [
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 1,
+      "reference_text": null,
+      "text": ""
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 2,
+      "reference_text": null,
+      "text": "This document is made available through the declassification efforts\nand research of John Greenewald, Jr., creator of:\n\n} @\nLJ\n\nAAk. 2 . The Black Vault is the largest online Freedom of Information Act (FOIA)\n\nb document clearinghouse in the world. The research efforts here are\n‘4 Pe | responsible for the declassification of hundreds of thousands of pages\nx released by the U.S. Government & Military.\n— Discover the Truth at: http://www.theblackvault.com"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 3,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\niP Bia eo . \"< re 4 . ¢ % ; _ , mcs .\n; om.” ae OP . : > M \"eg fT ngs Tes ae > col 4 as\n? £ : » ~~ ~~ a fa\n. wr » he i. oo e r*\nS08 a) ‘ ee ae ee aS ih. =<? > -\n- : d wie P bt 3 ~ wa » , hs\nry j 2 $ “4 . wa\n* ; - bs = rh a = ™\n° peagect *T  Xae ; Seon Ey\napie. Ge a St\n. 4 —*. FF - t en 4 aD ivf : “ae : 7\n; $ oF : a ~~ ae\nah eas ak ae - c * AA 4 Mg . . , ee ch\n: ; ‘e . ; » 2 hod wie 7 Mine ge : P yf tf :\ny * ; oe st) ri > ve ye aS tat\nGh Re SS alae tO iat\n. ’ Fall | pa, To ln 7 . ae i% ®\n~ ie ~ , aa, ov; Q os 4 cat a\n+ + é 4 e €i : ~~\" S bd t + rs\n-~ ae o” 2) fabs : - ue ‘f? . .\na ist SAM eee rarer ae\n‘ ~ Py * . - ' ry A\nat ” : fe > r) : of > 2 ; ~ a.\n2 ’ a’ i Tye ‘ ae S\n5 ; / at\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\n; 4 eo a ; js on » Sea ot 8\nre Ce vo Ment % .. cs e -45)\n— p : r - ~ = w ‘ + ? oe\na : <) » “~S° ¥ yo 4 .\nhy ; z : g Pa ash\nf - “ --\nri ¢ p- . ‘ang . NS - -\ne > .* é 2 ; ; : ; ,\n/ Te 7 ee %,- et\nCe oi\nom SS SP rs tts 5 oo a , eel. . age ws\n‘ ; wf “ ha ‘hd ae Se ae on 4 cae ‘\n: ¥ :\" ie dy . ae ‘- ;. ae ‘As :\natt aa Sie Dis thelhn | tk\n. > : mt Sto se x 4 aa y 7 Pa, a , ~~». * * 5\n/ oe ‘ phe? es Bee : yy Nag ar. Tipe’ a\n<a 7. pe Lah - te a rss 9 ts . > 3\nze ae a” i, re ft, a” ! +. ‘4, ~ : * 9.0 , es\n+ * ;e > mer a’ a a\" oh. 2 . = a0 7 SiS\nhar Eh oe ae ae\n: “ts . deed - . - i le ‘\naa ~~. af, Fi : oS” a\n* - 4°> of. . . ek ”\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 4,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION. AFSC UNCLASSIFIED\n' 3 2 sre ~ SL ae tw. See ie wee o's. g r\n¥ - ‘= wd a. . ~— -' r ev be 4 ~ st q ay : - -\n= es Sey gat fe ge ARP SR Be\n: oe 72S : ~ = ne te he et eS ys nae) case <p % ser!\np ey ie ress 2 pte 2. ae 4 At w bw\n- wt hae Sy ee 0 4 ia W4 RX, yaa\nawe. . 7 Se v >a wn : Pa. < PS gu\n; a a. 1 ay e's RAD a . “. » a y t¥ Ni : r*¥ \"4\n“ : Se 4 ! ‘ 4 4 SASS. Py a OED At ; py, ws. a | Sie -\nPo ee i > = PY as . * a <3 4: ar 2) a - 7 : a - 2 is\neee ee By OY PRE ee - uty Se eee i ge. > ye\nAe A ea Se Bai, ah Ader i 5 7... “Se : aay\nDae x age ee % oi € i a, gee Yh\n7 a te bast — Ss maeN. a\"? % = , v2 ~~ . y ‘ : f yt a der “\n4 a Fe eee Poet a yo ‘ a . Pe : 3 . Fy a . : S , -— ug\nBet ate madre St, ee ey Te ae | eee” ie BF ck\n. f a BS Tis fas shee < “~ ye o < oy pe “—_ e : —_ ie FA ti Pay 4 PTE\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nr. «% SPH fy. Mgr ; = “s ed *,\nu TO . - ie is 5 vy oe \\ *\n| he ein\n] + = 4 » Ee ‘\nA ay wee\n4 . a\n‘wv - Ps RS ~My\n; iJ a oe _ S »* me\nvie *) . La Stn, * =a T<\nose} aa Vode a ee id ‘Fas ~ : ¢\n- ; - f * ro > ‘ ” > “y ‘\n: “ao *. | mided™ oS? y “E1342 aes\n. . v ;~ » he = N jana] oe tat y “<>\n. a 2 = et a ee \\ ie} ie\n3 44 ts ¢ y - we po? \" > -# 2%\n’ +4 A <> 0 eee Be ety ee\nAd tid ee = ee. apy: 5. ¥ ee vk. |\n; J SOAS el See whl Sk\n: >t\" yet e the ah et t bs * _—* . ae he Fs oD r\nP ee see yO og. a ee ge Le Wy pean 4 +e Ft\nTAS Re ae 2. er ¥8 6 vice + oles,\nA ee ee 4 . ho - ~\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 5,
+      "reference_text": null,
+      "text": ".\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\n- Le | } x ; ae : ; , “ =\nos\n. r “FQ : a Sy\n> £ S -. se yn Or . x > 43 SS —- '\n‘ ay CE oe, ts a x) ba 5 * ae ‘i 1 ms, f oe PY . ee\n“hr . - anit, ; e te ie pA -, 7 ~ “ae Naseer os c 7 => - eee Je\nWere 5 ge ge or Cee re pr Sm roid + ee 2\n“OD Se : Fe oe m Vdisied * — as er 4 fo ae 4 ite. yrs ;\nUNCLASSIFIED\n|\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\n|\n- ve Bs peg: eh ee oe al 2\nih a a 2 Phy ’ Sond $99 i ae Pe .> i ,< . ? ae\na ae wart eee Os +S ‘- &\ni>: 7 a “Sig ~ 4 ) je ; res y te . % ke\n1S, he 4 ly he. or ete I, « 5 At , an by\nrl > . wa: ——— - » re . , : 2\n: RS . reo car tg 7 hss) Re mV A.\ngS 7. v ‘ « = La. i pare “ees, ~ ~ + Mi oe\nne ih ~~ rs ke ar ' s %, 4\na . ar et J ¥ .\nPy Peghe fe we 44 Fit. + ‘ “he\nee la? ca ey or, >a : s 2 r , &.\nhe GS «a a a yt . 4!\nve 6 am Ts ee ome +8 : _ So\nDes. fe ai SL ee a . ‘ / mp O'S\nSees aad Poe a p> - ae “ad 3 ‘\ng: “ Tle. 4 re 3 5 ; . ei . hs ee y\nin ate : é inal . “ \" ‘ea <\n| vir i - e : . “a\n~ - ; ‘. - . , : 3 7 ©. .\n; ‘. / tenths J di > OE .\nP : “-* > * __-.\n} = 2 “ ‘ ss - a \\ > oe: eer ae\nUNCLASSIFIED\nee ee eee eee"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 6,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\n‘ 3,* Ra Od : — , :\nTage ast. gee oe\nA ae ; 3 y wy 5 eRe -* - © ,\n. , woah 7 a B ae . Ae\new ss 2 ~~ asene a ws €. A\n“gg Te « ’ p i? ry\" __ ir ae af '\ndl , pa “ . +5 a ih ae -\nSeg. “ML oes, a ~~ oe ASS . ..¥\nha elk ‘ - ; og 7 . ¢ a - P.\n. ~<a 5 ie r ; P ree x\n5 Nit rd as wt ve (ae ey 4\net satin . < oa\n‘ es re a “ie a ts a . 4m re s\n4 j % ““ Z wy a. an. <7 A oF P a se j .\n+ “4 apts 0 * Jet Mnty, hg stra Poe 3 -_ wf on ey « \"ad i.\n¥ a ’ “ ?,. ve “Oh \"e op . i Se 1 Lees % ry “>\ni“ a re ee x ” c o . » © =o ‘ . ad fn)\nEo\" 60 I a lel a 2 i\n.. 4 a ~h : raw * , Bon 5 ‘« Fs\n—-.* PEN on P - : t_—~ we\nteats Fe , = ny a b okah . r .\n~ - = - “~ mie °\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION. AFSC UNCLASSIFIED\n“+ te mer on ° ~ _—_ | ra * hd /- &\n» 7 . Sy - + - os 7 * - < Re - s* . v my Me . he .\nvd as 3 2. Sad eh r= Bee + Ves ‘\n‘ a re. WL 9 ye eS ee ine ; y na”\nSE eee. salceariie eal An saan\ni ae. SS Sa ae. Sea ye\n” . 7 re 4 . tM ee ¥ 4 . * bd : baht\n: » “ha . ‘ ud $ 7 &,\n> ; “Sa. . PA. * 4 ne Ss - f *-* * . : : A: 2\n; P mt vhs , 7 ‘ _— . een lt e vor - ‘2 -\n< 4 ar - =, * 2 “4 bal - - iP af +)\nrs r teas ; ay am . * . ; * oe \"\nbe » Se +x. Tyas a a , on Pe\nSey ee pil 4 5 * . out Pak ice \" :\nof bd & a. : —_,\nx “e : ’ 5 u \"\n\nJ & ° «6 * ° - at - ~~ _— - ” *\ntee eer. ) i Sie che 2\n- xe\" *.F if , ‘ + ~avy + Bo).\na tad - feats P bey \" ena * 7\n: . . ‘ d . 7 :\n\nb , ax? % a¥ ‘ rs” » : : “ ’ a) gi\nal ’ é - é . : “ff ry\n. - ad +h * - “ » oe\nUNCLASSIFIED\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeEEEEEUEUEUyEUEUEUEaaREeaRERaReauaEaNEaa9REmEmEoEeEEEEEEaE—E nk  e_—0v__5u5u5u"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 7,
+      "reference_text": null,
+      "text": "| im ti ’ —4\n. AL ale AML Ee\nNS ‘ S a 4 . - to .\na — ke —_\n. - - ~~ 7 - > .\n- 1 a a? -t. ” ? ‘ .—-\n> . \" ao :; 7 t fa . = ; as a» 5 ~ = ‘\n% 4\n© <a . ™ =e i,\nre . ao\n~~ : ¥ — os oe ae > an\n. A _: . a fe pee\n“ . > t : <ot . Si a ~\\{*x, 4\n—-_ ? sane . >\n“ . * b : m . ” | ——E\nw % .\ncae\ni .\n,\n|"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 8,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nak. jt ee - - ; & Pane ye none <\n. <a fe . ee a teu . BY ye. 8 eee : <~_\npei.» OC ol oe ax oa Yee 2 ‘yi oA J . pet?\nPe AOI AY BO, ein” ee ~~ Ses a a > ; ease SN\nnf 4 fa 7 re eo Oy SR on Oe, wee V2 4 ‘. ‘ , é :\nae SE? eS - ae. 6 > 4 ; e SAS t. * iA <\n5 Rin? 3s oad © ‘ 9 . e\\ - j a 9 ‘ .\nf pm f ele ¥ a TS ah < . a\nd OS Gr ea F 5 > ‘\nes - Re Ce es oe * y + ra\nhe? ad oo x iS ae . al ve ‘ Rs ‘et\nieee Ye. re; ee és i * «+s . ek\nhe Sete Mog ; © ite ar ey a ‘ A -\n5 tees. ‘ghoaaaliael a ie Sie hie ~ 9g?\na - tra y RSS. dy ? x - 4 :\neee By Serv iy! “3 : ; nt Ee y\nee ’ a 4 > q S “ é -¥ Ww : = n “od\nome ‘ « ’ ‘a . : > - : 4\nSar: b at oe SG hace ; ae\nte . . . % Sa .\ntk / feet. ‘ - ok ee See Retty w :\nBO ay 8 | » *y Se, Wty\né Spots P se rr\n-# Set\n: - « é . oa\nUNCLASSIFIED\nGUdISSVIDNN\n: ‘ ! ee ba t <> a SN i. e : * a . » eo oy: - y\nr re ial tN > © ete: Vind as . SN 7\n‘es : ¥ Jo ty Fix : a “Yy >! aan x. ‘4 - .-* —~ .\n= & st po) Ss p gr be POY «aren 4” °* “a! ~ my\nOOS th Se pa Se ME ee * Rope ap: -~ :\n~~ hae j te .. & 4 ; t,&% ms a ( et , “on ; >\n: Pe >) ae EL Sees . ea. be rc Fe .. , P\noo el bea yj . ** =3 eR +k . 33 £ Rg oe \"4 ae =\n-* . oo F. , } , ees _ >¢ > > iz ‘ age MTs a a pen F< “A 7 pal ;\n; sn Wodtoa hee ae Ses aes a ey\n: eo. +e $43 7 ac? , * “A ne oe 3. » ne 4 AK; $. + ce\n¥_. £ ea \"4 5 Poul y: oe ¥ ~>) a<i ’ 5 =f bs\n= = . < Wo ar, ee bs a : “2 ., + 7 .\n«SE SS See * : ai + Way Se = al\n* San ~ Poe - <a ae; othe 7 ue tt? 3\nSad _ ~ $ 2 ‘ az : # ray 4 ,* 4s rs.\n- ° = . we =.) ; = * _ ? ” ‘ nal P he ts,\n“te as - 7. : : vies en ae A 1 - iF\nRees: 4 ~a ee ee tos on =\na ‘~ . ax ——  & ad f 4 ous 1 ehte aes\n: a ae , a \"] < F . Ao pie! ¥ 4 j ne rae\n~~ ‘ . . ~ e . Le Se Sas ; eS Aa .\nuo” —.f *) y, tb Se Gane (Ca a : Si Oe\nee a hy Oy es Ev) Anke Phare oan 2\nQ2141SSVIDNN JSIV'NOISIAIO ADOIONHIIL N91I8OI"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 9,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\nEh co? ih s _ ; a - ‘ ‘4 > 2 we :\n>. > a ay Al Sow a A Sn Pe 7 td\n¥ ae en He, > ee * et: ee ae ¥\nri . “> re 4 . = “3 > aes. : op - _\"\nte ~ ‘di 4 ee = ; ¢ . +s ea ‘ -\n~ = — ’ r 7 - =) a. bed 4 ”\n/ . ) Y » _ “ ' - , r ? oN “« \" am sf : m7\nge « ’ ‘ 7. : =e il q Pe . . Soy o eee\n: ‘ ’ “> a - hy ay) 3 My es * a : . ~ 4 yi SSRs\n*F i 2s saat gs ‘ . Fe e Py “d »\na * ) v odd - PD si : .\nte Eee Spee ee, * fy,\nj i DP ER + Me i 4 ee 1d 7) ‘\nis. > SR a oe! ee\n* » . - . i 5 . < J at bs : é pie . es eA “\nJ A « aie E> ° ‘ ° a\nlf ‘ . ; i ye ’ ‘ 4 & 4 Aj\nPe et” oa hE a re Pines Mahe, Te\npastas } a . H : Porn” , , al « ~ . 4 . 3 7\noN * > .. re . € s od \" : . - _ “ag\nes : . nwa? (pares as , ae\n. os A _— - «+ ea, .\n. : rt “Potent . S88 . ct , \" ‘ oo\n+ A? t* . : +\n2 aa Le ¢ i. « ’ \" . _\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\nwe 1 - er . < yg G2 - “ = i\n< oo, ew: oP eTs “oe ’ —_— ee ‘\n\na at 7 q ed ont e = a 2 . i N\nSy SS eit Sg ~~ sd 4 5;\n: nS) - “4 “y - a ™“e et\nte 3 ey 2 rj es : ., 4 i < yy\nyo oa ae ~*~ . a ~~\" 7\n= ? 7 s,-\n\ne. ; +e mie ys .\nie we ee N, e Ee i¢ i Sale\nwu Po oe at ; 7 “ a Oe ee oe PR 2S\n= Dad pe 4 rs > Hae a4 sane 3 ee BA) =a. > ay\n« apm a to, er a a od Seat q ll, hg a4? Se\ni jee oes ee ee 2 ka OS\n. ’ ‘ te ee. hy re ee i i >) a ;\n\n. > aE VS Se + ee aa eg SF et SR be: of\n~*~ ” ed. sy Fe at . a e —‘ Da , - ree . re\nAa Seis eee ae BN SR\nalae «= pe eh AS Ao eee te Peet oS\n\n5 2 “ a , ~ me Ce, > An ~ ao .% o\noe wee J) cae ot SE: a epee ar to\n\n; es . = % > > gre ot - - e PAG 2, ss fi. - .\ntag ee ee\n2 # oe Se iin eo The ” wee” et |\nrt\" : aha Pa oe Pa aet re» 4 Tiere eS, te ’\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 10,
+      "reference_text": null,
+      "text": ".\n\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\n“<<. = » . - ;\nyc. - ae . ahr a Ko.\nves A < 7 iy * a : “= “sh * Ne . ;\n\n‘ ¥ eo oes or * . a. a r ee — “ . e3 xX\n- % 7 4 i ig My i : a . > > J ;\nYe a t ta pi , 3 ‘ , wg $\n«. ey - b x < ' es —-'s bes ny pe Us .\n2 = = z oxi ? ¥ Mo “ ; Ry \" 4 e > a. 4\nae ae Be\n* “>. | ™ & velen r yd PATS: ~~ t , + * _ to “ ay oO) va a “a\n\" 4 ' a\n: i as 2 (‘a ae , aa a __ ° a =\ni ? ~~. wy = oe ear es : x ¥ “ee ee ,\n: ee SS Pa? ea ee\n7 fi nae ee Pin h cia ~ 2 = : = ™ Sa\n¥ ~~ a a a a | 0 -_** 7 a> 7 7 at iy vil te <@ t .\ns * +0 7 ra s*3 pag ee 7%\nx t oe Db . as \\ wT : ‘ & 7. a = } Lt\nBS: SPR ES WS ie. eee |\nml a ~: aS art oy hve “ “it on * a 3 - ‘1 7 ¢\n4 x ~~ Pf, . . a a : \"> = ‘ \\ ’ hy 2 ane — 7 -\n7 - 4 , oe Se a < AY a 7 2 ye _ fi a; Soe\n“ “ = A) ‘ ms o& o Ae Pe 2 \"as res yee f e ? .\nUNCLASSIFIED\n*\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nvr , — — .\nore ae —. ra ~~ ~ ¢ ie - ' a . ~. a\nwe ae SS P ; ees a — Pay eet = > iin 4, >\n. -\" ~~ a / ry ny: itteg ~- j . cA. “ _~\n. ~ a  *- “ ne Tee » = oo a z, : a :\n4 + x . ie < =. . * t% * 1 ee\n¥ rol a Sy Be? =, , \"2 aA ; —, a\n“b | See a” A aero) peal Aaa —\n\\a 7.2 Pa cee — ~ “= MPR ef a = ‘st\noe eee rey oi» pe “a 2% aS\nPOP SS ie - ae de e, Cre .\n* : vf) v7 — ; we ? “ae\n~*~; % >» i\n} ‘Pom gave € 4\n¥£ wn. ae : a Z » ix her —— .\n- ” 5 \" . nr aed ~~» ae\na er mA a f he eee Je > + oe S ‘a\nr co ha ata ‘<a as . sag A ; “ : “ha % aS > n\nc x -o Be sod ‘. = « id te, igi ¥, ewe\n* >) ae FV Reda’ oe ES ee oe ‘ee a\nee 4 “—7 ty Te ae ON GOS ee eae\nf . cin ats Pe? 4 Ft > a ae +\nae Po eer Mae to. My RE oe 4\n™ - ee a a a es re oe a Y\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 11,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\n“Say: , Dat ’ Sad A ts rd 4 x , -, : t : F : “ s/t .\n- pe Sad A r af . ie a fa mr : »* vA na ar 5 P eA . ay\nTRS “3 ae is ey ae ue Nie .\n‘ oa : ¢ ic Pee\n. - ie ot ox a4 =i ae - i — or 7\n4 - \" fm - 1, . . ra :\n~~ RT ee oe ee iy :\né . ORs + 5 rie “ -ry oe Nm: Pf\n» 2 - ; f a. = 78) h* - : . Wes: - ae oe ,\np 4 ' vis : \"i % ee ait F ioe a! i twee pe J oh “4\nans <gth 2) teem ‘ af ware ts 3 lA «ie i. : het\n+ 7 : e ‘ : * iz. f Med REY YG e+ rat F * ' af Pty aire a pe\nm . . Po a yA te . rey al 4 7 \"ee “oe 2\n” < ’ te ihe, ee > 4 uy +\n= mt » >) +, Same al ye. e ‘ F a ~ x . . ow *\n; + + P My « %. a. hale tp! * ee Te\na | age - | we\n‘ —_. rx Re 7? es ie ote «* - . : .\ns m+, #, xt - G 7 7 es o % ahd . - ~ ‘ ” - > ~ F o P\n9 As - Se ee : *g . f -* . - i, ?\nLF Cee FP > Rat:\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nd i> iy ; - “! Seite ) ig 7 < ; -, 7 * 4 : ‘ ~ a.\nPe S3- Ce eee 7 TO pD A 5}\n= a eS et... : - * - : ey ‘* a« J . +) .\n&) J as Mee ny - re! peta este €, *.\nrw : : 7 fa a Pins J i\n- Ate . : we. .\" ee ™, - “wae € %\nTR +e . ; ab * ESET +e “ ~7\neee 7 7 - . “ te Ne om ;\nHPO a : ES Toe SS Foe Re\n: mle, ie ual Fe _ a AR ee\noa! SG 0 ee “ Sab\noi Saae SS - ae DON ’\nRE* i - te 8 Be gem ol vi ‘\n7 ~ é. ‘ « ~ ae 5 Ay a\n4 eA ek - 5 | 4 \",, * Uae\n. au a? ‘ yr ony mA -s ae\n’ ss ; - . « at Sa aot i (are t ay x = F “\n2 (ee | | “ : . *% < =? aoe yr ed Wey ‘ A: “¥\np ‘f- 3 : eo . + 7 Toy ¥° > * aS a sas P\n= a lt weLs ’ My iad > : AZ ee ae < = - Lie\nSs\" oe pt 46 . 4 “ ; “. ‘a al . ri . ~ai\na ee oc OP 4 Dialer\nor ee 7G . ray * . < . a\nf ~s % 2 ‘ a ghlys iY as ’ . ihe s - y . :*@ bine”\ni Je . ‘Sys : 4,\" : > ’ . e af\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 12,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nMe m a 2 . * S cae: ak ‘ a ee | et ‘’ # v, _« ms = > : 4 = ng - a\na ae ES =~ % -\"e a : , ae\ne's 2 = oe\n“3 . a _ ‘ iy “ta 5\nneg _ 7m 3 Rie : x ap Sat\nVy ‘ad - e Py Se 3 * <5 . - 4\ny ; ~*~ 3 ad ; :\n\n: - . / \" “a. a. .\n. ra, ¢” \\ ae 7 a. + . j\n, ¢ et: - - = nn ‘ 7 5 * . 4 Soe a fps tie\nx 2 OS SO | i ate:\n2 > be ke . Ait toe xr. is ‘i ' an, ‘at -. = = 4 ’ coer 7\nTa “a é.% Se ae « Pg Mrs oe = > ae a soe\n4 * Seat: A “tS a RAS : Rory.” Sa\n3 cy ae pS a a PE See\n== Sean —ieeee S25 as ee we SS) Mur his\n: ” “ » ' - u* ow “> »\nPSE NS 7 uae ies Re, aS in 7, each me a\nMe a Ge 7: es Boe t ce Weer At <r\na4 . aks = ica + cabs! id ee | ol * . ‘ ‘\n= _ ~~ Tea oP Fe wo J » .\n* as - Bae ; ci oe 7 4 ~. >. - rato! <= yr 4 3, ol ee E>, + J <\nPa io = | ae a a’ ~, - nw a, <a . hue . vu 7\n; ; o hy ? 2 ‘. , es “<i e :\n\nUNCLASSIFIED\n\nFOREIGN TECHNOLOGY DIVISION, AFSC / UNCLASSIFIED\nana ee eee\n\nae = -; : : ote 1M _ _ ithe - ~~ 3\n. a : dw cPe\n\"« oe\n. me SP > es\n; . ¢ ‘e ; : \"y ze = = :\n- “— et 4\nPe «> eee se\nmoet a”; ev oe & ly Fat ee.\nhat OF ee ake. : ;\nlai A eee = LS\nI ol ~ . + sf © - a a. * '\n. - us 2 ye 5.\n: 7 AMy i. Pa ca > $A . . an ate = “, 3 4 » ‘ha il\n< <3 o : YY, =° * ; : w% “Te or “ eo “\nqi ; : . » owe i ae ‘\nM3 ‘ 7 . — —_ * im a ¥ aad Ws ‘a yy we » “ .\n; i + (a ”  . . ~ > . line me . . be - \" ° <% we 4 rg ;\nA ¢ & a. 3 a we 2 ee ’ ~ \"< ee . * ~ ~ ’ e VY ed * y — Fs\not ee OF PO net. Sigh ee May ye ir\n4 ; - 4 » =. . tse. r Wy - « a» 8 he » 29\noN eal ee, Tteae Ue\nY”> a a aN ok es ee ‘ ‘Toe an ae\nPe a. LS Sn ae 8\na: af J oy e.. : *\nFy? ; a, te re\na ee Tie 4 : ‘\n78 an . - . , & . - . -\n= a se -\nA é =~ *\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 13,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\neet ~ map »* wu _ 3 Fe - 7 ,\nee en ee aie\n41e ? < ~. 9s a a. - . a ve te uy)\na Shy ne WE es he. re ae\n- ' ~ Ss a) 7 “ ear > ~\n~ Bore “< ; iiing LL eet tS eae SY * ;\nPs ZS ae : rf? “ . an Ss er’ pes\nET: ee | a” ds\nOO! Sa OL Ve a\n> “ i » hee . 3S\nE. oe i . Rae Mod | aM +\n<xnieee i r sat +s “ A °\n—_ pF - * Aa P Sz - =. '\n: F . ¥ < ~~ - > wer. r r ore we f =\nhe A’ 2 =” ob 79 — ae > é ey, Eig “ae a 7.\n. E> >. + ay, he bs } 2 fa we ah . : ; “ . >\ne . ea 1 ug “ae “¢ oe ¥ ot . 9 “~ ., 4 Ne ay o Bry \" “a re\nas r ae # “Ps _& ° ; “res “€- - \\ ope é\n> 4 are 2 ys + P wa tw » ~\nv - ft a. > : gait » &- y a ' : >\n4 . Pee , . % a ty ’ ‘\n; gr a ° ° é ~~ «at\n; Te *. on ; e\nray. 7 ee - » - »\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nhoo eee MEY Fae a a ae fly\n\\ 8 oe At ~ > Se “i rs ¢ ate\n« _>* ‘ b > P ‘ - od a ye “* a lo. weet\n\\ ~~? “% + *- ¢ .\nBet, ) + Vas\n. * #. Lan > , Cr Pee be be : .\na ae Dat ee <a Be\n\" 5 a, ” ‘ Pr ei S 7 © oS aks. -\n. IS eee , . i, * »\nis ATR ee: RO A ss a ok ger Ste\n. . , ~ oe ~ . > “ rs - ve bs ae ~ - ‘ ‘\n; Rit, & es ert ae? Pg aor att ye OR\n= oo . > a4 ye Se e ang! ween, a. “Sh a Pt “~~ ‘*s3 \"i> .\n_ So oko ee ae a oie o a ez ‘ iy .\nae a Ae ee rar Pa oe ie.\n- vy. + . . - - ware. + © eae yest ay tg;\n- ~* “ a@ , Pett ¢ ; i oe .\n> . Sn ofp. ’ . : ’ oy ae\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 14,
+      "reference_text": null,
+      "text": ".\nFOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\n2 se - * he — i : =) 4 . ie ae ' : bn? ¥\n. . Ww a : i : a \\ ‘ad Te a sr yk =) Pe ° oe. Ye\nr= 3. ‘ Me ~ 7 - 2 ‘ . s = 3 $\n4 . s : . at, = “( Sy sx 7 J\na\n— . .\nRi FES 9-4 F of\neee LOS. wai ed eee Re i> _\" a> > pre\ntd *- ¥ : - , ae pes . a ree AP\n‘sv | a ee re ¥ 4 eS ov : +f be or # se oi et al\nF ¥ #3 ‘ iy iy a ae ‘ ‘* \"“ Seb, + ye ly 1m. ‘ie “ : SO Sy --\nt Bi fete ty > a Bt ete , ba > aes at shat oe wy yet eae a ~ aha ;\nRS Sete MNS ORE ga ee a ae ee et Med» PEE ee,\nbt Kn PONS SRS 7 SRS 1 OP ae Eres ae % rite .\nwe Lean ag «air pg: ee { “ae ho? Se bay oy ee at\nSok w 2 9 * bt ’ . ta i. Somat oo ~ . SY \"- > k a ys rT\n8 Te a EO te, \"tog oe CPe, Shige\nSy see a Wh ——- 4 i P t me am ~ _ a O° tly £ - 2 ey ao\nSe a WOR ree . , * rE , ; , ‘ , =\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\n4 / s ad > Pre Ps r.\n- ad 2 , i . - 7 = » ~ : — %\n> ao . aoe > 4 . - : . a\n: * - -” * wr ci? —_ & “\n. £ + 4 Se in aS wa: ‘\n. - .” ae\" — n” Le '*, * i\n° _ ~ os a -.. ” » . «\nhia >. > See Gee\n y . - ; ae os .. . , e te .\n- Cia , evEL LA? Oe 4 i\noy ee we o<). ee ae »\ni ¢ . + 4 : >» = Mt Nig a’ r\n‘ ie i lees Pee sae, OF ov Se\nd “ ef, ‘ “o . . : ay\n: ae = Y us cy hed * — pe\nnF Ag eal = Se a er\nbs ok on ae “ ‘ ea -~ ork geal \"\n; Os ° . A . i > ra Poe ery e 4\n. : or ‘ : 4 cP. 4 rh . oT vals “ee ie + > bd '\n7 = * aid — o a * ; \"e ia =\"94 one oe he Fat ote iy ™* 7\n’ > ed, BS ; ia a - Ps \" *p doae et +, > ye” Rae oS . te?\n7 nm by - sel ae) hd °. ae Se . ; , a - 2\na a mete TY 4 + die b ? 2 ~ 7 $ - ¥ ee\n4 » “7% AM ae Be at «* x . ‘ ; ¥ :\n4 BT Si Ea ag, a3, yy. ie ‘ y - . 1s\nUNCLASSIFIED"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 15,
+      "reference_text": null,
+      "text": "FOREIGN TECHNOLOGY DIVISION, AFSC UNCLASSIFIED\nAT ag OP « i ea Po\nnee s- a As a : po 7 Nes ;\n= <4 « . ” ~,:= (Lie 7 2. et Je | , “ ~ ** “Pin 5\n\neH. ~* , ay oad as ; a 3 *' ~ _*. =?\nPom! ; . ah aie ~ ree Dak aes Po ;\nwes Ye\na Ke ue ete & ee i os wt.\neRe eS Ee RS\n- HOt Fay Pag ies ™ Py estes! r re < fe a Pr\nar er\" & : a rr ead ~~ .*S hs ae ;\nral Me ee > 4 i ‘ 2 2 aD oe ’ tos :\n: : e aN f 5. -2 4 > | io tue a 7 — : > - 7 .\n“4 Be Age Pp ee , aee re OFF a wv - \"\n> P| a j a al a : a re * v mas ar Sas = la n. -\nt> 2% fe gra ees KP » AP > ie ee Ts ea\nAhe = Sd € al - ad ~ or * Sg . “- ‘yy r\n; - - % ‘ ° . : e\n> 's “or ag by 4 Ge eh ees “Ka Oo ot 8 * 7\nSe ae - ane * .\noe 5 ; we ey. es fot “ ue eae . iar 4\naig otk 2. > ~\" bore Wi Me~ } 7 . x2 <\nys SiN al , “Say a\n> : igi - : M4 ‘e 4 .\neg at . - «> - . .\n< : Ps oo . Ss ” 7\nwr : .\nUNCLASSIFIED\nFOREIGN TECHNOLOGY DIVISION AFSC UNCLASSIFIED\nrar* > 7 — . >\n\\ ; Bi ee i ob: ll Ay ee\nme ee. ~ a wy ee a TheleD o a. aye\nJ a ea he : as eo ve” ee ee |\n: = “ ‘ “~ ’ » th ie peri Ce - >< SR Sew\npee : , fig ok a ys ‘\n¢ oe . 4 ~~ “ te\nae. St Wee oa, >\n' CO are fe _ ,\nPoke ae\ndin ~ et ; et >. Sere\novale ~ \\ : Ss i Z Vad _ 2 ;\n<— . ~*\nin “a0 Pon ¢. Wes “SN f :\n7 aan — < —\n“i : 3 rte ia! \\ * 5 a = 4 Ys ; % ea ~\nCis ar a, = ‘Def ™ > bey eal 4 a a\na SE ES\n3 a) “ta ; ” * $ pen ie te “we | eit “2 “YA .. ~ x os 13 os if :\n€ ne Pe me) ae s. A, 2 “ f », 5 aes . a * on x\na ae ig 2) ee cs, Marte oe Wee i¥e\n+ a Saye ps oe oi tar ces ‘. WF is gh Pa 5 we —“—\n. . 9 ee . Cae as *. boi 4s\na ed Gerd 84~ 1 > ,\n€ a ay . 7 . > . *\n‘ ; Poe a — . ; y* . og : . ne . ;\npre Wea if ~ P > : y .\nLAD see ‘ . , é .\nyA nia a” « e ,\nUNCLASSIFIED"
+    }
+  ],
+  "pages_processed": 15,
+  "schema_version": "0.1",
+  "source_bytes": 2804622,
+  "source_sha256": "48da4846d70cf79de3a84fa05c57971e0da875de236c7ba9164a1cfd2465ce40",
+  "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/PresqueIslandStatePark-Pennsylvania-07-31-1966-photos.pdf",
+  "tesseract_version": "tesseract 5.5.3"
+}

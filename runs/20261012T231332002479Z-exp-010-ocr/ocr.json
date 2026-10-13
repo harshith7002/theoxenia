@@ -1,0 +1,104 @@
+{
+  "case_date": null,
+  "location": null,
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 1. A missing reference is not a character error rate.",
+    "Each hand line is one rectangle on the 2x render. The rate divides the Levenshtein distance by the reference length for that rectangle only."
+  ],
+  "page_count": 12,
+  "pages": [
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 1,
+      "reference_text": null,
+      "text": ". PROJECT 10073 RECORD CARD\n, 1. DATE 2 ( i? LOCATION ) 12. CONCLUSIONS\n! _ Ase Yuma, Arizona QO Wos Balloon\n. O Probobly Balloon\n3. GATE-TINE GROUP i* TYPE OF OBSERVATION co rere eee\n1505 MST muds f O Was Aircraft\nLocal — nnn 2 ¥) fe ZX) Ground-Visual O Graund-Reder 0 Probebly Aircroft\na _ GAT eS!) ae _D Air Vi suol O Are-lntercept Rodor 0) Possibly Aircraft\n5. PHOTOS s f 16. SOURCE ty os Astronomice!\n: 4 O Yes 1) Probably Astronomical\n% No | Weather observers | Possibly Astronomical\n}. LENGTH OF OBSERVATION ~~—*+| 8. NUMBER OF OBJECTS | % COURSE 10 Other\n! | Insufficient Data for Evaluation\n7 seconds 1 [35 Unknown |\n—WirwaRrerneta ==. «s ( ¢ments oo “es\nFlat white color. Circular w/shyrt Object sub tended angle of 2\" at arm!s\n’ tail. Slightly erratic trajectory. length. Had thin intermittent vapor tra ;l\nAll observers agreed it was too fast to | or tail one to two diameters long.\n! track with a theodolite.\n2 0 ELEC VAT ass\ni ATIC FORM 329 (REV 26 SEP 52) /"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 2,
+      "reference_text": null,
+      "text": "This document is made available through the declassification efforts\nand research of John Greenewald, Jr., creator of:\n\n} @\nLJ\n\nAAk. 2 . The Black Vault is the largest online Freedom of Information Act (FOIA)\n\nb document clearinghouse in the world. The research efforts here are\n‘4 Pe | responsible for the declassification of hundreds of thousands of pages\nx released by the U.S. Government & Military.\n— Discover the Truth at: http://www.theblackvault.com"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 3,
+      "reference_text": null,
+      "text": "4\nif ( !\nLl. Ab Yuna Test Genter, Yuma, Arizona |\nse 27 and 13 Aoril 195-2\n3. Weather believed UaVU |\n4, Li Deker 1. ch\n1/S¢t agli PANG |\nSet PIG\nGpl Pi'G |\nGp.\nUpl\nCyl |\nCpl.\nCpl\n5. No photos '\n6, Object sirhted each date\n7. Cireular in shane, flate white color\n&, Subtended are of 1/4 in. at arm's length\n: : ° r t <a\n9. Zenith t horizon (90°) in 7 seconds ( }? / #s\nLO. & degroes???\nll. Course not completely smooth\nl., Altitude unknown\n13. No sound renorted\n14. Intermittent vapor trail, nou-persistent, thin, 2 Ciemeters lonz\n15. All observers metcorlogical observers and had never seen anything like this\nbefore\n16, Object tracked on 13 April was too fest and too erratic to be tracked with\ntheodolites with open sights.\n+ = . . > ="
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 4,
+      "reference_text": null,
+      "text": "( (\nEXTRACT FROM STATUS REPORT #7 se\nDATEs 17-18 Apr 52 . .\nTIME (Local): 1505-1510 |\nLOCATIONS Uma, Ari te |\nLENGTH OF TLHE OBSERVED: 7 Secoes « °\nSOUND: Mnknem\nt SPEED: Jnkaown\nALTITUDE: 35°\nACTION OR COMMENTS: Uo waclusious. ; i\n| | NINCLASSIFIED — |\n|"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 5,
+      "reference_text": null,
+      "text": "PROJECT 10073 RECORD CARD\n|. DATE ( |? LOCATION 12. CONCLUSIONS\n‘18 Apr 52 ! Yuma, Atizona 0D Woes Bolloon ;\nee OEE TE tec. : 0 Probably Balloon\n3. DATE-TIME GROUP e TYPE OF OBSERVATION —~|O Possibly Bolloon\nO Wes Aircraft\n- \"* 2p? 7 ie oe | 0) Ground: Visuvol OG Ground-Rador 2 Probably Avreroft\nQe — eee Oo Ait Vi sual O Air-Intercept Rodeor he Possibly Aircroft\n5. PHOTOS oe * SOURCE ; \\ Mes Astronomicet\nes +n eo J robobly Astronomical\nAe | 2 enlisted meteorologists | Possibly Astronomico!\n\"7. LENGTH OF OBSERVATION =| &. NUMBER OF OBJECTS | 9% COURSE = == | Other\n1 'R Insufficient Data for Evolustion\n5-10 seconds {Q Unknown\nee A Ot TS ORO BS SOFC ee\nDull white color. Circular. Very erratic. Attempted to track with theodolite,\n. object too exatic.\nATIC FORM 329 (REV 26 SEP 52) ' ;"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 6,
+      "reference_text": null,
+      "text": "m | ° Ps .\n: a i ‘ : ¥ \" { oar : ° ‘ '\nCc :\nUNCLASSIFIED\nSPACE AROVE FOR COMMUNICATIONS CENTER ONLY\ni ; TINE S Ry Sve =e) pm eek +\nFROM: (Originator) OM TE lay 5 ae. ae sop Ss\n‘ me . siyee | ACTION : TEPPER ATION ~\n$3, atte PRECEDENCE Mea bine |\n: 6G GTR ? SAN PHANCLOOU Gaba Fe oe “a a\nCG GL AR GAN PAL Gd Gadde [_] soox messace [[] ontomat messace\nSee eee aa a ot at ae\noat [_] tuttieLe appacss [] ves ia i\niA i.\" ee\nIDENTIFICATION , CLASSIFICATION P ;\nINFO: eves poo\nEvewvrrs ‘ ad tte a, an\nFROM) AFOLMeATTAlR5=3E CLASSIFIED\n| leforenes your mossava AMLOL7?, Request fail weitten report on sighting of Lullene\n4 , :\n\\ | htied objeet at Yuma, Arizona, on 17-15 Acril be oaimmalblad to “itl, her Moy Uilo.\n'\n. Vlease inehuxies\n1. Usarings ond clevations of both objeota at berinning oni ent of Slight.\n\". Tinea of cienting and leneth of tine observed on bota objects.\nVAAN INTERVALS; |\nDOWNGRADED AT fra 12 YEARS.\nDECLASSIFITY OF «00,10\n: ‘ >\nr\nUNCLASSIFIED oan\nBURR ATION PTT — |\nPET wks eh we daxthabes? tj 483 Peee tates PAGE oF PAGES |\n— et ole ee es Shei \" eee :\nDRAFTER'S NAME (aad signatere, when reqnired) | RELEASING OFFICER'S SIGNATURE\n|\n; 2 ei\" rit. a sf os 4s 3 te\neee a ee ee ee ee ee ee Te aie et eee mena ae eee ee\nSYMBOL fae a TELEPHONE, » OFFICIAL TITLE =, a wo\nATI Me. 9 | Dae Ode | Ale .“jutaat veneral a\nFORM - REPLACES NME FORM 173, 1 MAY 42, Wo sss Kus. coversnonT rarwrine oFnicE \" ;\nLD 1 OCT 49 | 73 WHICH MAY BE USD, A,\" |"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 7,
+      "reference_text": null,
+      "text": "ee NOT REO ancd, SEE CRYPTO-CENTER\n\nnN a a PARA’ 4 a WN Lr as tg i ? , ys > i . \\ 3 a Sf\nFi CG 61H ARMY SAN FRANCTSCO CALIF! ala ee AT ka\nTO CG AMC WP AFB OHIO ATTN MCL y 4)?,,., | Se a cai seid TN\nFrou ancer gsgais AGHIQ) 2 rts.) Fides ’\nRECONTROL NO A-19176 PARA As UNCONVENTIONAL AIRCRAFT REPTD SIGHTED\nViC YUMA TEST STATION, YUMA, ARIZONA 17 AND 18 APRIL 1952.\nPARA B. WEATHER BELIEVED CAVU. PARA Cs OBSERVED BY MEMBERS OF\n9575 TSU, YUME TEST STATION: LT { Sc 7 lain\noy CPL opninareis CPL Mam! CP CPL\n\nCPL CP Mm prc PFC 5\nPFC PARA De NO PHOTOS « PARA Ee €1) & OBJECT SIGHTED .\nEACH DATE. €2) CIRCULAR. (3)\n6 SUBTENDED ARC OF 1/4 INCH ATARM SLENGTH. (4) FLAT-WiITE.\n(5) SPEED FROM ZENIT TO HORIZON APPROX 7 SECONDS.\n(6) 69 DEGREES. ¢€7) COURSE NOT COMPLETELY SMOOTH. (3) ALTITUDES\nUNK NOWN. €9)2 NO.SOUND REPORTED. (19) INTERMITTENT VAPOR TRAIL,\nNON-PERSISTENT, THIN, NOT LONGER THAN 2 OBJECT DIAMETERS.\nPARA Fe ALL OBSERVERS WERE METEOROLOGICAL OBSERVERS AND STATED\nTHE OBJECT WAS UNLIKE ANY OBJECT OR PHENOMEN ON SEEN PREVIOUSLY.\nOBJECT SIGHTED 13 APRIL WAS MOVING TOO FAST AND TOO ERRATICALLY\nTO BE TRACKED BY THE ODOLITES WITH OPENSIGHTS.\n7225 “DECLASSIFIED AFTER 12 YEARS. Meare ota ere eae ee\n\nKNCLASSIFIED SS f\nBy i"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 8,
+      "reference_text": null,
+      "text": ", HEADQUARTERS SIXTH ARMY ao Lae\nPRESIDIO OF SAN FRANCISCO, CALIFORNIA (\nOffice of the Assistant Chief of Staff, G~2\n= ° be “& wMperee ‘ °,\nAMNGBI-PaT 350.09 UNCLASSIFIED, 9 May 1952\nSUBJECT: Intelligence Spot Roport\nTO: Commanding Gensral : \\\nAir Tocnnical Intelligence Coater |\nWright-Patterson Air Porce Base\nDayton, Ohio\nle Roference your mesage APOIN-ATIAN-S25E. Forwarded horasith\nis copy of detailed report received from Yura Tost Stations\n2. A copy of thia correspondence was sent to AS of 5, G2, Depart-\nmont of the Army and Wostern Air Doefouse Fores, Hemilton Air Fores Pase,\na Hawilton, California.\n: dl ‘ ,\nS Inol He S» ISAACSON\n1. Ltr dtd 25 Apr 52 Colonel, GS\n2. Statement AC of S, G-2 > eT a\nS$. List of rans , pis : t\ny) fi res\nDOWNGRADED AT 3 YRAR INTHNVars.\nDECLASSIFIND AVFER 12 YEARS.”\nDOD Dik 6200.10\nUNCLASSIFIED ps sit\n= orm 2 by ow tt. - a | i + @ 6"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 9,
+      "reference_text": null,
+      "text": "’ ea\" : ta th ioe es Paxs a PrP aes\n3 MBA iced |\nUNCLASSIFIEY.\nHEADQUARTERS = * |\nYUNA EST STATION\nYuaa, Avisona\nAMPAR+ES $50.09 25 April 1952\nSUBJECT: Invelligenos Spot Report\nTOs Commading General - ;\nProsidio of Saa Francisco, Calliormia |\nATEH: OACO?S, Go?\n\n1. This office is reporting that som individuals of this\ninstallation, on 17 April 1952, at 1505 or 1510 hours, spotted som\nuufemiliar fying objost whilo om a hile along the Colorad River,\nthres (3) miles south of Yuma Tost Station.\n\n2. This objeost appsared to be flatewhite, with no shosn, cireular\nin uhaps, flying in a 60 dagros azinuuth direstion.\n\n8. Incloged is a written statement of 1+. Cees,\nwho was the leader of the group. ‘\n\nFOR TES COMMANDING OFFICER:\n/3f Isving Lama\n1 Inol /+tf/ IRViNG LAM\nStaten’ Ci USA\nASSISTANT ADJUTAUT\nCopy furnished:\nRegional Office 5\nPhosnix, Arizona\nDOWNGRADED AT 3 YPAR DYTmMTAL.-\nDECLASSIONND 2 PPE qo yeas\nLOL Di 6200,19\nUr sme\nUNCLASSIFIED\nRe oS CR ai AD ARES"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 10,
+      "reference_text": null,
+      "text": ". (| Seer oR UNCLASSIFIED\n\nle On the afternoon of 17 = eg ocr arr pele igned took « group of\nEnlisted Weather Observors on W Field ? dovization hike from Yura Vest\nclas esas _ ALL mon wers nombers - ‘no TSU on duty at this Gtabion. ~\n\n2. Between 1505 ead 1510 hours MSTone of the mon, CPL WER, sto bas a\ndegree in solones and a strong background in motecrology, called attention of\n\n' the group to an objeot diraotly overhead. At this tims the grovp was sented\non the east sides, ani in the shade of a tres, botreen the canal bart and the\nColorado River, approxinately throe (3) milos south of Yuma Test Station on the\nArinona cide of the River. ‘The object was seen inmadiately by tho entire\ngxovp without eny difficulty in foousing the oyes or looating 1t owrhead.\nJt appeared flat-thits, with no sheon, oiroular in sheps, and while on o regalay\nccurse of approSinately 60° aginuth, it did not exhibit a completely mxooth\ntrajectory. It was accompanied internittautly by en appavont wapor trail,\nnon@-peraistent, thin, end not any longer than one or tro object dlanetere. |\nThis trail or tail disappoared immediately withia th» above dinensions an is\naccompanied the objoot.\n\nS$. This objoot ms first sighted by the group alnost direstly overhead\nat an clovation angle in excess of 60°. Dus to the position of the group is\nrelation to the ceral bank, the horinon to the oast was obstructed to «\nheicghth of approxinately six or eight degreas clovatione ‘The total tins the\nObject was vicible botreen the first slghtiog overhead and the Cisappesrancs\nover the horizon, was vory close to, and not mre than seven sescnds. In\napparont sice, theobjest subtendad ea olrole of approximately 1/4 iach when\nheld at amr'a longth. as —¥\n\n4. The croup was instructed that if euy snbsequent sightings are mace\nwhile they erg ccoupied in their easigned weather cuties, that they should\nattempt to teks bearings cu the objoct from tro or more theokolite positicny\nend report their findings to th» Unit Comander. In this instance She\napparoms motion of the object was co fast that it woulc have been inpoasibdia\nto obtain engalar readings on its trajectory with the theodolits even with\n\nthe goars dinengaged oad sighting over the open gunsights.-\n\n6. Of the attached list of mon, FFC Gr is a graduate \"ngtneer with\nIsboratory experience; CH, elessine a graduate Erginear with propeller desiga\nexperioncss and M/SGT RM, = Uaiversity graduate ond was proviously rabed\na flight engineer in 7.8. Air Forcee All of the sen ero preasntly training\nas woather observers and have had som oxperienoce tracking meteorological\nballoons with optical equipment. All of the wen conmwnted that the object\noighbed vas unlike eny saturel cbhjact or a phenomena which they had over sven\nproviously, and that they did not believe 1% could bo mistakenly ideatlfica\nas a woathor balloon. Tha group was told, pending further instructions, not\nto discuss this sighting. Attached is a list of the ign in this group.\n\n6. On the following cuy CPL WR acd Pro weer reported snother\nsighting whilo practicing with a theotolits. ‘the duration of the sighting\nwan between five and ten sscodts-oit the opparent notion so orratic that thay\nwere urable to obtain a sighting on the course of the objoet with « theodolice.\nihe gonereal appearance of ths object was reported to be the sens as that scen\non the prooesding Cay, oxcept that no vapor trail was observad. Tha general\nccurse of the object ras in an oasterly direction\n\nDOWNGRADED AT 3 YEAR oe ree | UNCLASSIFIB®\nDECLASSIFIED AFTAG 12 YE/N, AG Setcer openers\nPOD VIR 5200.10 i Gs ee |"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 11,
+      "reference_text": null,
+      "text": "j A \\\nvere ore . aan ~, vK! : 3S who\n| UNCLASSIF |\n7. Tho underaigved has oleven (11) yours military duty iamteorology, |\nwith «a substantial portion employed on weather ogulyment dovelopment, and on\nupper air observations ontalling the use of may si,os ool types of neteorologi-\neal ballooss. In my oxpertonee I have never observed any other object, by\ncomparison with which this objout eould be further identified.\n; | il RT A ea \\ |\nSES a |\ngna Le, Sig C\n|\n« erates AT oS |\ntee Obs ANDTD AT % ae re nf\nwap UNCLASSIFIED |\nae t,t deeds |\nSo Al ee ie eh i bee Bt bs i tal"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 12,
+      "reference_text": null,
+      "text": "© Tx - 7 PS RR aa og wee\n‘ ree {' ; ( 4 | |\n{REry\n. |\ncH. ee\nCalo. |\nSc? @aaagh —- |\nC7\nie\nCea,\nC: selma\n>. A\nDoD pin Seon YRAIS. |\nUNCLASSIFIED\n% ADS hfe CREM -\n6 cinta atid Mit TB esas mf @ puw ="
+    }
+  ],
+  "pages_processed": 12,
+  "schema_version": "0.1",
+  "source_bytes": 1455110,
+  "source_sha256": "b53255645aef336ee5a04cbd64a93c71bcdc25bf6e5aefd9dbb7db9133f1dc14",
+  "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-YumaArizona-41-17-1952.pdf",
+  "tesseract_version": "tesseract 5.5.3"
+}

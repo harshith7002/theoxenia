@@ -1,0 +1,35 @@
+[
+  {
+    "page_index": 1,
+    "x0": 600,
+    "y0": 848,
+    "x1": 2400,
+    "y1": 920,
+    "reference_text": "PROJECT 10073 RECORD CARD",
+    "hypothesis_text": "FROJECT 10073 RECORD CARD\n",
+    "levenshtein": 2,
+    "character_error_rate": 0.08
+  },
+  {
+    "page_index": 1,
+    "x0": 80,
+    "y0": 990,
+    "x1": 900,
+    "y1": 1070,
+    "reference_text": "26 March 62",
+    "hypothesis_text": "QL O64\nt { 25 March 62\na i a he\n",
+    "levenshtein": 22,
+    "character_error_rate": 2.0
+  },
+  {
+    "page_index": 1,
+    "x0": 900,
+    "y0": 990,
+    "x1": 2000,
+    "y1": 1070,
+    "reference_text": "Ramstein AB Germany",
+    "hypothesis_text": "| Renstein AB Germany\n",
+    "levenshtein": 5,
+    "character_error_rate": 0.2631578947368421
+  }
+]

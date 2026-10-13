@@ -1,0 +1,194 @@
+{
+  "case_date": null,
+  "location": null,
+  "notes": [
+    "PDF bytes are not committed. The manifest records the SHA-256 of the file that was read.",
+    "OpenCV converted each rendered page to grayscale before Tesseract.",
+    "case_date and location are null. They were not copied out of the OCR text.",
+    "Hand-checked pages: 0. A missing reference is not a character error rate."
+  ],
+  "page_count": 25,
+  "pages": [
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 1,
+      "reference_text": null,
+      "text": ""
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 2,
+      "reference_text": null,
+      "text": "This document is made available through the declassification efforts\nand research of John Greenewald, Jr., creator of:\n\n} @\nLJ\n\nAAk. 2 . The Black Vault is the largest online Freedom of Information Act (FOIA)\n\nb document clearinghouse in the world. The research efforts here are\n‘4 Pe | responsible for the declassification of hundreds of thousands of pages\nx released by the U.S. Government & Military.\n— Discover the Truth at: http://www.theblackvault.com"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 3,
+      "reference_text": null,
+      "text": "» - ? ~ . ——_ ‘ - > Pu\n_ ce - , . 7 w® ‘ -\n~~ y 2 \" pA — oa\nie eo a - et ~~ Sars ” = 2 ae Ss\n~s - A . . a” * o\nSI > - cts ’ = . > “ \\ —\n=. : \" — - =\"2 = “~ _ . “<a . -\n“<< - ' ; “* ‘ a _ 7 . . i. S.- ’\n‘ y” . ie a + ’ = .. “ ; x “4 ~*~ _ -\n\\+ Lb ~- oe 4 i t he Ps > , 2 i . tng a ae << %s »\n. ea a's : ; tte i a : a a . .\n. ,. 7. < Cd ad a) - iin = 5 ve + P ° — > % ‘\n— oe - . ~ =\na - = P _— - i « a a iy = e « - ha\n— ry ert —> J 2yk * = ox s¢ — , mm a _ “2\nos - 7 — Ca : —— 2 -3 .\n« = ; - ” _ = = — yf - _-\n. — ‘ “ a ‘ . = .\n~ ; ~s P ; % libs ~* eae\n. “¢ “4 ‘ .\nwe coe a” ~* 2 \" —R ~ _ 4 . _\n: i> : 5 Ee, * *\n: re \\ . ey : = ° ¢\n~- i ‘ ; 2 : a ed 4\n: > OP a od 7 : | d ‘ 7\n— | Peo ia Sel iy ‘ : ~\n\" “\\ , . - a.\nOOF Se SN = ie .\n® \"7 = > “~~ “/:\na% a q . Ss ‘ X\\ = | , , a\n7x * ~ 4 4 fy . ‘ . ‘ 0 ~. s . \\\n= ¥~ \"y Pe « ; ue . im\na, Te mag ‘$ » ted a y . ‘ ~ Ue\n- ; , , : -e . na .\\¢ af | « ¥ A . <! a7 i id “ —~* *. ne ‘ «* * : Ne\n2 Se Be ee a 7 #) 2% ' a . - 4\ni OS RAP a ey See + bs ae\npee * “4g = eA F ‘f , y ot ” ' - 7 - w . 4 S\npe “Se >. we Be 4 Ae} ae ‘, ~~ : mt . —* 5 \\\nrf . WA aa wy MDs ? ’ ’ ~ i\nher : ‘ : a \" a 2 “ ‘ ; a “ ‘ .\ney . iy . ™ | .\n3 - a ae ae , ~B> . : « ¥? | wy a. . ‘\" a . —— 4 A :\nNS ct ae ce\n. 4 es . ° # > ; 7 - * - * . “7 > > ot\n” Bin TS / ut ; = ‘ Ky - “\" 6D\\ae Sas aj / .\n\" iJ : \\ 42 = - i i > - a Ey he Vy\na” és Atty : “ Sw 4 £33 2 ‘7% y x ay ‘ ~<\n. sO > = o . > oY rere ‘ . , . P\n°] . Sone .< : we"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 4,
+      "reference_text": null,
+      "text": ": . p=. ro. 5\nSe _* 5 Fa. ; ‘ ee ' ee - eS\n> — * M4 ~S > * ay ’ ~ PC . 7 < > :\n\n= ety ON ae : wm\ne “! wl \"a . : 2 - .\ni ; ? >\n- - :\n; oa . ¢ ) . - =~\n= ar wv 2 “SA 4 ~,. ty\n* ‘. = f “ -\nYa a — «©\ncd\n- yy f\n. +i. ye +\n\"~~ “We -\na . aa\nOa : ~ nati » eas ee <\n7 * : “+ mat Sey Ling * ad a = .\n° e A rr F ’ > > x». bs . : Yr J a: , ° “\n7 ‘ » . 7 i» se «, wre 9\n. ca * f-y ag el Ne ” a iS\nS. «,; =. ae a ‘/ ye\ny a ey -. *,- @ +. ,\n, Mae os a> a\n7% . (Ke ‘ at ant Lo :\n» és +y, Ga “> aed °ii~ f\n—e . - : ~ . e . ° a - , - ~ <n «<\n2 4 : i>. > Ls =? y, ‘ . 7 / “:\nPe | oe ~~ ‘ : j .\n[e” . , “4 # « , « \" ~ y z =\nase & . op <% st on\nOF , . . { . ,* \\\n; - es grt * J / ~\nz ath 3 “ , io 4 “/ he - >"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 5,
+      "reference_text": null,
+      "text": "y _— c . , a.\n. . a : , is ~*~; lies - ee. + - ° - *\nad a + 4 . 7a . ~ _ : , . =, 4 e\nen + -~ -“§ + SOR ati “ . “=\non ee. <2 o- an ee al 2 4)\n, we \" 4, , wad: a ~.. > sted a, . ~ . * -\"\n“ : . . od w J , ’ Pp - = ‘ '<\npor . ~) eee * 4 Se as | Ae S2 ‘¥ : = *3\n; . = = a ; As yt —_—\n, ae i arm Re ae\n- “— oy a &} Ss: a\" + ~ 7 a 4\n. , > - S a 5 we . a~* ‘i |\nae as ~ - - ‘s - , Ae f = . Sh ~ ey (\ntw om - a 4 : 2 ca . 7 2\nfi al cat - 7 -“. - a Lf” Se a : a\n‘ *-# ; r , 2 - Bod ~ if\n, . ] v FP ge ‘ 7 ij . a . =\n~ es eget FZ, « . ine See 2\n@ ) a: =.-, : = * > ~ > = 2 * ae y\n» a , , = ~~ é “ra &\n‘s ; ‘ r od —_- ; jae - i =\n>» * - - 6 - , & Rey ‘ a J\nj — x * : ye” 2 % . 4 £s \"e\n* “ . See * a :\nne “Sy > ne ; 7) on Se\n, ‘ Pus . ‘ ~~ an faa . = . ~\nF awa % : “ % ay ee . ‘dite y< é > *\nane £ 4 a é Raa oa ye a. : .\n>> . % : c = .  e _ » - 4 > .\n° = os ‘ -—\" “s Re sas nd i on «s : _ a. te .\" .* > ns |\n> - i> < ~* re.) ~~ « % “& hiel ae i a2. = “ :"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 6,
+      "reference_text": null,
+      "text": "vy oo. ly \"\n* 4 ~~ =\" mal 7 L ‘ ~ - hg ; Sa me =’ ‘as\n. f 2 is . “a ' Je : ‘ : ei « x a 4 °, ’ A ee 5 ad Pa Y ,* < f oR\nZé z. se “= 2 . < mm bo . a 4 - . 3 . : . ~~, ’ \", ’ ..\n-s 33 . . Be ’ =. = iti . A, * © re & . A . < a «4! A es vail |\nEse ie a a ee i ee\n. at 7 . af ? _— r rm o..\\ a yas S ae ee\n“ > ’ ’ = _ — > «> + —— ais ra j 7 . oie Vv nee! - vy a be 5 LX\n7 a eS ye eS -— i ; Sa Se Wey TG * sine te\n>. { - “ = ~~ «2 . - ~~ all -”~ al . abt ® >» ‘ sou AWS = y we\n> , “a net <n = s-) ae. ~~ ee — mie 2 . a os “as To |\n’ : > e . es - —ae\n. “? = ain ay ™ ' eae |S ee} Brox —_—\n7 . ~~ ; ss aie —— * i .\\ 5 + _ q < 4 he a\n_ = . . . — “ » ~~, = ° ~ - See .\n~~ _ = - — ng +46 A % S “\"* ~. * Me yg -\n-_—*~ - = > ~ 4 ' a - ‘ : = - _ _ a\nrp , f > - . ae — nxn\n. =. ~~ &> ll « . - s\n> . ‘fa - % PA = - 2\n* Cmts OF BS Te\n- . p . ‘ Af yet 4 oe ‘e _- 1 ~ fm\nb : aA << »* > x G ‘ a ¢ { 7 . 5 ® 7 ~* _ , ‘ t ' ~ fhe ‘ -\n_ ye Na ae » See ~~\n. ~ ta) TT A. tf - \\ . * ia = <. me\n- a . ar . P~* 3 , - ‘ <\ne ¢ . r “F- F ~ AX, iar oa > = “ “ , Se\nEe ae. | Qe, = ae\n- a» —< } . * - A a> - ‘ ; = ; 4 +\n' e —_ a - ~ Ty = - ‘~ < af. > ‘ ba, “2\nae * * > , al ms ; d ’\n- r : le .* - “ - . — . A Me - — . S =a a4 4.9 -\n‘ - adit ’ . , Os to et St ~ ~ . . as —"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 7,
+      "reference_text": null,
+      "text": "> —_ ne BIC% A Wo oe Se Sat :\n. Pa ar an <a aE r ee ¢ * ei SS reo 4\n4 _ a 2a a as a9)»: aes .\n», * ~< i ed + ~*~ ™ ie\n— P ——— are ~, ~ ‘ ‘ ., ; .\n. : J - re J et, ae » i Ff, oo =.\n- 7 , +. x 4 _ “ito E _ - : AF . \\ i = 7\n. .-<¢ a is 9 ey un,\n5° \"OS f _ «<¢, Stee Py ; = art ¢\naaa es ee = og _ a\n“a ~ . 6) Fs a. + 27\na = oo. . “Wg - & ' F #3 i, ‘ =a j \"a\n4 df rad ‘2/3 Gm ° eT ae > A\nf a — - Ss pf : 4 ru : 8 7 , . ES , ¥ y ~— ‘ ty\n— ' ae aa i é ‘4 j , ‘ oe\nae e* ioe —_ a ‘ / ft\n> - ~ ~~ - = , v. n ZT A — / j ;\n— 54 ~ . - ee . i- le ‘ . fd . 4 «>\n=3 a _ - \" A . . 4\n: / ¥ ‘ > , - ot. , uA t. Ned .. Q\na oon a4 _ Af - T 2a\" ” ‘ > : .* a? ee a eeeid ‘\n. ; _ atert ” > . . “. Y \"it a 2\n2 i r —\" 7 P+. As am, bs >. . ne cs - Pt. ~.\n_—~ .a % i US ee. aA\n2 aE Df ig ptibes Pa SC,\n<- ys _- tone Thee > wey * 4 te 4 a ‘ s La\n* a ; 4 -.\"— ~*~ a » - yi* = ‘4 _” o* - . ‘\na ~~. tt a pa . i A Fan 4. a as ~ ie '\n. ~” <4 , ie of <a ’ . ¥ * er, P é .. . , 4 ~f % > ' a, r » ; *. 5\n4 (-~ af he =.\n> bes . “+ © fe Pmehad ¢ _/ wae . - x ’ ; ‘ |\nOED pf 57\" 7 SRA. a _ %\n‘ cea eg y io ~—— im ~~ - -\nYo * > > ’ 2 —e oy e > bal oe > . . °\nr ov, *. mi < 3 ; : . en — .\no os |\n? ol } yr\n. ‘? - - ~4 ,\n’ . ie f-..2°.%* Aas ' , ‘ - :\nof > 4 ~r ” lh 4 ~ se ~\nPe Ww - * % — .\ne e if é . ~. *\n, , 4 ‘ «. _ \"aa ~- 7, - a! , i. ”"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 8,
+      "reference_text": null,
+      "text": ""
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 9,
+      "reference_text": null,
+      "text": "\" 4, * : -\nVAY ie Ge ~ AS\nSa? ma hy .\n\" cs ‘ “7 , 7 .\n» an an: = 4 ¢ Fey y cay\nps 4 “ bs oe 7 i * {*- —\" —\nae =. ; Mo oy i, “~~ a . : hd ; tng 22”\nr Ew 2. yy ' ’\nDF ais ee — a\nae trie ‘, -\n=f Pa. cee\n5 Z 5 . a rs . _\n7 ~—': J \\ < —\n“% 4 - 7 rn - veu _ . .\n, iP s -* Lee —\nse 5. aoe Re\nUwe. ie > > ee ; a .\n=. “ « on | hqe” ~ 4 N\npit : a - e ae ss . a\noe : oe Om ‘eel - A4.° ee ee oh “il —\n; ‘ .- 4 ~ . s+ = ’ = :\n. . ee ™ - : — > ] v a - a ~. = ae \"Rays,\nx, — ’ ; ee % ¢ , gan titer ad\n: » tl, >> Poet a. 7 : ‘ast = ye DS rekl\na eae) - es ime\n, - 5? 5 ey) | c, . * .\nOT\n“ <— ~-* Z (i)\n‘ a ‘ . a 2 .\n: ’ . >< “ee\n, a al 4 ? >... ated\nvs : ¥ ie ke + aa x “4 a zy i : “\n$3 > - ae aa a oe --\nra ; » * ‘s c ’ ‘ 4 :\nFd oo Me FT wi —_\naid , ' a ~ Se :\nYA om 5 : ‘ .\n. 7 2H . * qr\n™ . B yi 2 Rd * ’ < : . < s\n; - Kee oot a ag  &* ss 4 he , - ‘ ee\n» +"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 10,
+      "reference_text": null,
+      "text": ")\n7 eee ee eh eee he\n~ . a = ¥ bi _— & ? ) . a “ie ~ . *\n= AN eg Ro OS aaa a ee oe Se “4\nmy ®» ; \\- ; “~ , we a ee > . Ms\n> - ca . - ~~. \" + Pa ad\na J f ets a, \" sy ehh 4 ~\nea ¢ hy i ; , :\n; mm ¢ : - ws el iri < > ——\na nit : . 3 — abe a ieee af a” ;\nka : = eal “wl > & ™ pe t-— © « in S 2\nww\npS ee ome a\n. . . ;"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 11,
+      "reference_text": null,
+      "text": "g\n- oo fs ’ A 5 ~ 4\n- ' = ’ : a x : ‘ @ : Pie <\nge 3 m) f\n5 es & ran a3 7, PP\n— = . “ 7 * 7 +} A é\ny : , 7 a — =\n\n+ bs Sy 4 -\n\na r f on ~\n* f- «Pe an \\\nae. S. J : s ‘ >\n\n» ‘ of ¢ : — “ E .\n.. . , .\n- so , s aa\npt a) i,\nyr. > ee\n, y, ” .. oe oe *\n' ; om Aa? ty x, wy _ A\nt+ \" ae 4 z oe\n\n, a\n——. ,\n\nae _ . i —\ner. hee nO gO ~ 2, me Oe\n\n, y —w ."
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 12,
+      "reference_text": null,
+      "text": "’\n; ot z % , Pree\n\\ a. a vk ’\n' ‘SS = ‘ , : Se @\n4 = . a » , ; r)\n. ‘ > * 4\" *% - ‘A ‘ . 2 “\n‘ aa ; Ts Ud. t\n. +e ‘> & wi & ; — .. ave 1\n‘ , a AE : iy <\nove . ‘ i. ae\nt Xx / Pie pe ae\nSaree Ve , at ,* 2 © ff,\n>,” \\G aN Bs y* . ‘ % ‘ \\ ~ hrf\n“ ae ae a ttt = a = a8 yi\nr ‘ \\ , i > s > - * SN a : ‘ i ; col * Ein ; - r 4 es ;\n> ow - ware a ee ee Me a ' ey ss . ayy “4 <n\nSS ee ee\n“oe : ry 2 <n #, 4 . of es a - x% fis a\n-* = we. ~~ = 7? ‘Bus\ner ma ae ™ a » Be, ; o a ~* 7 4\né, “~~ . ‘oldu . ~*~ - §\n; ~ _ a ae 3 - — 4 a . ae 2\nve * a Ses\nae sie Ck 7 ' e % i> .*\n4 4“ < e yf hod ’ bi re. » ; :\n7 —- 5 a ~— p a\nJ , a = - : ad ! man ~~\n, , - : wr F\nae . ae ied - 9 . - ; 7” - ry\n, = i . 2 — —-\n’ = _*\nag - as\n: »*\nwe? - .\nc »* o\n¥ . : Ae ae\naa\nNo ae F :\n} _ fs 4 - Ps + :\n~ , “> ; > ~~\n> y r . * ~ - ” tw\nat c A > \\ -~, %\n“* oe , eed : 4\n~ “ f a c~ + te > 7\n- 7. ' ’ 4 ¢ i. ; -\n+ . 4) J > .\n<. & 4 Wwe ; a. |S\na \\. Sees. Soe\n; Ps , x ft \\ ea i oN\n£ ; c » : , 4 's in J ‘ _\n_ ‘ . : PA oO beet, - }\n' oe *’ , Y ee 4\n- \"a . . y y 4 ‘ J; te ~ x\n~2 | ~ a Ae ‘<r, ‘ ,\n¥ Ae . 7 ; ‘F ‘\n» & ~~ ~~ _— a\" as e .\n— e XY .\n: 4 > . = ae\nH € Fa > ~ *\na y ~ / sy Ee\naf\n*"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 13,
+      "reference_text": null,
+      "text": ". a\na » ot 2 VAI) LS a\n> Bee fa H D b . : i Wik \" ! ‘ Ae? LAS\nwes A ¥ yay yyy i ds a ma\n/ ee) ‘ ‘Y ar* ; ~ j ‘ ‘7 > {eg t\\ v4 ° K\\ “7 ff & ey :\nor fe\" ; ig f 7 yD ses +4\" P\n\" i. A ; ey ‘ ‘ - 4\n2 Sid) a id fi i ‘ i ‘s 4 Q a; é st\ni $ ‘ i 2, Py f 7 Fs .\nMog al a < a Ye dj ’ “o ‘es ae ae\nSes sa ) et oe ee ‘, a «} >y\nPacey PER ask a\nAp A , 4 p 4 ' ts eh ‘a. © . ‘\n® a t vy ‘ * i , 1 : e ¥ F by, ihe * v2) , > a\nall > 4 § % z oF a . vent ten “\n» ¥ 2 bf 5 ‘ ~ - 7+ 4 te * M\nve 7 hi u 7 f a owt - r. . -\na PRE. ne\nme % he i z St ad : iS\na 1A | F te a ae a\n- '_- ae oo ae 4 z ; 7 le \" « Ps\né ae Tl tee ae rom ae s\n« ‘ D . oe ae a ‘ .\nSt. sar . / ee : Pe. ‘. ? ad\n+ S a : £ 7 - M : . t ee of\n‘ yo, 2 ~ ae * Wy a | ie aj Th. a eS <=\n+ ie : reg z A oe = * ¥ i =\nge” Be. «Re on, SA\nS ® ot s eae ee 2 ee te\n“¢ $ 45 a ee) o. Soe a ae ] “ ~~. Vel ~s\neh fe A Ae ®\ned a ie gs ofa. pig ae iat ao De\na he > wh rs “ f Bs ae ‘ & , hb #2 = he - , | : ”"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 14,
+      "reference_text": null,
+      "text": "C= :\neS:\nae! 4 : x a * % , a .\n- wt st: ~~ : « , - |\n= oe -*. - J ia\n, a? ae 2 ty. See at ha ald — = St all - »y\nee ee gS Bo ae\n< + > za s ’ ~~ . 5 Mt ‘\\ . (are = 3 4 ;\nA 3 _- ¥ Mie a ‘ Ae td 4 ne = . Pion = -: yl\n. ny Cy ; oe a o f \"eh a td 4 i} : + ie t se. au\nF. ee ‘ . 3, ; —— ; Ve \\ r= es *, . Wo a\nPremhe) 7 «® s F- _ 4. fos We, = aS t Sat Sd ‘ ;\n— > - i> : > A = ‘ee  » {tS . % a\nLF . ~~ te u : # wr 5 ’\n. : 7 2 sie 2 : : F aD ee OP. wt 5 +e ee\n—.** he wy 4 ~“$ ea ada. a . a = m™\n3 ' ™ 7\n' ‘4\n? yf,\n¢ 4\n| : ‘ » * > ——\n4 nt tat * ‘\n: = y i. r 7% A ’ *\noe ¥ o Ss ’ 4 b _\n7 My ry 3 . 5 _ a . me 4 Lt\n“J 1 a ad ' i fox BAY) > wns’ hh 7 4.) a\n% 3 ’ Pye “- <t “ Fa . , .\n4 r - ( : b>) 4 . “4 % ee | : “> !\nS ) \\ j\" ot ee * ;\n‘~ _ . ee > . 4 ) 4 ’ =\na bs * ¢ . ; } . ‘ \"I = ‘a Pj - yy a\nVI , 5. ‘ ay »\\¢ ie | ws : +\nes . ; ‘’ . i “~ 7 Ms | —_— dys .\n. vs >. ot ; ‘. . * A, id 9>\no> An ‘ <i Wy ve x : ae"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 15,
+      "reference_text": null,
+      "text": ": . - . - : -\n- “le . : of °\n- ro ie \" ate a: ~ 7 ly hd Sy \\ : .3¢ ia ¢\n~ Z ) —. A - coat “ %/° . ’ ¥\nPr . Ling = > | pe Ag x =—\n2 _— om rs . ; , i\n: : Sah se ° eh i’. ‘\n; : ~ ae 7 eT ‘Po: — en, aa\nbag? , ge . c » 4 . Para => ’ . . . Fa\n: =2s- a * > te o—™ 4 ig, 9\n- . J 2% . Pm») wea . . £ . . mR - ‘ . ~~ Sma,\n_ ~ - 4 = > a = é P r\nsd Resa a. = fs ws .. 5 i ok : ia - . = Ta oat a\n«* a a hs ~~, A. Cx a . 2 , “es So” s .\nea > - se s ™ , : ad a g -\na“ a rs ef ¥ ~ < eS : _ -¥ ;\n¢ - : Ja**, ‘\n. ¥ ; ’ —\n\" ' a i al\n- = , i\n| see \\Y\nae - a ~ * a p :\n. @ 4 = ~, r . ts * —_* r « 4 “ Z On = . 7 . =<\na - 2 «Er ; ae oe —. . ™\n“ % . ' “1 : - - “ \"ee = - é zr oe\noe OK Soe ie See\n? - Rng > 4 - x ~~ z ~“~ : : Pe s\ni Capes A. ORs ee Sete gs\n— = 2 : ~~. > * $e\" ( — o y . : ' vel\na | > - — ~ a .\n= Te t bal “ — > ¥ > . . .-, I a. av¥a\n: _- ; 4 , a >. ; we se —_ : ~ 49 v. =\n. cs * . \"Sy ~ , - . > “4\n*. _- a . ee = °\nait = A 3 . ‘s -\n» a —— . | a\n, ~ ~ a “ ~\n4 \" wee? ”Y . ~ 2 - ee 4\ny ey s ¥ - «™\na ad = _ & i -~ ; wa . “ , + A vi 4 9; 4 fn\n~ a Fe. , oa oy Ie = a . wet s &. 4 5 ~~ : *\ns , “ ? = . ’ ' ey -_ a s 2 ‘ ; = aq p as =\n: bee | } , , =. ~ 2 -— -” 4 4\n« ° Lee be ~ a Se Xe “= = . wr ~~ ko ate"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 16,
+      "reference_text": null,
+      "text": "f+ = re a = . bo = = z »* “= a. —\n. a os 4 7 ies = : e i . is - * - a. ‘an =» «\n. . n AS : = <\n74 % ‘ : ~ > ~. © , = ” > . :\n-~ 1S ol << ? a gone ¢ : \\ ° a i ’\noy é = _ — . \\ oe ~ alt ~~\n-\"- ~~ <= - sare és nnd <. ws ‘\n- * “ = - - “Men <\nae . ~ i) . ’ 5 Se ' i cal ,\n- Ps “ * Ss < - a > te 4 <s . . ane he < a ~s\n- i ees, ot wr Bg\n& etn > ,\nim, * é on...) > oe —_ —_\nOM a er OCS ae\n+ & +. 2 yg? * +0 « fe ‘ Wai =\n2 .* - 4 % \" c _ . . re .\n- atte pm, * ~ (i ve om\n* 7 < \\ ‘ . . . “ - ~ - -* a a A s\na ~ Ve ol ener Bek: ~~ om ee\n. - ys . “ see : Sieg\nae 7 * ‘ , ~~ i ‘ : es ~-\ne”» “a, :,! — . . i.) ; ‘\n; ma ¥ a a 4\n\"I ’ — . v : “9 - : ~ Y * -\n, 4 . ~e » q ‘ . 4 i . 5\" *\n: . . to a Se ‘ ~\n*~ >. 4 A ty “he os } rnd a ~ \" / .\n. ”~ ; = “Re  * 72 4 : & ee ~ “+ le ’ 4 e. hes.\n_ ¥. , mS w.*- : Ss , , ‘ , sy +\n™ ate aa ‘ zm &. > Ve = JA a\nrf - = ae 7 », a ee > * ~*~ <3 . 5 a 4 —\nan ey NF as\nSei”. “bse o>"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 17,
+      "reference_text": null,
+      "text": "he ™ - aw . o\n; Pf? *. 4 Dan ae) . <\n< ‘Ses . < a be J pt ~ ' a \" £ ¥., ~\na ~~ ,. —~” « a - = pat “' Py - - fs\ntd vag ? , a - £ \" ; We : |\nMe ; ~~ ag ; 7 ma 9 lie\n/ “= ; \"a We sas hie\n3 ~< a Wt RA\n~~ > , : pe <. a’ x 2\n- : ad -. a oe adh i ‘\n, ; \\? i — ru ee\n» ‘Ss s Le |\n' = ; i ee fe. j %\n-- ~~“ + ok he s j r “ef ‘\nra a®& . * j wy P \"\ns » eo > Ne € Me. . S\ni te» A os : pao\n2 a Sy il 2 m4 es 5 A io? td - -\n(Oo “o> oe ee pa fo asere ca. eee '\nPe - 4 - ¥ —” > . PS. %. “* re. 2 - Pay\nae ee tt cD: AS ae te . Ce Ss ”\noa ~ he ae . . uk ~? se\nMee te er\naw, > oP . Yoex ) a\nay A * - _- ? P= = |\nZ . Sa’ Yd Fe. eS ' ~~, , ba\nty } 7 :\na ‘ f , “ -« é ?, ‘\n. pot * . ~ “i ; 74 = —\nPp - + yy - . e ~ . |\nbe - F , . , pf Se\na - = > ag a =\ngr, “4 2 v * —. .\n% + = 2 “a eee “*. ie ele * X. \"i 2 - > bas\niS © alco oid. See a\nrece d > 9 A) ? et n ? , ~ ~~. : ~\n26 wy 3 . : - Cd - - on P oy\nY oe v > . ie > © e >a vig . :\n4 5 ~ & 4  /?_.- or ez aes fr ns > Sal\n* , . . * i } wal : on \\ “i ee. , ae eee\nwi . z te , », x 7 = ~ ee . 5,\n; <i / . ’ .\n—— - : . > : -\" , a : a4 4 $4 a\nn :\n; * ‘s\n* ”\n; é\na"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 18,
+      "reference_text": null,
+      "text": "ss a.\"\n. t\naM he : 4 ’ . od ‘ i > .\n“Nad ie wT ‘ :\nae | ee J :\na ™ 2 i. a ee A ; 24 af\nhi Fear. oi ~\n4 \\ 1 \" at Avey . * by . ‘* 7\n¢ —_ s ‘ $. , ree 4 ~&\n} : -t <i a. a - Os ‘\n‘ , c A s | P ‘ ‘ Pa -* . - ™\n. a ae. uf - x Sy 5 .” * ;\nay ve , \" a I . 4 - .\ney ; ’ i ; ; P , Ae AA ry ‘\na fi 4 . ~~ s.\" - x 7% bes .\nj J se ‘ wt BS) r)\n} 4 : ‘s 1.\n> s Pi - . ~ , \\ . ay\nae: PS.\n=_ a ee - ”\n- ; . . ?\nae. Oe” | GD,\n* Ae a 2: % |\nene <x YOR 4, eS * been\n— ie O\\. 5. re AS : ; ea\n& \\y ‘So ls —— A ; » = | ‘* ,\n4 o er . .\"* - y ay - ¢ “ * 7.\nay - ” We: : = ws ev - - a». -¥ 7\nSE dens Pr , : - . +4 z ~ Wo ;” » “é Ps\nee “ ; ' ar ‘ ) —_ >\nee bf . = * 2. P 7 os : wi Wy . |\n- vee ’* , 4 wf\n; ~ ,é\na - - ——- ~~\n£.\n—_ ,"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 19,
+      "reference_text": null,
+      "text": "a |\n” ad oa“: “ i ive < wm 4 ~ . pe\nSe a LI\n—_ = / ‘ - ; r s ’ xa : . ‘\nOM thes * Le:  - ge at le as.\nD * << _ ; : “= ‘ a ~y ; of >\" ~*~ ‘ a.\n< ” er. ¥. ” ie . ue thy y ; - # . + a . a:\n, = o = J ; = > : v § po = . ra « — bt : . ay : o Ss\n~ i “ a ‘£ = bs cy ae > a /.\n“s a a . a a _- s 2 & Ry x * ot eS} oy\n‘ J ” ; ; ee | st oo ° a c. , [ene > =\nee i MEO A RN\n‘ a) fe ' > MBs rep [wt ; le >»: Y\n: : ar > es “so bs a . ’ f ade ' % | « af\n= add eal — -— \"s j\nRe , : eS att LH ay\n_ . . , a at a\n. 4 ‘ o# ag ye . : - eS nl © te\n— At ot “— ‘ La vr ‘\\ +e\n. ; a ae oe Ler 4 tom - at ee = 7 oS\n> ir. 7? ‘%' ’ , \". aw“: ee om * . —— Ye\n.. Bd satel A »\" (> } . ol r+ i P\n» ,« “ AN es . f\n: . , . Ls ae . 2 a f > . 4\n~ “& Kees : i et ; > 3 ” oe [= 744 ~P <a _ > 1 ; - bs\n‘ RS ee ths ‘ t « rs . ' . oh \" oy he , ‘ sc? _ . ™ ; ie: sh “—\"\ns %.-~ * .¥ if . ss Pn > A : it |\n— ~ z Parts > ote o% ‘ , .. - Piet 4. b « » “¢ yas 7\n: ; eee < ) . ae m2 ;  < an  rF : ‘Sy ey\n. \" ays ‘ sd , . AA . ‘\n7 . as > , ; Z “ < ~ : *% ., . ; ~~ , +3:\n‘ €e | . - eath a — aS PA ow NU a ee oo)"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 20,
+      "reference_text": null,
+      "text": "| Zee OF :\noe? ae ' {Aas\n; i m\nae - / Se. ; ‘ a ' % . : ; e,\n: ae 3 BaZa + P ee cr ep\n« - ties : : Ja ss ~ ve Py _ °\nm4 - ‘ * A ale a a Z wa\nts - . ee ail 3 i er ~ . “\ni\\ — A\\ a - 7 \" rf i. ; —— M = ‘ | - 4\na oo ee va\n. o _D- a eae Fe= \"i oa. & -,) ~* pe. . : - : / we ce i. i ‘4\nae . ied oe »? or. a F : as A\nat , 2 b & ¥ * . * . = “- . \" * 4 od\n>> : , OR = 4 e « thee ’ ee ss\n, ; 2 ¢ . 7 . ; ‘oy Va 5 a r, ?\nme ate Reg\na 4 a > o~ : i ~ — 3 . :\n3 , g , ¥ i ate ‘eo we a “-e “- A... <a , - :\ny , ; - 2\" ; 7 —  —, so ue - - “ . 3 z\n‘ ‘ a r a ie an,\n&> a ae P A = my : a a < 7 a y\n- -<_ = > a Tre. he ecie -\n4 x e at ae ae 7\nas"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 21,
+      "reference_text": null,
+      "text": "- Ay = :\nen Wegee  e ‘\nay \"ene, J ; aa | “9\n; . =~ ;\nPik a ae Nip\na - . % .\n“at . ie ie\n| oY Scans |\n1: |\nmy hd\nare\nae"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 22,
+      "reference_text": null,
+      "text": "7 *\nFA"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 23,
+      "reference_text": null,
+      "text": "Rea are... «+ . : “ ae . \" . :\na . we ¥ a ohs 7 < ™ ’ é ‘ e -\n4 at rae. ce ~ PA ¢ 4 , = . ee a : ss ae\nete gS vie 2b Se\nbs o. m _ - - . P a 34 » te : .\nFT ae gi * fd , 8? '¥ . 4 ‘ iy S a Pe .\nBax 7 ¥ As eo % om Pe 2G 3~ il =. =f aah ’ . : en fat” ma\nae ; fr Ay ee rte t - : a ¥ re t 4 y : y, . ; : Nd i 3 a :\n: ». ~) (Agee > 88 Ae re ee. F 2 ‘Sti = A Sf a Ay ™ : ig oe :\nra’ > . “4 oo er ae oe me as ~o Te we 7 - ~~ ~~. >\niv 4 iz : a ” \"4G “sie a \" 4 Q*. a“. J a “3 ba ; 4 st\nna Re Le ” & ! ‘oo +» Sey : . 2 ae aes 42-4 et %e Py \\. yy=.* F < ? f ey “4 as,\n. Se — x o 4 » Sy i erst * i a 7 * in5 ay ff - J\nyj eto ee “3 \\ Pe\nean \"SS ee a ae or S. .,\ny _ ° , * i al Saat so lS | —_ e . : , hee oe v : + 7\n’ , TF dle : la ‘¢ . ‘ ~ + és se\nCO a oF eee\n, oh aL wy ay Oe | iy N x ré \\ Ss ——\nek fA + 2 2 = a oy ; ~ -\\ 4 r Pte a o /* — . oF. ky >\na” 3 it Spe 3: , - ES abl Mh wD ; * = “i , , Pt Sve? ae : °\nt. wh x /| in ee et > =) ga i” “Sing ' : iy? ; = J - i -\noe ey oe AR | cand gael had pb eee\nt-4 <a ~~ t = 4 . - - 2 ” spi r Ye = al “rg =? ie, = et 7\naa oA q 3 0) Soke ee Xg\"sat\nme. “ 4 3 8 . a » — mc RY , yd ; b9 yr > , 7 r y ‘\na oe i ERE b ~ 2 Wn ~~ er oF ; Ps ie _ : : ‘-\n5 =. a 4s, He, _ Ps <= ° ki oe . 3 . . ae a — \\- Priags >= = i, seat .\n7 , , «A ' : y Ly y\n| BIS CRNEO Bos we"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 24,
+      "reference_text": null,
+      "text": "- . 45 -- = a es = P Ce es 2 atl i Se Oe\nEe oo ee Mage Ba og ey Re\n. a %: , 3 \" Rt eo a ye snd Oe > LA it on a = Pity i = . * oe, a a — ~~. é\n-<~ ow <—~ ~4 3s > > 5 hs ed ‘ £ ey. <- ~~ v a pe ie?\nwe es. EN ie +. > er, ws eae 4 : Va : a) ~' ye ood Lr th, ;\n. o : Pa . Sak; = =~. : a + , ae if x aon le 2 ass a\n4 , AT aX — ‘ 2, : _ . 2 /\n' : . ba 4 \\ + \"<k . \\ -. i oa - “i x. . . — of ; ‘  * _ - ae = ~ as f Vz ae ne\n, ' ro ’ fee < \\ : ‘Ss - _ - 7 ; ‘ng . \\ “a” + -” a a ' tus ,\n~, 7 Aa © ° Oe ae a ee Ue mt 3 % a Ao.” Ra ee\na * > mak . abe _— —-_ - NP . ue} . = a pall «B) - : \" / t\n~ a 5 5 ./ 5 -. <<) -~ : —* rf : 4 ;*\n|. a CREAN hee Fy OS ae\nZ - p ath ' We if ’ ¢ 2 ry , 4 ae Vl , A . , : a e ’ (3%\nhy, mes . > ‘Salone \"y ’ + ; An Pe pees ie ,\n. : ; a e ~~. a Ri ar ve ; ¥ = , 3 ; - x ie, k ll “s ae y . , | -\noe pS Oo OCS» Pa Dy eee\ni Gel i: SAR Mee\n, 6 ' i) . ; q P 4 : “ j é M ,\n| , ee ee . ee Serie ti Ya ‘\n. wf, , My va ¥ . . *> se ad A : . » Py\" : ‘ +2 oa a ~ ~ all R\n\"= ae | : : <' oa — Se - \" Te ee\n| aot: ¥, a <e 7 a ‘. AS 2 pie ee =\n* “< 4 la 4 a t e * s “2 yf ~ “¢ = *. ee\n: °. ¥} © mad . Bath ; : hy aA, *~ (ef : > a as “ee\n. “ a Pas — > << ae ; 4 A, ' a #_y- ,\n3 . 7 af ‘43 : ; > o> ese\n¥ : - s “ } 4: ‘ ‘_ . 4 = 3 ~\n>\" ‘ vr -* . + * ~\n, ? ~ . a > . ” alld oe ¢ P r Ra . ' er\nee\" ) > 7 . pS ak -} ' — sd ; ‘ ~?\n: . a = ~r * ~*~ AS ~ SR.\n‘ SE UP FE ai (4 , , a\n7 =\" a es al, ‘ we :\n. » ‘ > “, My \" ; , ? 4 _ _—"
+    },
+    {
+      "character_error_rate": null,
+      "levenshtein": null,
+      "page_index": 25,
+      "reference_text": null,
+      "text": "= i” <9 sh. Jae\n: = =\" &, * a Ye Oo\n' 4: a —< < _ *  — -< > Xr. \\ : ( ~~)\n\né ~~\" de \" > - -~ : - ; ee ¥, Ang NX x/ \" \\ } 4 oP ay =\nS+7h4 etn 4 é Si = ee \\ By 6 £4 mn\n48 Zt - ad pS rs Sag, : ty ee as : | |\n\n. ' * + o - - . 5 4 »* ‘ | ‘\nP ~~ - 2cy SD ci 2 - - - ~~? ~ % - re ‘ . 7. * ~ .\n2 . . o o” sy '\nime “aa _ woe es ate ew > -\n. ae o De TA ‘ ae fo a * ‘3 .\n\\g it. - —, “es : id . a +23. 1\n. < “4 « wy ’ . =? a> > “ey “\n‘ sf I ¢£, ¢* . ee ~ — lt eae . ‘ i i “id t < til\n- = : *? } yo me ~ he “ a oe\n. or] nd * ’ _ Ces pi - ‘ y . . ‘ ‘ coc, | .\n“* a A aos “) > - - >\n| er os GAAS LB Pe\n» : - _t 7 ~ SP. eS ~~ -. ‘aa 4 ae > ¢\n/ ~ ° os 5, Siete s ~ + Sie ops ; tad f a > Ae Qe\n. . . er +a = - = tée St ie, =~ ° ma 4 is ’ ' 3 ‘= , dort ~ ~ = v\n«2s . = 3 A — o- rly - Y a . ae ‘e , * \" ‘a ~ P < “\n~, . - ° ++ . *. ~+ ‘ ¥ . ~~ ve << Ps > .\n4 a. 7 —<_ ~ \"5 . a j t on ‘2 < om ;\n[ey ut? ~ \"oss S eA : ee SR yt\na, > a Pe % ”y ih w — & ad = > 782 a “Aru?\n- . pe . = A ¢ *, < Stee ~ Q “ . ( a }\ner, al wae 4 a : , 2 bre 4 £ ~~? = ~\n. ; os afl - Pad : %\n. - . a \\ F\n; - * an a: - e\na SP ¥ ) A es *~ =\n& . ee My : o\nat a ae 4 -\n*\" - . °\nyy koe, Sey eet 7 <\n<= “6 a - ad - ~~\ncS Fs “ - ? a =a\" ~~\n. : * ~~? ae * oe & ' -\n‘ 4 PL ee oe a\n= =e: o 1 oe Thay : en 4 <\na ¥ : . Su > IS “a” v\no ~ + : oi - x 2\n- A -. . ff < ; = . oe = aa\n. Z a » ©\n* fig ™ t . =< —"
+    }
+  ],
+  "pages_processed": 25,
+  "schema_version": "0.1",
+  "source_bytes": 4474275,
+  "source_sha256": "1efa122279f8a21109fe1c1da90bd38944e727ec066f81826d057ffdd33a59a9",
+  "source_url": "https://documents2.theblackvault.com/documents/projectbluebook/ProjectBlueBook-SocorroNM1964.pdf",
+  "tesseract_version": "tesseract 5.5.3"
+}

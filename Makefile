@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic recovery-check experiments-check docs clean files-check sources-check fusion-baseline
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic recovery-check experiments-check docs clean files-check sources-check fusion-baseline disclosure-ocr
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -57,6 +57,8 @@ floor:
 
 fusion-baseline:
 	$(UV) run --locked xenia fusion baseline --lat 31.0 --lon -118.5 --start 2004-11-14T00:00Z --end 2004-11-15T00:00Z --radius-km 800
+disclosure-ocr:
+	$(UV) run --locked --extra disclosure xenia disclosure ocr tests/fixtures/disclosure/known-answer.pdf
 
 floor-evidence: floor
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

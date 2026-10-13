@@ -48,5 +48,8 @@ data/
 !/runs/**/baseline.json
 !/runs/**/cneos.json
 !/runs/**/gfz.json
+!/runs/**/ocr.json
+!/runs/**/hand_lines.json
+!/runs/**/count.json
 
 .DS_Store
