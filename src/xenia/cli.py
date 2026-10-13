@@ -8,10 +8,10 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-from xenia.live.pages import render_experiments_index
-from xenia.fusion.baseline import run_baseline
 from xenia.disclosure.models import IncidentTelemetry
 from xenia.disclosure.ocr import count_ocr_pages, prompt_text, run_ocr
+from xenia.fusion.baseline import run_baseline
+from xenia.live.pages import render_experiments_index
 from xenia.live.render import render_site
 from xenia.live.server import serve
 from xenia.live.state import build_state, load_manifests, manifest_paths, read_git_sha
@@ -687,6 +687,8 @@ def _parse_utc(value: str) -> datetime:
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise ValueError(f"timestamp must be timezone-aware: {value}")
     return parsed.astimezone(UTC)
+
+
 def _load_references(path: Path, root: Path) -> dict[int, str]:
     """Load hand-checked page text from a JSON object of page numbers."""
     payload = json.loads(_inside_repository(path, root).read_text(encoding="utf-8"))
