@@ -20,6 +20,7 @@ from xenia.live.models import (
     Verdict,
     WorkerStatus,
 )
+from xenia.live.pages import cadence_asset_urls, render_detail_pages
 from xenia.live.plots import render_floor_svg, render_sky_svg
 from xenia.live.state import ManifestLoadError, load_manifests, manifest_paths
 
@@ -88,7 +89,12 @@ def render_site(
 
     copied_manifests = _copy_manifests(manifests, runs_dir=runs_dir, output_root=output_root)
     rendered.extend(copied_manifests)
-    copied_assets = _copy_state_assets(state, runs_dir=runs_dir, output_root=output_root)
+    copied_assets = _copy_state_assets(
+        state,
+        runs_dir=runs_dir,
+        output_root=output_root,
+        extra_urls=cadence_asset_urls(manifests),
+    )
     rendered.extend(copied_assets)
 
     status = worker_status(state, now=now)
@@ -108,7 +114,7 @@ def render_site(
         metrics=_metrics_context(state),
         gallery=preview_hits,
         map_accessible_pointings=state.pointings,
-        sky_svg_url="sky.svg",
+        sky_markup=sky_output.read_text(encoding="utf-8"),
         floor_svg_url="floor.svg",
         generated_at_text=_format_utc(state.generated_at),
         repo_url=state.meta.repo_url,
@@ -130,6 +136,14 @@ def render_site(
     feed_output = output_root / "feed.json"
     feed_output.write_text(_feed_document(state), encoding="utf-8")
     rendered.append(feed_output)
+
+    rendered.extend(
+        render_detail_pages(
+            manifests,
+            output_root=output_root,
+            template_dir=template_path.parent,
+        )
+    )
 
     manifest_index = output_root / "runs" / "index.html"
     manifest_index.parent.mkdir(parents=True, exist_ok=True)
@@ -324,9 +338,15 @@ def _run_id_from_path(path: Path) -> str:
         raise ManifestLoadError(f"cannot read run_id from manifest {path}: {exc}") from exc
 
 
-def _copy_state_assets(state: LiveState, *, runs_dir: Path, output_root: Path) -> list[Path]:
+def _copy_state_assets(
+    state: LiveState,
+    *,
+    runs_dir: Path,
+    output_root: Path,
+    extra_urls: set[str] | None = None,
+) -> list[Path]:
     """Copy only assets referenced by visible state items and enforce size limits."""
-    urls: set[str] = set()
+    urls: set[str] = set() if extra_urls is None else set(extra_urls)
     for item in state.gallery:
         urls.add(item.thumbnail_url)
         if item.plot_url is not None:

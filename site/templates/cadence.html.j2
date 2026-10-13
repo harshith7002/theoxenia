@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ target }} — {{ cadence_id }}</title>
+  <link rel="stylesheet" href="{{ stylesheet_href }}">
+</head>
+<body>
+  <div class="page-shell">
+    <p><a href="{{ back_href }}">Back to Mission control</a></p>
+    <h1>{{ target }}</h1>
+    <p>Cadence <code>{{ cadence_id }}</code>. Status {{ status }}.</p>
+    <p>Coordinates {{ ra_text }} deg right ascension, {{ dec_text }} deg declination.</p>
+    <p>Window {{ window_low }} to {{ window_high }} MHz. On-source seconds recorded: {{ on_source_text }}.</p>
+    <p><a href="{{ manifest_href }}">Open the run manifest</a></p>
+    <h2>Command</h2>
+    <pre class="command-block"><code>{{ command }}</code></pre>
+    <h2>Plots</h2>
+    {% if plots %}
+    {% for plot in plots %}
+    <img src="{{ plot.href }}" alt="{{ plot.alt }}" loading="lazy" decoding="async">
+    {% endfor %}
+    {% else %}
+    <p>This cadence manifest has no six-panel plot URL.</p>
+    {% endif %}
+    <h2>Hits</h2>
+    <p>The five checks are {{ check_names|join(", ") }}. The manifest stores how many were recorded. It does not store a separate pass bit for each check. Review is unsigned unless the manifest says so.</p>
+    {% if hits %}
+    {% for hit in hits %}
+    <article>
+      <h3><a href="{{ hit.page_href }}">{{ hit.hit_id }}</a></h3>
+      <p>{{ hit.verdict }} · {{ hit.freq_text }} MHz · {{ hit.drift_text }} Hz/s · SNR {{ hit.snr_text }}</p>
+      <p>Checks recorded: {{ hit.checks_done }} of 5.</p>
+      <p>{{ hit.explanation }}</p>
+      {% if hit.known_source %}<p>Catalog range: {{ hit.known_source }}</p>{% endif %}
+    </article>
+    {% endfor %}
+    {% else %}
+    <p>This cadence manifest records no hits.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

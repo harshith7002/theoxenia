@@ -8,6 +8,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from xenia.live.models import DetectionFloor, Pointing
+from xenia.live.pages import sky_href
 
 _VIEW_WIDTH = 640
 _VIEW_HEIGHT = 330
@@ -40,7 +41,7 @@ def render_sky_svg(pointings: Sequence[Pointing], *, demo: bool) -> str:
     )
     grid_markup = "".join(f'<path d="{path}" class="graticule" />' for path in paths)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_VIEW_WIDTH} {_VIEW_HEIGHT}"
-     role="img" aria-label="{aria_label}" focusable="false">
+     class="sky-map" role="img" aria-label="{aria_label}" focusable="false">
   <defs>
     <clipPath id="sky-boundary">
       <ellipse cx="{_MAP_CX:g}" cy="{_MAP_CY:g}" rx="{_MAP_RX:g}"
@@ -236,7 +237,7 @@ def _render_pointing(pointing: Pointing) -> str:
         f"{pointing.survivors} survivors",
         quote=True,
     )
-    link = html.escape(pointing.manifest_url, quote=True)
+    link = html.escape(sky_href(pointing.cadence_id), quote=True)
     if pointing.status.value == "running":
         marker = (
             f'<circle cx="{x:.2f}" cy="{y:.2f}" r="5.5" class="search-ring" />'

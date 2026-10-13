@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic recovery-check docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence live-once live-forever voyager floor-smoke floor floor-evidence cadence cadence-synthetic cadence-synthetic-reduced queue queue-synthetic recovery-check experiments-check docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -29,7 +29,10 @@ schemas-validate:
 files-check:
 	$(UV) run --locked python scripts/check_repository_files.py
 
-docs:
+experiments-check:
+	$(UV) run --locked xenia docs experiments --check
+
+docs: experiments-check
 	$(UV) run --locked mkdocs build --strict --site-dir /tmp/theoxenia-docs
 
 live-build:

@@ -8,6 +8,7 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
+from xenia.live.pages import render_experiments_index
 from xenia.live.render import render_site
 from xenia.live.server import serve
 from xenia.live.state import build_state, load_manifests, manifest_paths, read_git_sha
@@ -164,6 +165,15 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--config", type=Path, default=Path("configs/live.yaml"))
     run_parser.add_argument("--queue", type=Path, default=None)
 
+    docs_parser = top.add_parser("docs", help="generate checked documentation from manifests")
+    docs_sub = docs_parser.add_subparsers(dest="docs_command", required=True)
+    experiments_parser = docs_sub.add_parser(
+        "experiments", help="write or check docs/experiments.md from run manifests"
+    )
+    experiments_parser.add_argument("--runs", type=Path, default=Path("runs"))
+    experiments_parser.add_argument("--output", type=Path, default=Path("docs/experiments.md"))
+    experiments_parser.add_argument("--check", action="store_true")
+
     return parser
 
 
@@ -176,6 +186,9 @@ def main(argv: list[str] | None = None) -> int:
     root = Path.cwd().resolve()
 
     try:
+        if args.group == "docs" and args.docs_command == "experiments":
+            return _experiments_index(args, root=root)
+
         if args.group == "schemas" and args.schema_command == "export":
             directory = _inside_repository(args.directory, root)
             changed = export_schemas(directory, check=args.check)
@@ -487,6 +500,24 @@ def _build_state(args: argparse.Namespace, *, command: list[str], root: Path) ->
         f"State written to {_display_path(output_path, root)}; "
         f"run_id={run_id}; manifest={_display_path(manifest_path, root)}"
     )
+
+
+def _experiments_index(args: argparse.Namespace, *, root: Path) -> int:
+    """Write the experiments index, or fail when the checked-in copy is stale."""
+    runs_dir = _inside_repository(args.runs, root)
+    output_path = _inside_repository(args.output, root)
+    text = render_experiments_index(load_manifests(runs_dir))
+    if args.check:
+        current = output_path.read_text(encoding="utf-8") if output_path.is_file() else ""
+        if current != text:
+            print(f"{output_path} is stale. Run xenia docs experiments.", file=sys.stderr)
+            return 1
+        print(f"{output_path} matches the manifests under {runs_dir}.")
+        return 0
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(text, encoding="utf-8")
+    print(f"Wrote {output_path}")
+    return 0
 
 
 def _render(args: argparse.Namespace, *, command: list[str], root: Path) -> None:

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ hit.hit_id }} — {{ target }}</title>
+  <link rel="stylesheet" href="{{ stylesheet_href }}">
+</head>
+<body>
+  <div class="page-shell">
+    <p><a href="{{ back_href }}">Back to Mission control</a></p>
+    <p><a href="{{ cadence_href }}">Cadence {{ cadence_id }}</a></p>
+    <h1>{{ hit.hit_id }}</h1>
+    <p>{{ target }} · {{ hit.verdict }}</p>
+    <p>{{ hit.freq_text }} MHz · {{ hit.drift_text }} Hz/s · SNR {{ hit.snr_text }}</p>
+    <p>Checks recorded: {{ hit.checks_done }} of 5. The five checks are {{ check_names|join(", ") }}. The manifest stores the count, not a separate pass bit for each check.</p>
+    <p>{{ hit.explanation }}</p>
+    {% if hit.known_source %}<p>Catalog range: {{ hit.known_source }}</p>{% endif %}
+    <p><img src="{{ hit.thumbnail_href }}" alt="Waterfall preview for {{ hit.hit_id }}" loading="lazy" decoding="async"></p>
+    {% if hit.plot_href %}
+    <p><img src="{{ hit.plot_href }}" alt="Six-panel plot for {{ hit.hit_id }}" loading="lazy" decoding="async"></p>
+    {% else %}
+    <p>This hit has no six-panel plot URL.</p>
+    {% endif %}
+    <p><a href="{{ manifest_href }}">Open the run manifest</a></p>
+    <h2>Command</h2>
+    <pre class="command-block"><code>{{ command }}</code></pre>
+  </div>
+</body>
+</html>
