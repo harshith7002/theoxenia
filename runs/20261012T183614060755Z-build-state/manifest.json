@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261012T183614060755Z-build-state",
+  "pillar": "live",
+  "command": "xenia live build-state --runs tests/fixtures/live --output runs/state.json --demo --experiment-id EXP-030",
+  "parameters": {
+    "runs": "tests/fixtures/live",
+    "output": "runs/state.json",
+    "demo": true
+  },
+  "inputs": [
+    {
+      "uri": "tests/fixtures/live/demo-cadence-001/manifest.json",
+      "sha256": "37dbda8fe7d0846050caa112495762832211984131c68e4a3eefefc9cadadfd5",
+      "size_bytes": 1911
+    },
+    {
+      "uri": "tests/fixtures/live/demo-cadence-002/manifest.json",
+      "sha256": "57061a5e99bf5116bbf25b9e7dee082308c0914ce60180973438ebc9f992897d",
+      "size_bytes": 1440
+    },
+    {
+      "uri": "tests/fixtures/live/demo-cadence-003/manifest.json",
+      "sha256": "494e61c5e4c69ee168be11ebb3eac7d56a589fc0eb373a0e2e72af5cc1dc0a72",
+      "size_bytes": 907
+    },
+    {
+      "uri": "tests/fixtures/live/demo-worker-001/manifest.json",
+      "sha256": "565516d41649cc5271d558a77fbd82ba5fb2b42487359a090027337c80c5181f",
+      "size_bytes": 844
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/state.json",
+      "sha256": "7c34464965173143c2d169d327161b70d88518ee2d4a20ff4d1fd9b6a8bdb065",
+      "size_bytes": 4462,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261012T183614060755Z-build-state/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "e9db4be",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-12T18:36:14.060755Z",
+  "finished_at": "2026-10-12T18:36:14.095160Z",
+  "outcome": "demo_state_built",
+  "notes": [
+    "Synthetic demo fixture state; no telescope observations were read."
+  ],
+  "experiment_id": "EXP-030",
+  "demo": true,
+  "mission_control": null
+}
