@@ -1,0 +1,192 @@
+# Mirror of the Data Sources database on 2026-10-13. Nineteen rows.
+# xenia sources check probes probe_url and records the measured response.
+cap_bytes: 65536
+timeout_seconds: 25
+user_agent: theoxenia-sources/1
+sources:
+  - id: mast-jwst
+    name: "MAST — JWST and HST spectra"
+    notion_url: https://app.notion.com/3f6073ddfc5c8101ac04c9120c566606
+    endpoint: https://mast.stsci.edu
+    probe_url: https://mast.stsci.edu/
+    access: "Open · no key"
+    pillar: "I · Sensor"
+    domain: Exoplanet spectra
+    formats: "FITS (x1d, c1d), HDF5"
+  - id: aaro
+    name: "AARO — All-domain Anomaly Resolution Office"
+    notion_url: https://app.notion.com/3f6073ddfc5c8104b0e8d42e4ed3e084
+    endpoint: https://www.aaro.mil
+    probe_url: https://www.aaro.mil/
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Declassified records
+    formats: "HTML, PDF, MP4"
+  - id: technosearch
+    name: SETI Institute Technosearch
+    notion_url: https://app.notion.com/3f6073ddfc5c81078d38d3d3a6a1c8df
+    endpoint: https://technosearch.seti.org
+    probe_url: https://technosearch.seti.org/
+    access: "Open · no key"
+    pillar: "I · Sensor"
+    domain: Radio SETI
+    formats: Web catalogue
+  - id: galileo
+    name: Galileo Project (Harvard)
+    notion_url: https://app.notion.com/3f6073ddfc5c810cb709f1a3808e8208
+    endpoint: https://projects.iq.harvard.edu/galileo
+    probe_url: https://projects.iq.harvard.edu/galileo
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Civilian incident data
+    formats: "FITS, WAV, HDF5, CSV via Harvard Dataverse"
+  - id: gfz-kp
+    name: GFZ Potsdam Kp index archive
+    notion_url: https://app.notion.com/3f6073ddfc5c810fbd78c5600c577901
+    endpoint: https://kp.gfz-potsdam.de
+    probe_url: "https://kp.gfz-potsdam.de/app/json/?start=2004-11-14T00:00:00Z&end=2004-11-15T00:00:00Z&index=Kp"
+    access: "Open · no key"
+    pillar: "III · Baseline"
+    domain: Space weather
+    formats: "JSON web service, text tables"
+    content_type_prefix: application/json
+  - id: noaa-swpc
+    name: "NOAA SWPC — space weather JSON"
+    notion_url: https://app.notion.com/3f6073ddfc5c811e88ced2dae35edf77
+    endpoint: https://services.swpc.noaa.gov/json/
+    probe_url: https://services.swpc.noaa.gov/json/planetary_k_index_1m.json
+    access: "Open · no key"
+    pillar: "III · Baseline"
+    domain: Space weather
+    formats: JSON
+    content_type_prefix: application/json
+  - id: celestrak
+    name: Celestrak
+    notion_url: https://app.notion.com/3f6073ddfc5c81428c17dfa014fd41b4
+    endpoint: https://celestrak.org
+    probe_url: "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=json"
+    access: "Open · no key"
+    pillar: "III · Baseline"
+    domain: Orbital tracking
+    formats: "TLE, OMM (JSON, CSV, XML)"
+    content_type_prefix: application/json
+  - id: nara-rg615
+    name: "NARA Record Group 615 — UAP Records Collection"
+    notion_url: https://app.notion.com/3f6073ddfc5c815a9068f1543389b6e5
+    endpoint: https://www.archives.gov/research/topics/uaps/rg-615
+    probe_url: https://www.archives.gov/research/topics/uaps/rg-615
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Declassified records
+    formats: "Digitised PDF, TIFF, JPEG; JSON metadata via the Catalog API"
+  - id: adsb-samples
+    name: "ADS-B Exchange — historical samples"
+    notion_url: https://app.notion.com/3f6073ddfc5c8164a110e679f8d9f9ce
+    endpoint: https://samples.adsbexchange.com
+    probe_url: https://samples.adsbexchange.com/
+    access: "Open · no key"
+    pillar: "III · Baseline"
+    domain: Flight telemetry
+    formats: "JSON tarballs (readsb-hist, traces)"
+  - id: scu
+    name: "SCU — Scientific Coalition for UAP Studies"
+    notion_url: https://app.notion.com/3f6073ddfc5c8183a8cff17b7ff80fb2
+    endpoint: https://www.explorescu.org
+    probe_url: https://www.explorescu.org/
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Civilian incident data
+    formats: "PDF, CSV, Excel, KML"
+  - id: bluebook
+    name: "Project Blue Book case files (NARA RG 341, digitised)"
+    notion_url: https://app.notion.com/3f6073ddfc5c8184890cdd3b3c5199fc
+    endpoint: https://www.archives.gov/research/topics/uaps/rg-collections
+    probe_url: https://www.archives.gov/research/topics/uaps/rg-collections
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Declassified records
+    formats: "Digitised scans (PDF, JPEG) via the NARA catalog; bulk ZIPs on The Black Vault"
+  - id: nasa-exoplanet-tap
+    name: NASA Exoplanet Archive (TAP)
+    notion_url: https://app.notion.com/3f6073ddfc5c818aa312f867c25d4819
+    endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP
+    probe_url: "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=SELECT+TOP+1+pl_name+FROM+ps&format=json"
+    access: "Open · no key"
+    pillar: "I · Sensor"
+    domain: Exoplanet spectra
+    formats: "JSON, CSV, VOTable, IPAC ASCII"
+    content_type_prefix: application/json
+  - id: nara-catalog-api
+    name: NARA Catalog API v2
+    notion_url: https://app.notion.com/3f6073ddfc5c81b0aaa7e20fafdfcb34
+    endpoint: https://catalog.archives.gov/api/v2/
+    probe_url: "https://catalog.archives.gov/api/v2/records?limit=1"
+    access: "Free · registration"
+    pillar: "II · Disclosure"
+    domain: Declassified records
+    formats: JSON
+    accept: application/json
+    content_type_prefix: application/json
+    synthetic_fixture: tests/fixtures/sources/unreachable.json
+  - id: space-track
+    name: Space-Track.org
+    notion_url: https://app.notion.com/3f6073ddfc5c81cfb667f24c5f72d372
+    endpoint: https://www.space-track.org
+    probe_url: "https://www.space-track.org/basicspacedata/query/class/gp/NORAD_CAT_ID/25544/format/json"
+    access: "Free · registration"
+    pillar: "III · Baseline"
+    domain: Orbital tracking
+    formats: "JSON, TLE (gp_history class)"
+    accept: application/json
+    credential_required: true
+  - id: enigma
+    name: Enigma Labs
+    notion_url: https://app.notion.com/3f6073ddfc5c81d68980d05365206897
+    endpoint: https://enigmalabs.io
+    probe_url: https://enigmalabs.io/
+    access: "Paid · partner"
+    pillar: "II · Disclosure"
+    domain: Civilian incident data
+    formats: "JSON, media"
+    credential_required: true
+  - id: breakthrough-listen
+    name: Breakthrough Listen Open Data (AWS S3)
+    notion_url: https://app.notion.com/3f6073ddfc5c81d7a486d7b762370bcc
+    endpoint: "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5"
+    probe_url: "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5"
+    access: "Open · no key"
+    pillar: "I · Sensor"
+    domain: Radio SETI
+    formats: "Sigproc filterbank (.fil), HDF5 (.h5), GUPPI RAW (.raw)"
+    range_header: bytes=0-1023
+  - id: cneos-fireball
+    name: NASA JPL CNEOS Fireball API
+    notion_url: https://app.notion.com/3f6073ddfc5c81e7b0d1ede1d8f8afdf
+    endpoint: https://ssd-api.jpl.nasa.gov/fireball.api
+    probe_url: "https://ssd-api.jpl.nasa.gov/fireball.api?date-min=2004-11-14&date-max=2004-11-15"
+    access: "Open · no key"
+    pillar: "III · Baseline"
+    domain: Bolides
+    formats: JSON
+    content_type_prefix: application/json
+    synthetic_fixture: tests/fixtures/sources/unreachable.json
+  - id: black-vault
+    name: "The Black Vault — FOIA archive"
+    notion_url: https://app.notion.com/3f6073ddfc5c81e9bca0c36e1a698411
+    endpoint: https://www.theblackvault.com/documentarchive/
+    probe_url: https://www.theblackvault.com/documentarchive/
+    access: "Open · no key"
+    pillar: "II · Disclosure"
+    domain: Declassified records
+    formats: "OCR-processed PDF, TIFF, bulk ZIP"
+  - id: voyager-gbt
+    name: Voyager 1 GBT sample file (turboSETI tutorial)
+    notion_url: https://app.notion.com/3f6073ddfc5c81feafb8fc68ffae3a49
+    endpoint: "http://blpd0.ssl.berkeley.edu/Voyager_data/Voyager1.single_coarse.fine_res.h5"
+    probe_url: "https://raw.githubusercontent.com/RaghavGirgaonkar/SETI-Project-Test/9b6ef4ac4fb5f7a9efbcbb12ba202916e9d409eb/Voyager1.single_coarse.fine_res.h5"
+    access: "Open · no key"
+    pillar: "I · Sensor"
+    domain: Radio SETI
+    formats: HDF5 filterbank
+    method: HEAD
+    allow_plain_http: true

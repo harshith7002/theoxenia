@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 from xenia.live.cadence_models import CadenceRecovery, CadenceTruth
 from xenia.live.models import LiveState, RecoveryGridArtifact, RunManifest
+from xenia.sources import SourcesCheck
 
 SCHEMA_MODELS: dict[str, type[BaseModel]] = {
     "live_state.schema.json": LiveState,
@@ -16,6 +17,7 @@ SCHEMA_MODELS: dict[str, type[BaseModel]] = {
     "recovery_grid.schema.json": RecoveryGridArtifact,
     "cadence_truth.schema.json": CadenceTruth,
     "cadence_recovery.schema.json": CadenceRecovery,
+    "sources_check.schema.json": SourcesCheck,
 }
 
 

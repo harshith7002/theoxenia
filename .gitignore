@@ -44,5 +44,6 @@ data/
 !/runs/**/thumbs/*.svg
 !/runs/**/thumbs/*.png
 !/runs/**/plots/*.png
+!/runs/**/sources_check.json
 
 .DS_Store
