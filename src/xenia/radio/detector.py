@@ -9,6 +9,7 @@ from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
 from math import isfinite
 from pathlib import Path
+from typing import Any
 
 _NUMPY_INT_FORMAT_ERROR = "format argument: %i requires a real number, not numpy.ndarray"
 
@@ -150,7 +151,7 @@ def select_known_answer_hit(
     return max(eligible, key=lambda hit: (hit.snr, -hit.top_hit), default=None)
 
 
-def _find_doppler_class():
+def _find_doppler_class() -> Any:
     try:
         from turbo_seti.find_doppler.find_doppler import FindDoppler
     except ImportError as exc:

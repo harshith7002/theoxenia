@@ -11,6 +11,7 @@ from pathlib import Path
 
 from xenia.live.models import DetectionFloor, WorkerStatus
 from xenia.live.render import render_site, worker_status
+from xenia.text_policy import find_banned_words
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEMO_RUNS = REPOSITORY_ROOT / "tests" / "fixtures" / "live"
@@ -102,6 +103,7 @@ def test_m0_page_is_static_accessible_and_provenance_linked(demo_state, tmp_path
     assert "Open the run manifest" in hit_page
     assert "cadences/demo-cadence-001/index.html" in sitemap
     assert "hits/demo-hit-001.html" in sitemap
+    assert find_banned_words(page) == ()
     assert all(path.is_file() for path in rendered)
 
 

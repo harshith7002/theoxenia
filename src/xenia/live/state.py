@@ -29,6 +29,7 @@ from xenia.live.models import (
     VoyagerHero,
     WorkerPayload,
     WorkerState,
+    WorkerStatus,
 )
 
 REPOSITORY_URL = "https://github.com/mpetyx/theoxenia"
@@ -122,7 +123,7 @@ def build_state(
     latest_worker = max(worker_events, key=lambda item: item[0].started_at, default=None)
     if latest_worker is None:
         worker = WorkerState(
-            status="paused",
+            status=WorkerStatus.PAUSED,
             last_heartbeat=None,
             host="not-started",
         )

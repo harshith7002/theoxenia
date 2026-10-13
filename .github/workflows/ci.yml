@@ -42,6 +42,9 @@ jobs:
           uv run --locked ruff check .
           uv run --locked ruff format --check .
 
+      - name: Type-check
+        run: uv run --locked mypy --strict src/xenia
+
       - name: Check committed files
         run: uv run --locked python scripts/check_repository_files.py
 

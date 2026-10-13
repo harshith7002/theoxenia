@@ -14,3 +14,10 @@ repos:
         language: system
         pass_filenames: true
         always_run: false
+
+      - id: banned-words
+        name: Reject banned words in site templates
+        entry: uv run --locked python scripts/check_banned_words.py
+        language: system
+        pass_filenames: false
+        always_run: true

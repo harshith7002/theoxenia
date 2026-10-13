@@ -462,8 +462,8 @@ class RecoveryGridArtifact(StrictModel):
         for measurement in self.measurements:
             if measurement.snr not in snr_indices or measurement.drift_hz_s not in drift_indices:
                 raise ValueError("measurement coordinates must exist in the configured grid")
-            search = search_by_index.get(measurement.trial_index)
-            if search is None or search.seed != measurement.seed:
+            matched_search = search_by_index.get(measurement.trial_index)
+            if matched_search is None or matched_search.seed != measurement.seed:
                 raise ValueError("measurement seed and trial must match a detector search")
             key = (measurement.snr, measurement.drift_hz_s, measurement.trial_index)
             if key in observed_keys:
@@ -480,7 +480,7 @@ class RecoveryGridArtifact(StrictModel):
                 if hit_key in matched_hit_keys:
                     raise ValueError("one detector hit cannot recover multiple injected signals")
                 matched_hit_keys.add(hit_key)
-                if hit not in search.detected_hits:
+                if hit not in matched_search.detected_hits:
                     raise ValueError("matched hit must be present in the same trial's output")
 
         for row_index, row in enumerate(counts):
