@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from xenia.live.pages import render_experiments_index
+from xenia.fusion.baseline import run_baseline
 from xenia.live.render import render_site
 from xenia.live.server import serve
 from xenia.live.state import build_state, load_manifests, manifest_paths, read_git_sha
@@ -180,6 +181,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     check_parser.add_argument("--config", type=Path, default=Path("configs/sources.yaml"))
     check_parser.add_argument("--out", type=Path, required=True)
+    fusion_parser = top.add_parser("fusion", help="Pillar III public-record baselines")
+    fusion_sub = fusion_parser.add_subparsers(dest="fusion_command", required=True)
+    baseline_parser = fusion_sub.add_parser(
+        "baseline",
+        help="record CNEOS fireballs and GFZ Kp for one window",
+    )
+    baseline_parser.add_argument("--lat", type=float, required=True)
+    baseline_parser.add_argument("--lon", type=float, required=True)
+    baseline_parser.add_argument("--start", required=True)
+    baseline_parser.add_argument("--end", required=True)
+    baseline_parser.add_argument("--radius-km", type=float, required=True)
+    baseline_parser.add_argument("--timeout-s", type=float, default=25)
 
     return parser
 
@@ -320,6 +333,25 @@ def main(argv: list[str] | None = None) -> int:
             print(
                 f"worker pairs_completed={summary.pairs_completed} "
                 f"pairs_failed={summary.pairs_failed}"
+            )
+            return 0
+
+        if args.group == "fusion" and args.fusion_command == "baseline":
+            manifest, manifest_path = run_baseline(
+                root,
+                command,
+                lat_deg=args.lat,
+                lon_deg=args.lon,
+                start=_parse_utc(args.start),
+                end=_parse_utc(args.end),
+                radius_km=args.radius_km,
+                timeout_s=args.timeout_s,
+            )
+            print(
+                f"EXP-020 outcome={manifest.outcome}; run_id={manifest.run_id}; "
+                f"manifest={_display_path(manifest_path, root)}; "
+                f"fireball_count={manifest.parameters['fireball_count']}; "
+                f"kp_max={manifest.parameters['kp_max']}"
             )
             return 0
 
@@ -591,6 +623,14 @@ def _render(args: argparse.Namespace, *, command: list[str], root: Path) -> None
         f"Rendered {len(rendered)} files to {_display_path(output_dir, root)}; "
         f"run_id={run_id}; manifest={_display_path(manifest_path, root)}"
     )
+
+
+def _parse_utc(value: str) -> datetime:
+    """Parse one timezone-aware UTC timestamp from the command line."""
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError(f"timestamp must be timezone-aware: {value}")
+    return parsed.astimezone(UTC)
 
 
 def _inside_repository(path: Path, root: Path) -> Path:

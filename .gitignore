@@ -45,5 +45,8 @@ data/
 !/runs/**/thumbs/*.png
 !/runs/**/plots/*.png
 !/runs/**/sources_check.json
+!/runs/**/baseline.json
+!/runs/**/cneos.json
+!/runs/**/gfz.json
 
 .DS_Store

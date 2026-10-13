@@ -25,6 +25,7 @@ nav:
   - Mission Control copy: mission-control-m4.md
   - Mission Control detail pages: mission-control-detail.md
   - Experiments: experiments.md
+  - EXP-020 Nimitz baseline: exp-020.md
   - Dependency compatibility: DEPENDENCIES.md
   - Mission Control M0: mission-control-m0.md
   - Scaffold integration review: scaffold-integration.md
