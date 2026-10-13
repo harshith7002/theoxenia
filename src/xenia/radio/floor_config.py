@@ -28,14 +28,34 @@ NOISE_MEAN = 1.0
 MAX_ABS_DRIFT_HZ_S = 4.0
 DETECTOR_SNR_THRESHOLD = 5.0
 FREQUENCY_TOLERANCE_HZ = 3.0 * FREQUENCY_RESOLUTION_HZ
-DRIFT_TOLERANCE_HZ_S = 2.0 * FREQUENCY_RESOLUTION_HZ / (TIME_CHANNELS * TIME_RESOLUTION_SECONDS)
+# turboSETI's own bin: |foff| / ((n_integrations - 1) * tsamp). See
+# turbo_seti.find_doppler.data_handler.drift_rate_resolution.
+DETECTOR_DRIFT_RESOLUTION_HZ_S = FREQUENCY_RESOLUTION_HZ / (
+    (TIME_CHANNELS - 1) * TIME_RESOLUTION_SECONDS
+)
+# Three detector bins. A seed-20261012 full-width probe at SNR 40 put real
+# |drift| <= 3 Hz/s hits 0, 1, 2, and 3 bins off the injected rate, so the
+# previous two-bin window (and the n_integrations denominator) dropped them.
+DRIFT_TOLERANCE_HZ_S = 3.0 * DETECTOR_DRIFT_RESOLUTION_HZ_S
 F_SUBSAMPLES = 4
 SMEARING_SUBSAMPLES = 64
+MATCHING_VERSION = 2
+MATCHING_RULE_V1 = (
+    "v1 compares uncorrected_frequency_mhz to the mid-observation centre frequency_mhz"
+)
+MATCHING_RULE_V2 = (
+    "v2 accepts a hit whose uncorrected frequency lies within three fine channels of "
+    "the injected path from start_frequency_mhz across the frame, and whose drift is "
+    "within three turboSETI drift-resolution bins of the injected physical drift; "
+    "one hit recovers at most one injection. turboSETI 2.3.2 writes the same channel "
+    "for corrected and uncorrected frequency."
+)
 
 
 type GridMode = Literal["full", "reduced"]
 
 __all__ = [
+    "DETECTOR_DRIFT_RESOLUTION_HZ_S",
     "DETECTOR_SNR_THRESHOLD",
     "DRIFT_TOLERANCE_HZ_S",
     "FREQUENCY_CHANNELS",
@@ -51,6 +71,9 @@ __all__ = [
     "FRAME_MJD",
     "F_SUBSAMPLES",
     "GridMode",
+    "MATCHING_RULE_V1",
+    "MATCHING_RULE_V2",
+    "MATCHING_VERSION",
     "MAX_ABS_DRIFT_HZ_S",
     "NOISE_MEAN",
     "REDUCED_DRIFT_GRID",

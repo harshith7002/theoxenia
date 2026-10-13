@@ -44,6 +44,8 @@ from xenia.radio.floor_config import (
     FULL_DRIFT_GRID,
     FULL_SNR_GRID,
     FULL_TRIALS_PER_CELL,
+    MATCHING_RULE_V2,
+    MATCHING_VERSION,
     MAX_ABS_DRIFT_HZ_S,
     NOISE_MEAN,
     REDUCED_DRIFT_GRID,
@@ -261,6 +263,26 @@ def _as_search_trial(
     )
 
 
+def _path_frequency_error_hz(plan: _InjectionPlan, hit_frequency_mhz: float) -> float:
+    """Return how far a hit sits outside the injected line's frequency path.
+
+    turboSETI 2.3.2 reports one channel frequency for both the corrected and
+    uncorrected columns. That channel is not pinned to t = 0, so the matcher
+    accepts any frequency on the injected segment, plus the three-channel margin.
+    """
+    duration_seconds = TIME_CHANNELS * TIME_RESOLUTION_SECONDS
+    start_hz = plan.start_frequency_mhz * 1e6
+    stop_hz = start_hz + plan.drift_hz_s * duration_seconds
+    lower_hz = min(start_hz, stop_hz)
+    upper_hz = max(start_hz, stop_hz)
+    hit_hz = hit_frequency_mhz * 1e6
+    if hit_hz < lower_hz:
+        return lower_hz - hit_hz
+    if hit_hz > upper_hz:
+        return hit_hz - upper_hz
+    return 0.0
+
+
 def _match_trial(
     plans: Sequence[_InjectionPlan],
     hits: Sequence[DopplerHit],
@@ -269,14 +291,19 @@ def _match_trial(
     drift_tolerance_hz_s: float = DRIFT_TOLERANCE_HZ_S,
     minimum_snr: float = DETECTOR_SNR_THRESHOLD,
 ) -> tuple[RecoveryMeasurement, ...]:
-    """Match detector hits one-to-one to the nearest injected frequency/drift pair."""
+    """Match detector hits one-to-one to an injected path and physical drift.
+
+    ``plan.frequency_mhz`` remains the mid-observation centre recorded on the
+    measurement. The match itself uses the whole injected segment, because
+    turboSETI's reported channel is not the segment's start.
+    """
     available_hits = set(range(len(hits)))
     measurements: list[RecoveryMeasurement] = []
     for plan in plans:
         candidates: list[tuple[tuple[float, float, float, int], int, float, float]] = []
         for hit_index in available_hits:
             hit = hits[hit_index]
-            frequency_error_hz = abs(hit.uncorrected_frequency_mhz - plan.frequency_mhz) * 1e6
+            frequency_error_hz = _path_frequency_error_hz(plan, hit.uncorrected_frequency_mhz)
             drift_error_hz_s = abs(hit.drift_hz_s - plan.drift_hz_s)
             if (
                 frequency_error_hz <= frequency_tolerance_hz
@@ -459,7 +486,12 @@ def _initial_parameters(
             "precision": 1,
         },
         "recovery_match": {
-            "frequency_reference": "setigen frame channel center at the observation midpoint",
+            "frequency_reference": (
+                "turboSETI uncorrected frequency, accepted when it lies within "
+                "three fine channels of the injected path"
+            ),
+            "matching_version": MATCHING_VERSION,
+            "matching_rule": MATCHING_RULE_V2,
             "frequency_tolerance_hz": FREQUENCY_TOLERANCE_HZ,
             "drift_tolerance_hz_s": DRIFT_TOLERANCE_HZ_S,
             "one_detector_hit_can_recover_at_most_one_injection": True,
@@ -619,6 +651,8 @@ def run_floor(
             detector_snr_threshold=DETECTOR_SNR_THRESHOLD,
             frequency_tolerance_hz=FREQUENCY_TOLERANCE_HZ,
             drift_tolerance_hz_s=DRIFT_TOLERANCE_HZ_S,
+            matching_version=MATCHING_VERSION,
+            matching_rule=MATCHING_RULE_V2,
             frequency_channels=FREQUENCY_CHANNELS,
             time_channels=TIME_CHANNELS,
             frame_bandwidth_hz=FREQUENCY_CHANNELS * FREQUENCY_RESOLUTION_HZ,

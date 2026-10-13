@@ -16,6 +16,7 @@ from xenia.radio.floor_config import (
     FULL_DRIFT_GRID,
     FULL_SNR_GRID,
     FULL_TRIALS_PER_CELL,
+    MATCHING_RULE_V1,
     REDUCED_DRIFT_GRID,
     REDUCED_SNR_GRID,
     REDUCED_TRIALS_PER_CELL,
@@ -383,6 +384,8 @@ class RecoveryGridArtifact(StrictModel):
     detector_snr_threshold: float = Field(ge=0, allow_inf_nan=False)
     frequency_tolerance_hz: float = Field(gt=0, allow_inf_nan=False)
     drift_tolerance_hz_s: float = Field(gt=0, allow_inf_nan=False)
+    matching_version: Literal[1, 2] = 1
+    matching_rule: str = Field(default=MATCHING_RULE_V1, min_length=1)
     frequency_channels: int = Field(ge=2)
     time_channels: int = Field(ge=2)
     frame_bandwidth_hz: float = Field(gt=0, allow_inf_nan=False)

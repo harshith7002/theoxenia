@@ -288,6 +288,21 @@
       "title": "Frequency Tolerance Hz",
       "type": "number"
     },
+    "matching_rule": {
+      "default": "v1 compares uncorrected_frequency_mhz to the mid-observation centre frequency_mhz",
+      "minLength": 1,
+      "title": "Matching Rule",
+      "type": "string"
+    },
+    "matching_version": {
+      "default": 1,
+      "enum": [
+        1,
+        2
+      ],
+      "title": "Matching Version",
+      "type": "integer"
+    },
     "max_abs_drift_hz_s": {
       "exclusiveMinimum": 0,
       "title": "Max Abs Drift Hz S",
