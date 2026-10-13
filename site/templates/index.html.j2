@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Theoxenia Mission Control — an evidence-first radio data search status page.">
-  <title>Theoxenia · Mission control</title>
+  <title>Theoxenia — Mission control</title>
+  <meta property="og:title" content="Theoxenia — Mission control">
+  <meta property="og:description" content="An open, 24/7 search for engineered radio signals in public telescope data. The machine slices one star at a time, hunts for narrow drifting lines, and tries to explain every one of them. Every tile links to the run that produced it.">
+  {% if og_image %}
+  <meta property="og:image" content="{{ og_image }}">
+  {% endif %}
+  <link rel="alternate" type="application/feed+json" title="Theoxenia survivors" href="feed.json">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,13 +19,8 @@
   <div class="page-shell">
     <header class="page-header">
       <div class="header-copy">
-        <p class="eyebrow">Theoxenia / Mission control</p>
-        <h1>Open search, with the evidence in view.</h1>
-        {% if state.meta.demo %}
-        <p class="subtitle">M0 prototype — rendered locally from synthetic run manifests.</p>
-        {% else %}
-        <p class="subtitle">Run-manifest-backed search status, with checks and provenance in view.</p>
-        {% endif %}
+        <h1>Theoxenia <span class="title-muted">Mission control</span></h1>
+        <p class="subtitle">An open, 24/7 search for engineered radio signals in public telescope data. The machine slices one star at a time, hunts for narrow drifting lines, and tries to explain every one of them. Every tile links to the run that produced it.</p>
       </div>
       <div class="status-pill status-pill--{{ status.tone }}" aria-label="Worker status: {{ status.label }}">
         <span class="status-dot{% if status.is_live %} status-dot--live{% endif %}" aria-hidden="true"></span>
@@ -58,8 +59,8 @@
 
       <section class="section-block" aria-labelledby="hero-heading">
         <div class="section-heading">
-          <h2 id="hero-heading">Voyager 1 known-answer run</h2>
-          <p>The hero is populated only from the checked run manifest.</p>
+          <h2 id="hero-heading">Proof the detector works: Voyager 1</h2>
+          <p>A human spacecraft 25 billion km away, found in a real Green Bank recording by the same code that searches the sky below. If this ever disappears, nothing else on this page counts.</p>
         </div>
         {% if state.hero %}
         <article class="hero-card">
@@ -88,8 +89,8 @@
 
       <section class="section-block" aria-labelledby="map-heading">
         <div class="section-heading">
-          <h2 id="map-heading">The sky we have searched</h2>
-          <p>Equatorial view · the Galactic plane is shaded · each point links to its manifest.</p>
+          <h2 id="map-heading">Where we have looked</h2>
+          <p>Every dot is one cadence: the telescope on a star, off it, on it again, six scans. The bright dot is the one being searched right now. Amber rings mark cadences with a survivor still waiting for its checks.</p>
         </div>
         <div class="plot-card sky-card">
           <img class="sky-map" src="{{ sky_svg_url }}" alt="Mollweide sky map with Galactic plane band and manifest-linked pointings" decoding="async">
@@ -111,7 +112,8 @@
 
       <section class="section-block" aria-labelledby="floor-heading">
         <div class="section-heading">
-          <h2 id="floor-heading">Detection floor</h2>
+          <h2 id="floor-heading">How faint a signal we would catch</h2>
+          <p>We inject synthetic drifting signals and see what the detector recovers. Cyan means recovered. This grid reruns on every code change; it is the ruler every "nothing found" is measured against.</p>
           <p>Synthetic setigen injections only — not telescope observations. Recovery is computed from the recorded grid.</p>
         </div>
         <div class="floor-layout">
@@ -142,7 +144,7 @@
       <section class="section-block" aria-labelledby="gallery-heading">
         <div class="section-heading">
           <h2 id="gallery-heading">Latest hits, and the checks applied.</h2>
-          <p>Prosaic explanations are shown first; a manifest is one click away.</p>
+          <p>Newest first. The verdict is the first prosaic explanation that fits. A survivor is a hit we could not yet explain, not a discovery.</p>
         </div>
         {% if gallery %}
         <div class="gallery-grid">
@@ -173,6 +175,37 @@
         {% endif %}
       </section>
 
+      <section class="section-block" aria-labelledby="later-heading">
+        <div class="section-heading">
+          <h2 id="later-heading">Later panels</h2>
+          <p>These stay quiet until a manifest for that pillar exists.</p>
+        </div>
+        <div class="later-grid">
+          {% if later_bluebook %}
+          <article class="empty-panel">
+            <h3>Disclosure, Project Blue Book incident map</h3>
+            <p>{{ later_bluebook.summary }}</p>
+            <a class="text-link" href="{{ later_bluebook.manifest_url }}">Open the run manifest</a>
+          </article>
+          {% else %}
+          <article class="empty-panel">
+            <h3>Disclosure, Project Blue Book incident map: not started</h3>
+          </article>
+          {% endif %}
+          {% if later_nearearth %}
+          <article class="empty-panel">
+            <h3>Near-Earth baselines, CNEOS and Kp</h3>
+            <p>{{ later_nearearth.summary }}</p>
+            <a class="text-link" href="{{ later_nearearth.manifest_url }}">Open the run manifest</a>
+          </article>
+          {% else %}
+          <article class="empty-panel">
+            <h3>Near-Earth baselines, CNEOS and Kp: not started</h3>
+          </article>
+          {% endif %}
+        </div>
+      </section>
+
       <section class="section-block read-this" aria-labelledby="reading-heading">
         <h2 id="reading-heading">How to read this page</h2>
         <p>Counts are computed from run manifests. A “survivor” has passed the checks recorded so far; it is not a conclusion. “Unexplained” is reserved for a reviewed record with the required sign-offs. {% if state.meta.demo %}The M0 badge remains visible so demo values cannot be mistaken for observations.{% else %}Every displayed result links to its supporting run manifest.{% endif %}</p>
@@ -180,7 +213,9 @@
     </main>
 
     <footer class="page-footer">
+      <p>Prosaic first, provenance always. Data: Breakthrough Listen open data, Green Bank Telescope. Code Apache-2.0, data and this page CC BY 4.0. A mirror of this page updates hourly on GitHub Pages; the live version runs on Manus.</p>
       <p>{{ state.meta.data_credit }}</p>
+      <p><a href="feed.json">Survivors feed</a></p>
       <p><a href="{{ repo_url }}">Source code on GitHub</a></p>
       {% if mirror_url %}
       <p><a href="{{ mirror_url }}">GitHub Pages mirror</a> · static snapshot, not a live heartbeat</p>
