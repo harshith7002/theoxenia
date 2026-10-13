@@ -18,3 +18,7 @@ On 2026-10-12 a refetch of `http://seti.berkeley.edu/opendata/api/get-cadence/63
 `make queue-synthetic` writes `configs/queue.synthetic.jsonl`. Every line has `synthetic: true`. The window is the generated EXP-004 band, computed from the generator constants. That file is the local worker exercise. It is not a Breakthrough Listen listing.
 
 Cadences present in a listing but absent from `measured_file_bands` are counted in the header and not queued.
+
+## Worker
+
+`make live-once` and `make live-forever` run `xenia live run` on `configs/queue.synthetic.jsonl` with `THEOXENIA_PUSH=0`. The loop writes `runs/worker-<host>/manifest.json` (`kind` `worker`, `demo` false) and deletes `data/tmp` after every pair. A pair that raises is tried twice more, then marked failed. The configured commit branch is `live`. If that branch does not exist, the loop records a warning and does not create it. It never commits to `main`. A push happens only when `THEOXENIA_PUSH` is `1`. Idle waits are split into heartbeat-sized sleeps so the heartbeat age stays under ten minutes. Each heartbeat also rebuilds `site/state.json`, which is what `/healthz` reads.

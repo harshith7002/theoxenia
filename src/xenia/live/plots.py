@@ -5,6 +5,7 @@ from __future__ import annotations
 import html
 import math
 from collections.abc import Sequence
+from pathlib import Path
 
 from xenia.live.models import DetectionFloor, Pointing
 
@@ -251,3 +252,45 @@ def _render_pointing(pointing: Pointing) -> str:
     else:
         marker = f'<circle cx="{x:.2f}" cy="{y:.2f}" r="3" class="searched-dot" />'
     return f'<a href="{link}" aria-label="{title}">{marker}<title>{title}</title></a>'
+
+
+def render_hit_thumbnail(
+    path: Path,
+    *,
+    values: Sequence[Sequence[float]],
+    line_column: int,
+    width: int = 320,
+    height: int = 140,
+) -> None:
+    """Write a PNG thumbnail in the ``theoxenia_night`` colormap.
+
+    ``values`` must already be measured. This function does not invent a
+    spectrum, and it does not replace turboSETI's six-panel plot.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from matplotlib.colors import LinearSegmentedColormap
+
+    if width <= 0 or height <= 0:
+        raise ValueError("thumbnail size must be positive")
+    array = np.asarray(values, dtype=float)
+    if array.ndim != 2 or array.size == 0:
+        raise ValueError("thumbnail values must be a non-empty 2-d array")
+    colormap = LinearSegmentedColormap.from_list(
+        "theoxenia_night",
+        ["#070b16", "#16324a", "#d7c48a"],
+    )
+    figure = plt.figure(figsize=(width / 100, height / 100), dpi=100)
+    try:
+        axes = figure.add_axes((0, 0, 1, 1))
+        axes.imshow(array, cmap=colormap, aspect="auto", interpolation="nearest")
+        if 0 <= line_column < array.shape[1]:
+            axes.axvline(line_column, color="#e8d48b", linewidth=1)
+        axes.set_axis_off()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        figure.savefig(path, dpi=100)
+    finally:
+        plt.close(figure)

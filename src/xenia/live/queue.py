@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from urllib.request import Request, urlopen
 
 from xenia.live.config import LiveConfig
@@ -183,6 +184,41 @@ def build_synthetic_queue(
         ),
     }
     return _jsonl(header, pairs[:limit])
+
+
+def read_queue(path: Path) -> tuple[dict[str, object], tuple[QueuePair, ...]]:
+    """Read a queue file written by ``build_listing_queue`` or ``build_synthetic_queue``."""
+    lines = [line for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    if not lines:
+        raise ValueError(f"{path} is empty")
+    header = json.loads(lines[0])
+    if not isinstance(header, dict) or header.get("kind") != "listing":
+        raise ValueError(f"{path} does not start with a listing header")
+    pairs: list[QueuePair] = []
+    for line in lines[1:]:
+        row = json.loads(line)
+        if not isinstance(row, dict):
+            raise ValueError(f"{path} has a pair line that is not an object")
+        window = row["window_mhz"]
+        pairs.append(
+            QueuePair(
+                cadence_id=str(row["cadence_id"]),
+                target=str(row["target"]),
+                ra_deg=float(row["ra_deg"]),
+                dec_deg=float(row["dec_deg"]),
+                receiver=str(row["receiver"]),
+                window_mhz=(float(window[0]), float(window[1])),
+                priority=int(row["priority"]),
+                synthetic=bool(row["synthetic"]),
+                files=tuple(str(item) for item in row["files"]),
+                roles=tuple(str(item) for item in row["roles"]),
+                sources=tuple(str(item) for item in row["sources"]),
+                catalog_md5=tuple(str(item) for item in row["catalog_md5"]),
+                catalog_size_bytes=tuple(int(item) for item in row["catalog_size_bytes"]),
+                band_coverage=str(row["band_coverage"]),
+            )
+        )
+    return header, tuple(pairs)
 
 
 def _rows(listing: bytes) -> list[dict[str, object]]:

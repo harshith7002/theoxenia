@@ -157,6 +157,13 @@ def build_parser() -> argparse.ArgumentParser:
     queue_build.add_argument("--synthetic", action="store_true")
     queue_build.add_argument("--seeds", type=int, nargs="+", default=[20261012])
 
+    run_parser = live_sub.add_parser("run", help="process the cadence queue")
+    run_parser.add_argument("--once", action="store_true")
+    run_parser.add_argument("--forever", action="store_true")
+    run_parser.add_argument("--max-pairs", type=int, default=None)
+    run_parser.add_argument("--config", type=Path, default=Path("configs/live.yaml"))
+    run_parser.add_argument("--queue", type=Path, default=None)
+
     return parser
 
 
@@ -268,6 +275,14 @@ def main(argv: list[str] | None = None) -> int:
             _build_queue(args, root=root)
             return 0
 
+        if args.group == "live" and args.live_command == "run":
+            summary = _run_worker(args, root=root)
+            print(
+                f"worker pairs_completed={summary.pairs_completed} "
+                f"pairs_failed={summary.pairs_failed}"
+            )
+            return 0
+
         parser.error("unsupported command")
     except (OSError, RuntimeError, ValueError) as exc:
         print(f"xenia: error: {exc}", file=sys.stderr)
@@ -332,6 +347,56 @@ def _run_cadence(
         ),
         max_transfer_bytes=args.max_transfer_bytes,
         allow_plain_http=args.allow_plain_http,
+    )
+
+
+def _run_worker(args: argparse.Namespace, *, root: Path):
+    """Run one pass or the forever loop. Push stays off unless THEOXENIA_PUSH is 1."""
+    from xenia.live.config import load_live_config
+    from xenia.live.worker import GitPublisher, run_worker
+
+    if args.once == args.forever:
+        raise ValueError("pass exactly one of --once or --forever")
+    if args.max_pairs is not None and args.max_pairs <= 0:
+        raise ValueError("--max-pairs must be positive")
+    config = load_live_config(_inside_repository(args.config, root))
+    queue_path = _inside_repository(
+        args.queue if args.queue is not None else Path(config.queue_file),
+        root,
+    )
+    return run_worker(
+        root,
+        config,
+        queue_path,
+        once=args.once,
+        max_pairs=args.max_pairs,
+        publisher=GitPublisher(),
+        refresh=lambda: _refresh_page(root),
+    )
+
+
+def _refresh_page(root: Path) -> None:
+    """Rebuild state and the static page from the manifests on disk.
+
+    Called on every heartbeat. It does not write another run manifest; the
+    worker heartbeat is the record, and a manifest per minute would bury it.
+    """
+    runs_dir = root / "runs"
+    output_path = runs_dir / "state.json"
+    started_at = datetime.now(UTC)
+    manifests = load_manifests(runs_dir)
+    state = build_state(manifests, generated_at=started_at)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        state.model_dump_json(indent=2) + "\n",
+        encoding="utf-8",
+    )
+    render_site(
+        state_path=output_path,
+        runs_dir=runs_dir,
+        output_dir=root / "site",
+        repository_root=root,
+        now=started_at,
     )
 
 
