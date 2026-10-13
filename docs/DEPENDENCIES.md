@@ -15,6 +15,7 @@
 | `hdf5plugin` | 7.1.0 | Direct radio-extra dependency. Imported before HDF5 reads so upstream compression filters are registered; the version and linked libhdf5 version are recorded in EXP-001 run metadata. |
 | `fsspec` | 2026.9.0 | Its HTTP bytes-cache supports the measured range reader used for the bounded source access. Actual range intervals and response payload bytes are written to each experiment manifest. |
 | `numpy` | 2.5.4 | Direct radio-extra dependency and the verified float32/HDF5 data-array runtime. |
+| `polars` | 1.44.2 | Direct radio-extra dependency. Writes `hits.parquet` with the native Parquet writer. `polars-runtime-32` 1.44.2 supplies the `cp310-abi3` wheel; that wheel imported and wrote a one-row Parquet file on CPython 3.15.0. PyArrow 23.0.1 through 26.0.0 publish no CPython 3.15 wheel, and the 23.0.1 sdist build stopped because `cmake` is not installed. The pin is `polars>=1.44.2,<2`. |
 
 ## Explicit resolver overrides
 

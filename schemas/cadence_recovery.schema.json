@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "RecoveryRow": {
+      "additionalProperties": false,
+      "description": "Expected versus assigned verdict for one injection.",
+      "properties": {
+        "assigned_verdict": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Verdict"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detected_drift_hz_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detected Drift Hz S"
+        },
+        "detected_frequency_mhz": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detected Frequency Mhz"
+        },
+        "detected_snr": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detected Snr"
+        },
+        "drift_error_hz_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Drift Error Hz S"
+        },
+        "expected_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "frequency_error_hz": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Frequency Error Hz"
+        },
+        "injection_id": {
+          "minLength": 1,
+          "title": "Injection Id",
+          "type": "string"
+        },
+        "matched": {
+          "title": "Matched",
+          "type": "boolean"
+        },
+        "off_count": {
+          "minimum": 0,
+          "title": "Off Count",
+          "type": "integer"
+        },
+        "on_count": {
+          "minimum": 0,
+          "title": "On Count",
+          "type": "integer"
+        },
+        "passed_filter": {
+          "title": "Passed Filter",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "injection_id",
+        "expected_verdict",
+        "assigned_verdict",
+        "matched",
+        "on_count",
+        "off_count",
+        "passed_filter"
+      ],
+      "title": "RecoveryRow",
+      "type": "object"
+    },
+    "Verdict": {
+      "description": "Mechanical, prosaic-first public verdict taxonomy.",
+      "enum": [
+        "KNOWN_SOURCE",
+        "IN_OFF",
+        "SINGLE_POINTING",
+        "RFI_CENSUS",
+        "ON_ONLY",
+        "UNEXPLAINED"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Per-injection recovery plus detections that matched no injection.",
+  "properties": {
+    "all_matched": {
+      "title": "All Matched",
+      "type": "boolean"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/RecoveryRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "unassigned_detection_count": {
+      "minimum": 0,
+      "title": "Unassigned Detection Count",
+      "type": "integer"
+    },
+    "unassigned_event_count": {
+      "minimum": 0,
+      "title": "Unassigned Event Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "rows",
+    "unassigned_detection_count",
+    "unassigned_event_count",
+    "all_matched"
+  ],
+  "title": "CadenceRecovery",
+  "type": "object"
+}

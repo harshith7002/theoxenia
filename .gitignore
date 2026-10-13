@@ -38,5 +38,9 @@ data/
 !/runs/**/hero.png
 !/runs/**/recovery_grid.json
 !/runs/**/sweep.csv
+!/runs/**/hits.parquet
+!/runs/**/truth.json
+!/runs/**/recovery.json
+!/runs/**/thumbs/*.svg
 
 .DS_Store

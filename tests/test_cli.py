@@ -6,7 +6,7 @@ import json
 import shutil
 from pathlib import Path
 
-from xenia.cli import main
+from xenia.cli import build_parser, main
 from xenia.live.models import RunManifest
 from xenia.radio import floor as floor_runner
 from xenia.radio import voyager as voyager_runner
@@ -23,6 +23,27 @@ def _copy_minimal_project(repo: Path) -> None:
     shutil.copyfile(REPOSITORY_ROOT / "site" / "styles.css", repo / "site" / "styles.css")
 
 
+def test_cadence_parser_accepts_the_synthetic_command() -> None:
+    """The EXP-004 command is available before any search runs."""
+    parser = build_parser()
+    args = parser.parse_args(
+        [
+            "live",
+            "cadence",
+            "--synthetic",
+            "--mode",
+            "reduced",
+            "--seed",
+            "20261012",
+            "--experiment-id",
+            "EXP-004",
+        ]
+    )
+    assert args.synthetic is True
+    assert args.mode == "reduced"
+    assert args.seed == 20261012
+
+
 def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
     """Schema export is stable and check mode never overwrites drift."""
     schema_dir = tmp_path / "schemas"
@@ -30,6 +51,8 @@ def test_schema_export_and_check_are_deterministic(tmp_path: Path) -> None:
         "live_state.schema.json",
         "run_manifest.schema.json",
         "recovery_grid.schema.json",
+        "cadence_truth.schema.json",
+        "cadence_recovery.schema.json",
     }
     assert export_schemas(schema_dir, check=True) == ()
     stale_file = schema_dir / "live_state.schema.json"

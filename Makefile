@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence docs clean files-check
+.PHONY: install test lint format schemas schemas-check schemas-validate live-build live-dev live-evidence voyager floor-smoke floor floor-evidence cadence-synthetic cadence-synthetic-reduced docs clean files-check
 
 install:
 	$(UV) sync --all-groups --extra radio --python 3.15.0
@@ -53,6 +53,12 @@ floor-evidence: floor
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030
 	$(UV) run --locked xenia schemas validate-state --state runs/state.json --schema schemas/live_state.schema.json
 	$(UV) run --locked xenia live render --state runs/state.json --runs runs --output site --manifest-root runs --experiment-id EXP-030
+
+cadence-synthetic:
+	$(UV) run --locked xenia live cadence --synthetic --seed 20261012 --experiment-id EXP-004
+
+cadence-synthetic-reduced:
+	$(UV) run --locked xenia live cadence --synthetic --mode reduced --seed 20261012 --experiment-id EXP-004
 
 live-evidence:
 	$(UV) run --locked xenia live build-state --runs runs --output runs/state.json --manifest-root runs --experiment-id EXP-030

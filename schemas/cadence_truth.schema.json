@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "TruthInjection": {
+      "additionalProperties": false,
+      "description": "One planted line and the verdict the fixture expects.",
+      "properties": {
+        "channel_index": {
+          "minimum": 0,
+          "title": "Channel Index",
+          "type": "integer"
+        },
+        "drift_hz_s": {
+          "title": "Drift Hz S",
+          "type": "number"
+        },
+        "expected_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "injection_id": {
+          "minLength": 1,
+          "title": "Injection Id",
+          "type": "string"
+        },
+        "present_scan_indexes": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Present Scan Indexes",
+          "type": "array"
+        },
+        "snr": {
+          "exclusiveMinimum": 0,
+          "title": "Snr",
+          "type": "number"
+        },
+        "start_frequency_mhz": {
+          "exclusiveMinimum": 0,
+          "title": "Start Frequency Mhz",
+          "type": "number"
+        }
+      },
+      "required": [
+        "injection_id",
+        "expected_verdict",
+        "channel_index",
+        "start_frequency_mhz",
+        "drift_hz_s",
+        "snr",
+        "present_scan_indexes"
+      ],
+      "title": "TruthInjection",
+      "type": "object"
+    },
+    "Verdict": {
+      "description": "Mechanical, prosaic-first public verdict taxonomy.",
+      "enum": [
+        "KNOWN_SOURCE",
+        "IN_OFF",
+        "SINGLE_POINTING",
+        "RFI_CENSUS",
+        "ON_ONLY",
+        "UNEXPLAINED"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The known-answer table for one synthetic cadence.",
+  "properties": {
+    "injections": {
+      "items": {
+        "$ref": "#/$defs/TruthInjection"
+      },
+      "title": "Injections",
+      "type": "array"
+    },
+    "mode": {
+      "minLength": 1,
+      "title": "Mode",
+      "type": "string"
+    },
+    "roles": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Roles",
+      "type": "array"
+    },
+    "seed": {
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "seed",
+    "mode",
+    "roles",
+    "injections"
+  ],
+  "title": "CadenceTruth",
+  "type": "object"
+}

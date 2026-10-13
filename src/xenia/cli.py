@@ -86,6 +86,21 @@ def build_parser() -> argparse.ArgumentParser:
     floor_parser.add_argument("--seed", type=int, default=20261012)
     floor_parser.add_argument("--experiment-id", default="EXP-002")
 
+    cadence_parser = live_sub.add_parser(
+        "cadence", help="search one ABACAD cadence and write its verdicts"
+    )
+    cadence_parser.add_argument(
+        "--synthetic",
+        action="store_true",
+        help="generate the EXP-004 known-answer cadence instead of reading telescope files",
+    )
+    cadence_parser.add_argument("--mode", choices=("full", "reduced"), default="full")
+    cadence_parser.add_argument("--seed", type=int, default=20261012)
+    cadence_parser.add_argument("--experiment-id", default="EXP-004")
+    cadence_parser.add_argument(
+        "--known-sources", type=Path, default=Path("configs/known_sources.yaml")
+    )
+
     return parser
 
 
@@ -181,6 +196,25 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(
                 f"EXP-002 outcome={manifest.outcome}; run_id={manifest.run_id}; "
+                f"manifest={manifest_path}"
+            )
+            return 0
+
+        if args.group == "live" and args.live_command == "cadence":
+            if not args.synthetic:
+                parser.error("pass --synthetic; reading telescope files is a later command")
+            from xenia.live.cadence import run_synthetic_cadence
+
+            manifest, manifest_path = run_synthetic_cadence(
+                root,
+                command,
+                seed=args.seed,
+                experiment_id=args.experiment_id,
+                mode=args.mode,
+                known_sources_path=_inside_repository(args.known_sources, root),
+            )
+            print(
+                f"{args.experiment_id} outcome={manifest.outcome}; run_id={manifest.run_id}; "
                 f"manifest={manifest_path}"
             )
             return 0
