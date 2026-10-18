@@ -3,6 +3,7 @@
 {% block scripts %}<script src="../investigations.js" defer></script>{% endblock %}
 {% block content %}
 <header class="lab-header story-header"><a class="back-link" href="../investigations.html">← All investigations</a><p class="eyebrow">Investigation {{ story.number }} / {{ story.kind }}</p><h1>{{ story.title }}</h1><p class="lead">{{ story.question }}</p><div class="story-meta"><span>{{ manifest.experiment_id }}</span><span>Recorded {{ manifest.finished_at.strftime('%d %b %Y') }}</span><span>{{ 'Synthetic control' if story.slug == 'recovery' else 'Public archive observation' }}</span></div></header>
+{% if report and story.slug in ['archive', 'recovery'] %}<div class="callout-note"><strong>Follow-up / Detector audit completed for one cadence.</strong><p>{% if story.slug == 'archive' %}The historical account below records the original open questions. The follow-up confirms below-threshold scores in all four empty scans, recovers their 20 injected controls and fixes a drift-coverage defect.{% else %}This recovery grid predates the detector correction. It remains historical evidence and must be rerun before calibrating the corrected configuration.{% endif %} <a href="../research.html#first-report">Read the report and reproduce the checks →</a></p></div>{% endif %}
 <nav class="chapter-nav" aria-label="Investigation chapters">{% for title, text in story.steps %}<a href="#step-{{ loop.index }}"><span>0{{ loop.index }}</span>{{ title }}</a>{% endfor %}</nav>
 <div class="story-layout">
   <div class="story-steps">

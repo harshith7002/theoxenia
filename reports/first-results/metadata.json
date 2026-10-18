@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "title": "Empty tables, tested boundaries: a reproducible audit of one Breakthrough Listen radio cadence",
+    "upload_type": "publication",
+    "publication_type": "report",
+    "publication_date": "2026-10-18",
+    "version": "1.0",
+    "creators": [
+      {
+        "name": "Petychakis, Michael"
+      }
+    ],
+    "description": "<p>A reproducible audit of six public 1380-1381 MHz Green Bank Telescope archive scans. The report explains four empty detector tables, demonstrates and corrects a turboSETI 2.3.2 drift-coverage gap, and measures injected-control losses caused by local-maximum selection. Includes exact input identifiers and hashes, code, compact diagnostic results, protocols and reproduction instructions.</p><p>One cadence, no new observing exposure, no discovery or survey-completeness claim. Independent processing by Theoxenia; no affiliation, upstream acceptance or external peer review is claimed. Analysis and drafting assisted by OpenAI Codex. Authored report and diagnostics: CC BY 4.0; project code: Apache-2.0; source observations and third-party components retain their original terms. No raw telescope data is redistributed.</p>",
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "keywords": [
+      "radio astronomy",
+      "technosignature search",
+      "reproducibility",
+      "software validation",
+      "Breakthrough Listen",
+      "turboSETI"
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "https://github.com/mpetyx/theoxenia",
+        "relation": "isSupplementTo",
+        "scheme": "url"
+      }
+    ]
+  }
+}

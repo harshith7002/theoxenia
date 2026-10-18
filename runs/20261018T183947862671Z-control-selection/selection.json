@@ -1,0 +1,396 @@
+[
+  {
+    "scan_index": 0,
+    "identical_returned_rows": true,
+    "controls": [
+      {
+        "truth": {
+          "start_channel": 82319,
+          "channels_per_integration": -1,
+          "frequency_mhz": 1380.770000629127,
+          "drift_hz_s": 0.15306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 82319,
+          "candidate_snr": 180.73057556152344,
+          "candidate_drift_hz_s": -0.8061361908912659,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 69,
+          "neighbor_channel": 82351,
+          "neighbor_snr": 515.75146484375,
+          "neighbor_drift_hz_s": -0.3673532009124756,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 171798,
+          "channels_per_integration": 1,
+          "frequency_mhz": 1380.519999191165,
+          "drift_hz_s": -0.15306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 171798,
+          "candidate_snr": 39.790252685546875,
+          "candidate_drift_hz_s": -0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 663,
+          "neighbor_channel": 172188,
+          "neighbor_snr": 129.2905731201172,
+          "neighbor_drift_hz_s": -0.3673532009124756,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 261276,
+          "channels_per_integration": 10,
+          "frequency_mhz": 1380.2700005471706,
+          "drift_hz_s": -1.5306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 171,
+              "drift_hz_s": -1.530638,
+              "snr": 39.82864,
+              "uncorrected_frequency_mhz": 1380.270001,
+              "corrected_frequency_mhz": 1380.270001,
+              "frequency_start_mhz": 1380.272191,
+              "frequency_end_mhz": 1380.267813
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 261276,
+          "candidate_snr": 39.82863998413086,
+          "candidate_drift_hz_s": -1.530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 261276,
+          "neighbor_snr": 39.82863998413086,
+          "neighbor_drift_hz_s": -1.530638337135315,
+          "suppressed": false
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 125269,
+          "channels_per_integration": 26,
+          "frequency_mhz": 1380.6499997153878,
+          "drift_hz_s": -3.979659739005616,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 125269,
+          "candidate_snr": 43.058494567871094,
+          "candidate_drift_hz_s": -3.9796597957611084,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 100,
+          "neighbor_channel": 124920,
+          "neighbor_snr": 96.83218383789062,
+          "neighbor_drift_hz_s": -0.3163319230079651,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 214747,
+          "channels_per_integration": -26,
+          "frequency_mhz": 1380.4000010713935,
+          "drift_hz_s": 3.979659739005616,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 214747,
+          "candidate_snr": 39.87310028076172,
+          "candidate_drift_hz_s": 3.9796597957611084,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 22,
+          "neighbor_channel": 214064,
+          "neighbor_snr": 75.84678649902344,
+          "neighbor_drift_hz_s": -0.3673532009124756,
+          "suppressed": true
+        }
+      }
+    ],
+    "injected_track_trials": [
+      {
+        "start_channel": 214747,
+        "drift_hz_s": 3.9796597390056165,
+        "max_snr": 39.87310076981527
+      },
+      {
+        "start_channel": 214747,
+        "drift_hz_s": 3.9796597390056165,
+        "max_snr": 39.87310076981527
+      },
+      {
+        "start_channel": 82319,
+        "drift_hz_s": 0.15306383611560065,
+        "max_snr": 39.97197808000069
+      },
+      {
+        "start_channel": 82319,
+        "drift_hz_s": 0.15306383611560065,
+        "max_snr": 39.97197808000069
+      },
+      {
+        "start_channel": 171798,
+        "drift_hz_s": -0.15306383611560065,
+        "max_snr": 39.79025379361724
+      },
+      {
+        "start_channel": 171798,
+        "drift_hz_s": -0.15306383611560065,
+        "max_snr": 39.79025379361724
+      },
+      {
+        "start_channel": 261276,
+        "drift_hz_s": -1.5306383611560064,
+        "max_snr": 39.828641693039785
+      },
+      {
+        "start_channel": 261276,
+        "drift_hz_s": -1.5306383611560064,
+        "max_snr": 39.828641693039785
+      },
+      {
+        "start_channel": 125269,
+        "drift_hz_s": -3.9796597390056165,
+        "max_snr": 43.05849456827353
+      },
+      {
+        "start_channel": 125269,
+        "drift_hz_s": -3.9796597390056165,
+        "max_snr": 43.05849456827353
+      }
+    ],
+    "warnings": [
+      "Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1."
+    ],
+    "injected_sha256": "a3d303676e62fdc143136c247e4f3a6c53e83d0c92b68ca8e4cd83c82ba949e5"
+  },
+  {
+    "scan_index": 1,
+    "identical_returned_rows": true,
+    "controls": [
+      {
+        "truth": {
+          "start_channel": 82319,
+          "channels_per_integration": -1,
+          "frequency_mhz": 1380.770000629127,
+          "drift_hz_s": 0.15306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 82319,
+          "candidate_snr": 38.621219635009766,
+          "candidate_drift_hz_s": 0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 106,
+          "neighbor_channel": 82396,
+          "neighbor_snr": 116.63338470458984,
+          "neighbor_drift_hz_s": -0.612255334854126,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 171798,
+          "channels_per_integration": 1,
+          "frequency_mhz": 1380.519999191165,
+          "drift_hz_s": -0.15306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 100,
+              "drift_hz_s": -0.153064,
+              "snr": 39.67215,
+              "uncorrected_frequency_mhz": 1380.519999,
+              "corrected_frequency_mhz": 1380.519999,
+              "frequency_start_mhz": 1380.52219,
+              "frequency_end_mhz": 1380.517812
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 171798,
+          "candidate_snr": 39.672149658203125,
+          "candidate_drift_hz_s": -0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 171798,
+          "neighbor_snr": 39.672149658203125,
+          "neighbor_drift_hz_s": -0.1530638337135315,
+          "suppressed": false
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 261276,
+          "channels_per_integration": 10,
+          "frequency_mhz": 1380.2700005471706,
+          "drift_hz_s": -1.5306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 145,
+              "drift_hz_s": -1.530638,
+              "snr": 40.732525,
+              "uncorrected_frequency_mhz": 1380.270001,
+              "corrected_frequency_mhz": 1380.270001,
+              "frequency_start_mhz": 1380.272191,
+              "frequency_end_mhz": 1380.267813
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 261276,
+          "candidate_snr": 40.73252487182617,
+          "candidate_drift_hz_s": -1.530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 261276,
+          "neighbor_snr": 40.73252487182617,
+          "neighbor_drift_hz_s": -1.530638337135315,
+          "suppressed": false
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 125269,
+          "channels_per_integration": 26,
+          "frequency_mhz": 1380.6499997153878,
+          "drift_hz_s": -3.979659739005616,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 125269,
+          "candidate_snr": 38.18563461303711,
+          "candidate_drift_hz_s": -3.9796597957611084,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 128,
+          "neighbor_channel": 124589,
+          "neighbor_snr": 68.5770263671875,
+          "neighbor_drift_hz_s": -0.1224510669708252,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 214747,
+          "channels_per_integration": -26,
+          "frequency_mhz": 1380.4000010713935,
+          "drift_hz_s": 3.979659739005616,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 123,
+              "drift_hz_s": 3.97966,
+              "snr": 41.220406,
+              "uncorrected_frequency_mhz": 1380.400001,
+              "corrected_frequency_mhz": 1380.400001,
+              "frequency_start_mhz": 1380.402192,
+              "frequency_end_mhz": 1380.397813
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 214747,
+          "candidate_snr": 41.22040557861328,
+          "candidate_drift_hz_s": 3.9796597957611084,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 214747,
+          "neighbor_snr": 41.22040557861328,
+          "neighbor_drift_hz_s": 3.9796597957611084,
+          "suppressed": false
+        }
+      }
+    ],
+    "injected_track_trials": [
+      {
+        "start_channel": 214747,
+        "drift_hz_s": 3.9796597390056165,
+        "max_snr": 41.22040428871214
+      },
+      {
+        "start_channel": 214747,
+        "drift_hz_s": 3.9796597390056165,
+        "max_snr": 41.22040428871214
+      },
+      {
+        "start_channel": 82319,
+        "drift_hz_s": 0.15306383611560065,
+        "max_snr": 38.62122048553826
+      },
+      {
+        "start_channel": 82319,
+        "drift_hz_s": 0.15306383611560065,
+        "max_snr": 38.62122048553826
+      },
+      {
+        "start_channel": 171798,
+        "drift_hz_s": -0.15306383611560065,
+        "max_snr": 39.67214905500008
+      },
+      {
+        "start_channel": 171798,
+        "drift_hz_s": -0.15306383611560065,
+        "max_snr": 39.67214905500008
+      },
+      {
+        "start_channel": 261276,
+        "drift_hz_s": -1.5306383611560064,
+        "max_snr": 40.732524238319364
+      },
+      {
+        "start_channel": 261276,
+        "drift_hz_s": -1.5306383611560064,
+        "max_snr": 40.732524238319364
+      },
+      {
+        "start_channel": 125269,
+        "drift_hz_s": -3.9796597390056165,
+        "max_snr": 38.18563625390844
+      },
+      {
+        "start_channel": 125269,
+        "drift_hz_s": -3.9796597390056165,
+        "max_snr": 38.18563625390844
+      }
+    ],
+    "warnings": [
+      "Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1."
+    ],
+    "injected_sha256": "c3b0bc68865762fb2384c6a8cb69b9a05a70ab3334703e4ec02795b4bcf0d886"
+  }
+]

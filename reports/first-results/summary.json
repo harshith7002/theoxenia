@@ -1,0 +1,71 @@
+{
+  "source_run_id": "20261018T183744725763Z-detector-corrected",
+  "rows": [
+    {
+      "scan": 1,
+      "role": "ON",
+      "source": "HIP544",
+      "hits": 186,
+      "turboseti_max": 635.2439243609555,
+      "independent_max": 635.2440127110721,
+      "controls_recovered": 1,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 1
+    },
+    {
+      "scan": 2,
+      "role": "OFF",
+      "source": "HIP1024",
+      "hits": 150,
+      "turboseti_max": 260.1856614162837,
+      "independent_max": 259.87506579441146,
+      "controls_recovered": 3,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 2
+    },
+    {
+      "scan": 3,
+      "role": "ON",
+      "source": "HIP544",
+      "hits": 0,
+      "turboseti_max": 7.554449022157578,
+      "independent_max": 7.55445742092449,
+      "controls_recovered": 5,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 3
+    },
+    {
+      "scan": 4,
+      "role": "OFF",
+      "source": "HIP114",
+      "hits": 0,
+      "turboseti_max": 7.678121879479115,
+      "independent_max": 7.580704353481549,
+      "controls_recovered": 5,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 3
+    },
+    {
+      "scan": 5,
+      "role": "ON",
+      "source": "HIP544",
+      "hits": 0,
+      "turboseti_max": 7.420577635141396,
+      "independent_max": 7.982596018447046,
+      "controls_recovered": 5,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 3
+    },
+    {
+      "scan": 6,
+      "role": "OFF",
+      "source": "HIP1344",
+      "hits": 0,
+      "turboseti_max": 7.870713411439674,
+      "independent_max": 7.870713483622766,
+      "controls_recovered": 5,
+      "controls_injected": 5,
+      "legacy_controls_recovered": 3
+    }
+  ]
+}

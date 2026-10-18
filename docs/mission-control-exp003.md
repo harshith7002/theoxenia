@@ -65,3 +65,7 @@ The page payload is the three highest-SNR rows. Each has `checks_done` 4. `revie
 The `IN_OFF` explanation is: the line is present in an OFF scan, so the ON/OFF filter does not pass. The `SINGLE_POINTING` explanation is: the line is present in fewer than all three ON scans. On-source time recorded for the pointing is 876.173328384 s. No other cadence from this observing session was supplied, so the session check stays clear. The known-source file hashed to `565f66ac54766f56754afa31fb908aa2e3fb1bfb886f79ac18f61b7429816dc1`.
 
 The manifest notes record the turboSETI 2.3.2 post-search hit-count `TypeError` four times. Two of those notes say parseable `.dat` rows were kept. Two say the `.dat` table had no hit rows and the empty result was kept. The note list is capped at four warnings. Scans 2, 3, 4, and 5 are the empty tables in the search log. This page does not give a cause for those empty tables.
+
+## Follow-up: PUB-002
+
+The [first research report](first-research-report.md) diagnoses the four empty tables, corrects drift coverage and records one additional OFF-scan top hit. This page and the original clustered table remain historical results.

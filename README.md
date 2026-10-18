@@ -142,3 +142,7 @@ Code is licensed under Apache-2.0. Project-authored documentation is licensed un
 ## Project sources
 
 The mutable specification, decisions, and task state live in the [Alien Exploration Notion teamspace](https://app.notion.com/p/3ab073ddfc5c83b3ad6801b9c2608d6b). The [Mission Control MVP brief](https://app.notion.com/p/Mission-Control-MVP-EXP-030-3f7073ddfc5c811ca260d7b2a306eaac) is the source of truth for milestones and acceptance criteria. See [`docs/index.md`](docs/index.md), the [M0 notes](docs/mission-control-m0.md), and the [EXP-002 method/results](docs/mission-control-exp002.md).
+
+### First reproducible research report
+
+[Empty tables, tested boundaries](reports/first-results/report.md) audits one real archive cadence, documents a detector correction, and preserves remaining selection limits. The [reproduction guide](reports/first-results/README.md) and [Zenodo submission guide](reports/first-results/SUBMISSION.md) accompany the unpublished report.

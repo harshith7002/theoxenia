@@ -134,3 +134,39 @@ def test_no_observational_story_is_invented_for_fixtures() -> None:
     from xenia.live.investigations import available_stories
 
     assert available_stories(load_manifests(ROOT / "tests/fixtures/live")) == []
+
+
+def test_research_report_requires_pinned_evidence_and_matching_summary(tmp_path: Path) -> None:
+    from xenia.live.investigations import prepare_research_report
+
+    manifests = load_manifests(RUNS)
+    assert prepare_research_report([], RUNS, tmp_path / "none", ROOT) == (None, [])
+    fake_root = tmp_path / "source"
+    shutil.copytree(ROOT / "reports", fake_root / "reports")
+    summary_path = fake_root / "reports/first-results/summary.json"
+    summary = json.loads(summary_path.read_text())
+    summary["rows"][2]["controls_recovered"] = 4
+    summary_path.write_text(json.dumps(summary))
+    with pytest.raises(ValueError, match="summary disagrees"):
+        prepare_research_report(manifests, RUNS, tmp_path / "changed", fake_root)
+
+
+def test_research_report_downloads_preserve_source_and_scientific_boundary(tmp_path: Path) -> None:
+    BUILD.build_public_site(tmp_path, base_url="https://example.org/theoxenia/")
+    page = (tmp_path / "research.html").read_text()
+    assert "24 of 30 controls retained" in page
+    assert "Unpublished" in page
+    assert "not a new clustered cadence table" in page
+    assert (tmp_path / "reports/first-results/report.pdf").read_bytes() == (
+        ROOT / "reports/first-results/report.pdf"
+    ).read_bytes()
+    config = json.loads((ROOT / "reports/first-results/package.json").read_text())
+    with zipfile.ZipFile(tmp_path / "downloads/research-report-evidence.zip") as bundle:
+        for run_id in config["run_ids"]:
+            manifest = json.loads(bundle.read(f"runs/{run_id}/manifest.json"))
+            for artifact in manifest["outputs"]:
+                if artifact["sha256"]:
+                    assert (
+                        hashlib.sha256(bundle.read(artifact["path"])).hexdigest()
+                        == artifact["sha256"]
+                    )

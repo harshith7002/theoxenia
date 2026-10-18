@@ -37,6 +37,7 @@ def main():
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
+            "svg.hashsalt": "theoxenia-report-01",
             "font.size": 10,
             "axes.spines.top": False,
             "axes.spines.right": False,
@@ -68,7 +69,15 @@ def main():
     ax.set_title("B / Five added tracks per scan", loc="left", fontweight="bold")
     ax.grid(axis="y", alpha=0.16)
     for ext in ("png", "svg"):
-        fig.savefig(out / f"diagnosis-overview.{ext}", dpi=180, metadata={"Creator": "Theoxenia"})
+        metadata = {"Creator": "Theoxenia"}
+        if ext == "svg":
+            metadata["Date"] = None
+        figure_path = out / f"diagnosis-overview.{ext}"
+        fig.savefig(figure_path, dpi=180, metadata=metadata)
+        if ext == "svg":
+            figure_path.write_text(
+                "\n".join(line.rstrip() for line in figure_path.read_text().splitlines()) + "\n"
+            )
     plt.close(fig)
     rows = []
     for i, d in enumerate(records):

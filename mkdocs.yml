@@ -15,6 +15,7 @@ nav:
   - Home: index.md
   - First public release: public-release.md
   - Guided investigations and contributions: investigations.md
+  - First reproducible research report: first-research-report.md
   - Architecture: architecture.md
   - EXP-001 data sources: data-sources.md
   - Data-source endpoint check: sources-check.md

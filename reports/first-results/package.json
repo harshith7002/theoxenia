@@ -1,0 +1,12 @@
+{
+  "run_ids": [
+    "20261012T203545022355Z-exp-003-cadence",
+    "20261018T175821546488Z-public-evidence",
+    "20261018T182502846875Z-detector-diagnosis",
+    "20261018T183203000323Z-control-selection",
+    "20261018T183336278843Z-detector-diagnosis",
+    "20261018T183418810271Z-control-selection",
+    "20261018T183744725763Z-detector-corrected",
+    "20261018T183947862671Z-control-selection"
+  ]
+}

@@ -1,6 +1,6 @@
 # First public release: recorded evidence
 
-Prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation or detector search was performed. PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
+Prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation was made. PUB-002 reruns and audits the detector on the existing six archive slices; see [the first research report](first-research-report.md). PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
 
 ## What a visitor can do
 
@@ -32,7 +32,7 @@ The next deployment session should enable GitHub Pages with GitHub Actions as it
 
 ## What still needs scientific or operational work
 
-- Investigate the empty later ON scans in EXP-003 before drawing broader null-result conclusions. The original warnings and outputs remain intact.
+- The empty-table diagnosis is resolved for this configuration in PUB-002. Rerun the historical recovery grid under the corrected detector and test broader inputs before generalizing sensitivity. Crowded-data selection losses remain measured limitations; the original warnings and outputs stay intact.
 - Grow beyond the currently recorded cadence and complete measured queue coverage. The original MVP asks for at least 100 cadences.
 - Validate a persistent host, recovery and a 24-hour unattended run with at least 50 pairs before presenting a live-service claim. The existing 60-minute synthetic run is not that proof.
 - Design worker-result persistence for the single-branch policy. The legacy worker publisher intentionally refuses to commit to `main`; it remains off. The legacy pulse workflow is also inactive.

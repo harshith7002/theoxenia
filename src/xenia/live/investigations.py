@@ -331,6 +331,66 @@ def _bundle(manifest: RunManifest, output_root: Path, files: list[Path]) -> Path
     return target
 
 
+def prepare_research_report(
+    manifests: Sequence[RunManifest], runs_dir: Path, output_root: Path, repository_root: Path
+) -> tuple[dict[str, Any] | None, list[Path]]:
+    """Expose the report only with its pinned, checksum-verified evidence."""
+    report = repository_root / "reports" / "first-results"
+    config = json.loads((report / "package.json").read_text())
+    by_id = {m.run_id: m for m in manifests}
+    if not all(run_id in by_id for run_id in config["run_ids"]):
+        return None, []
+    summary: dict[str, Any] = json.loads((report / "summary.json").read_text())
+    source = by_id[summary["source_run_id"]]
+    for index, row in enumerate(summary["rows"]):
+        record = json.loads(verified_output(source, f"scan-{index}.json", runs_dir).read_text())
+        if (
+            row["hits"] != len(record["original"]["hits"])
+            or row["controls_recovered"] != sum(t["recovered"] for t in record["injected_truth"])
+            or row["controls_injected"] != len(record["injected_truth"])
+            or row["turboseti_max"] != max(t["max_snr"] for t in record["original"]["trials"])
+            or row["independent_max"] != max(t["max_snr"] for t in record["independent"]["trials"])
+        ):
+            raise ValueError("report summary disagrees with recorded evidence")
+    if len(summary["rows"]) != 6:
+        raise ValueError("report summary must contain six scans")
+    copied = []
+    entries = {}
+    for run_id in config["run_ids"]:
+        manifest = by_id[run_id]
+        files = _copy_evidence(manifest, runs_dir, output_root)
+        copied.extend(files)
+        entries.update({p.relative_to(output_root).as_posix(): p.read_bytes() for p in files})
+        entries[f"runs/{run_id}/manifest.json"] = (runs_dir / run_id / "manifest.json").read_bytes()
+    for name in (
+        "report.pdf",
+        "report.md",
+        "README.md",
+        "SUBMISSION.md",
+        "metadata.json",
+        "diagnosis-overview.png",
+        "diagnosis-overview.svg",
+        "summary.json",
+        "PROTOCOL.md",
+    ):
+        target = output_root / "reports" / "first-results" / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(report / name, target)
+        copied.append(target)
+    bundle = output_root / "downloads" / "research-report-evidence.zip"
+    bundle.parent.mkdir(exist_ok=True)
+    entries["README.md"] = (report / "README.md").read_bytes()
+    entries["PROTOCOL.md"] = (report / "PROTOCOL.md").read_bytes()
+    with zipfile.ZipFile(bundle, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for name, content in sorted(entries.items()):
+            info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            archive.writestr(info, content)
+    copied.append(bundle)
+    return summary, copied
+
+
 def render_investigations(
     manifests: Sequence[RunManifest],
     *,
@@ -365,7 +425,11 @@ def render_investigations(
         written.append(destination)
 
     write("investigations.html", "investigations.html.j2", stories=stories, prefix="")
-    write("research.html", "research.html.j2", prefix="")
+    report, report_files = prepare_research_report(
+        manifests, runs_dir, output_root, repository_root
+    )
+    written.extend(report_files)
+    write("research.html", "research.html.j2", prefix="", report=report)
     for story in stories:
         manifest = by_id[story["run_id"]]
         if story["slug"] in {"archive", "recovery"}:
@@ -390,6 +454,7 @@ def render_investigations(
             payload=manifest.mission_control,
             prefix="../",
             explorer_available=prepared_data is not None,
+            report=report,
         )
         write(
             f"dossiers/{manifest.run_id}.html",
@@ -416,5 +481,6 @@ def render_investigations(
             data=prepared_data,
             source=by_id[prepared_data["source_run_id"]],
             preparation=prepared_manifest,
+            report=report,
         )
     return tuple(written)

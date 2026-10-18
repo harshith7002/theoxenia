@@ -22,7 +22,7 @@ The 16 time integrations and 357,913 native frequency channels per scan are redu
 
 The export includes every Parquet field, preserving the classification and all check notes. Tests compare every exported row with the source table. Runtime rendering checks the preparation output hash, parent-table hash, parent identity, row uniqueness and complete classification counts before showing the explorer.
 
-This is new processing of real archived data, **not a new detector search or additional observation exposure**. In particular, the finite/positive power check does not establish that the detector correctly handled the later ON scans. The empty later ON tables remain an open investigation. The historical `session_census_clear=true` value came with a note that no other cadence was supplied; the inspector therefore displays **Not tested** while preserving the original note. Original scientific records are not rewritten.
+This is new processing of real archived data, **not a new detector search or additional observation exposure**. In particular, the finite/positive power check does not establish that the detector correctly handled the later ON scans. The subsequent PUB-002 detector audit resolves the empty-table question at this configuration and fixes a drift-coverage defect; see [the first research report](first-research-report.md). The historical `session_census_clear=true` value came with a note that no other cadence was supplied; the inspector therefore displays **Not tested** while preserving the original note. Original scientific records are not rewritten.
 
 To produce another preparation record (radio extras and network access required):
 

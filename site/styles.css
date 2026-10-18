@@ -935,3 +935,11 @@ input:focus-visible, select:focus-visible { outline: 2px solid var(--focus); out
  .lab-header h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
 }
 @media (prefers-reduced-motion: reduce) { .investigation-card { transition: none; } .investigation-card:hover { transform: none; } }
+
+/* Research report: readable evidence, with the table as a text alternative. */
+.report-feature { scroll-margin-top: 2rem; }
+.report-feature h2 { font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.05; }
+.report-figure { margin: 2rem 0; padding: clamp(.75rem, 2vw, 1.5rem); background: #fff; border-radius: 1rem; }
+.report-figure img { width: 100%; height: auto; display: block; }
+.report-figure .figure-note { color: #394c59; }
+.report-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: 1.5rem 0; }
