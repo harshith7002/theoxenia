@@ -70,7 +70,9 @@ def search_cadence(scans: tuple[ScanTruth, ...], *, work_dir: Path) -> CadenceSe
             minimum_snr=MINIMUM_SNR,
             n_coarse_channels=N_COARSE_CHAN,
         )
-        warnings.extend(result.warnings)
+        warnings.extend(
+            f"Scan {scan.scan_index + 1} ({scan.role}): {note}" for note in result.warnings
+        )
         dat_files = tuple(sorted(scan_dir.glob("*.dat")))
         if len(dat_files) != 1:
             raise RuntimeError(

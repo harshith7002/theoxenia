@@ -47,6 +47,9 @@ radio = [
   "setuptools==80.9.0",
   "turbo-seti>=2.3.2,<3",
 ]
+reports = [
+    "reportlab==4.4.9",
+]
 
 [project.scripts]
 xenia = "xenia.cli:main"

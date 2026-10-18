@@ -71,3 +71,6 @@ data/
 /site/research.html
 /site/dossiers/
 /site/downloads/
+!/runs/**/diagnosis.json
+!/runs/**/scan-*.json
+!/runs/**/selection.json

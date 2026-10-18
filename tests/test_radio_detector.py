@@ -148,13 +148,22 @@ def test_detector_wrapper_preserves_hits_after_final_logging_type_error(
     filterbank.write_bytes(b"synthetic HDF5 placeholder")
     output_directory = tmp_path / "detector"
 
+    source_path = tmp_path / "find_doppler.py"
+    source_path.write_text(
+        "def search_coarse_channel():\n"
+        "    total_n_hits = __import__('numpy').zeros(1)\n"
+        "    'hit count %i' % total_n_hits\n",
+        encoding="utf-8",
+    )
+    search_coarse_channel = _load_search_coarse_channel(source_path)
+
     class FinderWithPostSearchError:
         def __init__(self, path: str, **kwargs: object) -> None:
             self.out_dir = Path(str(kwargs["out_dir"]))
 
         def search(self, *, n_partitions: int, progress_bar: str) -> None:
             (self.out_dir / "slice.dat").write_text(DAT_TEXT, encoding="utf-8")
-            raise TypeError("format argument: %i requires a real number, not numpy.ndarray")
+            search_coarse_channel()
 
     monkeypatch.setattr(detector, "_find_doppler_class", lambda: FinderWithPostSearchError)
     monkeypatch.setattr(detector, "version", lambda package: f"{package}-test")
@@ -283,3 +292,40 @@ def test_detector_wrapper_rejects_post_search_error_without_hit_rows(
             max_drift_hz_s=4.0,
             minimum_snr=10.0,
         )
+
+
+@pytest.mark.parametrize("text", ["", "# comments only\n", "1 2 3\n"])
+def test_parser_does_not_treat_missing_header_as_empty_success(text):
+    with pytest.raises(ValueError, match="no valid column header"):
+        parse_dat_text(text)
+
+
+def test_detector_refuses_stale_output(tmp_path):
+    source = tmp_path / "source.h5"
+    source.touch()
+    output = tmp_path / "output"
+    output.mkdir()
+    (output / "old.dat").write_text(DAT_TEXT)
+    with pytest.raises(ValueError, match="old .dat"):
+        run_turboseti(source, output_directory=output, max_drift_hz_s=4, minimum_snr=10)
+
+
+@pytest.mark.parametrize("failure", ["partial", "missing"])
+def test_detector_never_accepts_partial_or_missing_output(tmp_path, monkeypatch, failure):
+    source = tmp_path / "source.h5"
+    source.touch()
+    output = tmp_path / "output"
+
+    class IncompleteFinder:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def search(self, **kwargs):
+            if failure == "partial":
+                (output / "partial.dat").write_text(DAT_TEXT)
+                raise TypeError("format argument: %i requires a real number, not numpy.ndarray")
+
+    monkeypatch.setattr(detector, "_find_doppler_class", lambda: IncompleteFinder)
+    monkeypatch.setattr(detector, "version", lambda package: "test")
+    with pytest.raises(TypeError if failure == "partial" else RuntimeError):
+        run_turboseti(source, output_directory=output, max_drift_hz_s=4, minimum_snr=10)

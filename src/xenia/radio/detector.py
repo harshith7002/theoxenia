@@ -125,6 +125,8 @@ def parse_dat_text(text: str) -> tuple[DopplerHit, ...]:
                 frequency_end_mhz=numeric["freq_end"],
             )
         )
+    if columns is None:
+        raise ValueError("turboSETI .dat table has no valid column header")
     return tuple(hits)
 
 
@@ -208,6 +210,10 @@ def run_turboseti(
             "drift limit and coarse-channel count must be positive; minimum SNR non-negative"
         )
     output_directory.mkdir(parents=True, exist_ok=True)
+    if any(output_directory.glob("*.dat")):
+        raise ValueError(
+            "detector output directory contains old .dat tables; use a fresh directory"
+        )
     finder_class = _find_doppler_class()
 
     try:
@@ -230,11 +236,18 @@ def run_turboseti(
     try:
         finder.search(n_partitions=1, progress_bar="n")
     except TypeError as exc:
-        if _NUMPY_INT_FORMAT_ERROR not in str(exc):
+        # A parseable table can still be partial. Only the verified final logging
+        # failure of a single-channel search is recoverable; never infer completion
+        # from the presence of rows or from the exception text alone.
+        if n_coarse_channels != 1 or not _post_search_hit_count_log_error(exc):
             raise
         search_error = exc
 
     dat_paths = tuple(sorted(output_directory.glob("*.dat")))
+    if not dat_paths:
+        raise RuntimeError(
+            "turboSETI returned without a .dat table; search completion is unverified"
+        )
     parsed_hits = tuple(
         hit
         for dat_path in dat_paths

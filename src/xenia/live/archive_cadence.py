@@ -901,7 +901,7 @@ def _notes(
     if local:
         lines.append("Inputs were local files; bytes_transferred is 0.")
     lines.extend(plot_notes)
-    lines.extend(search.warnings[:4])
+    lines.extend(search.warnings)
     return tuple(lines)
 
 

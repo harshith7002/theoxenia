@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261018T182502846875Z-detector-diagnosis",
+  "pillar": "I - Sensor",
+  "command": "uv run --locked --extra radio python scripts/diagnose_archive.py",
+  "parameters": {
+    "source_run_id": "20261012T203545022355Z-exp-003-cadence",
+    "minimum_snr": 10,
+    "max_drift_hz_s": 4,
+    "min_drift_hz_s": 0.00001,
+    "precision": "float32",
+    "coarse_channels": 1,
+    "controls_per_scan": 3,
+    "control_nominal_sum_snr": 40,
+    "frequency_tolerance_channels": 3,
+    "drift_tolerance_hz_s": 0.03
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/manifest.json",
+      "sha256": "e8bf4daf07b83df01ec914cdcf086b36bc22d336b4faba0f87546595a61baa14",
+      "size_bytes": 9227
+    },
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/slice_summary.json",
+      "sha256": "022a703be16b72adb0e2622d3ad51786f29d6f80c9c6cb5e143b78dededd1714",
+      "size_bytes": 42796
+    },
+    {
+      "uri": "scripts/diagnose_archive.py",
+      "sha256": "cc428d5280428c78c63fa6053cfef0d4c26e2f2c1b4f85b7c52e10ebb7bd839e",
+      "size_bytes": 12438
+    },
+    {
+      "uri": "uv.lock",
+      "sha256": "5e416f0e437614af0606a53fe9ab005cafcc16f10712a53cb4997d4f26c79c56",
+      "size_bytes": 293170
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5",
+      "sha256": "184cfc4a43ce0dfe1053ff64db88c65bce78f8f30556553f987aeb28a0decd59",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5",
+      "sha256": "4bc00d049ebeaaabbf2c40c58547cf781c8b21e63c72927be1eed5b6bf2be781",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5",
+      "sha256": "1eaa2ea9ca437e85b9a92f7589ebc3ef1a24f3309970e31d10151d4126fbbe24",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5",
+      "sha256": "8bb309a35b67eff889d0edc3e297c19ecfae58a1e2d683e8230501e57ea94694",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5",
+      "sha256": "11b4812e77a93507c78f9eea8d4cad2b6ee0ca342954980e670230fc633d0beb",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5",
+      "sha256": "1d8c6a6fb80bfa5136d10bbda98dea1c0f5442d299c33092419bd24d395312d0",
+      "size_bytes": 22917760
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/diagnosis.json",
+      "sha256": "7565d316647a35b128006a246d7f160d78a7877bc37fbd3ad409d52c1d294b25",
+      "size_bytes": 29261,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/processor.txt",
+      "sha256": "cc428d5280428c78c63fa6053cfef0d4c26e2f2c1b4f85b7c52e10ebb7bd839e",
+      "size_bytes": 12438,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-0.json",
+      "sha256": "b12ca6898e3de50a86fc44448fb600d49f0252345379f1f3b7ffa861dfa184a6",
+      "size_bytes": 625307,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-1.json",
+      "sha256": "212abb3f151a68de10ccdec98964ba27ed8e786d208d008eaa3ac6c246bd6554",
+      "size_bytes": 604445,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-2.json",
+      "sha256": "11bbb90cbddb5835078cd91c9c7a56fa287eb30470f3ac08e9fea85de6333533",
+      "size_bytes": 513741,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-3.json",
+      "sha256": "f24a5016c97c3e15ef499f66c34a40d6b03c56c9673a44bba99a1e63a751687c",
+      "size_bytes": 513728,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-4.json",
+      "sha256": "6142724e88fa34977052a3d6c935b04f048ee34debd4b30197e2322b165f31d3",
+      "size_bytes": 513735,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/scan-5.json",
+      "sha256": "aba0f99a33fd77b7dd367eb97e7f282603e3ea6a20baa042da10fab4f26dda39",
+      "size_bytes": 513740,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T182502846875Z-detector-diagnosis/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "7241ef8",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-18T18:25:02.846875Z",
+  "finished_at": "2026-10-18T18:30:40.149299Z",
+  "outcome": "diagnosed",
+  "notes": [
+    "Original slices exactly match all six historical SHA-256 values; originals unchanged.",
+    "Synthetic injections use separate copies. They are health checks, not observations.",
+    "Independent nearest-channel integration differs from Taylor-tree paths; not an exact algorithm reproduction.",
+    "This is a rerun of one archived 1 MHz cadence, not additional observing exposure.",
+    "Exact processor source retained. No external scientific review or survey completeness claim."
+  ],
+  "experiment_id": "PUB-002",
+  "demo": false,
+  "mission_control": null
+}
