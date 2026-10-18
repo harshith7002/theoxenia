@@ -18,6 +18,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import TypedDict
 
 from xenia.live.config import LiveConfig
 from xenia.live.models import (
@@ -424,19 +425,33 @@ def _pair_key(pair: QueuePair) -> str:
     return f"{pair.cadence_id}:{start:.6f}:{stop:.6f}"
 
 
-def _load_progress(path: Path) -> dict[str, object]:
+class Progress(TypedDict):
+    completed: list[str]
+    failed: list[str]
+    reasons: dict[str, str]
+
+
+def _load_progress(path: Path) -> Progress:
     if not path.is_file():
         return {"completed": [], "failed": [], "reasons": {}}
     document = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(document, dict):
         raise ValueError(f"{path} is not an object")
-    document.setdefault("completed", [])
-    document.setdefault("failed", [])
-    document.setdefault("reasons", {})
-    return document
+    completed = document.get("completed", [])
+    failed = document.get("failed", [])
+    reasons = document.get("reasons", {})
+    if not isinstance(completed, list) or not all(isinstance(v, str) for v in completed):
+        raise ValueError("completed progress must be a list of pair keys")
+    if not isinstance(failed, list) or not all(isinstance(v, str) for v in failed):
+        raise ValueError("failed progress must be a list of pair keys")
+    if not isinstance(reasons, dict) or not all(
+        isinstance(k, str) and isinstance(v, str) for k, v in reasons.items()
+    ):
+        raise ValueError("progress reasons must map pair keys to text")
+    return {"completed": completed, "failed": failed, "reasons": reasons}
 
 
-def _save_progress(path: Path, progress: dict[str, object]) -> None:
+def _save_progress(path: Path, progress: Progress) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(progress, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 

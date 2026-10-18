@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Lab notebook · Theoxenia</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="page-shell detail-shell">
+  <p><a href="index.html">← Back to Mission control</a></p>
+  <p class="eyebrow">The lab notebook</p><h1>Keep the whole story.</h1>
+  <p>Observations, calibration tests and failed attempts. These are recorded runs, not a live feed. A successful command does not by itself validate a scientific conclusion.</p>
+  {% for entry in notebook %}
+  <article><p class="eyebrow">{{ entry.experiment }} · {{ entry.kind }} · {{ entry.date }}</p>
+    <h2>{{ entry.title }}</h2><p>Recorded outcome: <code>{{ entry.outcome }}</code></p>
+    <p><a href="runs/{{ entry.run_id }}/manifest.json">Open the run manifest</a></p>
+    <details><summary>Reproduce this run</summary><p>Use the recorded revision and locked dependencies. Observation commands may read remote data.</p><pre class="command-block"><code>{{ entry.command }}</code></pre><p>Run <code>{{ entry.run_id }}</code></p></details>
+  </article>
+  {% endfor %}
+</main></body></html>

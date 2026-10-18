@@ -6,7 +6,7 @@
 uv run --locked mypy --strict src/xenia
 ```
 
-The same command is a step in the quality workflow. A `# type: ignore` comment needs a reason on that line. Third-party modules without type stubs are listed under `[tool.mypy.overrides]` with `ignore_missing_imports`.
+The same command is a blocking step in the quality workflow again as of 2026-10-18; the inherited 31 errors are resolved. YAML and pandas join the documented untyped external-module exceptions. A `# type: ignore` comment needs a reason on that line. Third-party modules without type stubs are listed under `[tool.mypy.overrides]` with `ignore_missing_imports`.
 
 ## Public-page words
 

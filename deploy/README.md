@@ -1,3 +1,5 @@
+> **Historical deployment notes.** Superseded for the 2026-10-18 first release by the [main-only snapshot build](../docs/public-release.md). Do not execute the branch-creation or merge commands below. The live worker remains unaccepted.
+
 # Deploy
 
 `deploy/run.sh` serves the page and runs the worker. It does not create the `live` branch, and it does not push unless `THEOXENIA_PUSH` is `1`.

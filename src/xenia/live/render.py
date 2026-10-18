@@ -12,8 +12,8 @@ from pathlib import Path, PurePosixPath
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from xenia.live.evidence import is_synthetic, selected_cadences, verdict_counts
 from xenia.live.models import (
-    CadencePayload,
     CadenceStatus,
     LiveState,
     RunManifest,
@@ -102,7 +102,7 @@ def render_site(
     preview_hits = state.gallery[:8]
     template_env = Environment(
         loader=FileSystemLoader(template_path.parent),
-        autoescape=select_autoescape(("html", "xml")),
+        autoescape=select_autoescape(("html", "xml", "j2")),
         trim_blocks=True,
         lstrip_blocks=True,
     )
@@ -116,7 +116,11 @@ def render_site(
         map_accessible_pointings=state.pointings,
         sky_markup=sky_output.read_text(encoding="utf-8"),
         floor_svg_url="floor.svg",
-        generated_at_text=_format_utc(state.generated_at),
+        floor_markup=floor_output.read_text(encoding="utf-8"),
+        verdict_rows=_verdict_rows(state),
+        synthetic_only=bool(selected_cadences(manifests))
+        and all(is_synthetic(m) and not m.demo for m, _ in selected_cadences(manifests)),
+        generated_at_text=state.generated_at.astimezone(UTC).strftime("%Y-%m-%d %H:%M UTC"),
         repo_url=state.meta.repo_url,
         mirror_url=state.meta.mirror_url,
         floor_manifest_url=(
@@ -133,6 +137,12 @@ def render_site(
     index_output = output_root / "index.html"
     index_output.write_text(html_text, encoding="utf-8")
     rendered.append(index_output)
+    notebook_output = output_root / "evidence.html"
+    notebook_output.write_text(
+        template_env.get_template("evidence.html.j2").render(notebook=_notebook(manifests)),
+        encoding="utf-8",
+    )
+    rendered.append(notebook_output)
     feed_output = output_root / "feed.json"
     feed_output.write_text(_feed_document(state), encoding="utf-8")
     rendered.append(feed_output)
@@ -142,6 +152,7 @@ def render_site(
             manifests,
             output_root=output_root,
             template_dir=template_path.parent,
+            base_url=state.meta.mirror_url,
         )
     )
 
@@ -395,19 +406,17 @@ def _assert_referenced_manifests_exist(state: LiveState, output_root: Path) -> N
 def _render_manifest_index(manifests: Sequence[RunManifest]) -> str:
     """Render static category anchors that counter links can open without JS."""
     categories: dict[str, list[tuple[str, str]]] = {key: [] for key in PAGE_COUNTER_LINKS}
-    for manifest in manifests:
-        payload = manifest.mission_control
-        if not isinstance(payload, CadencePayload):
-            continue
+    for manifest, payload in selected_cadences(manifests):
+        counts = verdict_counts(manifest, payload)
         link = f"{manifest.run_id}/manifest.json"
         if payload.status is CadenceStatus.DONE:
             categories["cadences"].append((link, f"{payload.target}, completed cadence"))
             categories["sky-hours"].append((link, f"{payload.target}, searched window"))
-        if payload.hits:
+        if sum(counts.values()):
             categories["hits"].append((link, f"{payload.target}, recorded hits"))
-        if any(hit.verdict is Verdict.ON_ONLY for hit in payload.hits):
+        if counts[Verdict.ON_ONLY]:
             categories["survivors"].append((link, f"{payload.target}, survivor checks"))
-        if any(hit.verdict is Verdict.UNEXPLAINED for hit in payload.hits):
+        if counts[Verdict.UNEXPLAINED]:
             categories["unexplained"].append((link, f"{payload.target}, reviewed verdict"))
 
     sections: list[str] = []
@@ -470,3 +479,50 @@ def _format_utc(timestamp: datetime | None) -> str:
     if timestamp is None:
         return "not available"
     return timestamp.astimezone(UTC).strftime("%H:%M UTC")
+
+
+def _verdict_rows(state: LiveState) -> list[dict[str, str | int | float]]:
+    totals = state.totals
+    values = [
+        ("known_source", "Known transmitter", totals.known_source),
+        ("in_off", "Also in the OFF scans", totals.in_off),
+        ("single_pointing", "Seen in one scan only", totals.single_pointing),
+        ("rfi_census", "Shared with another target", totals.rfi_census),
+        ("on_only", "Waiting for further checks", totals.survivors),
+        ("unexplained", "Unexplained after review", totals.unexplained),
+    ]
+    return [
+        {
+            "key": key,
+            "label": label,
+            "count": count,
+            "percent": round(100 * count / totals.hits, 2) if totals.hits else 0,
+        }
+        for key, label, count in values
+    ]
+
+
+def _notebook(manifests: Sequence[RunManifest]) -> list[dict[str, str]]:
+    titles = {
+        "EXP-001": "Recovering the Voyager carrier",
+        "EXP-002": "Measuring injection recovery",
+        "EXP-003": "Searching one archived cadence",
+        "EXP-004": "Testing the ON/OFF sequence",
+        "EXP-010": "Reading Project Blue Book records",
+        "EXP-020": "Checking public environmental records",
+    }
+    return [
+        {
+            "experiment": m.experiment_id or "",
+            "title": titles[m.experiment_id or ""],
+            "kind": "Synthetic control"
+            if is_synthetic(m) or m.experiment_id == "EXP-002"
+            else "Recorded source work",
+            "date": m.finished_at.strftime("%Y-%m-%d"),
+            "outcome": m.outcome,
+            "run_id": m.run_id,
+            "command": m.command,
+        }
+        for m in sorted(manifests, key=lambda m: (m.finished_at, m.run_id), reverse=True)
+        if m.experiment_id in titles
+    ]

@@ -16,6 +16,6 @@ The mutable task state, decisions, and experiment records live in the [Alien Exp
 
 ## Current boundary
 
-The public repository contains no deployed worker or live dashboard. The `site/` Mission Control preview is static and built locally or in CI. M3 worker, VM setup, public Pages publication, cadence crawling, and other pillars remain deferred until their Notion tasks, required access, and approvals permit them.
+The worker, queue, cadence search, OCR and baseline code are merged. The public-facing deliverable is now a recorded-evidence snapshot rebuilt from `main`, with the original observations separated from synthetic controls. No live-service acceptance or public deployment is claimed. See [first public release](public-release.md) for the build, launch path and remaining scientific and operational work.
 
-This documentation is built statically with MkDocs Material. Its build workflow validates content only; it does not deploy or publish GitHub Pages.
+The Pages workflow builds Mission Control at the site root and these docs under `/docs/`. It runs only on manual dispatch.

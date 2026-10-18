@@ -1,3 +1,5 @@
+> **Historical deployment notes.** Superseded for the 2026-10-18 first release by the [main-only snapshot build](public-release.md). Do not execute the branch-creation or merge commands below. The live worker remains unaccepted.
+
 # Mission Control deploy
 
 `deploy/run.sh` is the process a supervisor keeps alive. The operator contract, environment variables, and the `/healthz` rule are in `deploy/README.md`.

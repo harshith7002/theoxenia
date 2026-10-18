@@ -11,6 +11,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from xenia import __version__
+from xenia.live.evidence import is_synthetic, selected_cadences, verdict_counts
 from xenia.live.models import (
     CadenceHit,
     CadencePayload,
@@ -106,15 +107,13 @@ def build_state(
         raise ValueError("generated_at must be timezone-aware")
 
     worker_events: list[tuple[RunManifest, WorkerPayload]] = []
-    cadence_events: list[tuple[RunManifest, CadencePayload]] = []
+    cadence_events = selected_cadences(manifests)
     hero_events: list[tuple[RunManifest, HeroPayload]] = []
     floor_events: list[tuple[RunManifest, FloorPayload]] = []
     for manifest in manifests:
         payload = manifest.mission_control
         if isinstance(payload, WorkerPayload):
             worker_events.append((manifest, payload))
-        elif isinstance(payload, CadencePayload):
-            cadence_events.append((manifest, payload))
         elif isinstance(payload, HeroPayload):
             hero_events.append((manifest, payload))
         elif isinstance(payload, FloorPayload):
@@ -149,7 +148,6 @@ def build_state(
     pointings: list[Pointing] = []
     for cadence_id, records in sorted(grouped.items()):
         latest_manifest, latest_cadence = max(records, key=lambda item: item[0].started_at)
-        cadence_hits = {hit.hit_id: hit for _, cadence in records for hit in cadence.hits}
         pointings.append(
             Pointing(
                 cadence_id=cadence_id,
@@ -158,14 +156,16 @@ def build_state(
                 dec_deg=latest_cadence.dec_deg,
                 status=latest_cadence.status,
                 windows_done=sum(cadence.windows_done for _, cadence in records),
-                hits=len(cadence_hits),
-                survivors=sum(hit.verdict is Verdict.ON_ONLY for hit in cadence_hits.values()),
+                hits=sum(sum(verdict_counts(m, c).values()) for m, c in records),
+                survivors=sum(verdict_counts(m, c)[Verdict.ON_ONLY] for m, c in records),
                 started_at=latest_cadence.started_at,
                 manifest_url=_manifest_url(latest_manifest.run_id),
             )
         )
 
-    hits_by_verdict = Counter(hit_record[2].verdict for hit_record in all_hit_records.values())
+    hits_by_verdict: Counter[Verdict] = Counter()
+    for manifest, cadence in cadence_events:
+        hits_by_verdict.update(verdict_counts(manifest, cadence))
     completed_pairs = [
         cadence for _, cadence in cadence_events if cadence.status is CadenceStatus.DONE
     ]
@@ -181,7 +181,7 @@ def build_state(
         cadences_searched=len(completed_cadences),
         windows_searched=sum(cadence.windows_done for cadence in completed_pairs),
         mhz_hours_on_target=round(mhz_hours, 6),
-        hits=len(all_hit_records),
+        hits=sum(hits_by_verdict.values()),
         known_source=hits_by_verdict[Verdict.KNOWN_SOURCE],
         in_off=hits_by_verdict[Verdict.IN_OFF],
         single_pointing=hits_by_verdict[Verdict.SINGLE_POINTING],
@@ -274,16 +274,16 @@ def build_state(
         manifest.mission_control
         for manifest in manifests
         if not manifest.demo
+        and (isinstance(manifest.mission_control, FloorPayload) or not is_synthetic(manifest))
         and isinstance(
             manifest.mission_control,
-            (WorkerPayload, CadencePayload, HeroPayload, FloorPayload),
+            (CadencePayload, HeroPayload, FloorPayload),
         )
     ]
     has_real_payload = bool(real_payloads)
     is_demo = not has_real_payload
     has_observations = any(
-        isinstance(payload, (WorkerPayload, CadencePayload, HeroPayload))
-        for payload in real_payloads
+        isinstance(payload, (CadencePayload, HeroPayload)) for payload in real_payloads
     )
     has_injections = any(isinstance(payload, FloorPayload) for payload in real_payloads)
     credits = []

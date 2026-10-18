@@ -163,11 +163,11 @@ def _assign(
     passed: dict[str, bool] = {}
     unassigned_events = 0
     for event in search.events:
-        choice = _best_injection_for_event(event, truths)
-        if choice is None:
+        event_choice = _best_injection_for_event(event, truths)
+        if event_choice is None:
             unassigned_events += 1
             continue
-        passed[choice.injection_id] = True
+        passed[event_choice.injection_id] = True
     assigned = tuple(
         _Assigned(
             injection=injection,
@@ -234,7 +234,7 @@ def _interval_error_hz(start_hz: float, stop_hz: float, hit_hz: float) -> float:
 def _decisions(
     assigned: tuple[_Assigned, ...], catalog: KnownCatalog, *, cadence_id: str
 ) -> tuple[tuple[_Assigned, VerdictDecision | None], ...]:
-    rows = []
+    rows: list[tuple[_Assigned, VerdictDecision | None]] = []
     for item in assigned:
         if not item.detections:
             rows.append((item, None))

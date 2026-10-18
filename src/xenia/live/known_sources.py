@@ -43,9 +43,9 @@ class KnownCatalog:
         for item in self.ranges:
             if item.freq_min_mhz <= frequency_mhz <= item.freq_max_mhz:
                 return item.name
-        for item in self.downlinks:
-            if abs(frequency_mhz - item.freq_mhz) <= DOWNLINK_HALF_WIDTH_MHZ:
-                return item.name
+        for downlink in self.downlinks:
+            if abs(frequency_mhz - downlink.freq_mhz) <= DOWNLINK_HALF_WIDTH_MHZ:
+                return downlink.name
         return None
 
 

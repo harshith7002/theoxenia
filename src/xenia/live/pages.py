@@ -38,18 +38,19 @@ def render_detail_pages(
     *,
     output_root: Path,
     template_dir: Path,
+    base_url: str | None = None,
 ) -> tuple[Path, ...]:
     """Write cadence pages, hit pages, and sitemap.xml under the site root."""
     environment = Environment(
         loader=FileSystemLoader(template_dir),
-        autoescape=select_autoescape(("html", "xml")),
+        autoescape=select_autoescape(("html", "xml", "j2")),
         trim_blocks=True,
         lstrip_blocks=True,
     )
     cadence_template = environment.get_template("cadence.html.j2")
     hit_template = environment.get_template("hit.html.j2")
     written: list[Path] = []
-    sitemap_paths = ["index.html", "feed.json"]
+    sitemap_paths = ["index.html", "evidence.html", "feed.json"]
     seen_hits: dict[str, str] = {}
 
     for manifest, payload in _latest_cadences(manifests):
@@ -110,7 +111,7 @@ def render_detail_pages(
             sitemap_paths.append(f"hits/{hit_id}.html")
 
     sitemap_path = output_root / "sitemap.xml"
-    sitemap_path.write_text(_sitemap(sitemap_paths), encoding="utf-8")
+    sitemap_path.write_text(_sitemap(sitemap_paths, base_url=base_url), encoding="utf-8")
     written.append(sitemap_path)
     return tuple(written)
 
@@ -226,7 +227,9 @@ def _indent(command: str) -> str:
     return "\n".join(f"    {line}" if line else "    " for line in safe.splitlines()) or "    "
 
 
-def _sitemap(paths: Sequence[str]) -> str:
+def _sitemap(paths: Sequence[str], *, base_url: str | None = None) -> str:
+    if base_url is not None:
+        paths = [f"{base_url.rstrip('/')}/{path}" for path in paths]
     body = "\n".join(f"  <url><loc>{xml_escape(path)}</loc></url>" for path in paths)
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'

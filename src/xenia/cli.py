@@ -7,10 +7,15 @@ import json
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from xenia.live.worker import LoopSummary
 
 from xenia.disclosure.models import IncidentTelemetry
 from xenia.disclosure.ocr import count_ocr_pages, prompt_text, run_ocr
 from xenia.fusion.baseline import run_baseline
+from xenia.live.models import RunManifest
 from xenia.live.pages import render_experiments_index
 from xenia.live.render import render_site
 from xenia.live.server import serve
@@ -424,7 +429,7 @@ def _run_cadence(
     command: list[str],
     root: Path,
     parser: argparse.ArgumentParser,
-) -> tuple[object, Path]:
+) -> tuple[RunManifest, Path]:
     """Dispatch the synthetic known-answer or one archive cadence."""
     known_sources = _inside_repository(args.known_sources, root)
     if args.synthetic and args.known_sources == Path("configs/known_sources.yaml"):
@@ -478,7 +483,7 @@ def _run_cadence(
     )
 
 
-def _run_worker(args: argparse.Namespace, *, root: Path):
+def _run_worker(args: argparse.Namespace, *, root: Path) -> LoopSummary:
     """Run one pass or the forever loop. Push stays off unless THEOXENIA_PUSH is 1."""
     from xenia.live.config import load_live_config
     from xenia.live.worker import GitPublisher, run_worker

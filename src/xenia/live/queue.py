@@ -60,7 +60,7 @@ def fetch_listing(url: str, *, timeout_seconds: float = 60.0) -> bytes:
         raise ValueError("listing URL must be http or https")
     request = Request(url, headers={"User-Agent": "theoxenia-queue/1"})
     with urlopen(request, timeout=timeout_seconds) as response:  # noqa: S310
-        payload = response.read(_MAX_LISTING_BYTES + 1)
+        payload: bytes = response.read(_MAX_LISTING_BYTES + 1)
     if len(payload) > _MAX_LISTING_BYTES:
         raise ValueError(f"listing exceeded {_MAX_LISTING_BYTES} bytes and was not parsed")
     return payload
@@ -104,8 +104,8 @@ def build_listing_queue(
                 QueuePair(
                     cadence_id=full_id,
                     target=str(first["target"]),
-                    ra_deg=float(first["ra"]),
-                    dec_deg=float(first["decl"]),
+                    ra_deg=_number(first["ra"]),
+                    dec_deg=_number(first["decl"]),
                     receiver=receiver,
                     window_mhz=window,
                     priority=index,
@@ -114,7 +114,7 @@ def build_listing_queue(
                     roles=ROLES,
                     sources=tuple(str(row["target"]) for row in selected),
                     catalog_md5=tuple(str(row["md5sum"]) for row in selected),
-                    catalog_size_bytes=tuple(int(row["size"]) for row in selected),
+                    catalog_size_bytes=tuple(_integer(row["size"]) for row in selected),
                     band_coverage="measured",
                 )
             )
@@ -257,7 +257,7 @@ def _group_rows(
 
 def _fine_abacad(rows: list[dict[str, object]]) -> tuple[dict[str, object], ...] | None:
     fine = [row for row in rows if str(row.get("url", "")).endswith(FINE_SUFFIX)]
-    fine.sort(key=lambda row: (float(row["mjd"]), int(row["id"])))
+    fine.sort(key=lambda row: (_number(row["mjd"]), _integer(row["id"])))
     if len(fine) != 6:
         return None
     targets = [str(row["target"]) for row in fine]
@@ -296,3 +296,15 @@ def _jsonl(header: dict[str, object], pairs: list[QueuePair]) -> str:
             )
         )
     return "\n".join(lines) + "\n"
+
+
+def _number(value: object) -> float:
+    if isinstance(value, bool) or not isinstance(value, str | int | float):
+        raise ValueError("catalog coordinate must be numeric")
+    return float(value)
+
+
+def _integer(value: object) -> int:
+    if isinstance(value, bool) or not isinstance(value, str | int | float):
+        raise ValueError("catalog identifier or size must be numeric")
+    return int(value)

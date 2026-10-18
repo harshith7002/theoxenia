@@ -16,6 +16,19 @@ _MAP_CX = 320.0
 _MAP_CY = 165.0
 _MAP_RX = 286.0
 _MAP_RY = 143.0
+_PLOT_STYLE = """<style>
+.axis-label,.axis-title,.plot-empty-copy { fill:#b4c3d9; font:10px system-ui,sans-serif; }
+.plot-empty-title { fill:#eaf0fa; font:17px system-ui,sans-serif; }
+.plot-frame { fill:#0d1320; stroke:#253348; }
+.graticule { fill:none; stroke:#33445e; stroke-width:.65; }
+.map-outline { fill:#0a101c; stroke:#41516a; }
+.galactic-band { fill:none; stroke:#526480; stroke-width:12; stroke-opacity:.13; }
+.searched-dot { fill:#b8c5da; stroke:#eaf0fa; stroke-width:1; }
+.search-dot { fill:#6fe3ff; }
+.search-ring { fill:none; stroke:#6fe3ff; }
+.survivor-ring { fill:none; stroke:#ffb64d; stroke-width:1.5; }
+.failed-dot { fill:none; stroke:#8c9ab3; }
+</style>"""
 _NGP_RA_DEG = 192.8594812065348
 _NGP_DEC_DEG = 27.12825118085622
 
@@ -42,6 +55,7 @@ def render_sky_svg(pointings: Sequence[Pointing], *, demo: bool) -> str:
     grid_markup = "".join(f'<path d="{path}" class="graticule" />' for path in paths)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_VIEW_WIDTH} {_VIEW_HEIGHT}"
      class="sky-map" role="img" aria-label="{aria_label}" focusable="false">
+  {_PLOT_STYLE}
   <defs>
     <clipPath id="sky-boundary">
       <ellipse cx="{_MAP_CX:g}" cy="{_MAP_CY:g}" rx="{_MAP_RX:g}"
@@ -55,6 +69,12 @@ def render_sky_svg(pointings: Sequence[Pointing], *, demo: bool) -> str:
     {grid_markup}
     {point_markup}
   </g>
+  <text x="320" y="326" text-anchor="middle" class="axis-label">
+    Right ascension · equatorial sky</text>
+  <text x="34" y="170" class="axis-label">24h</text>
+  <text x="320" y="170" class="axis-label">12h</text>
+  <text x="590" y="170" class="axis-label">0h</text>
+  <text x="320" y="18" text-anchor="middle" class="axis-label">+90°</text>
 </svg>
 """
 
@@ -66,6 +86,7 @@ def render_floor_svg(floor: DetectionFloor | None, *, demo: bool) -> str:
         demo_note = "Synthetic demo state; no injection results are available yet." if demo else ""
         return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 330"
      role="img" aria-label="{html.escape(label, quote=True)}" focusable="false">
+  {_PLOT_STYLE}
   <rect x="1" y="1" width="458" height="328" rx="10" class="plot-frame" />
   <text x="230" y="152" text-anchor="middle" class="plot-empty-title">Waiting for EXP-002</text>
   <text x="230" y="180" text-anchor="middle" class="plot-empty-copy">No recovery results yet</text>
@@ -106,6 +127,12 @@ def render_floor_svg(floor: DetectionFloor | None, *, demo: bool) -> str:
                 f'height="{cell_height:g}" rx="2" fill="{fill}" '
                 f'fill-opacity="{opacity}" class="floor-cell"><title>{title}</title></rect>'
             )
+            text_fill = "#070b14" if fraction > 0 else "#b4c3d9"
+            cells.append(
+                f'<text x="{x + cell_width / 2:g}" y="{y + 16:g}" text-anchor="middle" '
+                f'fill="{text_fill}" font-family="system-ui,sans-serif" font-size="9">'
+                f"{recovered}/{floor.trials_per_cell}</text>"
+            )
     chart_width = columns * cell_width + max(columns - 1, 0) * gap
     bottom = top + rows * (cell_height + gap)
     for column_index, drift in enumerate(floor.drift_grid):
@@ -122,11 +149,12 @@ def render_floor_svg(floor: DetectionFloor | None, *, demo: bool) -> str:
     synthetic_note = html.escape("Synthetic setigen data · not telescope observations")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 330"
      role="img" aria-label="{label}" focusable="false">
+  {_PLOT_STYLE}
   <rect x="1" y="1" width="458" height="328" rx="10" class="plot-frame" />
   <text x="{left + chart_width / 2:g}" y="18" text-anchor="middle"
     class="axis-title">Drift (Hz/s)</text>
   {"".join(cells)}
-  <text x="18" y="{bottom:g}" text-anchor="middle" class="axis-title"
+  <text x="18" y="{top + (bottom - top) / 2:g}" text-anchor="middle" class="axis-title"
     transform="rotate(-90 18 {top + (bottom - top) / 2:g})">SNR</text>
   <text x="230" y="316" text-anchor="middle" class="axis-label">{synthetic_note}</text>
 </svg>

@@ -53,3 +53,13 @@ data/
 !/runs/**/count.json
 
 .DS_Store
+
+# Local release previews and type-check caches.
+/.preview/
+.mypy_cache/
+/site/feed.json
+/site/sitemap.xml
+/site/cadences/
+/site/hits/
+
+/site/evidence.html

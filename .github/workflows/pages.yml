@@ -1,8 +1,7 @@
 name: Pages
 
+# First public release is an intentional manual action, independent of code pushes.
 on:
-  push:
-    branches: [main, live]
   workflow_dispatch:
 
 permissions:
@@ -16,87 +15,27 @@ concurrency:
 
 jobs:
   build:
-    name: Docs and Mission Control mirror
+    name: Build recorded evidence and documentation from main
     runs-on: ubuntu-latest
     steps:
-      - name: Check out main
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           ref: main
-          path: main
-
-      - name: See whether origin/live exists
-        id: live
-        working-directory: main
-        run: |
-          set -euo pipefail
-          if git ls-remote --heads origin live | grep -q 'refs/heads/live'; then
-            echo "present=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "origin/live does not exist. Docs only. Not creating live."
-          fi
-
-      - name: Check out live
-        if: steps.live.outputs.present == 'true'
-        uses: actions/checkout@v7
-        with:
-          ref: live
-          path: live
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           version: 0.13.0
           enable-cache: true
-
-      - name: Install HDF5 build prerequisites
+      - name: Install CPython and locked site dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends build-essential libhdf5-dev pkg-config
-
-      - name: Install CPython 3.15.0
-        run: uv python install 3.15.0
-
-      - name: Build the MkDocs site from main
-        working-directory: main
+          uv python install 3.15.0
+          uv sync --locked --all-groups --python 3.15.0
+      - name: Build Mission Control and documentation
         run: |
-          uv sync --locked --all-groups --extra radio --python 3.15.0
-          uv run --locked mkdocs build --strict --site-dir "$RUNNER_TEMP/mkdocs"
-
-      - name: Rebuild Mission Control from live manifests
-        if: steps.live.outputs.present == 'true'
-        working-directory: live
-        run: |
-          set -euo pipefail
-          uv sync --locked --all-groups --extra radio --python 3.15.0
-          uv run --locked xenia live build-state \
-            --runs runs \
-            --output runs/state.json \
-            --manifest-root runs \
-            --experiment-id EXP-030 \
-            --mirror-url https://mpetyx.github.io/theoxenia/
-          uv run --locked xenia live render \
-            --state runs/state.json \
-            --runs runs \
-            --output "$RUNNER_TEMP/mission" \
-            --manifest-root runs \
-            --experiment-id EXP-030
-
-      - name: Assemble the Pages artifact
-        run: |
-          set -euo pipefail
-          mkdir -p _site
-          cp -a "$RUNNER_TEMP/mkdocs/." _site/
-          if [ "${{ steps.live.outputs.present }}" = "true" ]; then
-            mkdir -p _site/live
-            cp -a "$RUNNER_TEMP/mission/." _site/live/
-          fi
-
-      - name: Upload the Pages artifact
-        uses: actions/upload-pages-artifact@v5
+          uv run --locked python scripts/build_public_site.py --output "$RUNNER_TEMP/public"
+          uv run --locked mkdocs build --strict --site-dir "$RUNNER_TEMP/public/docs"
+      - uses: actions/upload-pages-artifact@v5
         with:
-          path: _site
+          path: ${{ runner.temp }}/public
 
   deploy:
     name: Deploy GitHub Pages

@@ -52,6 +52,7 @@ def test_real_manifest_backed_hero_removes_demo_badge(demo_manifests, fixed_time
     real_hero = source.model_copy(
         update={
             "demo": False,
+            "inputs": (),
             "mission_control": HeroPayload(
                 kind="hero",
                 experiment="EXP-001",
@@ -275,3 +276,38 @@ def test_fixture_files_are_small_json_or_svg(demo_manifests) -> None:
         path.suffix in {".json", ".svg", ".md"} for path in root.rglob("*") if path.is_file()
     )
     assert sum(len(manifest.model_dump_json()) for manifest in demo_manifests) > 0
+
+
+def test_archive_counts_use_all_rows_and_exclude_synthetic_controls() -> None:
+    """The committed search has 273 rows, three previews, and no survivors."""
+    root = Path(__file__).resolve().parents[1]
+    manifests = load_manifests(root / "runs")
+    state = build_state(manifests, git_sha="test")
+    assert state.totals.cadences_searched == 1
+    assert state.totals.hits == 273
+    assert state.totals.in_off == 149
+    assert state.totals.single_pointing == 124
+    assert state.totals.survivors == 0
+    assert len(state.gallery) == 3
+    assert len(state.pointings) == 1
+    assert state.pointings[0].hits == 273
+    assert all(item.target == "HIP544" for item in state.gallery)
+    assert build_state(list(reversed(manifests)), git_sha="test").totals == state.totals
+
+
+def test_repeated_window_does_not_double_count_observations() -> None:
+    root = Path(__file__).resolve().parents[1]
+    original = next(m for m in load_manifests(root / "runs") if m.experiment_id == "EXP-003")
+    repeat = original.model_copy(update={"run_id": "repeat"})
+    state = build_state([original, repeat], git_sha="test")
+    assert state.totals.hits == 273
+    assert state.totals.windows_searched == 1
+    assert state.totals.mhz_hours_on_target == pytest.approx(876.173328384 / 3600, abs=0.000001)
+
+
+def test_invalid_complete_verdict_summary_fails_closed() -> None:
+    root = Path(__file__).resolve().parents[1]
+    original = next(m for m in load_manifests(root / "runs") if m.experiment_id == "EXP-003")
+    invalid = original.model_copy(update={"parameters": {**original.parameters, "hit_count": 2}})
+    with pytest.raises(ValueError, match="do not match"):
+        build_state([invalid], git_sha="test")

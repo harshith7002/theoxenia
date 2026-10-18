@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ stylesheet_href }}">
 </head>
 <body>
-  <div class="page-shell">
+  <main class="page-shell detail-shell">
     <p><a href="{{ back_href }}">Back to Mission control</a></p>
     <h1>{{ target }}</h1>
     <p>Cadence <code>{{ cadence_id }}</code>. Status {{ status }}.</p>
@@ -40,6 +40,6 @@
     {% else %}
     <p>This cadence manifest records no hits.</p>
     {% endif %}
-  </div>
+  </main>
 </body>
 </html>

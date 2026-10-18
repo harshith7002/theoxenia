@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status:** M0, the EXP-001 Voyager positive control, and the EXP-002 synthetic calibration are implemented on the current feature branches. EXP-001 recovered its predeclared known-answer signal. EXP-002 reached 100% recovery at zero drift from SNR 8, but no nonzero-drift cells were recovered, so no stable floor was established across ±3 Hz/s. These are validation results—not an unknown-candidate detection, an anomaly claim, or a telescope sensitivity limit. The Mission Control worker and deploy script are on stacked pull requests and are not merged. No public service is live.
+> **Current status (2026-10-18):** The implementation is consolidated on `main`. A redesigned public evidence snapshot is prepared: Voyager, the version-2 synthetic recovery grid, one real archive cadence, hit detail pages and a lab notebook. The archive record contains 273 labelled hits and no survivors; the gallery contains three previews. The 24/7 crawler has not completed its hosting and soak acceptance. Public deployment is the next step. See [first public release](docs/public-release.md).
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
@@ -22,6 +22,8 @@ make live-dev
 Open <http://127.0.0.1:8080>. The local M0 page is rendered from synthetic fixtures, works without JavaScript, and displays a persistent demo warning. Stop the server with `Ctrl-C`.
 
 ## Mission control
+
+For the new evidence edition, build into a fresh directory with `uv run --locked python scripts/build_public_site.py --output .preview/release-v1`. Serve that directory locally. See [the build and launch guide](docs/public-release.md).
 
 The page is a static render of run manifests. It is not a live claim about the sky.
 
@@ -43,7 +45,7 @@ This reads the immutable HTTPS mirror in bounded 64 KiB ranges, slices only the 
 
 ## Synthetic detector calibration (EXP-002)
 
-`make floor-smoke` runs the reduced grid; `make floor` runs the full 8×9×5 setigen/turboSETI grid. The completed run is [`20261012T140202855194Z-exp-002-floor`](runs/20261012T140202855194Z-exp-002-floor/manifest.json). At zero drift it recovered 2/5 injections at SNR 5 and 5/5 from SNR 8 upward. Every nonzero-drift cell had zero recoveries, so no full-recovery floor was found across the configured ±3 Hz/s dashboard range. This null pattern is preserved, not smoothed into a sensitivity claim. See the [method and run interpretation](docs/mission-control-exp002.md).
+`make floor-smoke` runs the reduced grid; `make floor` runs the full 8×9×5 setigen/turboSETI grid. The completed run is [`20261012T140202855194Z-exp-002-floor`](runs/20261012T140202855194Z-exp-002-floor/manifest.json). The original version-1 result is historical. The latest full version-2 run, `20261012T190848550861Z-exp-002-floor`, recovers some nonzero-drift signals, including 5/5 at +1 Hz/s and SNR 20. No full-recovery floor was found across the configured ±3 Hz/s range. This null pattern is preserved, not smoothed into a sensitivity claim. See the [method and run interpretation](docs/mission-control-exp002.md).
 
 ## Useful commands
 
@@ -117,7 +119,7 @@ The full grid and its measured outcome are documented in [`docs/mission-control-
 - M0 fixtures are synthetic and are never represented as telescope observations.
 - EXP-001 is a known-transmitter positive control. It is not an unknown candidate or an anomaly claim.
 - EXP-002 is a synthetic detector regression only; this run did not establish a stable nonzero-drift recovery floor.
-- The 100-cadence crawler, unattended worker, deployment validation, Pages mirror, and M4 sharing polish remain incomplete.
+- Worker and queue code exist, but 100-cadence coverage, production hosting, the 24-hour soak and deployment validation remain incomplete. The static evidence release is built separately from `main`.
 - The live worker must not be configured or hosted until the approved VM and required access are available. No host, account, or paid service has been provisioned.
 
 ## Reproducibility and data handling

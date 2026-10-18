@@ -66,7 +66,7 @@ def gfz_url(start: datetime, end: datetime) -> str:
     return f"{GFZ_ENDPOINT}?start={_stamp_seconds(start)}Z&end={_stamp_seconds(end)}Z&index=Kp"
 
 
-def parse_fireball(body: bytes) -> tuple[str, int, str]:
+def parse_fireball(body: bytes) -> tuple[str, int, Literal["string", "integer"]]:
     """Return the API count token, its integer value, and the JSON type.
 
     ``count`` is the number of records in the requested time window. This parser
@@ -95,10 +95,7 @@ def parse_kp(
     values = payload.get("Kp")
     times = payload.get("datetime")
     statuses = payload.get("status")
-    arrays_are_lists = (
-        isinstance(values, list) and isinstance(times, list) and isinstance(statuses, list)
-    )
-    if not arrays_are_lists:
+    if not (isinstance(values, list) and isinstance(times, list) and isinstance(statuses, list)):
         raise ValueError("Kp body is missing Kp, datetime, or status")
     if not (len(values) == len(times) == len(statuses)) or not values:
         raise ValueError("Kp arrays differ in length")

@@ -240,3 +240,15 @@ def _git(repo: Path, *args: str) -> str:
         text=True,
     )
     return result.stdout.strip()
+
+
+def test_malformed_progress_is_rejected(tmp_path: Path) -> None:
+    import pytest
+
+    from xenia.live.worker import _load_progress
+
+    progress = tmp_path / "progress.json"
+    for content in ('{"completed": "not-a-list"}', '{"failed": [1]}', '{"reasons": {"a": 1}}'):
+        progress.write_text(content)
+        with pytest.raises(ValueError):
+            _load_progress(progress)

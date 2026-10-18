@@ -7,6 +7,11 @@ signal, and it cannot emit UNEXPLAINED.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import polars as pl
+
 import html
 import json
 import os
@@ -715,7 +720,7 @@ def _slice_summary(
 def _coordinate_attrs(path: Path) -> dict[str, float | None]:
     import h5py
 
-    found = {"src_raj": None, "src_dej": None}
+    found: dict[str, float | None] = {"src_raj": None, "src_dej": None}
     with h5py.File(path, "r") as handle:
         dataset = handle.get("data", None)
         for name in ("src_raj", "src_dej"):
@@ -772,25 +777,27 @@ def _write_hits(path: Path, hits: tuple[ArchiveHit, ...], found_at: datetime) ->
     frame.write_parquet(path)
 
 
-def _empty_hit_schema() -> dict[str, object]:
+def _empty_hit_schema() -> pl.Schema:
     import polars as pl
 
-    schema: dict[str, object] = {
-        "hit_id": pl.String,
-        "freq_mhz": pl.Float64,
-        "drift_hz_s": pl.Float64,
-        "snr": pl.Float64,
-        "verdict": pl.String,
-        "explanation": pl.String,
-        "checks_done": pl.Int64,
-        "known_source": pl.String,
-        "found_at": pl.String,
-        "on_count": pl.Int64,
-        "off_count": pl.Int64,
-        "passed_filter": pl.Boolean,
-        "event_id": pl.String,
-        "association_note": pl.String,
-    }
+    schema = pl.Schema(
+        {
+            "hit_id": pl.String,
+            "freq_mhz": pl.Float64,
+            "drift_hz_s": pl.Float64,
+            "snr": pl.Float64,
+            "verdict": pl.String,
+            "explanation": pl.String,
+            "checks_done": pl.Int64,
+            "known_source": pl.String,
+            "found_at": pl.String,
+            "on_count": pl.Int64,
+            "off_count": pl.Int64,
+            "passed_filter": pl.Boolean,
+            "event_id": pl.String,
+            "association_note": pl.String,
+        }
+    )
     for name in _CHECK_NAMES:
         schema[name] = pl.Boolean
         schema[f"note_{name}"] = pl.String
