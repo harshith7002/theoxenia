@@ -48,3 +48,21 @@ This is one dataset and selected deterministic controls. It is not a randomized
 sensitivity/completeness study, an astrophysical flux calibration, independent
 external review, or new telescope exposure. Any further adaptation must be
 reported as a follow-up, with its reason and separate results.
+
+## Follow-up: measured drift coverage
+
+Inspection of the first run found only 750 distinct nonzero trial rates, reaching
++/-3.826595903 Hz/s despite max_drift=4. The upstream block-count formula uses
+N samples while its drift resolution uses N-1 intervals. The candidate fix uses
+N-1 consistently and also converts the final one-element hit-count array to a
+scalar. Both substitutions are checked against the exact installed source hash,
+scoped to serial wrapper execution and restored afterward. Package version is
+pinned. Unknown source changes must fail closed.
+
+The corrected follow-up repeats the six original scans and the three initial
+controls, adding two tracks at 35% and 60% of channels with slopes +26 and -26
+channels/integration (about -3.980 and +3.980 Hz/s). All five injected tracks use
+the original nominal added sum SNR of 40 and the same matching tolerances. Both
+legacy and corrected detectors search these identical injected copies. Check
+actual trial-rate coverage and retain every missed control. New controls are
+explicitly a follow-up to the discovered gap, not part of the initial protocol.

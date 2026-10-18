@@ -11,6 +11,8 @@ from math import isfinite
 from pathlib import Path
 from typing import Any
 
+from xenia.radio.turboseti_compat import COMPATIBILITY_ID, compatible_search
+
 _NUMPY_INT_FORMAT_ERROR = "format argument: %i requires a real number, not numpy.ndarray"
 
 
@@ -201,6 +203,7 @@ def run_turboseti(
     max_drift_hz_s: float,
     minimum_snr: float,
     n_coarse_channels: int = 1,
+    apply_compatibility: bool = True,
 ) -> DetectorResult:
     """Run turboSETI on one local, bounded filterbank slice and hash its outputs."""
     if not filterbank_path.is_file():
@@ -234,7 +237,8 @@ def run_turboseti(
     )
     search_error: TypeError | None = None
     try:
-        finder.search(n_partitions=1, progress_bar="n")
+        with compatible_search(enabled=apply_compatibility and turbo_version == "2.3.2"):
+            finder.search(n_partitions=1, progress_bar="n")
     except TypeError as exc:
         # A parseable table can still be partial. Only the verified final logging
         # failure of a single-channel search is recoverable; never infer completion
@@ -275,6 +279,8 @@ def run_turboseti(
         )
     else:
         warnings = ()
+    if apply_compatibility and turbo_version == "2.3.2":
+        warnings = (*warnings, f"Applied audited compatibility correction: {COMPATIBILITY_ID}.")
     artifacts = tuple(
         DetectorArtifact(
             filename=path.name,

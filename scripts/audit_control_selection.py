@@ -138,6 +138,7 @@ def run(root, parent_id=PARENT):
                 output_directory=root / "data" / "detector-diagnosis" / run_id / f"scan-{scan}",
                 max_drift_hz_s=4,
                 minimum_snr=10,
+                apply_compatibility=False,
             )
         if [h.as_dict() for h in result.hits] != record["injected_search"]["hits"]:
             raise ValueError("passive selection observation changed returned results")

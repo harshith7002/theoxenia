@@ -1,0 +1,72 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261018T183418810271Z-control-selection",
+  "pillar": "I - Sensor",
+  "command": "uv run --locked --extra radio python scripts/audit_control_selection.py --diagnosis-run 20261018T183336278843Z-detector-diagnosis",
+  "parameters": {
+    "parent_run_id": "20261018T183336278843Z-detector-diagnosis",
+    "synthetic_controls": true,
+    "scans": [
+      0,
+      1
+    ],
+    "passive_observation": true,
+    "matching_frequency_channels": 3
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261018T183336278843Z-detector-diagnosis/manifest.json",
+      "sha256": "10bde37ed99778de8cde42a99d7991ea623136fd8c3d345b396b01b5851ecb40",
+      "size_bytes": 5698
+    },
+    {
+      "uri": "runs/20261018T183336278843Z-detector-diagnosis/scan-0.json",
+      "sha256": "b12ca6898e3de50a86fc44448fb600d49f0252345379f1f3b7ffa861dfa184a6",
+      "size_bytes": 625307
+    },
+    {
+      "uri": "runs/20261018T183336278843Z-detector-diagnosis/scan-1.json",
+      "sha256": "212abb3f151a68de10ccdec98964ba27ed8e786d208d008eaa3ac6c246bd6554",
+      "size_bytes": 604445
+    },
+    {
+      "uri": "scripts/audit_control_selection.py",
+      "sha256": "bba44a102a2dfd156467c693407ce1d1b3525723e1206585721be72c5de6ddbf",
+      "size_bytes": 7563
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261018T183418810271Z-control-selection/processor.txt",
+      "sha256": "bba44a102a2dfd156467c693407ce1d1b3525723e1206585721be72c5de6ddbf",
+      "size_bytes": 7563,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T183418810271Z-control-selection/selection.json",
+      "sha256": "d93ae28e02019b1b289406d37a8ffc4a675ace02783a1f90e19b9e500f12a3cb",
+      "size_bytes": 8151,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T183418810271Z-control-selection/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "b591b72",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-18T18:34:18.810271Z",
+  "finished_at": "2026-10-18T18:34:24.574323Z",
+  "outcome": "selection_audited",
+  "notes": [
+    "Follow-up motivated by three failed controls in PUB-002. No parameters changed.",
+    "These are injected copies of measured backgrounds, not new observations.",
+    "Every returned hit is exactly equal to the parent injected-search result.",
+    "Exact processor source retained; no external review claimed."
+  ],
+  "experiment_id": "PUB-002",
+  "demo": false,
+  "mission_control": null
+}

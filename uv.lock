@@ -1830,7 +1830,7 @@ requires-dist = [
     { name = "reportlab", marker = "extra == 'reports'", specifier = "==4.4.9" },
     { name = "setigen", marker = "extra == 'radio'", specifier = ">=2.7,<3" },
     { name = "setuptools", marker = "extra == 'radio'", specifier = "==80.9.0" },
-    { name = "turbo-seti", marker = "extra == 'radio'", specifier = ">=2.3.2,<3" },
+    { name = "turbo-seti", marker = "extra == 'radio'", specifier = "==2.3.2" },
 ]
 provides-extras = ["disclosure", "radio", "reports"]
 

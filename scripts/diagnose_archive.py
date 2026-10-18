@@ -78,7 +78,7 @@ def direct_grid(power, foff_hz, tsamp):
     }
 
 
-def probe(path, destination):
+def probe(path, destination, *, corrected=False):
     """Observe upstream normalization and trial maxima without changing arrays."""
     upstream = importlib.import_module("turbo_seti.find_doppler.find_doppler")
     original = upstream.hitsearch
@@ -104,7 +104,11 @@ def probe(path, destination):
 
     with patch.object(upstream, "hitsearch", observe):
         result = run_turboseti(
-            path, output_directory=destination, max_drift_hz_s=4.0, minimum_snr=10.0
+            path,
+            output_directory=destination,
+            max_drift_hz_s=4.0,
+            minimum_snr=10.0,
+            apply_compatibility=corrected,
         )
     return {
         "hits": [h.as_dict() for h in result.hits],
@@ -117,7 +121,7 @@ def probe(path, destination):
     }
 
 
-def injected_copy(source, target, power, attrs):
+def injected_copy(source, target, power, attrs, *, corrected=False):
     """Three deterministic single-channel tracks, 40 normalized sum units each."""
     shutil.copyfile(source, target)
     ntime, nfreq = power.shape
@@ -126,7 +130,10 @@ def injected_copy(source, target, power, attrs):
     truth = []
     with h5py.File(target, "r+") as f:
         d = f["data"]
-        for fraction, speed in ((0.23, -1), (0.48, 1), (0.73, 10)):
+        tracks = [(0.23, -1), (0.48, 1), (0.73, 10)]
+        if corrected:
+            tracks.extend([(0.35, 26), (0.60, -26)])
+        for fraction, speed in tracks:
             start = int(nfreq * fraction)
             for t in range(ntime):
                 channel = start + speed * t
@@ -144,9 +151,9 @@ def injected_copy(source, target, power, attrs):
     return truth
 
 
-def run(root, *, reuse_cache=False):
+def run(root, *, reuse_cache=False, corrected=False):
     started = datetime.now(UTC)
-    run_id = new_run_id(started, "detector-diagnosis")
+    run_id = new_run_id(started, "detector-corrected" if corrected else "detector-diagnosis")
     out = root / "runs" / run_id
     out.mkdir(parents=True)
     source = root / "runs" / SOURCE / "manifest.json"
@@ -196,11 +203,12 @@ def run(root, *, reuse_cache=False):
             "integration_median": np.median(power, axis=1).tolist(),
             "integration_mean": power.mean(axis=1, dtype=np.float64).tolist(),
         }
-        observed = probe(path, work / f"original-{i}")
+        observed = probe(path, work / f"original-{i}", corrected=corrected)
         reference = direct_grid(power, float(attrs["foff"]) * 1e6, float(attrs["tsamp"]))
         injected = work / f"injected-{i}.h5"
-        truth = injected_copy(path, injected, power, attrs)
-        controls = probe(injected, work / f"controls-{i}")
+        truth = injected_copy(path, injected, power, attrs, corrected=corrected)
+        controls = probe(injected, work / f"controls-{i}", corrected=corrected)
+        legacy_controls = probe(injected, work / f"legacy-controls-{i}") if corrected else None
         for t in truth:
             matches = [
                 h
@@ -221,6 +229,7 @@ def run(root, *, reuse_cache=False):
             "independent": reference,
             "injected_truth": truth,
             "injected_search": controls,
+            "legacy_injected_search": legacy_controls,
             "injected_sha256": sha256_file(injected),
         }
         records.append(record)
@@ -229,7 +238,7 @@ def run(root, *, reuse_cache=False):
             f"SCAN {i + 1}: {len(observed['hits'])} hits; max upstream "
             f"{max((t['max_snr'] for t in observed['trials']), default=0):.4f}; "
             f"reference {max(t['max_snr'] for t in reference['trials']):.4f}; "
-            f"controls {sum(t['recovered'] for t in truth)}/3",
+            f"controls {sum(t['recovered'] for t in truth)}/{len(truth)}",
             flush=True,
         )
     upstream_file = Path(importlib.import_module("turbo_seti.find_doppler.find_doppler").__file__)
@@ -243,6 +252,7 @@ def run(root, *, reuse_cache=False):
         "upstream_find_doppler_sha256": sha256_file(upstream_file),
         "transfer": transfer,
         "cache_reused": reuse_cache,
+        "compatibility_corrected": corrected,
         "original_counts": [len(r["original"]["hits"]) for r in records],
         "control_recoveries": [sum(t["recovered"] for t in r["injected_truth"]) for r in records],
     }
@@ -259,7 +269,8 @@ def run(root, *, reuse_cache=False):
             "python",
             "scripts/diagnose_archive.py",
         ]
-        + (["--reuse-cache"] if reuse_cache else []),
+        + (["--reuse-cache"] if reuse_cache else [])
+        + (["--corrected"] if corrected else []),
         parameters={
             "source_run_id": SOURCE,
             "minimum_snr": 10,
@@ -267,7 +278,8 @@ def run(root, *, reuse_cache=False):
             "min_drift_hz_s": 1e-5,
             "precision": "float32",
             "coarse_channels": 1,
-            "controls_per_scan": 3,
+            "controls_per_scan": 5 if corrected else 3,
+            "compatibility_corrected": corrected,
             "control_nominal_sum_snr": 40,
             "frequency_tolerance_channels": 3,
             "drift_tolerance_hz_s": 0.03,
@@ -306,5 +318,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--reuse-cache", action="store_true", help="Use checksum-verified local slices"
     )
+    parser.add_argument(
+        "--corrected", action="store_true", help="Test audited compatibility fix and edge controls"
+    )
     args = parser.parse_args()
-    run(Path(__file__).resolve().parents[1], reuse_cache=args.reuse_cache)
+    run(Path(__file__).resolve().parents[1], reuse_cache=args.reuse_cache, corrected=args.corrected)

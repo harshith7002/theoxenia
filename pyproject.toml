@@ -45,7 +45,7 @@ radio = [
   "pyparsing==3.3.3",
   "setigen>=2.7,<3",
   "setuptools==80.9.0",
-  "turbo-seti>=2.3.2,<3",
+  "turbo-seti==2.3.2",
 ]
 reports = [
     "reportlab==4.4.9",
