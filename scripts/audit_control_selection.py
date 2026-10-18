@@ -6,6 +6,7 @@ matching rule or detector output is changed to make a control pass.
 
 from __future__ import annotations
 
+import argparse
 import importlib
 import json
 import math
@@ -43,28 +44,64 @@ def inspect_selection(snr, drifts, channel, offset, distance):
     }
 
 
-def run(root):
+def run(root, parent_id=PARENT):
     started = datetime.now(UTC)
     run_id = new_run_id(started, "control-selection")
     out = root / "runs" / run_id
     out.mkdir(parents=True)
-    parent = root / "runs" / PARENT
+    parent = root / "runs" / parent_id
+    if not parent.resolve().is_relative_to((root / "runs").resolve()):
+        raise ValueError("diagnosis run must be inside runs")
     parent_manifest = json.loads((parent / "manifest.json").read_text())
     for a in parent_manifest["outputs"]:
         if a["sha256"] and sha256_file(root / a["path"]) != a["sha256"]:
             raise ValueError("parent evidence changed")
     module = importlib.import_module("turbo_seti.find_doppler.find_doppler")
     original = module.tophitsearch
+    original_hitsearch = module.hitsearch
     results = []
     inputs = [input_ref(parent / "manifest.json", repository_root=root)]
     for scan in (0, 1):
         record_path = parent / f"scan-{scan}.json"
         record = json.loads(record_path.read_text())
         inputs.append(input_ref(record_path, repository_root=root))
-        injected = root / "data" / "detector-diagnosis" / PARENT / f"injected-{scan}.h5"
+        injected = root / "data" / "detector-diagnosis" / parent_id / f"injected-{scan}.h5"
         if sha256_file(injected) != record["injected_sha256"]:
             raise ValueError("injected copy checksum mismatch; reproduce parent diagnosis first")
         captured = []
+        track_trials = []
+
+        def observe_track(
+            fd,
+            spectrum,
+            start,
+            end,
+            threshold,
+            drift,
+            header,
+            width,
+            maximum,
+            median,
+            std,
+            *,
+            record=record,
+            track_trials=track_trials,
+        ):
+            offset = int((width - record["native_power"]["shape"][1]) / 2)
+            for truth in record["injected_truth"]:
+                if abs(drift - truth["drift_hz_s"]) < 1e-6:
+                    center = truth["start_channel"] + offset
+                    scores = (spectrum[center - 3 : center + 4].astype(np.float64) - median) / std
+                    track_trials.append(
+                        {
+                            "start_channel": truth["start_channel"],
+                            "drift_hz_s": float(drift),
+                            "max_snr": float(scores.max()),
+                        }
+                    )
+            return original_hitsearch(
+                fd, spectrum, start, end, threshold, drift, header, width, maximum, median, std
+            )
 
         def observe(
             fd,
@@ -92,7 +129,10 @@ def run(root):
                 fd, tree, maximum, tsteps, header, width, length, max_drift, resolution, **kwargs
             )
 
-        with patch.object(module, "tophitsearch", observe):
+        with (
+            patch.object(module, "tophitsearch", observe),
+            patch.object(module, "hitsearch", observe_track),
+        ):
             result = run_turboseti(
                 injected,
                 output_directory=root / "data" / "detector-diagnosis" / run_id / f"scan-{scan}",
@@ -106,6 +146,7 @@ def run(root):
                 "scan_index": scan,
                 "identical_returned_rows": True,
                 "controls": captured,
+                "injected_track_trials": track_trials,
                 "warnings": result.warnings,
                 "injected_sha256": record["injected_sha256"],
             }
@@ -122,9 +163,11 @@ def run(root):
             "radio",
             "python",
             "scripts/audit_control_selection.py",
+            "--diagnosis-run",
+            parent_id,
         ],
         parameters={
-            "parent_run_id": PARENT,
+            "parent_run_id": parent_id,
             "synthetic_controls": True,
             "scans": [0, 1],
             "passive_observation": True,
@@ -147,7 +190,11 @@ def run(root):
         experiment_id="PUB-002",
     )
     print(path)
+    return path
 
 
 if __name__ == "__main__":
-    run(Path(__file__).resolve().parents[1])
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--diagnosis-run", default=PARENT)
+    args = parser.parse_args()
+    run(Path(__file__).resolve().parents[1], args.diagnosis_run)

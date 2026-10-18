@@ -1,0 +1,190 @@
+[
+  {
+    "scan_index": 0,
+    "identical_returned_rows": true,
+    "controls": [
+      {
+        "truth": {
+          "start_channel": 82319,
+          "channels_per_integration": -1,
+          "frequency_mhz": 1380.770000629127,
+          "drift_hz_s": 0.15306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 82319,
+          "candidate_snr": 180.7753448486328,
+          "candidate_drift_hz_s": -0.8061361908912659,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 69,
+          "neighbor_channel": 82351,
+          "neighbor_snr": 515.8790893554688,
+          "neighbor_drift_hz_s": -0.3673532009124756,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 171798,
+          "channels_per_integration": 1,
+          "frequency_mhz": 1380.519999191165,
+          "drift_hz_s": -0.15306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 171798,
+          "candidate_snr": 39.80015182495117,
+          "candidate_drift_hz_s": -0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 627,
+          "neighbor_channel": 172188,
+          "neighbor_snr": 129.32260131835938,
+          "neighbor_drift_hz_s": -0.3673532009124756,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 261276,
+          "channels_per_integration": 10,
+          "frequency_mhz": 1380.2700005471706,
+          "drift_hz_s": -1.5306383611560062,
+          "added_power_per_sample": 97193499019.22163,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 171,
+              "drift_hz_s": -1.530638,
+              "snr": 39.838551,
+              "uncorrected_frequency_mhz": 1380.270001,
+              "corrected_frequency_mhz": 1380.270001,
+              "frequency_start_mhz": 1380.272191,
+              "frequency_end_mhz": 1380.267813
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 261276,
+          "candidate_snr": 39.83855056762695,
+          "candidate_drift_hz_s": -1.530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 261276,
+          "neighbor_snr": 39.83855056762695,
+          "neighbor_drift_hz_s": -1.530638337135315,
+          "suppressed": false
+        }
+      }
+    ],
+    "warnings": [
+      "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained."
+    ],
+    "injected_sha256": "df6c983a52d06e7f902bfe020b1621072637fdf22b9995ccb36ad6e5c47ca969"
+  },
+  {
+    "scan_index": 1,
+    "identical_returned_rows": true,
+    "controls": [
+      {
+        "truth": {
+          "start_channel": 82319,
+          "channels_per_integration": -1,
+          "frequency_mhz": 1380.770000629127,
+          "drift_hz_s": 0.15306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": false,
+          "matches": []
+        },
+        "selection": {
+          "candidate_channel": 82319,
+          "candidate_snr": 38.62692642211914,
+          "candidate_drift_hz_s": 0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 101,
+          "neighbor_channel": 82396,
+          "neighbor_snr": 116.6502914428711,
+          "neighbor_drift_hz_s": -0.612255334854126,
+          "suppressed": true
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 171798,
+          "channels_per_integration": 1,
+          "frequency_mhz": 1380.519999191165,
+          "drift_hz_s": -0.15306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 100,
+              "drift_hz_s": -0.153064,
+              "snr": 39.678005,
+              "uncorrected_frequency_mhz": 1380.519999,
+              "corrected_frequency_mhz": 1380.519999,
+              "frequency_start_mhz": 1380.52219,
+              "frequency_end_mhz": 1380.517812
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 171798,
+          "candidate_snr": 39.67800521850586,
+          "candidate_drift_hz_s": -0.1530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 171798,
+          "neighbor_snr": 39.67800521850586,
+          "neighbor_drift_hz_s": -0.1530638337135315,
+          "suppressed": false
+        }
+      },
+      {
+        "truth": {
+          "start_channel": 261276,
+          "channels_per_integration": 10,
+          "frequency_mhz": 1380.2700005471706,
+          "drift_hz_s": -1.5306383611560062,
+          "added_power_per_sample": 45353684654.78023,
+          "nominal_added_sum_snr": 40.0,
+          "recovered": true,
+          "matches": [
+            {
+              "top_hit": 144,
+              "drift_hz_s": -1.530638,
+              "snr": 40.738533,
+              "uncorrected_frequency_mhz": 1380.270001,
+              "corrected_frequency_mhz": 1380.270001,
+              "frequency_start_mhz": 1380.272191,
+              "frequency_end_mhz": 1380.267813
+            }
+          ]
+        },
+        "selection": {
+          "candidate_channel": 261276,
+          "candidate_snr": 40.73853302001953,
+          "candidate_drift_hz_s": -1.530638337135315,
+          "suppression_radius_channels": 784,
+          "stronger_neighbors": 0,
+          "neighbor_channel": 261276,
+          "neighbor_snr": 40.73853302001953,
+          "neighbor_drift_hz_s": -1.530638337135315,
+          "suppressed": false
+        }
+      }
+    ],
+    "warnings": [
+      "turboSETI 2.3.2 raised its known NumPy-array formatting TypeError on the post-search hit-count log line after writing parseable .dat hit rows; those rows were retained."
+    ],
+    "injected_sha256": "81df6ba4630faf2abf121b015d69c6037a3a5f5815dd112ab4fa458f16499829"
+  }
+]
