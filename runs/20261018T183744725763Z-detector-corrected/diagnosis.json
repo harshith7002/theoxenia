@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source_run_id": "20261012T203545022355Z-exp-003-cadence",
+  "scans": 6,
+  "python": "3.15.0 (main, Oct  9 2026, 15:11:47) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "numpy": "2.5.4",
+    "turbo-seti": "2.3.2",
+    "blimpy": "2.1.4",
+    "h5py": "3.16.0",
+    "numba": "0.68.0"
+  },
+  "upstream_find_doppler_sha256": "5589bfa96ea2294ffa6abdf0b72780af4fd8580dd2a9eda81ffe76dd1bc6a0ea",
+  "transfer": [],
+  "cache_reused": true,
+  "compatibility_corrected": true,
+  "original_counts": [
+    186,
+    150,
+    0,
+    0,
+    0,
+    0
+  ],
+  "control_recoveries": [
+    1,
+    3,
+    5,
+    5,
+    5,
+    5
+  ]
+}

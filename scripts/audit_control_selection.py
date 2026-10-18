@@ -59,6 +59,7 @@ def run(root, parent_id=PARENT):
     module = importlib.import_module("turbo_seti.find_doppler.find_doppler")
     original = module.tophitsearch
     original_hitsearch = module.hitsearch
+    corrected = parent_manifest["parameters"].get("compatibility_corrected", False)
     results = []
     inputs = [input_ref(parent / "manifest.json", repository_root=root)]
     for scan in (0, 1):
@@ -138,7 +139,7 @@ def run(root, parent_id=PARENT):
                 output_directory=root / "data" / "detector-diagnosis" / run_id / f"scan-{scan}",
                 max_drift_hz_s=4,
                 minimum_snr=10,
-                apply_compatibility=False,
+                apply_compatibility=corrected,
             )
         if [h.as_dict() for h in result.hits] != record["injected_search"]["hits"]:
             raise ValueError("passive selection observation changed returned results")
