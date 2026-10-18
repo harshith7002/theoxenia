@@ -12,6 +12,7 @@ implied by these files. Read report.pdf (or report.md) for findings and limits.
 - metadata.json: Zenodo deposition metadata; no invented DOI or affiliation.
 - SHA256SUMS: hashes for all upload-package files except the checksum list itself.
 - SOURCE_REVISION.txt: full source revision used to build the package.
+- VALIDATION.md: recorded full reproduction and release-check results.
 - SUBMISSION.md: API, website and software-release publication routes.
 
 Code: Apache-2.0. Authored report, figures and derived diagnostic summaries:

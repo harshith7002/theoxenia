@@ -943,3 +943,5 @@ input:focus-visible, select:focus-visible { outline: 2px solid var(--focus); out
 .report-figure img { width: 100%; height: auto; display: block; }
 .report-figure .figure-note { color: #394c59; }
 .report-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: 1.5rem 0; }
+
+.report-figure a { color: #075466; text-decoration: underline; }

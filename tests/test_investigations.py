@@ -162,6 +162,9 @@ def test_research_report_downloads_preserve_source_and_scientific_boundary(tmp_p
     ).read_bytes()
     config = json.loads((ROOT / "reports/first-results/package.json").read_text())
     with zipfile.ZipFile(tmp_path / "downloads/research-report-evidence.zip") as bundle:
+        for line in bundle.read("SHA256SUMS").decode().splitlines():
+            digest, name = line.split("  ", 1)
+            assert hashlib.sha256(bundle.read(name)).hexdigest() == digest
         for run_id in config["run_ids"]:
             manifest = json.loads(bundle.read(f"runs/{run_id}/manifest.json"))
             for artifact in manifest["outputs"]:

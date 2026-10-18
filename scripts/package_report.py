@@ -71,6 +71,7 @@ def build(root: Path, destination: Path) -> None:
         "diagnosis-overview.svg",
         "summary.json",
         "PROTOCOL.md",
+        "VALIDATION.md",
     ):
         data = (report / name).read_bytes()
         committed = subprocess.check_output(

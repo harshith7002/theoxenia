@@ -14,6 +14,7 @@ import shutil
 import zipfile
 from collections import Counter
 from collections.abc import Sequence
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -381,6 +382,9 @@ def prepare_research_report(
     bundle.parent.mkdir(exist_ok=True)
     entries["README.md"] = (report / "README.md").read_bytes()
     entries["PROTOCOL.md"] = (report / "PROTOCOL.md").read_bytes()
+    entries["SHA256SUMS"] = "".join(
+        f"{sha256(content).hexdigest()}  {name}\n" for name, content in sorted(entries.items())
+    ).encode()
     with zipfile.ZipFile(bundle, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for name, content in sorted(entries.items()):
             info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
