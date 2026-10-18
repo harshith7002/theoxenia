@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status (2026-10-18):** The implementation is consolidated on `main`. A redesigned public evidence snapshot is prepared: Voyager, the version-2 synthetic recovery grid, one real archive cadence, hit detail pages and a lab notebook. The archive record contains 273 labelled hits and no survivors; the gallery contains three previews. The 24/7 crawler has not completed its hosting and soak acceptance. Public deployment is the next step. See [first public release](docs/public-release.md).
+> **Current status (2026-10-18):** The implementation is consolidated on `main`. The public evidence edition includes three guided investigations, a complete 273-row interactive signal explorer, six measured archive waterfall previews, and downloadable evidence dossiers. All six newly fetched slices match the original experiment's checksums. This adds presentation and verification work, not new search exposure. The archive detector limitation remains visible; the 24/7 crawler has not completed its hosting and soak acceptance. Public deployment is the next step. See [first public release](docs/public-release.md) and [investigations and provenance](docs/investigations.md).
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 

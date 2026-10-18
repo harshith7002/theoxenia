@@ -326,9 +326,9 @@ def verdict_badge(verdict: Verdict, checks_done: int, known_source: str | None) 
     if verdict is Verdict.KNOWN_SOURCE:
         return f"Known transmitter: {known_source}" if known_source else "Known transmitter"
     if verdict is Verdict.IN_OFF:
-        return "In the OFF scans too: terrestrial"
+        return "Also present in OFF scans"
     if verdict is Verdict.SINGLE_POINTING:
-        return "Seen in one scan only"
+        return "Missing from one or more ON scans"
     if verdict is Verdict.RFI_CENSUS:
         return "Same frequency in another star the same day"
     if verdict is Verdict.ON_ONLY:

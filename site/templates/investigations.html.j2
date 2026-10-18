@@ -1,0 +1,8 @@
+{% extends "lab-base.html.j2" %}
+{% block title %}Follow an investigation{% endblock %}
+{% block content %}
+<header class="lab-header"><p class="eyebrow">The field guide · Volume 01</p><h1>Curiosity, with<br><span class="title-muted">a paper trail.</span></h1><p class="lead">A known spacecraft. A small patch of radio sky. A detector learning its limits. Follow each question from its source to the evidence—and the unfinished work.</p></header>
+{% include "investigation-cards.html.j2" %}
+<section class="section-block method-steps"><p><strong>01 / Follow the question</strong>Short, guided stories explain what each experiment can establish.</p><p><strong>02 / Inspect the evidence</strong>Explore measured values and explicitly labelled synthetic controls.</p><p><strong>03 / Check our work</strong>Every story has a dossier with source records, checksums and a reproduction command.</p></section>
+<div class="callout-note"><strong>An open notebook, including the rough edges.</strong><p>The archive run still has an unresolved detector limitation. Keeping it visible is part of the investigation. Completed processing, a reviewed conclusion, and external acceptance are separate things.</p></div>
+{% endblock %}

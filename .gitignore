@@ -63,3 +63,11 @@ data/
 /site/hits/
 
 /site/evidence.html
+!/runs/**/explorer.json
+!/runs/**/processor.txt
+/site/investigations.html
+/site/investigations/
+/site/explorer.html
+/site/research.html
+/site/dossiers/
+/site/downloads/

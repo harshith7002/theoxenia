@@ -1,0 +1,13 @@
+<div class="investigation-grid">
+{% for story in stories %}
+<a class="investigation-card investigation-card--{{ story.slug }}" href="{{ prefix }}investigations/{{ story.slug }}.html">
+  <div class="investigation-art">
+    {% if story.slug == 'voyager' %}<img src="{{ prefix }}runs/{{ story.run_id }}/hero.png" alt="Measured Voyager carrier waterfall" loading="lazy">
+    {% elif story.slug == 'archive' %}<img src="{{ prefix }}{{ story.visual_url }}" alt="Recorded sky pointing for the archive search" loading="lazy">
+    {% else %}<img src="{{ prefix }}{{ story.visual_url }}" alt="Measured recovery of synthetic test signals" loading="lazy">{% endif %}
+    <span class="chapter-number" aria-hidden="true">{{ story.number }}</span>
+  </div>
+  <div class="investigation-card-copy"><p class="eyebrow">{{ story.kind }}</p><h3>{{ story.title }}</h3><p>{{ story.summary }}</p><span class="card-link">Open investigation <span aria-hidden="true">↗</span></span></div>
+</a>
+{% endfor %}
+</div>

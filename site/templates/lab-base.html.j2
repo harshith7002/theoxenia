@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore reproducible investigations of public telescope data with Theoxenia.">
+  <title>{% block title %}Investigations{% endblock %} · Theoxenia</title>
+  <link rel="stylesheet" href="{{ prefix }}styles.css">
+  {% block scripts %}{% endblock %}
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page-shell lab-shell">
+  <nav class="top-nav" aria-label="Main navigation">
+    <a class="wordmark" href="{{ prefix }}index.html"><span aria-hidden="true">⊹</span> Theoxenia</a>
+    <div><a href="{{ prefix }}investigations.html">Investigations</a><a href="{{ prefix }}evidence.html">Lab notebook</a><a href="{{ prefix }}research.html">Research &amp; contributions</a></div>
+  </nav>
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="page-footer"><p class="footer-motto">Prosaic first. Provenance always.</p><p>Independent analysis of public data · Recorded evidence, not a live telescope feed.</p><p>Code Apache-2.0 · Authored documentation CC BY 4.0 · Source data retains its original terms.</p><p><a href="{{ prefix }}index.html">Mission control</a> · <a href="https://github.com/mpetyx/theoxenia">Source &amp; reproducibility ↗</a></p></footer>
+</div>
+</body>
+</html>

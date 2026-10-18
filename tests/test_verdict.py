@@ -51,13 +51,13 @@ def test_known_source_wins_over_an_on_only_pattern() -> None:
 def test_off_scan_beats_a_single_on_scan() -> None:
     decision = _decide(on_count=1, off_count=1, passed_filter=False)
     assert decision.verdict is Verdict.IN_OFF
-    assert decision.badge_text == "In the OFF scans too: terrestrial"
+    assert decision.badge_text == "Also present in OFF scans"
 
 
 def test_single_pointing_is_fewer_than_three_on_scans() -> None:
     decision = _decide(on_count=1, off_count=0, passed_filter=False)
     assert decision.verdict is Verdict.SINGLE_POINTING
-    assert decision.badge_text == "Seen in one scan only"
+    assert decision.badge_text == "Missing from one or more ON scans"
 
 
 def test_session_census_beats_on_only() -> None:

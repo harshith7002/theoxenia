@@ -50,6 +50,8 @@ def test_public_snapshot_links_and_recovery(tmp_path: Path) -> None:
                 assert target.is_relative_to(output.resolve()), url
                 assert target.is_file(), (page, url)
     assert (first / "index.html").read_bytes() == (second / "index.html").read_bytes()
+    for path in (first / "downloads").iterdir():
+        assert path.read_bytes() == (second / "downloads" / path.name).read_bytes()
     with pytest.raises(ValueError, match="new or empty"):
         BUILD.build_public_site(first, base_url="https://example.org/lab/")
 

@@ -13,6 +13,7 @@ from pathlib import Path, PurePosixPath
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from xenia.live.evidence import is_synthetic, selected_cadences, verdict_counts
+from xenia.live.investigations import available_stories, render_investigations
 from xenia.live.models import (
     CadenceStatus,
     LiveState,
@@ -107,7 +108,17 @@ def render_site(
         lstrip_blocks=True,
     )
     template = template_env.get_template(template_path.name)
+    investigation_outputs = render_investigations(
+        manifests,
+        runs_dir=runs_dir,
+        output_root=output_root,
+        environment=template_env,
+        repository_root=root,
+    )
+    rendered.extend(investigation_outputs)
     html_text = template.render(
+        stories=available_stories(manifests),
+        prefix="",
         state=state,
         status=status,
         ticker=ticker,
@@ -153,6 +164,16 @@ def render_site(
             output_root=output_root,
             template_dir=template_path.parent,
             base_url=state.meta.mirror_url,
+            explorer_run_ids={
+                s["run_id"] for s in available_stories(manifests) if s["slug"] == "archive"
+            }
+            if (output_root / "explorer.html").is_file()
+            else set(),
+            additional_paths=[
+                p.relative_to(output_root).as_posix()
+                for p in investigation_outputs
+                if p.suffix == ".html"
+            ],
         )
     )
 
@@ -486,7 +507,7 @@ def _verdict_rows(state: LiveState) -> list[dict[str, str | int | float]]:
     values = [
         ("known_source", "Known transmitter", totals.known_source),
         ("in_off", "Also in the OFF scans", totals.in_off),
-        ("single_pointing", "Seen in one scan only", totals.single_pointing),
+        ("single_pointing", "Missing from one or more ON scans", totals.single_pointing),
         ("rfi_census", "Shared with another target", totals.rfi_census),
         ("on_only", "Waiting for further checks", totals.survivors),
         ("unexplained", "Unexplained after review", totals.unexplained),

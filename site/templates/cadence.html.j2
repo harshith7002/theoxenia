@@ -15,6 +15,7 @@
     <p>Coordinates {{ ra_text }} deg right ascension, {{ dec_text }} deg declination.</p>
     <p>Window {{ window_low }} to {{ window_high }} MHz. On-source seconds recorded: {{ on_source_text }}.</p>
     <p><a href="{{ manifest_href }}">Open the run manifest</a></p>
+    {% if explorer_href %}<p><a class="button-link button-primary" href="{{ explorer_href }}">Explore the complete table and measured scan previews ↗</a></p>{% endif %}
     <h2>Command</h2>
     <pre class="command-block"><code>{{ command }}</code></pre>
     <h2>Plots</h2>

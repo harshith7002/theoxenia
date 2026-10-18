@@ -1,10 +1,10 @@
 # First public release: recorded evidence
 
-Prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new observation was run for this redesign.
+Prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation or detector search was performed. PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
 
 ## What a visitor can do
 
-Explore the recorded Voyager waterfall; understand the six-scan ON/OFF method; inspect the real sky pointing; read the synthetic recovery grid cell by cell; follow the complete verdict counts to their manifests; open individual hit pages; and browse the lab notebook, including failed attempts. The interface works without JavaScript or remote fonts and images.
+Follow three guided investigations (Voyager, HIP544 archive search, synthetic recovery); filter and inspect all 273 measured archive rows; zoom and pan six measured waterfall previews; select recovery-grid cells; download checksummed evidence dossiers; and browse the lab notebook, including failed attempts. Core stories, complete tables, dossiers and downloads work without JavaScript. Linked selection and canvas previews use small local scripts. No remote fonts, images, analytics or runtime data services are required. See [the investigation implementation and scientific boundaries](investigations.md).
 
 The archive search is run `20261012T203545022355Z-exp-003-cadence`: one observed cadence, one completed window, 273 labelled rows, 149 in the OFF scans, 124 single-pointing hits, zero survivors. The gallery shows only three selected rows. Synthetic practice cadences are excluded from those observational totals. Repeated attempts at the same cadence/window use the latest finished record rather than accumulating duplicate exposure. Distinct windows remain distinct search work; hits are counted per window, not as globally unique transmitters.
 
@@ -46,3 +46,5 @@ The release checks cover aggregate counts against the committed archive record, 
 The original branch history was preserved in a verified Git bundle outside the checkout before consolidation. Historical run artifacts were not rewritten.
 
 Validation on 2026-10-18: 208 tests passed with 83.76% coverage; all optional disclosure dependencies installed. Strict typing: 42 source files clean. Lint, formatting, schema freshness, file policy, public copy scan, experiment index and strict documentation build passed. The archive Parquet verdict totals were independently read and match 149 IN_OFF + 124 SINGLE_POINTING.
+
+The investigation expansion adds parity checks between every exported row and the source Parquet, rejection of changed checksums and wrong provenance, deterministic downloads, complete no-script tables, and dossier bundle integrity. The expanded suite passed 212 tests with 84.04% coverage; strict typing is clean across 43 source files. Browser checks cover selection, filtering, reset, empty results, frequency zoom, contrast, recovery cells and missing-check labels. Stories, explorer, recovery and dossier layouts were checked in a 360 px browser frame, not on a physical phone. The recorded real-data preparation is `20261018T175821546488Z-public-evidence`.

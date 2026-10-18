@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261018T175821546488Z-public-evidence",
+  "pillar": "Public evidence",
+  "command": "uv run --locked --extra radio python scripts/prepare_explorer.py --source-run 20261012T203545022355Z-exp-003-cadence --waterfalls",
+  "parameters": {
+    "source_run_id": "20261012T203545022355Z-exp-003-cadence",
+    "row_count": 273,
+    "waterfall_scans": 6,
+    "detector_rerun": false
+  },
+  "inputs": [
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/manifest.json",
+      "sha256": "e8bf4daf07b83df01ec914cdcf086b36bc22d336b4faba0f87546595a61baa14",
+      "size_bytes": 9227
+    },
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/hits.parquet",
+      "sha256": "6cd8008fc37bd3ac9a8d4e66d71bb1f7abb3fb0e5e419a6bbf0c86039fe7f39a",
+      "size_bytes": 18729
+    },
+    {
+      "uri": "scripts/prepare_explorer.py",
+      "sha256": "cb43da57e469f6123fc937d8af83adde68d2af44b73f14924f09e1958fe924ac",
+      "size_bytes": 8849
+    },
+    {
+      "uri": "runs/20261012T203545022355Z-exp-003-cadence/slice_summary.json",
+      "sha256": "022a703be16b72adb0e2622d3ad51786f29d6f80c9c6cb5e143b78dededd1714",
+      "size_bytes": 42796
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5",
+      "sha256": "184cfc4a43ce0dfe1053ff64db88c65bce78f8f30556553f987aeb28a0decd59",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5",
+      "sha256": "4bc00d049ebeaaabbf2c40c58547cf781c8b21e63c72927be1eed5b6bf2be781",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5",
+      "sha256": "1eaa2ea9ca437e85b9a92f7589ebc3ef1a24f3309970e31d10151d4126fbbe24",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5",
+      "sha256": "8bb309a35b67eff889d0edc3e297c19ecfae58a1e2d683e8230501e57ea94694",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5",
+      "sha256": "11b4812e77a93507c78f9eea8d4cad2b6ee0ca342954980e670230fc633d0beb",
+      "size_bytes": 22917760
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5",
+      "sha256": "1d8c6a6fb80bfa5136d10bbda98dea1c0f5442d299c33092419bd24d395312d0",
+      "size_bytes": 22917760
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261018T175821546488Z-public-evidence/explorer.json",
+      "sha256": "c183c2c80548a4105446d8d1e3d91184434ef6e608da92d7b72271134b2b3428",
+      "size_bytes": 788077,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T175821546488Z-public-evidence/processor.txt",
+      "sha256": "cb43da57e469f6123fc937d8af83adde68d2af44b73f14924f09e1958fe924ac",
+      "size_bytes": 8849,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261018T175821546488Z-public-evidence/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "a097042",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-18T17:58:21.546488Z",
+  "finished_at": "2026-10-18T18:03:05.121144Z",
+  "outcome": "evidence_prepared",
+  "notes": [
+    "Derived presentation of recorded observations, not additional search exposure.",
+    "Remote-input SHA-256 values identify local frequency slices, not full archive files.",
+    "Zero detector rows in later ON scans remain an open investigation; valid power alone does not resolve the detector result.",
+    "Processing used an uncommitted worktree addition on the recorded base Git revision. The exact processor source is archived as processor.txt and checksummed; its hash matches the recorded script input.",
+    "Publication preparation is PUB-001. The archived processor initially used EXP-031, which the original Notion plan reserves for exoplanet retrieval. Only this experiment identifier was corrected; measured outputs are unchanged."
+  ],
+  "experiment_id": "PUB-001",
+  "demo": false,
+  "mission_control": null
+}

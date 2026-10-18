@@ -14,6 +14,7 @@ theme:
 nav:
   - Home: index.md
   - First public release: public-release.md
+  - Guided investigations and contributions: investigations.md
   - Architecture: architecture.md
   - EXP-001 data sources: data-sources.md
   - Data-source endpoint check: sources-check.md

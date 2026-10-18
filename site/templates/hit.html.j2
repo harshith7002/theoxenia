@@ -16,6 +16,7 @@
     <p>{{ hit.freq_text }} MHz · {{ hit.drift_text }} Hz/s · SNR {{ hit.snr_text }}</p>
     <p>Checks recorded: {{ hit.checks_done }} of 5. The five checks are {{ check_names|join(", ") }}. The manifest stores the count, not a separate pass bit for each check.</p>
     <p>{{ hit.explanation }}</p>
+    {% if explorer_href %}<p><a class="button-link button-primary" href="{{ explorer_href }}">Inspect this row and measured scan previews ↗</a></p>{% endif %}
     {% if hit.known_source %}<p>Catalog range: {{ hit.known_source }}</p>{% endif %}
     <p><img src="{{ hit.thumbnail_href }}" alt="Recorded hit summary for {{ hit.hit_id }}" loading="lazy" decoding="async"></p>
     {% if hit.plot_href %}

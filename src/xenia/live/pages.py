@@ -39,6 +39,8 @@ def render_detail_pages(
     output_root: Path,
     template_dir: Path,
     base_url: str | None = None,
+    additional_paths: Sequence[str] = (),
+    explorer_run_ids: set[str] | None = None,
 ) -> tuple[Path, ...]:
     """Write cadence pages, hit pages, and sitemap.xml under the site root."""
     environment = Environment(
@@ -50,7 +52,7 @@ def render_detail_pages(
     cadence_template = environment.get_template("cadence.html.j2")
     hit_template = environment.get_template("hit.html.j2")
     written: list[Path] = []
-    sitemap_paths = ["index.html", "evidence.html", "feed.json"]
+    sitemap_paths = ["index.html", "evidence.html", "feed.json", *additional_paths]
     seen_hits: dict[str, str] = {}
 
     for manifest, payload in _latest_cadences(manifests):
@@ -83,6 +85,9 @@ def render_detail_pages(
                 check_names=CHECK_NAMES,
                 stylesheet_href="../../styles.css",
                 back_href="../../index.html",
+                explorer_href="../../explorer.html"
+                if manifest.run_id in (explorer_run_ids or set())
+                else None,
             ),
             encoding="utf-8",
         )
@@ -104,6 +109,9 @@ def render_detail_pages(
                     check_names=CHECK_NAMES,
                     stylesheet_href="../styles.css",
                     back_href="../index.html",
+                    explorer_href=f"../explorer.html#hit={hit_id}"
+                    if manifest.run_id in (explorer_run_ids or set())
+                    else None,
                 ),
                 encoding="utf-8",
             )
