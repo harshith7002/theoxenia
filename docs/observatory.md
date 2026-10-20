@@ -32,6 +32,19 @@ uv run --locked python scripts/observatory.py --publish-only
 
 The queue excludes synthetic data and duplicate windows. Each source file has a 256 MiB transfer cap; six files mean a ceiling of 1.5 GiB per attempted window, before retries. Temporary slices are removed after each search. Raw data is never committed. Hit identifiers now include the frequency window to keep separate windows' URLs distinct.
 
+## First operational proof — 20 October 2026
+
+The [first hosted Observatory run](https://github.com/mpetyx/theoxenia/actions/runs/39405941516) succeeded through processing, evidence publication and its reusable Pages deployment. A fresh GitHub runner resumed after the local pass without repeating completed windows. Public `build.json`, `observatory.json` and `state.json` returned HTTP 200 at evidence revision `63d05e9`.
+
+| Window | Execution | Clustered rows | IN_OFF | SINGLE_POINTING | Filter-3 survivors |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 1420–1421 MHz | Local, [run record](https://mpetyx.com/theoxenia/runs/20261020T095932347132Z-exp-003-cadence/manifest.json) | 12 | 7 | 5 | 0 |
+| 1500–1501 MHz | GitHub, [run record](https://mpetyx.com/theoxenia/runs/20261020T101007693038Z-exp-003-cadence/manifest.json) | 12 | 9 | 3 | 0 |
+
+The hosted search took 105.64 seconds between its manifest timestamps and transferred 520,414,844 bytes. Its retained output hashes and full Parquet counts were independently rechecked after pulling the published commit. Three of eight windows are now complete, five pending, zero blocked. The cumulative operational total is 297 rows: 165 IN_OFF and 132 SINGLE_POINTING, zero survivors. All windows belong to one existing cadence. The original 273 rows predate the audited detector correction; these combined operational counts are not uniformly calibrated survey statistics. Report 01 remains unchanged.
+
+Quality verification passed 240 tests, lint, strict typing across 45 files, and strict documentation. [CI on the first published evidence](https://github.com/mpetyx/theoxenia/actions/runs/39405942297) also passed. This proves a bounded automatic cycle, not dedicated-server availability or a 24-hour/50-pair soak.
+
 ## Proposed dedicated host
 
 A practical starting allocation is an x86-64 Linux VM with 4 vCPUs, 8 GB RAM and 80 GB SSD, running Ubuntu 24.04 LTS in an EU region. This is a sizing proposal to validate with measured peak memory, CPU and transfer totals, not a throughput guarantee. No GPU, database, public web port, new domain or DNS change is required: the VM processes data; GitHub Pages serves the site.
