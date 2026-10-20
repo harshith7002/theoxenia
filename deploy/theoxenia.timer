@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Theoxenia archive processing every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=15min
+Unit=theoxenia.service
+
+[Install]
+WantedBy=timers.target

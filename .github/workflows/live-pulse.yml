@@ -1,70 +1,10 @@
-name: Live pulse
-
+name: Legacy live pulse (superseded)
 on:
   workflow_dispatch:
-  # Schedule stays commented out until D-017 is accepted.
-  # schedule:
-  #   - cron: "20 */3 * * *"
-
 permissions:
   contents: read
-
 jobs:
-  pulse:
-    name: Propose a fallback pass
+  retired:
     runs-on: ubuntu-latest
     steps:
-      - name: Guard on the primary /healthz
-        id: guard
-        env:
-          LIVE_URL: ${{ vars.THEOXENIA_LIVE_URL }}
-          PULSE: ${{ vars.THEOXENIA_PULSE }}
-        run: |
-          set -euo pipefail
-          run=false
-          if [ -z "${LIVE_URL}" ]; then
-            echo "THEOXENIA_LIVE_URL is unset. Pulse does not guess a host and does not search."
-          else
-            code="$(curl -sS -o /tmp/healthz.json -w '%{http_code}' --max-time 20 "${LIVE_URL%/}/healthz" || echo 000)"
-            echo "healthz=${code}"
-            if [ "${code}" = "200" ]; then
-              echo "Primary /healthz returned 200. Pulse exits without searching."
-            elif [ "${PULSE}" != "1" ]; then
-              echo "D-017 is Proposed. THEOXENIA_PULSE is not 1. Not searching and not pushing."
-            elif ! git ls-remote --heads https://github.com/mpetyx/theoxenia.git live | grep -q 'refs/heads/live'; then
-              echo "origin/live does not exist. Not creating it and not searching."
-            else
-              run=true
-            fi
-          fi
-          echo "run=${run}" >> "$GITHUB_OUTPUT"
-
-      - name: Check out live
-        if: steps.guard.outputs.run == 'true'
-        uses: actions/checkout@v7
-        with:
-          ref: live
-
-      - name: Install uv
-        if: steps.guard.outputs.run == 'true'
-        uses: astral-sh/setup-uv@v7
-        with:
-          version: 0.13.0
-
-      - name: Install HDF5 build prerequisites
-        if: steps.guard.outputs.run == 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends build-essential libhdf5-dev pkg-config
-
-      - name: One synthetic pass, no push
-        if: steps.guard.outputs.run == 'true'
-        env:
-          THEOXENIA_PUSH: "0"
-          THEOXENIA_HOST: github-actions
-        run: |
-          set -euo pipefail
-          uv python install 3.15.0
-          uv sync --locked --all-groups --extra radio --python 3.15.0
-          uv run --locked xenia live run --once --max-pairs 2 --queue configs/queue.synthetic.jsonl
-          echo "Not pushing. This workflow has contents: read until D-017 is accepted."
+      - run: echo 'Use the Observatory workflow. The old live-branch synthetic pulse is retired.'

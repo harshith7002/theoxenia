@@ -8,6 +8,12 @@ The repository is named **Theoxenia**; the installable package and CLI use the s
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
+## Automated archive processing
+
+The [Observatory workflow](https://github.com/mpetyx/theoxenia/actions/workflows/observatory.yml) processes a bounded real-data window every three hours, resumes from verified run artifacts and automatically updates the public site from `main`. The initial queue covers eight frequency windows in the same measured cadence; additional windows are not additional telescope observations. The original report and its 273-row explorer remain a frozen research example. The homepage's processing ledger and complete run index show subsequent work.
+
+See [operating model and server proposal](docs/observatory.md). A dedicated server and the original 24-hour/50-pair soak remain unaccepted; the scheduled GitHub worker is an incremental starting point.
+
 ## Quick start
 
 The project baseline is **CPython 3.15.0**. Use uv 0.13.0 or later to install that stable interpreter. See the [uv installation guide](https://docs.astral.sh/uv/getting-started/installation/) and [Python 3.15.0 release page](https://www.python.org/downloads/release/python-3150/).

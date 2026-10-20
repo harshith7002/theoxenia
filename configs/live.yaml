@@ -16,7 +16,7 @@ plots:
   full_px: [1280, 720]
   colormap: theoxenia_night
 commit:
-  branch: live
+  branch: main
   every_minutes: 30
   on_survivor: true
 heartbeat_seconds: 60

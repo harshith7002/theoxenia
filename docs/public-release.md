@@ -1,5 +1,7 @@
 # First public release: recorded evidence
 
+> Historical launch record. The initial manual snapshot has been extended by the [automated archive observatory](observatory.md). Its main-only scheduled worker and automatic Pages publication supersede the initial manual-only deployment policy below. The published Zenodo evidence is unchanged.
+
 Public evidence edition, 2026-10-20; prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation was made. PUB-002 reruns and audits the detector on the existing six archive slices; see [the first research report](first-research-report.md). PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
 
 ## What a visitor can do

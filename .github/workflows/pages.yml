@@ -1,8 +1,13 @@
 name: Pages
 
-# First public release is an intentional manual action, independent of code pushes.
+# Worker PAT pushes trigger this; Actions-token pushes call the reusable workflow.
 on:
   workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - "runs/**"
 
 permissions:
   contents: read

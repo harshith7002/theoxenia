@@ -1,0 +1,73 @@
+name: Observatory
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "43 */3 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: observatory-worker
+  cancel-in-progress: false
+
+jobs:
+  process:
+    if: vars.THEOXENIA_WORKER_MODE != 'hosted'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    outputs:
+      published: ${{ steps.publish.outputs.published }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.13.0
+          enable-cache: true
+      - name: Install scientific environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential libhdf5-dev pkg-config
+          uv python install 3.15.0
+          uv sync --locked --all-groups --extra radio --python 3.15.0
+      - name: Process one uncompleted real window
+        env:
+          MPLBACKEND: Agg
+          OMP_NUM_THREADS: "2"
+        run: uv run --locked python scripts/observatory.py --max-pairs 1
+      - name: Validate the new public build before publishing evidence
+        run: |
+          uv run --locked python scripts/build_public_site.py --output "$RUNNER_TEMP/observatory-preview"
+          uv run --locked mkdocs build --strict --site-dir "$RUNNER_TEMP/observatory-docs"
+      - name: Preserve compact evidence if publication fails
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: observatory-evidence-${{ github.run_id }}
+          path: runs/
+          retention-days: 14
+      - name: Publish only this cycle's evidence on main
+        id: publish
+        run: |
+          git config user.name 'theoxenia-observatory[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          uv run --locked python scripts/observatory.py --publish-only
+          echo 'published=true' >> "$GITHUB_OUTPUT"
+      - name: Report failed searches to the operator
+        run: |
+          uv run --locked python -c "from pathlib import Path; from xenia.live.observatory import read_status; s=read_status(Path('.')); assert s is not None; print(s.model_dump_json(indent=2)); raise SystemExit(1 if s.failures else 0)"
+
+  publish-site:
+    needs: process
+    if: always() && needs.process.outputs.published == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

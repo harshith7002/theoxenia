@@ -945,3 +945,12 @@ input:focus-visible, select:focus-visible { outline: 2px solid var(--focus); out
 .report-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: 1.5rem 0; }
 
 .report-figure a { color: #075466; text-decoration: underline; }
+
+/* The processing ledger stays legible while an archive pass is between runs. */
+.observatory-panel { border: 1px solid var(--line, #293240); border-radius: 18px; padding: clamp(20px, 4vw, 40px); background: linear-gradient(120deg, #10212b, #0d111a 70%); }
+.observatory-progress { height: 8px; overflow: hidden; border-radius: 6px; background: #26303d; margin: 24px 0; }
+.observatory-progress span { display: block; height: 100%; background: #8bdff4; }
+.observatory-counts { display: flex; flex-wrap: wrap; gap: 24px; }
+.observatory-counts strong { display: block; color: #a6e8f7; font-size: 1.8rem; }
+.observatory-panel details, .observatory-panel li { overflow-wrap: anywhere; }
+.observatory-panel [hidden] { display: none; }

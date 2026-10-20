@@ -32,7 +32,11 @@ def build_public_site(output: Path, *, base_url: str, now: datetime | None = Non
             {
                 "git_sha": state.git_sha,
                 "generated_at": state.generated_at.isoformat(),
-                "mode": "recorded-evidence-snapshot",
+                "mode": (
+                    "automated-archive-observatory"
+                    if (output / "observatory.json").exists()
+                    else "recorded-evidence-snapshot"
+                ),
                 "source_branch": "main",
             },
             indent=2,

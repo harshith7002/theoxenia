@@ -30,11 +30,36 @@
       </div>
       <div class="status-pill status-pill--{{ status.tone }}" aria-label="Worker status: {{ status.label }}">
         <span class="status-dot{% if status.is_live %} status-dot--live{% endif %}" aria-hidden="true"></span>
-        <span>{{ status.label }}</span>
+        <span>{% if observatory %}Automated archive observatory{% else %}{{ status.label }}{% endif %}</span>
       </div>
     </header>
 
     <main id="main">
+      {% if observatory %}
+      <section class="observatory-panel section-block" aria-labelledby="observatory-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">The working observatory · Archive processing</p>
+          <h2 id="observatory-heading">{% if observatory.state == 'queue_complete' %}This queue is complete.{% elif observatory.state == 'needs_attention' %}A run needs attention.{% else %}The next window is waiting.{% endif %}</h2></div>
+          <p>Real telescope recordings, processed in bounded passes. Every completed window adds an inspectable record. This is archival analysis, not a live telescope feed.</p>
+        </div>
+        <div class="observatory-progress" role="img" aria-label="{{ observatory.completed_windows }} of {{ observatory.queued_windows }} queued windows completed">
+          <span style="width: {{ 100 * observatory.completed_windows / observatory.queued_windows }}%"></span>
+        </div>
+        <div class="observatory-counts">
+          <p><strong>{{ observatory.completed_windows }} / {{ observatory.queued_windows }}</strong> windows completed</p>
+          <p><strong>{{ observatory.pending_windows }}</strong> awaiting a pass</p>
+          <p><strong>{{ observatory.blocked_windows }}</strong> blocked after three attempts</p>
+        </div>
+        <p id="observatory-freshness" data-checked="{{ observatory.checked_at.isoformat() }}">Last processing check: {{ observatory.checked_at.strftime('%Y-%m-%d %H:%M UTC') }}.
+          {% if observatory.mode == 'scheduled' %}Scheduled every three hours; starts may be delayed.{% else %}Host-driven processing.{% endif %}
+          {% if observatory.state == 'queue_complete' %}More verified inputs are needed before work resumes.{% endif %}
+        </p>
+        <div class="action-row"><a class="text-link" href="runs/{{ observatory.cycle_id }}/manifest.json">Inspect this processing pass ↗</a><a class="text-link" href="runs/index.html">Browse all run records</a><a class="text-link" href="https://github.com/mpetyx/theoxenia/actions/workflows/observatory.yml">Processing history ↗</a><a id="observatory-refresh" class="text-link" href="index.html" hidden>New results are available — refresh ↻</a></div>
+        {% if observatory.new_runs %}<ul>{% for run_id in observatory.new_runs %}<li><a href="runs/{{ run_id }}/manifest.json">New measured window: {{ run_id }}</a></li>{% endfor %}</ul>{% endif %}
+        {% if observatory.failures %}<details><summary>Recorded processing failures ({{ observatory.failures | length }})</summary><ul>{% for key, failure in observatory.failures.items() %}<li>{{ key }} · {{ failure.attempts }} attempt(s) · {{ failure.error }}</li>{% endfor %}</ul></details>{% endif %}
+      </section>
+      <script src="observatory.js" defer></script>
+      {% endif %}
       {% if stories %}
       <section class="section-block home-investigations" aria-labelledby="investigations-heading"><div class="section-heading"><div><p class="eyebrow">The field guide · Volume 01</p><h2 id="investigations-heading">Three questions. An open notebook.</h2></div><p>Follow a known signal, inspect a real archive search, and explore the limits of our detector. Every story opens its evidence.</p></div>{% include "investigation-cards.html.j2" %}</section>
       {% endif %}
@@ -51,7 +76,7 @@
       <p class="snapshot-note">Recorded evidence · Observational totals exclude synthetic practice runs. This page is a snapshot; reload to see a newer build.</p>
       {% endif %}
       <section class="ticker-panel" aria-label="Search ticker">
-        <p>{{ ticker }}</p>
+        <p>{% if observatory %}{{ state.totals.windows_searched }} measured windows across {{ state.totals.cadences_searched }} cadence(s). The report and original guided investigations retain their frozen evidence.{% else %}{{ ticker }}{% endif %}</p>
         <span>State built {{ generated_at_text }}</span>
       </section>
 

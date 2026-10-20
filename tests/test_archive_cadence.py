@@ -192,6 +192,23 @@ def test_local_archive_run_writes_parquet_and_deletes_the_work_tree(
     assert frame["review"][0] is False
     assert not (tmp_path / "data" / "tmp" / "exp-003-bl-test").exists()
     assert manifest_path.is_file()
+    second, second_path = run_archive_cadence(
+        tmp_path,
+        ["xenia", "live", "cadence"],
+        files=tuple(item.url for item in sources),
+        sources=tuple(item.expected_source_name for item in sources),
+        roles=tuple(item.role for item in sources),
+        window_mhz=(8419.75, 8419.85),
+        target="HIP544",
+        ra_deg=1.6549208333,
+        dec_deg=29.0205625,
+        experiment_id="EXP-003",
+        cadence_id="bl-test",
+        known_sources_path=catalog_path,
+    )
+    second_frame = pl.read_parquet(second_path.parent / "hits.parquet")
+    assert second.mission_control.cadence_id == manifest.mission_control.cadence_id
+    assert set(frame["hit_id"]).isdisjoint(second_frame["hit_id"])
 
 
 def test_archive_run_refuses_public_http_and_removes_its_work_tree(tmp_path: Path) -> None:

@@ -24,7 +24,7 @@ def test_live_yaml_matches_the_spec_and_the_measured_cap() -> None:
     assert config.filter_threshold == 3
     assert config.thumb_px == (320, 140)
     assert config.colormap == "theoxenia_night"
-    assert config.commit_branch == "live"
+    assert config.commit_branch == "main"
     assert config.commit_every_minutes == 30
     assert config.commit_on_survivor is True
     assert config.heartbeat_seconds == 60

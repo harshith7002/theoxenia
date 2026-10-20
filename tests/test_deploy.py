@@ -79,7 +79,7 @@ def test_run_sh_does_not_create_live(tmp_path: Path) -> None:
         env={"THEOXENIA_DEPLOY_STOP": "before-sync", "PATH": "/usr/bin:/bin"},
     )
     assert result.returncode == 0, result.stderr
-    assert "not creating it" in result.stderr
+    assert "not creating any branch" in result.stderr
     assert "stopping before sync" in result.stderr
     branches = subprocess.run(
         ["git", "branch"],

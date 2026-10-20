@@ -74,3 +74,7 @@ data/
 !/runs/**/diagnosis.json
 !/runs/**/scan-*.json
 !/runs/**/selection.json
+!/runs/**/cycle.json
+!/runs/observatory/status.json
+/site/observatory.json
+/site/observatory.js

@@ -21,6 +21,7 @@ from xenia.live.models import (
     Verdict,
     WorkerStatus,
 )
+from xenia.live.observatory import read_status
 from xenia.live.pages import cadence_asset_urls, render_detail_pages
 from xenia.live.plots import render_floor_svg, render_sky_svg
 from xenia.live.state import ManifestLoadError, load_manifests, manifest_paths
@@ -116,7 +117,15 @@ def render_site(
         repository_root=root,
     )
     rendered.extend(investigation_outputs)
+    observatory = read_status(root)
+    if observatory is not None:
+        status_output = output_root / "observatory.json"
+        status_output.write_text(observatory.model_dump_json(indent=2) + "\n", encoding="utf-8")
+        script_output = output_root / "observatory.js"
+        shutil.copyfile(root / "site" / "assets" / "observatory.js", script_output)
+        rendered.extend((status_output, script_output))
     html_text = template.render(
+        observatory=observatory,
         stories=available_stories(manifests),
         prefix="",
         state=state,

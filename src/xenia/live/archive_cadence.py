@@ -216,7 +216,9 @@ def run_archive_cadence(
         scans = _scans(slices)
         search = search_cadence(scans, work_dir=work / "search")
         clocks = _clocks(slices)
-        hits = label_hits(search, clocks, catalog, cadence_id=cadence_id)
+        # Separate windows share a cadence but must never share public hit URLs.
+        hit_prefix = f"{cadence_id}-{window_mhz[0]:.6f}-{window_mhz[1]:.6f}"
+        hits = label_hits(search, clocks, catalog, cadence_id=hit_prefix)
         plot_paths, plot_notes = _plot_on_only(hits, slices, work / "plots", target=target)
         finished_at = datetime.now(UTC)
         run_id = new_run_id(started_at, "exp-003-cadence")
