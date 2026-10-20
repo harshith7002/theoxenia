@@ -26,7 +26,7 @@ Use a new or empty output directory. The builder refuses to overwrite an existin
 
 Michael requested consolidation onto `main` on 2026-10-18. All existing feature work and the five remaining PRs (#24–#28) were integrated. Source, templates, schemas and recorded evidence now travel together on `main`. The old `live`-branch deployment instructions are superseded for this release. Do not create `live` or run the old handover's `git push origin main:live` command.
 
-The Pages workflow is manual-only. It builds Mission Control at the site root and project documentation under `/docs/`, both from `main`. Pushing code cannot trigger the first public deployment. The release destination is [Mission Control](https://mpetyx.com/theoxenia/) with [documentation](https://mpetyx.com/theoxenia/docs/). Michael authorized publication and Pages launch on 2026-10-20. The original preparation changed no hosting settings.
+The Pages workflow is manual-only. It builds Mission Control at the site root and project documentation under `/docs/`, both from `main`. Pushing code does not deploy it automatically. The release destination is [Mission Control](https://mpetyx.com/theoxenia/) with [documentation](https://mpetyx.com/theoxenia/docs/). Michael authorized publication and Pages launch on 2026-10-20. The original preparation changed no hosting settings.
 
 Deployments use GitHub Pages with GitHub Actions as its source and the manual Pages workflow on `main`. Verify the returned URL, images, manifest links, phone layout and snapshot status after each deployment. The default base URL is `https://mpetyx.com/theoxenia/`; change the builder argument if the actual destination differs.
 
@@ -37,7 +37,16 @@ Deployments use GitHub Pages with GitHub Actions as its source and the manual Pa
 - Validate a persistent host, recovery and a 24-hour unattended run with at least 50 pairs before presenting a live-service claim. The existing 60-minute synthetic run is not that proof.
 - Design worker-result persistence for the single-branch policy. The legacy worker publisher intentionally refuses to commit to `main`; it remains off. The legacy pulse workflow is also inactive.
 - Finish OCR corpus validation, historical satellite coverage and other environmental checks before expanding their public claims.
-- Reconcile the older Notion task and pipeline pages: some still say merged work is unmerged, and older EXP-004/EXP-030 definitions conflict with later Mission Control assignments. This document records the implementation boundary; it does not silently mark those scientific tasks complete.
+
+## Public release receipt
+
+On 2026-10-20, Zenodo confirmed report record `23489303` as published (`submitted=true`, `state=done`). Its public record exposes all 14 verified files, totaling 5,969,135 bytes. The approved report date remains 2026-10-18; the publication action occurred on October 20. Authorship and licenses remain as approved: Michael Petychakis, sole author without affiliation or ORCID; report CC BY 4.0, code Apache-2.0, original upstream terms preserved.
+
+The [first Pages deployment](https://github.com/mpetyx/theoxenia/actions/runs/39372152239) succeeded from `9cdd87b9294dedbc7e6b447574ea590de1d90b4e`. Pages uses the owner's existing `mpetyx.com` domain and enforces HTTPS. [Release CI](https://github.com/mpetyx/theoxenia/actions/runs/39372152334) passed 231 tests with 84.29% coverage, strict typing across 44 files and all configured quality gates.
+
+Public HTTP checks passed for the main entry points, documentation, report PDF and evidence download. The public PDF is byte-identical to the frozen Zenodo package. Browser interaction verified that the explorer filters 273 rows to 149 `IN_OFF` rows and resets correctly.
+
+The [Notion release handoff](https://app.notion.com/p/3fd073ddfc5c8179b136cd7fda8be037) and project navigation now reflect the release. All 41 task rows, 10 experiment rows, 19 source rows and five case records were reviewed; 22 task rows and eight experiment rows were reconciled. Historical instructions remain identified as history, including superseded branch and experiment-number aliases. OCR corpus acceptance was corrected to incomplete, and the 24-hour worker acceptance remains open. The launch did not change existing case classifications or turn a DOI into external scientific review.
 
 ## Validation
 
