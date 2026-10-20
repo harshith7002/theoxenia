@@ -1,0 +1,1513 @@
+{
+  "allow_plain_http": false,
+  "cadence_id": "bl-opendata-63460",
+  "catalog_md5_note": "catalog_md5 is the value returned by the open-data API. This run did not hash the remote file.",
+  "files": [
+    {
+      "catalog_md5": "b66f9ddb87204955651b45d0c80296c1",
+      "catalog_size_bytes": 15489328869,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 29.020562500000008,
+        "src_raj": 0.11032805555555557
+      },
+      "expected_source_name": "HIP544",
+      "remote_transfer": {
+        "bytes_transferred": 86667052,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11491468400,
+            "start": 11490416688
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204430050,
+            "start": 203378338
+          },
+          {
+            "bytes_received": 4166351,
+            "end_exclusive": 350343502,
+            "start": 346177151
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277976589,
+            "start": 1276924877
+          },
+          {
+            "bytes_received": 4165314,
+            "end_exclusive": 1318462673,
+            "start": 1314297359
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174818852,
+            "start": 2173767140
+          },
+          {
+            "bytes_received": 4169442,
+            "end_exclusive": 2286572938,
+            "start": 2282403496
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3248382343,
+            "start": 3247330631
+          },
+          {
+            "bytes_received": 4172882,
+            "end_exclusive": 3254646879,
+            "start": 3250473997
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4145102601,
+            "start": 4144050889
+          },
+          {
+            "bytes_received": 4177206,
+            "end_exclusive": 4222745716,
+            "start": 4218568510
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5041821344,
+            "start": 5040769632
+          },
+          {
+            "bytes_received": 4178061,
+            "end_exclusive": 5190822941,
+            "start": 5186644880
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6115293851,
+            "start": 6114242139
+          },
+          {
+            "bytes_received": 4174593,
+            "end_exclusive": 6158916972,
+            "start": 6154742379
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7012088552,
+            "start": 7011036840
+          },
+          {
+            "bytes_received": 4170135,
+            "end_exclusive": 7126991646,
+            "start": 7122821511
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8085734623,
+            "start": 8084682911
+          },
+          {
+            "bytes_received": 4169807,
+            "end_exclusive": 8095227929,
+            "start": 8091058122
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8982166182,
+            "start": 8981114470
+          },
+          {
+            "bytes_received": 4168521,
+            "end_exclusive": 9062929282,
+            "start": 9058760761
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9878653379,
+            "start": 9877601667
+          },
+          {
+            "bytes_received": 4166190,
+            "end_exclusive": 10030721208,
+            "start": 10026555018
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11491465264,
+            "start": 11490413552
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10951925681,
+            "start": 10950873969
+          },
+          {
+            "bytes_received": 4160218,
+            "end_exclusive": 10998651358,
+            "start": 10994491140
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11848782128,
+            "start": 11847730416
+          },
+          {
+            "bytes_received": 4158601,
+            "end_exclusive": 11966755818,
+            "start": 11962597217
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12922307217,
+            "start": 12921255505
+          },
+          {
+            "bytes_received": 4164334,
+            "end_exclusive": 12934945143,
+            "start": 12930780809
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13819363898,
+            "start": 13818312186
+          },
+          {
+            "bytes_received": 4162024,
+            "end_exclusive": 13903285374,
+            "start": 13899123350
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14893193859,
+            "start": 14892142147
+          },
+          {
+            "bytes_received": 4163973,
+            "end_exclusive": 14871447388,
+            "start": 14867283415
+          }
+        ],
+        "source_size_bytes": 15489328869,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5"
+      },
+      "role": "A",
+      "scan_index": 0,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "527be7f578909d08861ca175f3f1772ca56c6b5eb3ce8d1e7a95b1b62410ceee",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip544",
+        "source_size_bytes": 15489328869,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.38260416667
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5"
+    },
+    {
+      "catalog_md5": "6297e6e0d5f7a35f9bc13b693ffc12ce",
+      "catalog_size_bytes": 15489102500,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 31.309723611111114,
+        "src_raj": 0.21271638888888889
+      },
+      "expected_source_name": "HIP1024",
+      "remote_transfer": {
+        "bytes_transferred": 86789930,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11492042104,
+            "start": 11490990392
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204443574,
+            "start": 203391862
+          },
+          {
+            "bytes_received": 4177313,
+            "end_exclusive": 350293957,
+            "start": 346116644
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277896097,
+            "start": 1276844385
+          },
+          {
+            "bytes_received": 4183232,
+            "end_exclusive": 1318437852,
+            "start": 1314254620
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174929339,
+            "start": 2173877627
+          },
+          {
+            "bytes_received": 4188046,
+            "end_exclusive": 2286668840,
+            "start": 2282480794
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3248527721,
+            "start": 3247476009
+          },
+          {
+            "bytes_received": 4183736,
+            "end_exclusive": 3254812481,
+            "start": 3250628745
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4145298468,
+            "start": 4144246756
+          },
+          {
+            "bytes_received": 4180501,
+            "end_exclusive": 4222967909,
+            "start": 4218787408
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5042018805,
+            "start": 5040967093
+          },
+          {
+            "bytes_received": 4176110,
+            "end_exclusive": 5191023203,
+            "start": 5186847093
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6115570653,
+            "start": 6114518941
+          },
+          {
+            "bytes_received": 4173509,
+            "end_exclusive": 6159153136,
+            "start": 6154979627
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7012345685,
+            "start": 7011293973
+          },
+          {
+            "bytes_received": 4168072,
+            "end_exclusive": 7127201068,
+            "start": 7123032996
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8085769486,
+            "start": 8084717774
+          },
+          {
+            "bytes_received": 4169620,
+            "end_exclusive": 8095197810,
+            "start": 8091028190
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8982514753,
+            "start": 8981463041
+          },
+          {
+            "bytes_received": 4171412,
+            "end_exclusive": 9063187269,
+            "start": 9059015857
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9879221855,
+            "start": 9878170143
+          },
+          {
+            "bytes_received": 4172514,
+            "end_exclusive": 10031265444,
+            "start": 10027092930
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11492038968,
+            "start": 11490987256
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10952624686,
+            "start": 10951572974
+          },
+          {
+            "bytes_received": 4178486,
+            "end_exclusive": 10999313784,
+            "start": 10995135298
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11849383233,
+            "start": 11848331521
+          },
+          {
+            "bytes_received": 4173482,
+            "end_exclusive": 11967323082,
+            "start": 11963149600
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12922771705,
+            "start": 12921719993
+          },
+          {
+            "bytes_received": 4174786,
+            "end_exclusive": 12935329191,
+            "start": 12931154405
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13819505189,
+            "start": 13818453477
+          },
+          {
+            "bytes_received": 4171378,
+            "end_exclusive": 13903281837,
+            "start": 13899110459
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14893061311,
+            "start": 14892009599
+          },
+          {
+            "bytes_received": 4168333,
+            "end_exclusive": 14871316098,
+            "start": 14867147765
+          }
+        ],
+        "source_size_bytes": 15489102500,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5"
+      },
+      "role": "B",
+      "scan_index": 1,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "d0768a3218ea18323b817948a1d76620b9226dca26e5dc0dd783550f981b552d",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip1024",
+        "source_size_bytes": 15489102500,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.38652777778
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5"
+    },
+    {
+      "catalog_md5": "759ed97559ceaebb10b9668b69274768",
+      "catalog_size_bytes": 15487221734,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 29.02055583333333,
+        "src_raj": 0.11032861111111111
+      },
+      "expected_source_name": "HIP544",
+      "remote_transfer": {
+        "bytes_transferred": 86516597,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11489670108,
+            "start": 11488618396
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204415503,
+            "start": 203363791
+          },
+          {
+            "bytes_received": 4156756,
+            "end_exclusive": 350269684,
+            "start": 346112928
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277744934,
+            "start": 1276693222
+          },
+          {
+            "bytes_received": 4151632,
+            "end_exclusive": 1318185022,
+            "start": 1314033390
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174414282,
+            "start": 2173362570
+          },
+          {
+            "bytes_received": 4148798,
+            "end_exclusive": 2286126934,
+            "start": 2281978136
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3247656876,
+            "start": 3246605164
+          },
+          {
+            "bytes_received": 4150070,
+            "end_exclusive": 3253879350,
+            "start": 3249729280
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4144208903,
+            "start": 4143157191
+          },
+          {
+            "bytes_received": 4157601,
+            "end_exclusive": 4221796329,
+            "start": 4217638728
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5040845965,
+            "start": 5039794253
+          },
+          {
+            "bytes_received": 4163567,
+            "end_exclusive": 5189710870,
+            "start": 5185547303
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6113896602,
+            "start": 6112844890
+          },
+          {
+            "bytes_received": 4172160,
+            "end_exclusive": 6157452654,
+            "start": 6153280494
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7010127867,
+            "start": 7009076155
+          },
+          {
+            "bytes_received": 4166179,
+            "end_exclusive": 7124976642,
+            "start": 7120810463
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8083482499,
+            "start": 8082430787
+          },
+          {
+            "bytes_received": 4155874,
+            "end_exclusive": 8092889132,
+            "start": 8088733258
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8980169767,
+            "start": 8979118055
+          },
+          {
+            "bytes_received": 4158534,
+            "end_exclusive": 9060803252,
+            "start": 9056644718
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9876757175,
+            "start": 9875705463
+          },
+          {
+            "bytes_received": 4156846,
+            "end_exclusive": 10028757790,
+            "start": 10024600944
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11489666972,
+            "start": 11488615260
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10950151229,
+            "start": 10949099517
+          },
+          {
+            "bytes_received": 4159838,
+            "end_exclusive": 10996865501,
+            "start": 10992705663
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11846948889,
+            "start": 11845897177
+          },
+          {
+            "bytes_received": 4159939,
+            "end_exclusive": 11964941910,
+            "start": 11960781971
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12920573473,
+            "start": 12919521761
+          },
+          {
+            "bytes_received": 4159613,
+            "end_exclusive": 12933099612,
+            "start": 12928939999
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13817436823,
+            "start": 13816385111
+          },
+          {
+            "bytes_received": 4160868,
+            "end_exclusive": 13901229397,
+            "start": 13897068529
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14891148014,
+            "start": 14890096302
+          },
+          {
+            "bytes_received": 4158922,
+            "end_exclusive": 14869407077,
+            "start": 14865248155
+          }
+        ],
+        "source_size_bytes": 15487221734,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5"
+      },
+      "role": "A",
+      "scan_index": 2,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "40cd86e1e5c90155f6575475a696a35af7f2b9c8fd92d23faf85a3f1f601bf89",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip544",
+        "source_size_bytes": 15487221734,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.390439814815
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5"
+    },
+    {
+      "catalog_md5": "4e865518c50e98054916d6dee45043e1",
+      "catalog_size_bytes": 15486312975,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 30.735838888888892,
+        "src_raj": 0.024771944444444444
+      },
+      "expected_source_name": "HIP114",
+      "remote_transfer": {
+        "bytes_transferred": 86563467,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11490007921,
+            "start": 11488956209
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204426888,
+            "start": 203375176
+          },
+          {
+            "bytes_received": 4156542,
+            "end_exclusive": 350244007,
+            "start": 346087465
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277870676,
+            "start": 1276818964
+          },
+          {
+            "bytes_received": 4156945,
+            "end_exclusive": 1318288115,
+            "start": 1314131170
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174510316,
+            "start": 2173458604
+          },
+          {
+            "bytes_received": 4157884,
+            "end_exclusive": 2286172475,
+            "start": 2282014591
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3247899409,
+            "start": 3246847697
+          },
+          {
+            "bytes_received": 4154515,
+            "end_exclusive": 3254129843,
+            "start": 3249975328
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4144481558,
+            "start": 4143429846
+          },
+          {
+            "bytes_received": 4150992,
+            "end_exclusive": 4221997109,
+            "start": 4217846117
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5041040013,
+            "start": 5039988301
+          },
+          {
+            "bytes_received": 4151245,
+            "end_exclusive": 5189931415,
+            "start": 5185780170
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6114253816,
+            "start": 6113202104
+          },
+          {
+            "bytes_received": 4156537,
+            "end_exclusive": 6157842473,
+            "start": 6153685936
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7010901244,
+            "start": 7009849532
+          },
+          {
+            "bytes_received": 4155527,
+            "end_exclusive": 7125636514,
+            "start": 7121480987
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8084041004,
+            "start": 8082989292
+          },
+          {
+            "bytes_received": 4153057,
+            "end_exclusive": 8093399267,
+            "start": 8089246210
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8980645913,
+            "start": 8979594201
+          },
+          {
+            "bytes_received": 4164191,
+            "end_exclusive": 9061315297,
+            "start": 9057151106
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9877509885,
+            "start": 9876458173
+          },
+          {
+            "bytes_received": 4199282,
+            "end_exclusive": 10029594975,
+            "start": 10025395693
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11490004785,
+            "start": 11488953073
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10950976513,
+            "start": 10949924801
+          },
+          {
+            "bytes_received": 4182955,
+            "end_exclusive": 10997590335,
+            "start": 10993407380
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11847353866,
+            "start": 11846302154
+          },
+          {
+            "bytes_received": 4159979,
+            "end_exclusive": 11965229943,
+            "start": 11961069964
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12920498082,
+            "start": 12919446370
+          },
+          {
+            "bytes_received": 4160026,
+            "end_exclusive": 12933001735,
+            "start": 12928841709
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13817097269,
+            "start": 13816045557
+          },
+          {
+            "bytes_received": 4162249,
+            "end_exclusive": 13900815158,
+            "start": 13896652909
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14890330520,
+            "start": 14889278808
+          },
+          {
+            "bytes_received": 4162141,
+            "end_exclusive": 14868626513,
+            "start": 14864464372
+          }
+        ],
+        "source_size_bytes": 15486312975,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5"
+      },
+      "role": "C",
+      "scan_index": 3,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "2d4908b2a4819b7df6f6f1b4aa6cd393b5aa287c72647dc1bc27861dc4e612df",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip114",
+        "source_size_bytes": 15486312975,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.39439814815
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5"
+    },
+    {
+      "catalog_md5": "8a76c8117c5eb5466f7f3de5f3f9d235",
+      "catalog_size_bytes": 15488259815,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 29.02056055555555,
+        "src_raj": 0.1103275
+      },
+      "expected_source_name": "HIP544",
+      "remote_transfer": {
+        "bytes_transferred": 86522092,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11491285432,
+            "start": 11490233720
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204393316,
+            "start": 203341604
+          },
+          {
+            "bytes_received": 4156210,
+            "end_exclusive": 350193009,
+            "start": 346036799
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277739821,
+            "start": 1276688109
+          },
+          {
+            "bytes_received": 4161115,
+            "end_exclusive": 1318156839,
+            "start": 1313995724
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174463034,
+            "start": 2173411322
+          },
+          {
+            "bytes_received": 4154612,
+            "end_exclusive": 2286143127,
+            "start": 2281988515
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3247800084,
+            "start": 3246748372
+          },
+          {
+            "bytes_received": 4156132,
+            "end_exclusive": 3254042897,
+            "start": 3249886765
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4144496630,
+            "start": 4143444918
+          },
+          {
+            "bytes_received": 4156748,
+            "end_exclusive": 4222123366,
+            "start": 4217966618
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5041153740,
+            "start": 5040102028
+          },
+          {
+            "bytes_received": 4156649,
+            "end_exclusive": 5190139768,
+            "start": 5185983119
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6114629394,
+            "start": 6113577682
+          },
+          {
+            "bytes_received": 4162145,
+            "end_exclusive": 6158183596,
+            "start": 6154021451
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7011400904,
+            "start": 7010349192
+          },
+          {
+            "bytes_received": 4162039,
+            "end_exclusive": 7126216007,
+            "start": 7122053968
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8084985261,
+            "start": 8083933549
+          },
+          {
+            "bytes_received": 4159368,
+            "end_exclusive": 8094382172,
+            "start": 8090222804
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8981759066,
+            "start": 8980707354
+          },
+          {
+            "bytes_received": 4158695,
+            "end_exclusive": 9062432879,
+            "start": 9058274184
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9878434441,
+            "start": 9877382729
+          },
+          {
+            "bytes_received": 4158527,
+            "end_exclusive": 10030469924,
+            "start": 10026311397
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11491282296,
+            "start": 11490230584
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10951965182,
+            "start": 10950913470
+          },
+          {
+            "bytes_received": 4159636,
+            "end_exclusive": 10998567177,
+            "start": 10994407541
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11848708637,
+            "start": 11847656925
+          },
+          {
+            "bytes_received": 4161370,
+            "end_exclusive": 11966650931,
+            "start": 11962489561
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12922084708,
+            "start": 12921032996
+          },
+          {
+            "bytes_received": 4161643,
+            "end_exclusive": 12934588149,
+            "start": 12930426506
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13818775906,
+            "start": 13817724194
+          },
+          {
+            "bytes_received": 4160645,
+            "end_exclusive": 13902497285,
+            "start": 13898336640
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14892144259,
+            "start": 14891092547
+          },
+          {
+            "bytes_received": 4157158,
+            "end_exclusive": 14870443185,
+            "start": 14866286027
+          }
+        ],
+        "source_size_bytes": 15488259815,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5"
+      },
+      "role": "A",
+      "scan_index": 4,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "2b01d1d061bc5b502dc577fd0355a99c691b8c5e24651ee9900a717517ee1805",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip544",
+        "source_size_bytes": 15488259815,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.39834490741
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5"
+    },
+    {
+      "catalog_md5": "2d1a206e18819aeec1594df5cf6807f9",
+      "catalog_size_bytes": 15485972200,
+      "catalog_size_matches_observed_content_length": true,
+      "coordinates": {
+        "src_dej": 32.45055805555556,
+        "src_raj": 0.2806613888888889
+      },
+      "expected_source_name": "HIP1344",
+      "remote_transfer": {
+        "bytes_transferred": 86586659,
+        "max_transfer_bytes": 268435456,
+        "ranges": [
+          {
+            "bytes_received": 1048584,
+            "end_exclusive": 1048584,
+            "start": 0
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11489355183,
+            "start": 11488303471
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 204400598,
+            "start": 203348886
+          },
+          {
+            "bytes_received": 4158400,
+            "end_exclusive": 350200089,
+            "start": 346041689
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 1277663120,
+            "start": 1276611408
+          },
+          {
+            "bytes_received": 4158368,
+            "end_exclusive": 1318064729,
+            "start": 1313906361
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 2174174965,
+            "start": 2173123253
+          },
+          {
+            "bytes_received": 4160834,
+            "end_exclusive": 2285870258,
+            "start": 2281709424
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 3247498396,
+            "start": 3246446684
+          },
+          {
+            "bytes_received": 4162612,
+            "end_exclusive": 3253751761,
+            "start": 3249589149
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 4144042821,
+            "start": 4142991109
+          },
+          {
+            "bytes_received": 4161714,
+            "end_exclusive": 4221578155,
+            "start": 4217416441
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 5040533613,
+            "start": 5039481901
+          },
+          {
+            "bytes_received": 4163492,
+            "end_exclusive": 5189411410,
+            "start": 5185247918
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 6113746434,
+            "start": 6112694722
+          },
+          {
+            "bytes_received": 4163235,
+            "end_exclusive": 6157258590,
+            "start": 6153095355
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 7010370786,
+            "start": 7009319074
+          },
+          {
+            "bytes_received": 4164114,
+            "end_exclusive": 7125142591,
+            "start": 7120978477
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8083609527,
+            "start": 8082557815
+          },
+          {
+            "bytes_received": 4162864,
+            "end_exclusive": 8093007232,
+            "start": 8088844368
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 8980253709,
+            "start": 8979201997
+          },
+          {
+            "bytes_received": 4164811,
+            "end_exclusive": 9060899797,
+            "start": 9056734986
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 9876766138,
+            "start": 9875714426
+          },
+          {
+            "bytes_received": 4169490,
+            "end_exclusive": 10028800064,
+            "start": 10024630574
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11489352047,
+            "start": 11488300335
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 10950011397,
+            "start": 10948959685
+          },
+          {
+            "bytes_received": 4159356,
+            "end_exclusive": 10996665491,
+            "start": 10992506135
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 11846667657,
+            "start": 11845615945
+          },
+          {
+            "bytes_received": 4165310,
+            "end_exclusive": 11964572245,
+            "start": 11960406935
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 12919918949,
+            "start": 12918867237
+          },
+          {
+            "bytes_received": 4163942,
+            "end_exclusive": 12932450184,
+            "start": 12928286242
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 13816628957,
+            "start": 13815577245
+          },
+          {
+            "bytes_received": 4165613,
+            "end_exclusive": 13900400196,
+            "start": 13896234583
+          },
+          {
+            "bytes_received": 1051712,
+            "end_exclusive": 14890017048,
+            "start": 14888965336
+          },
+          {
+            "bytes_received": 4163104,
+            "end_exclusive": 14868318247,
+            "start": 14864155143
+          }
+        ],
+        "source_size_bytes": 15485972200,
+        "source_url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5"
+      },
+      "role": "D",
+      "scan_index": 5,
+      "slice": {
+        "channel_count": 357914,
+        "channel_start": 116418500,
+        "dtype": "<f4",
+        "first_center_mhz": 1600.9999997913837,
+        "integrations": 16,
+        "last_center_mhz": 1600.0000024214387,
+        "nbits": 32,
+        "nifs": 1,
+        "slice_sha256": "18184c1207411c246dc4a26d3d3e48221d1f664b6be8b793feda66e1a77042a6",
+        "slice_size_bytes": 22916392
+      },
+      "source_header": {
+        "chunk_shape": [
+          1,
+          1,
+          1048576
+        ],
+        "data_attributes": [
+          "DIMENSION_LABELS",
+          "az_start",
+          "data_type",
+          "fch1",
+          "foff",
+          "machine_id",
+          "nbits",
+          "nchans",
+          "nifs",
+          "source_name",
+          "src_dej",
+          "src_raj",
+          "telescope_id",
+          "tsamp",
+          "tstart",
+          "za_start"
+        ],
+        "dtype": "<f4",
+        "fch1_mhz": 1926.26953125,
+        "file_class": "FILTERBANK",
+        "file_version": "1.0",
+        "foff_mhz": -2.7939677238464355e-06,
+        "integrations": 16,
+        "nbits": 32,
+        "nchans": 322961408,
+        "nifs": 1,
+        "root_members": [
+          "data",
+          "mask"
+        ],
+        "source_name": "Hip1344",
+        "source_size_bytes": 15485972200,
+        "tsamp_seconds": 18.253611008,
+        "tstart_mjd": 57622.40230324074
+      },
+      "url": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5"
+    }
+  ],
+  "requested_window_mhz": [
+    1600.0,
+    1601.0
+  ],
+  "sha256_note": "slice.sha256 is the local frequency slice, not the remote object.",
+  "transfer_cap_bytes_per_file": 268435456
+}
