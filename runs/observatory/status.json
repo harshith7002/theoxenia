@@ -1,15 +1,15 @@
 {
   "mode": "scheduled",
   "state": "ready",
-  "checked_at": "2026-10-20T17:33:38.114469Z",
-  "cycle_id": "20261020T173144613285Z-observatory-cycle",
+  "checked_at": "2026-10-20T21:55:22.937440Z",
+  "cycle_id": "20261020T215302445230Z-observatory-cycle",
   "queue_sha256": "53af23be0342ee2c9112d6a3acee27dbb197a53cfac12b5668f8c3763a742bcc",
   "queued_windows": 8,
-  "completed_windows": 4,
-  "pending_windows": 4,
+  "completed_windows": 5,
+  "pending_windows": 3,
   "blocked_windows": 0,
   "new_runs": [
-    "20261020T173145075038Z-exp-003-cadence"
+    "20261020T215302785062Z-exp-003-cadence"
   ],
   "failures": {},
   "cadence_ids": [

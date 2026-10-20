@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="140" role="img"
+  aria-label="Measured hit frequency, drift, and SNR">
+  <rect width="320" height="140" fill="#0D1320"/>
+  <text x="16" y="36" fill="#E7EEF8" font-size="16">1700.032004 MHz</text>
+  <text x="16" y="64" fill="#E7B15A" font-size="14">+0.010204 Hz/s</text>
+  <text x="16" y="92" fill="#C5D0DE" font-size="14">SNR 21.015</text>
+  <text x="16" y="120" fill="#C5D0DE" font-size="14">IN_OFF</text>
+</svg>
