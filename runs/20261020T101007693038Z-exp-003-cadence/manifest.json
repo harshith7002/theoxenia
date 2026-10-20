@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.1",
+  "run_id": "20261020T101007693038Z-exp-003-cadence",
+  "pillar": "I · Sensor",
+  "command": "xenia live cadence --experiment-id EXP-003 --cadence-id bl-opendata-63460",
+  "parameters": {
+    "synthetic": false,
+    "experiment_id": "EXP-003",
+    "cadence_id": "bl-opendata-63460",
+    "target": "HIP544",
+    "ra_deg": 1.6549208333,
+    "dec_deg": 29.0205625,
+    "window_mhz": [
+      1500.0,
+      1501.0
+    ],
+    "roles": [
+      "A",
+      "B",
+      "A",
+      "C",
+      "A",
+      "D"
+    ],
+    "filter_threshold": 3,
+    "minimum_snr": 10.0,
+    "max_drift_hz_s": 4.0,
+    "frequency_match_hz": 500.0,
+    "drift_match_hz_s": 0.15,
+    "transfer_cap_bytes_per_file": 268435456,
+    "allow_plain_http": false,
+    "known_sources_sha256": "cc9911715ac1b3841d652f0d1a6b8a3c25b52276de03c10a320e583f830b1154",
+    "bytes_transferred": [
+      86712973,
+      86674755,
+      86740717,
+      86924506,
+      86672416,
+      86689477
+    ],
+    "verdict_counts": {
+      "KNOWN_SOURCE": 0,
+      "IN_OFF": 9,
+      "SINGLE_POINTING": 3,
+      "RFI_CENSUS": 0,
+      "ON_ONLY": 0,
+      "UNEXPLAINED": 0
+    },
+    "hit_count": 12
+  },
+  "inputs": [
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33057_Hip544_0039.gpuspec.0000.h5",
+      "sha256": "2adf012b1f82039aa607046091191bc011f3e99057329b7c59135dc2d8461728",
+      "size_bytes": 22916392
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33396_Hip1024_0040.gpuspec.0000.h5",
+      "sha256": "0b3a95f68d854195eea22b82d5e9f0d8ba32f219f05cdc1945de542be2bb2d15",
+      "size_bytes": 22916392
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_33734_Hip544_0041.gpuspec.0000.h5",
+      "sha256": "85a5800343fd4375eb7994f7d4b447477db5de3552500e30e19e27bf8357b4ae",
+      "size_bytes": 22916392
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34076_Hip114_0042.gpuspec.0000.h5",
+      "sha256": "286bbc5c2a74b40b0d235fe4177f6d09e9c5555b76c31a8bd2e296ff8b0f74dc",
+      "size_bytes": 22916392
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34417_Hip544_0043.gpuspec.0000.h5",
+      "sha256": "23d33fd5619843c4095ac6bfd7fa2d1362c3aed396106d224884058eb35d4f13",
+      "size_bytes": 22916392
+    },
+    {
+      "uri": "https://bldata.berkeley.edu/pipeline/AGBT16B_999_13/holding/spliced_blc0001020304050607_guppi_57622_34759_Hip1344_0044.gpuspec.0000.h5",
+      "sha256": "1f6091fe472ba5197b4d30d5e65a0721da6d08f72c5b365bafd69854566213a4",
+      "size_bytes": 22916392
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/hits.parquet",
+      "sha256": "dd6696dd757070d40f801b2373d0f3f3c719637dc3cb34572b2b0b761ce50506",
+      "size_bytes": 12326,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/slice_summary.json",
+      "sha256": "4251abb038e02b8db35a43a1eaceaeb35e66bc24c3c01f346ef6d062199cae7d",
+      "size_bytes": 42724,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0001.svg",
+      "sha256": "319c309888cc04581958fa92ef735fcac9806b4d1b91d309d1fa180b97d6380a",
+      "size_bytes": 478,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0012.svg",
+      "sha256": "b9a12f3c5c5c496690e67c71d80b892f180acd3bace1ca8496c53df5a688d978",
+      "size_bytes": 477,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0011.svg",
+      "sha256": "d4e9f5a6d472d3fd479b63da59f549e708fc35708e5d7b15c0e5f9057fc40c52",
+      "size_bytes": 477,
+      "media_type": null
+    },
+    {
+      "path": "runs/20261020T101007693038Z-exp-003-cadence/manifest.json",
+      "sha256": null,
+      "size_bytes": null,
+      "media_type": null
+    }
+  ],
+  "git_sha": "095a93e",
+  "package_version": "0.1.0",
+  "started_at": "2026-10-20T10:10:07.693038Z",
+  "finished_at": "2026-10-20T10:11:53.335555Z",
+  "outcome": "searched",
+  "notes": [
+    "Archive ABACAD cadence. demo is false. Slice SHA-256 values are local slices, not remote-file hashes. catalog_md5 is the open-data API field and was not recomputed.",
+    "Transfer cap is 268435456 bytes per file.",
+    "Verdict counts: IN_OFF=9, KNOWN_SOURCE=0, ON_ONLY=0, RFI_CENSUS=0, SINGLE_POINTING=3, UNEXPLAINED=0.",
+    "hits.parquet rows: 12. Page payload hits: 3 (top 3 by SNR, plus plotted ON_ONLY).",
+    "Detections: 40. Filter-3 events retained: 0.",
+    "Pointing HIP544 uses catalog ra 1.6549208333 deg and decl 29.0205625 deg. Per-file src_raj and src_dej, when the header has them, are in slice_summary.json.",
+    "No other cadence from this observing session was supplied.",
+    "Scan 1 (A): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1.",
+    "Scan 2 (B): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1.",
+    "Scan 3 (A): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1.",
+    "Scan 4 (C): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1.",
+    "Scan 5 (A): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1.",
+    "Scan 6 (D): Applied audited compatibility correction: theoxenia-turboseti-2.3.2-drift-intervals-v1."
+  ],
+  "experiment_id": "EXP-003",
+  "demo": false,
+  "mission_control": {
+    "kind": "cadence",
+    "cadence_id": "bl-opendata-63460",
+    "target": "HIP544",
+    "ra_deg": 1.6549208333,
+    "dec_deg": 29.0205625,
+    "status": "done",
+    "windows_done": 1,
+    "window_mhz": [
+      1500.0,
+      1501.0
+    ],
+    "on_source_seconds": 876.173328384,
+    "started_at": "2026-10-20T10:10:07.693038Z",
+    "hits": [
+      {
+        "hit_id": "bl-opendata-63460-1500.000000-1501.000000-0001",
+        "found_at": "2026-10-20T10:11:53.335555Z",
+        "freq_mhz": 1500.0,
+        "drift_hz_s": 0.010204,
+        "snr": 331032.5,
+        "verdict": "IN_OFF",
+        "explanation": "The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0001.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "bl-opendata-63460-1500.000000-1501.000000-0012",
+        "found_at": "2026-10-20T10:11:53.335555Z",
+        "freq_mhz": 1500.999928,
+        "drift_hz_s": 0.367353,
+        "snr": 50480.421875,
+        "verdict": "IN_OFF",
+        "explanation": "The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0012.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      },
+      {
+        "hit_id": "bl-opendata-63460-1500.000000-1501.000000-0011",
+        "found_at": "2026-10-20T10:11:53.335555Z",
+        "freq_mhz": 1500.999891,
+        "drift_hz_s": 0.500009,
+        "snr": 26416.0625,
+        "verdict": "IN_OFF",
+        "explanation": "The line is present in an OFF scan, so the ON/OFF filter does not pass.",
+        "checks_done": 4,
+        "known_source": null,
+        "thumbnail_url": "runs/20261020T101007693038Z-exp-003-cadence/thumbs/bl-opendata-63460-1500.000000-1501.000000-0011.svg",
+        "plot_url": null,
+        "review_signoffs": []
+      }
+    ]
+  }
+}
