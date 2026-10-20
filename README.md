@@ -4,7 +4,7 @@
 
 The repository is named **Theoxenia**; the installable package and CLI use the short name `xenia`.
 
-> **Current status (2026-10-18):** The implementation is consolidated on `main`. The public evidence edition includes three guided investigations, a complete 273-row interactive signal explorer, six measured archive waterfall previews, and downloadable evidence dossiers. All six newly fetched slices match the original experiment's checksums. This adds presentation and verification work, not new search exposure. The archive detector limitation remains visible; the 24/7 crawler has not completed its hosting and soak acceptance. Public deployment is the next step. See [first public release](docs/public-release.md) and [investigations and provenance](docs/investigations.md).
+> **Public evidence edition (2026-10-20):** The implementation is consolidated on `main`. The public evidence edition includes three guided investigations, a complete 273-row interactive signal explorer, six measured archive waterfall previews, and downloadable evidence dossiers. All six newly fetched slices match the original experiment's checksums. This adds presentation and verification work, not new search exposure. The archive detector limitation remains visible; the 24/7 crawler has not completed its hosting and soak acceptance. The public destination is [Mission Control](https://mpetyx.com/theoxenia/), with [report 01 on Zenodo](https://doi.org/10.5281/zenodo.23489303). See [first public release](docs/public-release.md) and [investigations and provenance](docs/investigations.md).
 
 A hit is a measurement to investigate, not a conclusion. Each result links to its inputs, exact parameters, code revision, outputs, and manifest. Failures and null results are retained as evidence. Raw telescope files and temporary slices do not belong in Git.
 
@@ -145,4 +145,4 @@ The mutable specification, decisions, and task state live in the [Alien Explorat
 
 ### First reproducible research report
 
-[Empty tables, tested boundaries](reports/first-results/report.md) audits one real archive cadence, documents a detector correction, and preserves remaining selection limits. The [reproduction guide](reports/first-results/README.md) and [Zenodo submission guide](reports/first-results/SUBMISSION.md) accompany the unpublished report.
+[Empty tables, tested boundaries](reports/first-results/report.md) audits one real archive cadence, documents a detector correction, and preserves remaining selection limits. The [reproduction guide](reports/first-results/README.md) and [Zenodo submission guide](reports/first-results/SUBMISSION.md) accompany [report version 1.0, published on Zenodo](https://doi.org/10.5281/zenodo.23489303). The archived source snapshot is commit `4b1203d`; subsequent site and documentation updates remain on `main`.

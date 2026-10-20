@@ -1,6 +1,8 @@
 # Publishing the first report
 
-Status: local preparation only. No Zenodo draft, reserved DOI, published record,
+Publication update (2026-10-20): [report version 1.0 is published on Zenodo](https://doi.org/10.5281/zenodo.23489303). All 14 files were verified. The archive preserves the preparation-time copy of this guide and source commit `4b1203d`.
+
+Historical preparation status (2026-10-18): no Zenodo draft, reserved DOI, published record,
 external acceptance, or submission to Berkeley is implied.
 
 ## Available routes

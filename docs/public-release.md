@@ -1,6 +1,6 @@
 # First public release: recorded evidence
 
-Prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation was made. PUB-002 reruns and audits the detector on the existing six archive slices; see [the first research report](first-research-report.md). PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
+Public evidence edition, 2026-10-20; prepared 2026-10-18. This release makes the existing research inspectable; it does not assert that the 24/7 crawler has passed its acceptance test. No new telescope observation was made. PUB-002 reruns and audits the detector on the existing six archive slices; see [the first research report](first-research-report.md). PUB-001 fetched and processed six bounded archive slices for the interactive previews; all six match the original experiment's local-slice checksums.
 
 ## What a visitor can do
 
@@ -26,9 +26,9 @@ Use a new or empty output directory. The builder refuses to overwrite an existin
 
 Michael requested consolidation onto `main` on 2026-10-18. All existing feature work and the five remaining PRs (#24–#28) were integrated. Source, templates, schemas and recorded evidence now travel together on `main`. The old `live`-branch deployment instructions are superseded for this release. Do not create `live` or run the old handover's `git push origin main:live` command.
 
-The Pages workflow is manual-only. It builds Mission Control at the site root and project documentation under `/docs/`, both from `main`. Pushing code cannot trigger the first public deployment. No Pages setting, host, domain, account or paid resource was changed during preparation. The Pages API returned 404 during inspection; there is no verified public URL yet.
+The Pages workflow is manual-only. It builds Mission Control at the site root and project documentation under `/docs/`, both from `main`. Pushing code cannot trigger the first public deployment. The release destination is [Mission Control](https://mpetyx.com/theoxenia/) with [documentation](https://mpetyx.com/theoxenia/docs/). Michael authorized publication and Pages launch on 2026-10-20. The original preparation changed no hosting settings.
 
-The next deployment session should enable GitHub Pages with GitHub Actions as its source, run the Pages workflow on `main`, then verify the returned URL, images, manifest links, phone layout and snapshot status. The default base URL is `https://mpetyx.github.io/theoxenia/`; change the builder argument if the actual destination differs.
+Deployments use GitHub Pages with GitHub Actions as its source and the manual Pages workflow on `main`. Verify the returned URL, images, manifest links, phone layout and snapshot status after each deployment. The default base URL is `https://mpetyx.com/theoxenia/`; change the builder argument if the actual destination differs.
 
 ## What still needs scientific or operational work
 
@@ -49,4 +49,4 @@ Validation on 2026-10-18: 208 tests passed with 83.76% coverage; all optional di
 
 The investigation expansion adds parity checks between every exported row and the source Parquet, rejection of changed checksums and wrong provenance, deterministic downloads, complete no-script tables, and dossier bundle integrity. The expanded suite passed 212 tests with 84.04% coverage; strict typing is clean across 43 source files. Browser checks cover selection, filtering, reset, empty results, frequency zoom, contrast, recovery cells and missing-check labels. Stories, explorer, recovery and dossier layouts were checked in a 360 px browser frame, not on a physical phone. The recorded real-data preparation is `20261018T175821546488Z-public-evidence`.
 
-PUB-002 report validation: 231 tests passed with 84.29% coverage; strict typing is clean across 44 source files. The full one-command original/corrected reproduction passed at source revision `3b971bc`, including exact counts, recoveries, drift coverage and 0.005-score maximum tolerances. The report page and evidence download were checked in the browser, including a 360 px frame. See `reports/first-results/VALIDATION.md` for the four new immutable run IDs. Zenodo publication and public deployment have not occurred.
+PUB-002 report validation: 231 tests passed with 84.29% coverage; strict typing is clean across 44 source files. The full one-command original/corrected reproduction passed at source revision `3b971bc`, including exact counts, recoveries, drift coverage and 0.005-score maximum tolerances. The report page and evidence download were checked in the browser, including a 360 px frame. See `reports/first-results/VALIDATION.md` for the four new immutable run IDs. Report version 1.0 was published on 2026-10-20: [DOI 10.5281/zenodo.23489303](https://doi.org/10.5281/zenodo.23489303). Its 14 files preserve the verified source snapshot at `4b1203d`. The site links to that fixed research record; later presentation changes do not rewrite the report evidence.

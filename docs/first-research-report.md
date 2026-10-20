@@ -1,6 +1,6 @@
 # First reproducible research report
 
-**Empty tables, tested boundaries** is report 01, prepared for Zenodo on 18 October 2026. It is unpublished, has no DOI and has not received external peer review. The public research page offers the PDF, figure, results table and verified evidence bundle. Sources are in `reports/first-results/`.
+**Empty tables, tested boundaries** is report 01, prepared for Zenodo on 18 October 2026. It was released on Zenodo on 20 October 2026 as [version 1.0, DOI 10.5281/zenodo.23489303](https://doi.org/10.5281/zenodo.23489303). It has not received external peer review. The public research page offers the PDF, figure, results table and verified evidence bundle. Sources are in `reports/first-results/`.
 
 ## What the work establishes
 
@@ -35,4 +35,4 @@ The offline package builder verifies pinned artifacts, includes the exact commit
 uv run --locked python scripts/package_report.py --output .preview/zenodo-report
 ```
 
-Zenodo supports a [REST API](https://developers.zenodo.org/) for creating drafts, uploading files and explicitly publishing. Draft preparation uses `deposit:write`; publication requires `deposit:actions`. Tokens should remain local and must not enter the package. The website is an alternative. A [reserved DOI](https://help.zenodo.org/docs/deposit/describe-records/reserve-doi/) can be inserted before final upload; registration occurs on publication. A DOI provides attribution and preservation, not scientific endorsement. Owner review of authorship, metadata and final files remains before publication.
+Zenodo supports a [REST API](https://developers.zenodo.org/) for creating drafts, uploading files and explicitly publishing. Draft preparation uses `deposit:write`; publication requires `deposit:actions`. Tokens should remain local and must not enter the package. The website is an alternative. A [reserved DOI](https://help.zenodo.org/docs/deposit/describe-records/reserve-doi/) can be inserted before final upload; registration occurs on publication. A DOI provides attribution and preservation, not scientific endorsement. Michael approved sole authorship, metadata, licenses and publication. The 14 published files total 5,969,135 bytes; each remote size and MD5 checksum matches the SHA-256-verified local package. The archive preserves source commit `4b1203d57f6aaa9195662648da158e66eb651a8a`. Preparation notes inside that immutable archive describe the pre-publication state; this page records the subsequent release.

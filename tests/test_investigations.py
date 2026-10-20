@@ -155,7 +155,9 @@ def test_research_report_downloads_preserve_source_and_scientific_boundary(tmp_p
     BUILD.build_public_site(tmp_path, base_url="https://example.org/theoxenia/")
     page = (tmp_path / "research.html").read_text()
     assert "24 of 30 controls retained" in page
-    assert "Unpublished" in page
+    assert "https://doi.org/10.5281/zenodo.23489303" in page
+    assert "No external peer review" in page
+    assert "Unpublished" not in page
     assert "not a new clustered cadence table" in page
     assert (tmp_path / "reports/first-results/report.pdf").read_bytes() == (
         ROOT / "reports/first-results/report.pdf"

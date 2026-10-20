@@ -46,7 +46,7 @@ def build_public_site(output: Path, *, base_url: str, now: datetime | None = Non
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--base-url", default="https://mpetyx.github.io/theoxenia/")
+    parser.add_argument("--base-url", default="https://mpetyx.com/theoxenia/")
     args = parser.parse_args()
     state = build_public_site(args.output, base_url=args.base_url)
     print(
