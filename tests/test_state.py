@@ -279,9 +279,13 @@ def test_fixture_files_are_small_json_or_svg(demo_manifests) -> None:
 
 
 def test_archive_counts_use_all_rows_and_exclude_synthetic_controls() -> None:
-    """The committed search has 273 rows, three previews, and no survivors."""
+    """The frozen first search has 273 rows, three previews, and no survivors."""
     root = Path(__file__).resolve().parents[1]
-    manifests = load_manifests(root / "runs")
+    manifests = [
+        m
+        for m in load_manifests(root / "runs")
+        if m.experiment_id != "EXP-003" or m.run_id == "20261012T203545022355Z-exp-003-cadence"
+    ]
     state = build_state(manifests, git_sha="test")
     assert state.totals.cadences_searched == 1
     assert state.totals.hits == 273

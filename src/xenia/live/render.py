@@ -117,7 +117,7 @@ def render_site(
         repository_root=root,
     )
     rendered.extend(investigation_outputs)
-    observatory = read_status(root)
+    observatory = read_status(runs_dir.resolve().parent)
     if observatory is not None:
         status_output = output_root / "observatory.json"
         status_output.write_text(observatory.model_dump_json(indent=2) + "\n", encoding="utf-8")
@@ -484,10 +484,11 @@ def _render_manifest_index(manifests: Sequence[RunManifest]) -> str:
 
 
 def _assert_page_has_no_external_assets(page_path: Path) -> None:
-    """Guard the M0 fast, no-external-request requirement."""
+    """Allow only our local freshness script; forbid remote assets."""
     text = page_path.read_text(encoding="utf-8").lower()
-    if "<script" in text:
-        raise ValueError("M0 page must not include JavaScript")
+    without_freshness = text.replace('<script src="observatory.js" defer></script>', "")
+    if "<script" in without_freshness:
+        raise ValueError("Page may only include the local observatory freshness script")
     attribute_pattern = re.compile(
         r"<(?:img|script|link|source)\b[^>]*\b(?:src|href)\s*=\s*(['\"])(.*?)\1",
         flags=re.DOTALL,

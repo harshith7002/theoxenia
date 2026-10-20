@@ -10,6 +10,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from xenia.live.evidence import selected_cadences
 from xenia.live.models import CadenceHit, CadencePayload, RunManifest
 
 CHECK_NAMES: tuple[str, ...] = (
@@ -25,7 +26,7 @@ _SEGMENT = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 def cadence_asset_urls(manifests: Sequence[RunManifest]) -> set[str]:
     """Relative plot and thumbnail URLs referenced by cadence payloads."""
     urls: set[str] = set()
-    for _manifest, payload in _latest_cadences(manifests):
+    for _manifest, payload in selected_cadences(manifests):
         for hit in payload.hits:
             urls.add(hit.thumbnail_url)
             if hit.plot_url is not None:
@@ -55,7 +56,9 @@ def render_detail_pages(
     sitemap_paths = ["index.html", "evidence.html", "feed.json", *additional_paths]
     seen_hits: dict[str, str] = {}
 
-    for manifest, payload in _latest_cadences(manifests):
+    selected = selected_cadences(manifests)
+    latest_ids = {m.run_id for m, _ in _latest_cadences([m for m, _ in selected])}
+    for manifest, payload in selected:
         cadence_id = _segment(payload.cadence_id, "cadence_id")
         page_dir = output_root / "cadences" / cadence_id
         page_dir.mkdir(parents=True, exist_ok=True)
@@ -63,11 +66,12 @@ def render_detail_pages(
         for hit in payload.hits:
             hit_id = _segment(hit.hit_id, "hit_id")
             owner = seen_hits.get(hit_id)
-            if owner is not None and owner != cadence_id:
-                raise ValueError(f"hit_id {hit_id} is used by {owner} and {cadence_id}")
-            seen_hits[hit_id] = cadence_id
+            if owner is not None and owner != manifest.run_id:
+                raise ValueError(f"hit_id {hit_id} is used by {owner} and {manifest.run_id}")
+            seen_hits[hit_id] = manifest.run_id
             hits.append(_hit_context(hit, cadence_id=cadence_id, depth=2))
-        cadence_path = page_dir / "index.html"
+        run_segment = _segment(manifest.run_id, "run_id")
+        cadence_path = page_dir / f"{run_segment}.html"
         cadence_path.write_text(
             cadence_template.render(
                 cadence_id=cadence_id,
@@ -85,6 +89,14 @@ def render_detail_pages(
                 check_names=CHECK_NAMES,
                 stylesheet_href="../../styles.css",
                 back_href="../../index.html",
+                windows=[
+                    {
+                        "href": f"{_segment(m.run_id, 'run_id')}.html",
+                        "label": f"{_number(p.window_mhz[0])}–{_number(p.window_mhz[1])} MHz",
+                    }
+                    for m, p in selected
+                    if p.cadence_id == cadence_id
+                ],
                 explorer_href="../../explorer.html"
                 if manifest.run_id in (explorer_run_ids or set())
                 else None,
@@ -92,7 +104,12 @@ def render_detail_pages(
             encoding="utf-8",
         )
         written.append(cadence_path)
-        sitemap_paths.append(f"cadences/{cadence_id}/index.html")
+        sitemap_paths.append(f"cadences/{cadence_id}/{run_segment}.html")
+        if manifest.run_id in latest_ids:
+            index_path = page_dir / "index.html"
+            index_path.write_bytes(cadence_path.read_bytes())
+            written.append(index_path)
+            sitemap_paths.append(f"cadences/{cadence_id}/index.html")
 
         for hit in payload.hits:
             hit_id = _segment(hit.hit_id, "hit_id")
@@ -105,7 +122,7 @@ def render_detail_pages(
                     target=payload.target,
                     command=manifest.command,
                     manifest_href=_relative(f"runs/{manifest.run_id}/manifest.json", depth=1),
-                    cadence_href=_relative(f"cadences/{cadence_id}/index.html", depth=1),
+                    cadence_href=_relative(f"cadences/{cadence_id}/{run_segment}.html", depth=1),
                     check_names=CHECK_NAMES,
                     stylesheet_href="../styles.css",
                     back_href="../index.html",

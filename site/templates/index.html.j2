@@ -28,7 +28,7 @@
         <p class="subtitle">An open lab for radio signals in public telescope data. Explore what we measured, how we tested it, and what the evidence can actually tell us.</p>
         {% if stories %}<div class="action-row"><a class="button-link button-primary" href="investigations.html">Follow an investigation ↗</a><a class="text-link" href="#totals-heading">See the recorded work ↓</a></div>{% endif %}
       </div>
-      <div class="status-pill status-pill--{{ status.tone }}" aria-label="Worker status: {{ status.label }}">
+      <div class="status-pill status-pill--{{ status.tone }}" aria-label="{{ 'Automated archive observatory' if observatory else 'Worker status: ' ~ status.label }}">
         <span class="status-dot{% if status.is_live %} status-dot--live{% endif %}" aria-hidden="true"></span>
         <span>{% if observatory %}Automated archive observatory{% else %}{{ status.label }}{% endif %}</span>
       </div>
